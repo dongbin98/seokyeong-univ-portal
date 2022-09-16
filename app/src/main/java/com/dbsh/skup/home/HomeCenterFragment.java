@@ -11,13 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.dbsh.practiceproject.R;
-import com.dbsh.practiceproject.attandance.AttendanceTmpActivity;
-import com.dbsh.practiceproject.maincard.MainCardAdapter;
-import com.dbsh.practiceproject.maincard.MainCardAdapter2;
-import com.dbsh.practiceproject.maincard.MainCardAdapter3;
-import com.dbsh.practiceproject.qrcode.QRActivity;
-import com.dbsh.practiceproject.userClass;
+import com.dbsh.skup.R;
 import com.dbsh.skup.user.User;
 
 import me.relex.circleindicator.CircleIndicator3;
@@ -38,7 +32,7 @@ public class HomeCenterFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.main_home_form, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.home_center_form, container, false);
 	    user = ((User) getActivity().getApplication());
         main_home_quick_btn1 = (ImageButton) rootView.findViewById(R.id.main_home_quick_btn1);
         main_home_quick_btn2 = (ImageButton) rootView.findViewById(R.id.main_home_quick_btn2);
@@ -47,9 +41,8 @@ public class HomeCenterFragment extends Fragment {
         main_home_quick_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-                Intent intent = new Intent(getActivity(), AttendanceTmpActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), AttendanceTmpActivity.class);
+//                startActivity(intent);
             }
         });
         // 학사일정
@@ -62,8 +55,8 @@ public class HomeCenterFragment extends Fragment {
         main_home_quick_btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), QRActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), QRActivity.class);
+//                startActivity(intent);
             }
         });
 

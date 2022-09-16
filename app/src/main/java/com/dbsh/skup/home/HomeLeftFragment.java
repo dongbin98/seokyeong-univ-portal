@@ -39,16 +39,16 @@ public class HomeLeftFragment extends Fragment {
         main_menu_attendance_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), AttendanceActivity.class);
+//                startActivity(intent);
             }
         });
 
         main_menu_timetable_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), TimetableActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), TimetableActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -56,8 +56,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_grade_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), GradeActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), GradeActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -65,8 +65,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_lecture_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), LecturePlanActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), LecturePlanActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -74,8 +74,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_scholarship_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScholarshipActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), ScholarshipActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -83,8 +83,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_regist_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), TuitionActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), TuitionActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -92,8 +92,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_graduate_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), GraduateActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), GraduateActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -101,8 +101,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_poten_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), TempPotenSelectActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), TempPotenSelectActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -110,8 +110,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_qr_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), QRActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), QRActivity.class);
+//                startActivity(intent);
             }
         });
 
