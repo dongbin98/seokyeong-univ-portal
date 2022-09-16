@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_framgent"
+        android:enabled="true"
+        android:icon="@drawable/menu_btn"
+        android:title="메뉴"/>
+    <item
+        android:id="@+id/home_fragment"
+        android:enabled="true"
+        android:checked="true"
+        android:icon="@drawable/home_btn"
+        android:title="홈"/>
+    <item
+        android:id="@+id/setting_fragment"
+        android:enabled="true"
+        android:icon="@drawable/setting_btn"
+        android:title="설정"/>
+</menu>
