@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.Webview.WebviewActivity;
+import com.dbsh.skup.webview.WebviewActivity;
 
 public class HomeCenterNoticeFragment extends Fragment {
     TextView home_center_notice_type;

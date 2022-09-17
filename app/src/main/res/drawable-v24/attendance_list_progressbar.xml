@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="8dp"/>
+            <solid android:color="@color/gray3"/>
+        </shape>
+    </item>
+    <item>
+        <scale android:scaleWidth="100%">
+            <shape>
+                <corners android:radius="8dp"/>
+                <solid android:color="@color/mainBlue"/>
+            </shape>
+        </scale>
+    </item>
+</layer-list>

@@ -19,4 +19,5 @@
     <color name="onlyBlack">#FF000000</color>
     <color name="gridentStartColor">#FF4E7CD7</color>
     <color name="gridentEndColor">#FF78B4DF</color>
+    <color name="attendanceboxColor">#FFF7F7F7</color>
 </resources>

@@ -8,17 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageButton;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.dbsh.skup.Notice.Notice;
+import com.dbsh.skup.attendance.AttendanceActivity;
+import com.dbsh.skup.notice.Notice;
 import com.dbsh.skup.R;
+import com.dbsh.skup.qrcode.QrcodeActivity;
+import com.dbsh.skup.webview.WebviewActivity;
 import com.dbsh.skup.adapter.HomeNoticeCardAdapter;
 import com.dbsh.skup.adapter.HomeTopCardAdapter;
 import com.dbsh.skup.user.User;
@@ -47,6 +47,7 @@ public class HomeCenterFragment extends Fragment {
     ArrayList<Notice> notices, majorNotices;
 
     ImageButton main_home_quick_btn1, main_home_quick_btn2, main_home_quick_btn3, main_home_quick_btn4;
+    TextView main_home_notice_plus, main_home_major_notice_plus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,12 +68,36 @@ public class HomeCenterFragment extends Fragment {
         main_home_quick_btn2 = (ImageButton) rootView.findViewById(R.id.main_home_quick_btn2);
         main_home_quick_btn3 = (ImageButton) rootView.findViewById(R.id.main_home_quick_btn3);
         main_home_quick_btn4 = (ImageButton) rootView.findViewById(R.id.main_home_quick_btn4);
+
+        main_home_notice_plus = (TextView) rootView.findViewById(R.id.main_home_notice_plus);
+        main_home_major_notice_plus = (TextView) rootView.findViewById(R.id.main_home_major_notice_plus);
+
+        // 공지사항 더보기
+        main_home_notice_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url", "https://skuniv.ac.kr/notice");
+                startActivity(intent);
+            }
+        });
+
+        // 학과 공지사항 더보기
+        main_home_major_notice_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url", "https://ce.skuniv.ac.kr/ce_notice");
+                startActivity(intent);
+            }
+        });
+
         // 출결
         main_home_quick_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), AttendanceTmpActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), AttendanceActivity.class);
+                startActivity(intent);
             }
         });
         // 학사일정
@@ -85,16 +110,17 @@ public class HomeCenterFragment extends Fragment {
         main_home_quick_btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), QRActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), QrcodeActivity.class);
+                startActivity(intent);
             }
         });
         // Portal
         main_home_quick_btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), QRActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url", "https://sportal.skuniv.ac.kr");
+                startActivity(intent);
             }
         });
 
@@ -104,6 +130,7 @@ public class HomeCenterFragment extends Fragment {
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         mPager.setCurrentItem(0);
         mPager.setOffscreenPageLimit(3);
+//        mPager.setPadding(10, 0, 10, 0);
 
         mIndicator = rootView.findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
@@ -185,12 +212,14 @@ public class HomeCenterFragment extends Fragment {
 
         @Override
         protected ArrayList<Notice> doInBackground(Void... voids) {
+
             ArrayList<Notice> list = new ArrayList<Notice>();
             try {
                 Document document = Jsoup.connect(noticeUrl).get();
                 Elements noticeList = document.select(".bg1");
                 noticeList.addAll(document.select(".bg2"));
 
+                int i = 0;
                 for(Element e: noticeList) {
                     Notice notice = new Notice();
                     notice.setTitle(e.select(".title").text().substring(3));
@@ -200,6 +229,9 @@ public class HomeCenterFragment extends Fragment {
                     notice.setNumber(Integer.parseInt(e.select(".num").text()));
                     notice.setUrl(e.select(".title").select("a").attr("href"));
                     list.add(notice);
+                    i++;
+                    if(i > 4)
+                        break;
                 }
                 list.sort(new Comparator<Notice>() {
                     @Override
@@ -228,15 +260,18 @@ public class HomeCenterFragment extends Fragment {
                 Document document = Jsoup.connect(majorNoticeUrl).get();
                 Elements noticeList = document.select("tr.notice");
 
+                int i = 0;
                 for(Element e: noticeList) {
                     Notice notice = new Notice();
-                    System.out.println(e.select(".title").text());
                     notice.setTitle(e.select(".title").text());
                     notice.setDate(e.select(".date").text());
                     notice.setDepartment(e.select(".author").text());
                     notice.setType(e.select("td.notice").text());
                     notice.setUrl(e.select(".title").select("a").attr("href"));
                     list.add(notice);
+                    i++;
+                    if(i > 4)
+                        break;
                 }
 
             } catch (IOException e) {

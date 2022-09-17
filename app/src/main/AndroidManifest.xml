@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Login.MainActivity"
+            android:name=".login.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".home.HomeActivity"/>
-        <activity android:name=".Webview.WebviewActivity"/>
+        <activity android:name=".webview.WebviewActivity"/>
+        <activity android:name=".attendance.AttendanceActivity"/>
+        <activity android:name=".attendance.AttendanceDetailActivity"/>
+        <activity android:name=".qrcode.QrcodeActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

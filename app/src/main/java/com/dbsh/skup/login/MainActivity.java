@@ -1,6 +1,4 @@
-package com.dbsh.skup.Login;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.dbsh.skup.login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,20 +12,26 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.dbsh.skup.HttpUrlConnector;
 import com.dbsh.skup.R;
 import com.dbsh.skup.home.HomeActivity;
+import com.dbsh.skup.user.LectureInfo;
 import com.dbsh.skup.user.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private static String loginUrl = "https://sportal.skuniv.ac.kr/sportal/auth2/login.sku";
 	private static final String lectUrl = "https://sportal.skuniv.ac.kr/sportal/common/selectList.sku";
 	private static final String lectTimeUrl = "https://sportal.skuniv.ac.kr/sportal/common/selectOne.sku";    // 개요
+	private static final String attendanceDURL = "https://sportal.skuniv.ac.kr/sportal/common/selectList.sku";
 	public static User user = new User();
 	public static HttpUrlConnector connector = new HttpUrlConnector();
 
@@ -135,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 				handler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+						Toast.makeText(MainActivity.this, "회원 정보를 불러옵니다", Toast.LENGTH_LONG).show();
 					}
 				}, 0);
 			} else {
@@ -173,42 +177,33 @@ public class MainActivity extends AppCompatActivity {
 					UserInfo.get("SCH_REG_STAT_NM").toString());
 			((User) getApplication()).setToken(response.get("access_token").toString());
 			System.out.println("유저정보 저장 성공");
-			JSONArray YearList = response.getJSONArray("YEAR_LIST");
-			if (!((User) getApplication()).getYearList().isEmpty()) {
-				((User) getApplication()).clearYearList();
+			// 강의정보 저장하기
+			if (!((User) getApplication()).getLectureInfos().isEmpty()) {
+				((User) getApplication()).clearLectureInfo();
 			}
-			if (!((User) getApplication()).getLectureList().isEmpty()) {
-				((User) getApplication()).clearLectureList();
+			JSONArray yearList = response.getJSONArray("YEAR_LIST");	// 입학이후 모든 해 동안
+			for (int i = 0; i < yearList.length(); i++) {
+				for (int j = 0; j < 4; j++) {	// 1,2,여름계절,겨울계절 학기중 수강한 과목 저장
+					getLectureInfo(((User) getApplication()).getToken(),
+							((User) getApplication()).getId(),
+							yearList.getJSONObject(i).get("value").toString(),
+							Integer.toString(j));
+				}
 			}
-			if (!((User) getApplication()).getLectureTimeList().isEmpty()) {
-				((User) getApplication()).clearLectureTimeList();
-			}
-			if (!((User) getApplication()).getLectureNumberList().isEmpty()) {
-				((User) getApplication()).clearLectureNumberList();
-			}
-			if (!((User) getApplication()).getLectureProfessorList().isEmpty()) {
-				((User) getApplication()).clearLectureProfessorList();
-			}
-			for (int i = 0; i < YearList.length(); i++) {
-				((User) getApplication()).addYearList(YearList.getJSONObject(i).get("value").toString());
-			}
-			System.out.println("로그인함수 완료");
-			getLectureInfo(((User) getApplication()).getToken(),
-					((User) getApplication()).getId(),
-					((User) getApplication()).getSchYear(),
-					((User) getApplication()).getSchTerm());
+			System.out.println("강의정보 저장 성공");
+
 			// 홈페이지로 넘어가기
 			Intent intent = new Intent(this, HomeActivity.class);
 			startActivity(intent);
-
 
 		} catch (JSONException exception) {
 			exception.printStackTrace();
 		}
 	}
 
-	// 해당 학기 수강 교과목 학수번호, 분반 가져오기
+	// 해당 학기 강의정보 가져오기
 	public void getLectureInfo(String token, String id, String year, String term){
+
 		try {
 			// ----------------------------
 			// URL 설정 및 접속
@@ -240,14 +235,26 @@ public class MainActivity extends AppCompatActivity {
 				int count = Integer.parseInt(response.get("COUNT").toString());
 
 				for (int i = 0; i < count; i++) {
-					((User) getApplication()).addLectureList(jsonArray.getJSONObject(i).get("SUBJ_CD").toString());
-					((User) getApplication()).addLectureNumberList(jsonArray.getJSONObject(i).get("CLSS_NUMB").toString());
-					((User) getApplication()).addLectureProfessorList(jsonArray.getJSONObject(i).get("PROF_NUMB").toString());
-					getLecttime(token, id, year, term,
-							((User) getApplication()).getLectureList().get(i),
-							((User) getApplication()).getLectureNumberList().get(i),
-							((User) getApplication()).getLectureProfessorList().get(i)
-					);
+					String lectureCd = jsonArray.getJSONObject(i).get("SUBJ_CD").toString();
+					String lectureNumber = jsonArray.getJSONObject(i).get("CLSS_NUMB").toString();
+					String lectureProfessor = jsonArray.getJSONObject(i).get("PROF_NUMB").toString();
+					// 담당 교수가 없으면 패스 (졸업논문및시험으로 간주)
+					if(lectureProfessor.equals("null"))
+						continue;
+					ArrayList<String> lectureTimeAndName = getLectureTime(token, id, year, term, lectureCd, lectureNumber, lectureProfessor);
+
+					LectureInfo lectureInfo = new LectureInfo();
+					lectureInfo.setLectureCd(lectureCd);
+					lectureInfo.setLectureNumber(lectureNumber);
+					lectureInfo.setLectureTime(lectureTimeAndName.get(0));
+					lectureInfo.setLectureName(lectureTimeAndName.get(1));
+					lectureInfo.setProfessor(lectureProfessor);
+					lectureInfo.setYear(year);
+					lectureInfo.setTerm(term);
+
+					System.out.println(lectureCd);
+
+					((User) getApplication()).addLectureInfo(lectureInfo);
 				}
 			}
 			else if(response.get("RTN_STATUS").toString().equals("0")) {
@@ -258,8 +265,10 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
-	// 해당 학기 수강 교과목 수업시간 가져오기
-	public void getLecttime(String token, String id, String year, String term, String cd, String cn, String pi) {
+	// 해당 학기 수강 교과목 수업시간, 교과목명 가져오기
+	public ArrayList<String> getLectureTime(String token, String id, String year, String term, String cd, String cn, String pi) {
+		ArrayList<String> lecture = new ArrayList<>();
+
 		try {
 			JSONObject payload = new JSONObject();
 			JSONObject parameter = new JSONObject();
@@ -284,10 +293,12 @@ public class MainActivity extends AppCompatActivity {
 			JSONObject response = connector.getInstance().getResponseWithToken(lectTimeUrl, payload, token);
 			if(response.get("RTN_STATUS").toString().equals("S")) {
 				JSONObject MAP = response.getJSONObject("MAP");
-				((User) getApplication()).addLectureTimeList(MAP.get("SUBJ_TIME").toString());
+				lecture.add(MAP.get("SUBJ_TIME").toString());
+				lecture.add(MAP.get("SUBJ_NM").toString());
 			}
 		} catch (JSONException exception) {
 			exception.printStackTrace();
 		}
+		return lecture;
 	}
 }

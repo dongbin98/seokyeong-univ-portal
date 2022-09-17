@@ -1,6 +1,4 @@
-package com.dbsh.skup.Notice;
-
-import java.util.Comparator;
+package com.dbsh.skup.notice;
 
 public class Notice {
     private String title;

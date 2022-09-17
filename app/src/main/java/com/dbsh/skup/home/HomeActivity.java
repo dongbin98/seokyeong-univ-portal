@@ -27,8 +27,8 @@ public class HomeActivity extends AppCompatActivity {
 		bottomNavigationView = findViewById(R.id.bottomNavi);
 		menu = bottomNavigationView.getMenu();
 		centerFragment = new HomeCenterFragment();
-		leftFragment = new HomeLeftFragment();
-		rightFragment = new HomeRightFragment();
+//		leftFragment = new HomeLeftFragment();
+//		rightFragment = new HomeRightFragment();
 		getSupportFragmentManager().beginTransaction().add(R.id.main_container, centerFragment).commit();
 		menu.findItem(R.id.home_fragment).setChecked(true);
 
@@ -37,13 +37,40 @@ public class HomeActivity extends AppCompatActivity {
 			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 				switch (item.getItemId()) {
 					case R.id.menu_framgent:
-						getSupportFragmentManager().beginTransaction().replace(R.id.main_container, leftFragment).commit();
+						if(leftFragment == null) {
+							leftFragment = new HomeLeftFragment();
+							getSupportFragmentManager().beginTransaction().add(R.id.main_container, leftFragment).commit();
+						}
+						if(leftFragment != null)
+							getSupportFragmentManager().beginTransaction().show(leftFragment).commit();
+						if(centerFragment != null)
+							getSupportFragmentManager().beginTransaction().hide(centerFragment).commit();
+						if(rightFragment != null)
+							getSupportFragmentManager().beginTransaction().hide(rightFragment).commit();
 						break;
 					case R.id.home_fragment:
-						getSupportFragmentManager().beginTransaction().replace(R.id.main_container, centerFragment).commit();
+						if(centerFragment == null) {
+							centerFragment = new HomeCenterFragment();
+							getSupportFragmentManager().beginTransaction().add(R.id.main_container, centerFragment).commit();
+						}
+						if(leftFragment != null)
+							getSupportFragmentManager().beginTransaction().hide(leftFragment).commit();
+						if(centerFragment != null)
+							getSupportFragmentManager().beginTransaction().show(centerFragment).commit();
+						if(rightFragment != null)
+							getSupportFragmentManager().beginTransaction().hide(rightFragment).commit();
 						break;
 					case R.id.setting_fragment:
-						getSupportFragmentManager().beginTransaction().replace(R.id.main_container, rightFragment).commit();
+						if(rightFragment == null) {
+							rightFragment = new HomeRightFragment();
+							getSupportFragmentManager().beginTransaction().add(R.id.main_container, rightFragment).commit();
+						}
+						if(leftFragment != null)
+							getSupportFragmentManager().beginTransaction().hide(leftFragment).commit();
+						if(centerFragment != null)
+							getSupportFragmentManager().beginTransaction().hide(centerFragment).commit();
+						if(rightFragment != null)
+							getSupportFragmentManager().beginTransaction().show(rightFragment).commit();
 						break;
 				}
 				return true;

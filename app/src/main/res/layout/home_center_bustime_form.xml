@@ -7,8 +7,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="204dp"
-        android:layout_gravity="center"
-        android:elevation="5dp"
         android:background="@drawable/card_home_center_timetable_background">
 
         <TextView

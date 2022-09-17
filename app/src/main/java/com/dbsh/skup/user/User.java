@@ -18,18 +18,10 @@ public class User extends Application {
     private String schYR;           // 현재 학년
     private String schReg;          // 재학 휴학 여부(한글)
     private String token;           // 로그인 토큰
-    private ArrayList<String> lectureList;             // 해당학기 수강과목 학수번호 리스트
-    private ArrayList<String> lectureNumberList;       // 해당학기 수강과목 학수번호 리스트
-    private ArrayList<String> lectureTimeList;         // 해당학기 수강과목 수업시간 리스트
-    private ArrayList<String> lectureProfessorList;    // 해당학기 수강과목 담당교수 리스트
-    private ArrayList<String> yearList;             // 입학이후 년도 리스트
+	private ArrayList<LectureInfo> lectureInfos;	// 강의정보리스트
     
     public User() {
-	    lectureList = new ArrayList<>();
-	    lectureNumberList = new ArrayList<>();
-	    lectureTimeList = new ArrayList<>();
-	    lectureProfessorList = new ArrayList<>();
-        yearList = new ArrayList<>();
+		lectureInfos = new ArrayList<LectureInfo>();
     }
 
 	/* Setter */
@@ -75,13 +67,6 @@ public class User extends Application {
 	}
 
 	/* Getter */
-
-	public void addLectureList(String lect) {this.lectureList.add(lect); }
-	public void addLectureNumberList(String lect_num) {this.lectureNumberList.add(lect_num); }
-	public void addLectureTimeList(String lect_time) {this.lectureTimeList.add(lect_time); }
-	public void addLectureProfessorList(String prof_num) {this.lectureProfessorList.add(prof_num); }
-	public void addYearList(String year) { this.yearList.add(year); }
-	
 	public String getId() {
 		return id;
 	}
@@ -133,38 +118,21 @@ public class User extends Application {
 	public String getToken() {
 		return token;
 	}
-	
-	public ArrayList<String> getLectureList() {
-		return lectureList;
-	}
-	
-	public ArrayList<String> getLectureNumberList() {
-		return lectureNumberList;
-	}
-	
-	public ArrayList<String> getLectureTimeList() {
-		return lectureTimeList;
-	}
-	
-	public ArrayList<String> getLectureProfessorList() {
-		return lectureProfessorList;
-	}
-	
-	public ArrayList<String> getYearList() {
-		return yearList;
-	}
 
 	/* clear ArrayList */
+	public void clearLectureInfo() {
+		this.lectureInfos.clear();
+	}
 
-	public void clearLectureList() { this.lectureList.clear(); }
+	public ArrayList<LectureInfo> getLectureInfos() {
+		return lectureInfos;
+	}
 
-	public void clearLectureNumberList() { this.lectureNumberList.clear(); }
+	public void setLectureInfos(ArrayList<LectureInfo> lectureInfos) {
+		this.lectureInfos = lectureInfos;
+	}
 
-	public void clearLectureTimeList() { this.lectureTimeList.clear(); }
-
-	public void clearLectureProfessorList() { this.lectureProfessorList.clear(); }
-
-	public void clearYearList() {
-		this.yearList.clear();
+	public void addLectureInfo(LectureInfo lectureInfo) {
+		lectureInfos.add(lectureInfo);
 	}
 }
