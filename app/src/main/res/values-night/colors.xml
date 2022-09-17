@@ -15,4 +15,8 @@
     <color name="gray3">#FFC9C9C9</color>
     <color name="gray4">#FFEAEAEA</color>
     <color name="white">#FF3A3A3A</color>
+    <color name="onlyWhite">#FFFFFFFF</color>
+    <color name="onlyBlack">#FF000000</color>
+    <color name="gridentStartColor">#FF526A98</color>
+    <color name="gridentEndColor">#FF2B3343</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.dbsh.skup.login;
+package com.dbsh.skup.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,13 +16,12 @@ import android.widget.Toast;
 
 import com.dbsh.skup.HttpUrlConnector;
 import com.dbsh.skup.R;
+import com.dbsh.skup.home.HomeActivity;
 import com.dbsh.skup.user.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -199,8 +198,7 @@ public class MainActivity extends AppCompatActivity {
 					((User) getApplication()).getSchYear(),
 					((User) getApplication()).getSchTerm());
 			// 홈페이지로 넘어가기
-			//Intent intent = new Intent(this, MenuActivity.class);
-			Intent intent = new Intent(this, MainActivity.class);
+			Intent intent = new Intent(this, HomeActivity.class);
 			startActivity(intent);
 
 

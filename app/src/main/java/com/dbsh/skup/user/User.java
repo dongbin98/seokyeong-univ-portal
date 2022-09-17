@@ -31,6 +31,8 @@ public class User extends Application {
 	    lectureProfessorList = new ArrayList<>();
         yearList = new ArrayList<>();
     }
+
+	/* Setter */
 	
 	public void setId(String id) {
 		this.id = id;
@@ -71,6 +73,8 @@ public class User extends Application {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+	/* Getter */
 
 	public void addLectureList(String lect) {this.lectureList.add(lect); }
 	public void addLectureNumberList(String lect_num) {this.lectureNumberList.add(lect_num); }
@@ -149,6 +153,8 @@ public class User extends Application {
 	public ArrayList<String> getYearList() {
 		return yearList;
 	}
+
+	/* clear ArrayList */
 
 	public void clearLectureList() { this.lectureList.clear(); }
 
