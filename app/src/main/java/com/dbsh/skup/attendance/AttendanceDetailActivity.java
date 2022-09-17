@@ -45,7 +45,7 @@ public class AttendanceDetailActivity extends AppCompatActivity {
 
     int atte_cnt, late_cnt, absn_cnt;
 
-    List<AttendanceDetailAdapter.AttendanceDetailItem> data = new ArrayList<>();
+    List<AttendanceDetailAdapter.AttendanceDetailItem> data;
     AttendanceDetailAdapter adapter;
     RecyclerView attendanceDetailList;
 
@@ -53,6 +53,8 @@ public class AttendanceDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendance_detail_form);
+
+        data = new ArrayList<>();
 
         atte_cnt = 0;
         late_cnt = 0;
@@ -124,6 +126,9 @@ public class AttendanceDetailActivity extends AppCompatActivity {
         try {
             JSONObject payload = new JSONObject();
             JSONObject parameter = new JSONObject();
+
+            System.out.println(year);
+            System.out.println(term);
 
             parameter.put("CLSS_NUMB", NUMB);
             parameter.put("LECT_YEAR", year);

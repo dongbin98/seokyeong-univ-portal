@@ -70,7 +70,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             public void onClick(View view) {
                 if (position!=RecyclerView.NO_POSITION){
                     if (mListener!=null){
-                        mListener.onItemClick (view,position);
+                        mListener.onItemClick (view, position);
                     }
                 }
             }

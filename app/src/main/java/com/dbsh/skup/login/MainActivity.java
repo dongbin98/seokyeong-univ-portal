@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 			JSONArray yearList = response.getJSONArray("YEAR_LIST");	// 입학이후 모든 해 동안
 			for (int i = 0; i < yearList.length(); i++) {
-				for (int j = 0; j < 4; j++) {	// 1,2,여름계절,겨울계절 학기중 수강한 과목 저장
+				for (int j = 1; j <= 4; j++) {	// 1,2,여름계절(3),겨울계절(4) 학기중 수강한 과목 저장
 					getLectureInfo(((User) getApplication()).getToken(),
 							((User) getApplication()).getId(),
 							yearList.getJSONObject(i).get("value").toString(),

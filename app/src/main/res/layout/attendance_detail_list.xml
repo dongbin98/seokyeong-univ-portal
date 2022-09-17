@@ -53,7 +53,7 @@
             android:id="@+id/attendance_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray4"
+            android:textColor="@color/gray2"
             android:text="ㆍ2022-09-13"
             android:textSize="12dp"
             android:fontFamily="@font/roboto"

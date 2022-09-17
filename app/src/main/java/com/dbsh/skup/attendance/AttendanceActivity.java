@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,16 +33,19 @@ public class AttendanceActivity extends AppCompatActivity {
     String year;
     String term;
 
-    List<AttendanceAdapter.AttendanceItem> data = new ArrayList<>();
+    List<AttendanceAdapter.AttendanceItem> data;
     ArrayList<String> cdList = new ArrayList<>();   // 학수번호 따로 저장
     ArrayList<String> numbList = new ArrayList<>(); // 분반번호 따로 저장
     AttendanceAdapter adapter;
     RecyclerView attendanceList;
+    Spinner attendanceSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendance_form);
+
+        data = new ArrayList<>();
 
         Intent intent = getIntent();
         token = ((User) getApplication()).getToken();
@@ -53,6 +59,7 @@ public class AttendanceActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
+        attendanceSpinner = (Spinner) findViewById(R.id.attendance_spinner);
         attendanceList = (RecyclerView) findViewById(R.id.attendance_recyclerview);
         adapter = new AttendanceAdapter(data);
 
@@ -79,23 +86,81 @@ public class AttendanceActivity extends AppCompatActivity {
             }
         });
 
+        ArrayList<String> spinnerItem = new ArrayList<>();
+        for(LectureInfo lectureInfo : ((User) getApplication()).getLectureInfos()) {
+            String value = lectureInfo.getYear() + "년 " + lectureInfo.getTerm() + "학기";
+
+            if(!spinnerItem.contains(value)) {
+                spinnerItem.add(value);
+            }
+        }
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, spinnerItem);
+        attendanceSpinner.setAdapter(spinnerAdapter);
+        attendanceSpinner.setSelected(false);
+        attendanceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                year = spinnerItem.get(i).substring(0, 4);
+                term = spinnerItem.get(i).substring(6, 7);
+                System.out.println(year + term);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        attendanceSpinner.setEnabled(false);
+                        adapter.dataClear();
+                        if(getAttendance(token, id, year, term))
+                            // 쓰레드 안에서 UI 변경 시 필요
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    attendanceSpinner.setEnabled(true);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                    }
+                }).start();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                year = ((User) getApplication()).getSchYear();
+                term = ((User) getApplication()).getSchTerm();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        attendanceSpinner.setEnabled(false);
+                        adapter.dataClear();
+                        if(getAttendance(token, id, year, term))
+                            // 쓰레드 안에서 UI 변경 시 필요
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    attendanceSpinner.setEnabled(true);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                    }
+                }).start();
+            }
+        });
+
         attendanceList.setLayoutManager(new LinearLayoutManager(this));
         attendanceList.setAdapter(adapter);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                adapter.dataClear();
-                if(getAttendance(token, id, year, term))
-                    // 쓰레드 안에서 UI 변경 시 필요
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.notifyDataSetChanged();
-                        }
-                    });
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                adapter.dataClear();
+//                if(getAttendance(token, id, year, term))
+//                    // 쓰레드 안에서 UI 변경 시 필요
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            adapter.notifyDataSetChanged();
+//                        }
+//                    });
+//            }
+//        }).start();
     }
 
     // 과목 별 간략한 정보
