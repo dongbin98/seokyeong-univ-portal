@@ -55,6 +55,7 @@
             android:textSize="48dp"
             android:textStyle="bold"
             android:textColor="@color/black"
+            android:text="예시"
             android:fontFamily="@font/roboto"
             android:layout_marginTop="79dp"
             app:layout_constraintLeft_toLeftOf="parent"

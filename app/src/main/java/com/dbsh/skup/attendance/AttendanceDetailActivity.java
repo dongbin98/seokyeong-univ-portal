@@ -127,9 +127,6 @@ public class AttendanceDetailActivity extends AppCompatActivity {
             JSONObject payload = new JSONObject();
             JSONObject parameter = new JSONObject();
 
-            System.out.println(year);
-            System.out.println(term);
-
             parameter.put("CLSS_NUMB", NUMB);
             parameter.put("LECT_YEAR", year);
             parameter.put("LECT_TERM", term);
@@ -154,8 +151,8 @@ public class AttendanceDetailActivity extends AppCompatActivity {
                 int count = Integer.parseInt(response.get("COUNT").toString());
                 for (int i = 0; i < count; i++) {
                     double div = Double.parseDouble(jsonArray.getJSONObject(i).get("ABSN_TIME").toString());
-                    System.out.println(div);
-                    System.out.println(time);
+                    System.out.println("###################" + div);
+                    System.out.println("###################" + time);
                     if(div == 0) {
                         atte_cnt += 1;
                         data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
@@ -175,6 +172,8 @@ public class AttendanceDetailActivity extends AppCompatActivity {
                         System.out.println(jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString());
                     }
                 }
+            } else {
+				System.out.println("수신 양호하지 못함");
             }
         } catch (JSONException | NullPointerException exception) {
             exception.printStackTrace();

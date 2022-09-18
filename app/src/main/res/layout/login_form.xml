@@ -103,7 +103,7 @@
         android:fontFamily="@font/roboto"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/onlyWhite"
         android:background="@drawable/button_mainblue_background"
         app:layout_constraintVertical_bias="0.03"
         app:layout_constraintLeft_toLeftOf="parent"
