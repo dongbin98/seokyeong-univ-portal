@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="8dp"
         style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/attendance_list_progressbar"
+        android:progressDrawable="@drawable/attendance_list_blue_progressbar"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="72dp"

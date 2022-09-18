@@ -1,6 +1,8 @@
 package com.dbsh.skup.attendance;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,26 +54,28 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         itemController.attendance_title.setText(item.text);
         itemController.attendance_subj.setText(item.text2);
         itemController.attendance_percent.setText(item.text3 + "%");
-        System.out.println(item.percent);
 
-        int percent = Integer.parseInt(item.text3);
-        if(percent == 100) {
+        itemController.attendance_progressbar.setProgress(0);
+        if(item.percent == 100) {
             // 파란색 막대기
-            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_progressbar));
+            System.out.println(item.text + " 파란막대기 설정");
+            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_blue_progressbar));
         }
-        else if(percent >= 75 && percent < 100) {
+        else if(item.percent >= 75 && item.percent < 100) {
             // 주황색 막대기
-            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_progressbar2));
+            System.out.println(item.text + " 주황막대기 설정");
+            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_yellow_progressbar));
         }
-        else {
+        else if(item.percent < 75) {
             // 빨간색 막대기
-            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_progressbar3));
+            System.out.println(item.text + " 빨간막대기 설정");
+            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_red_progressbar));
         }
         
         itemController.itemView.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                if (position!=RecyclerView.NO_POSITION){
+                if (position != RecyclerView.NO_POSITION){
                     if (mListener!=null){
                         mListener.onItemClick (view, position);
                     }

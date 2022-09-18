@@ -18,7 +18,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar;
@@ -72,6 +76,8 @@ public class AttendanceDetailActivity extends AppCompatActivity {
         year = intent.getStringExtra("YEAR");
         term = intent.getStringExtra("TERM");
 
+        System.out.printf("받아온 값 : 연도 = %s, 학기 = %s, 학수번호 = %s, 분반 = %s, 학번 = %s\n", year, term, cd, numb, id);
+
         attendance_detail_atte_cnt = (TextView) findViewById(R.id.attendance_detail_atte_cnt);
         attendance_detail_late_cnt = (TextView) findViewById(R.id.attendance_detail_late_cnt);
         attendance_detail_absn_cnt = (TextView) findViewById(R.id.attendance_detail_absn_cnt);
@@ -107,6 +113,28 @@ public class AttendanceDetailActivity extends AppCompatActivity {
             public void run() {
                 adapter.dataClear();
                 getDetailAttendance(token, id, year, term, cd, numb);
+                /* 날짜 최신순으로 정렬 */
+                data.sort(new Comparator<AttendanceDetailAdapter.AttendanceDetailItem>() {
+                    @Override
+                    public int compare(AttendanceDetailAdapter.AttendanceDetailItem data, AttendanceDetailAdapter.AttendanceDetailItem t1) {
+                        int result = 1;
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+                        Date dateDate = null;
+                        Date t1Date = null;
+
+                        try {
+                            dateDate = format.parse(data.getText3());
+                            t1Date = format.parse(t1.getText3());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        int compare = dateDate.compareTo(t1Date);
+                        if(compare >= 0)
+                            result = -1;
+                        return result;
+                    }
+                });
                     // 쓰레드 안에서 UI 변경 시 필요
                     runOnUiThread(new Runnable() {
                         @Override
@@ -151,29 +179,24 @@ public class AttendanceDetailActivity extends AppCompatActivity {
                 int count = Integer.parseInt(response.get("COUNT").toString());
                 for (int i = 0; i < count; i++) {
                     double div = Double.parseDouble(jsonArray.getJSONObject(i).get("ABSN_TIME").toString());
-                    System.out.println("###################" + div);
-                    System.out.println("###################" + time);
                     if(div == 0) {
                         atte_cnt += 1;
                         data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
-                                "출석", "출석", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString(), "출석했습니다."));
-                        System.out.println(jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString());
+                                "출석", "출석", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString().replace("/", "-"), "출석했습니다."));
                     }
                     else if(div < time) {
                         late_cnt += 1;
                         data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
-                                "지각", "지각", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString(), (div + "시간 지각했습니다.")));
-                        System.out.println(jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString());
+                                "지각", "지각", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString().replace("/", "-"), (div + "시간 지각했습니다.")));
                     }
                     else {
                         absn_cnt += 1;
                         data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
-                                "결석", "결석", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString(), "결석했습니다."));
-                        System.out.println(jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString());
+                                "결석", "결석", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString().replace("/", "-"), "결석했습니다."));
                     }
                 }
             } else {
-				System.out.println("수신 양호하지 못함");
+				System.out.println("결과값 없음");
             }
         } catch (JSONException | NullPointerException exception) {
             exception.printStackTrace();

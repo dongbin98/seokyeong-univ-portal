@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AttendanceActivity extends AppCompatActivity {
-	private static final String attendanceDURL = "https://sportal.skuniv.ac.kr/sportal/common/selectList.sku";
+	private static final String attendanceDetailUrl = "https://sportal.skuniv.ac.kr/sportal/common/selectList.sku";
 
 	String token;
 	String id;
@@ -182,12 +182,12 @@ public class AttendanceActivity extends AppCompatActivity {
 	public boolean getAttendance(String token, String id, String year, String term) {
 
 		int i = 0;
+		cdList.clear();
+		numbList.clear();
+		data.clear();
 		for (LectureInfo lectureInfo : ((User) getApplication()).getLectureInfos()) {
 			if (lectureInfo.getYear().equals(year) && lectureInfo.getTerm().equals(term)) {
-				int percent = getDetailAttendance(token, id, year, term,
-						lectureInfo.getLectureCd(),
-						lectureInfo.getLectureNumber(),
-						i);
+				int percent = getDetailAttendance(token, id, year, term, lectureInfo.getLectureCd(), lectureInfo.getLectureNumber(), i);
 				cdList.add(lectureInfo.getLectureCd());
 				numbList.add(lectureInfo.getLectureNumber());
 				data.add(new AttendanceAdapter.AttendanceItem(
@@ -203,7 +203,6 @@ public class AttendanceActivity extends AppCompatActivity {
 	}
 	// 과목별 상세 정보
 	public int getDetailAttendance(String token, String id, String year, String term, String CD, String NUMB, int number) {
-		ArrayList<ArrayList<String>> subArray = new ArrayList<>();
 		int percent = 0;
 		try {
 			JSONObject payload = new JSONObject();
@@ -226,7 +225,7 @@ public class AttendanceActivity extends AppCompatActivity {
 			} catch (JSONException exception) {
 				exception.printStackTrace();
 			}
-			JSONObject response = HttpUrlConnector.getInstance().getResponseWithToken(attendanceDURL, payload, token);
+			JSONObject response = HttpUrlConnector.getInstance().getResponseWithToken(attendanceDetailUrl, payload, token);
 
 			if (response.get("RTN_STATUS").toString().equals("S")) {
 				JSONArray jsonArray = response.getJSONArray("LIST");
@@ -234,12 +233,16 @@ public class AttendanceActivity extends AppCompatActivity {
 
 				double all = 0;
 				double absn = 0;
-				double total = 0;
+				double total;
 				for (int i = 0; i < count; i++) {
-					all += Double.parseDouble(((User) getApplication()).getLectureInfos().get(number).getLectureTime());
+					for (LectureInfo lectureInfo : ((User) getApplication()).getLectureInfos()) {
+						if(lectureInfo.getLectureCd().equals(jsonArray.getJSONObject(i).get("SUBJ_CD").toString()))
+							all += Double.parseDouble(lectureInfo.getLectureTime());
+					}
 					absn += Double.parseDouble(jsonArray.getJSONObject(i).get("ABSN_TIME").toString());
 				}
 				total = all - absn;
+				// System.out.println("total = " + total + " all = " + all + " absn = " + absn);
 				percent = (int) (total / all * 100);
 			}
 			return percent;

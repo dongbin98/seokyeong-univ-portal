@@ -24,14 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
     private static String loginUrl = "https://sportal.skuniv.ac.kr/sportal/auth2/login.sku";
 	private static final String lectUrl = "https://sportal.skuniv.ac.kr/sportal/common/selectList.sku";
-	private static final String lectTimeUrl = "https://sportal.skuniv.ac.kr/sportal/common/selectOne.sku";    // 개요
-	private static final String attendanceDURL = "https://sportal.skuniv.ac.kr/sportal/common/selectList.sku";
 	public static User user = new User();
 	public static HttpUrlConnector connector = new HttpUrlConnector();
 
@@ -183,11 +179,9 @@ public class MainActivity extends AppCompatActivity {
 			}
 			JSONArray yearList = response.getJSONArray("YEAR_LIST");	// 입학이후 모든 해 동안
 			for (int i = 0; i < yearList.length(); i++) {
-				for (int j = 1; j <= 4; j++) {	// 1,2,여름계절(3),겨울계절(4) 학기중 수강한 과목 저장
-					getLectureInfo(((User) getApplication()).getToken(),
-							((User) getApplication()).getId(),
-							yearList.getJSONObject(i).get("value").toString(),
-							Integer.toString(j));
+				for (int j = 4; j >= 1 ; j--) {	// 1,2,여름계절(3),겨울계절(4) 학기중 수강한 과목 저장
+					getLectureInfo(((User) getApplication()).getToken(), ((User) getApplication()).getId(),
+							yearList.getJSONObject(i).get("value").toString(), Integer.toString(j));
 				}
 			}
 			System.out.println("강의정보 저장 성공");
@@ -214,14 +208,14 @@ public class MainActivity extends AppCompatActivity {
 			parameter.put("ID", id);
 			parameter.put("LECT_YEAR", year);
 			parameter.put("LECT_TERM", term);
-			parameter.put("STNT_NUMB", id);
+			parameter.put("STU_NO", id);
 			try {
-				payload.put("MAP_ID", "education.ual.UAL_04004_T.select");
+				payload.put("MAP_ID", "education.ucs.UCS_common.SELECT_TIMETABLE_2018");
 				payload.put("SYS_ID", "AL");
 				payload.put("accessToken", token);
 				payload.put("parameter", parameter);
 				payload.put("path", "common/selectList");
-				payload.put("programID", "main");
+				payload.put("programID", "UAL_03333_T");
 				payload.put("userID", id);
 
 			} catch (JSONException exception) {
@@ -231,74 +225,29 @@ public class MainActivity extends AppCompatActivity {
 
 			if(response.get("RTN_STATUS").toString().equals("S")) {
 				JSONArray jsonArray = response.getJSONArray("LIST");
-				System.out.println("강의정보 가져오기 성공");
+				System.out.println(year + "년도 " + term + "학기 강의정보 가져옴");
 				int count = Integer.parseInt(response.get("COUNT").toString());
 
 				for (int i = 0; i < count; i++) {
-					String lectureCd = jsonArray.getJSONObject(i).get("SUBJ_CD").toString();
-					String lectureNumber = jsonArray.getJSONObject(i).get("CLSS_NUMB").toString();
-					String lectureProfessor = jsonArray.getJSONObject(i).get("PROF_NUMB").toString();
-					// 담당 교수가 없으면 패스 (졸업논문및시험으로 간주)
-					if(lectureProfessor.equals("null"))
-						continue;
-					ArrayList<String> lectureTimeAndName = getLectureTime(token, id, year, term, lectureCd, lectureNumber, lectureProfessor);
-
 					LectureInfo lectureInfo = new LectureInfo();
-					lectureInfo.setLectureCd(lectureCd);
-					lectureInfo.setLectureNumber(lectureNumber);
-					lectureInfo.setLectureTime(lectureTimeAndName.get(0));
-					lectureInfo.setLectureName(lectureTimeAndName.get(1));
-					lectureInfo.setProfessor(lectureProfessor);
+					lectureInfo.setLectureCd(jsonArray.getJSONObject(i).get("SUBJ_CD").toString());
+					lectureInfo.setLectureNumber(jsonArray.getJSONObject(i).get("CLSS_NUMB").toString());
+					lectureInfo.setLectureTime(jsonArray.getJSONObject(i).get("SUBJ_TIME").toString());
+					lectureInfo.setLectureName(jsonArray.getJSONObject(i).get("CLASS_NAME").toString());
+					lectureInfo.setProfessor(jsonArray.getJSONObject(i).get("PROF_NO").toString());
 					lectureInfo.setYear(year);
 					lectureInfo.setTerm(term);
 
-					System.out.println(lectureCd);
+					System.out.println(lectureInfo.getLectureName() + "과목 학수번호 = " + lectureInfo.getLectureCd() + "-" + lectureInfo.getLectureNumber() + " 수업시간 = " + lectureInfo.getLectureTime());
 
 					((User) getApplication()).addLectureInfo(lectureInfo);
 				}
 			}
 			else if(response.get("RTN_STATUS").toString().equals("0")) {
-				System.out.println("해당학기 수업정보 없음");
+				System.out.println(year + "년도 " + term + "학기 강의정보 없음");
 			}
 		} catch (JSONException exception) {
 			exception.printStackTrace();
 		}
-	}
-
-	// 해당 학기 수강 교과목 수업시간, 교과목명 가져오기
-	public ArrayList<String> getLectureTime(String token, String id, String year, String term, String cd, String cn, String pi) {
-		ArrayList<String> lecture = new ArrayList<>();
-
-		try {
-			JSONObject payload = new JSONObject();
-			JSONObject parameter = new JSONObject();
-
-			parameter.put("CLSS_NUMB", cn);
-			parameter.put("LECT_YEAR", year);
-			parameter.put("LECT_TERM", term);
-			parameter.put("SUBJ_CD", cd);
-			parameter.put("STAF_NO", pi);
-			try {
-				payload.put("MAP_ID", "education.ucs.UCS_03100_T.SELECT_REPORT_MAIN");
-				payload.put("SYS_ID", "AL");
-				payload.put("accessToken", token);
-				payload.put("parameter", parameter);
-				payload.put("path", "common/selectOne");
-				payload.put("programID", "main");
-				payload.put("userID", id);
-
-			} catch (JSONException exception) {
-				exception.printStackTrace();
-			}
-			JSONObject response = connector.getInstance().getResponseWithToken(lectTimeUrl, payload, token);
-			if(response.get("RTN_STATUS").toString().equals("S")) {
-				JSONObject MAP = response.getJSONObject("MAP");
-				lecture.add(MAP.get("SUBJ_TIME").toString());
-				lecture.add(MAP.get("SUBJ_NM").toString());
-			}
-		} catch (JSONException exception) {
-			exception.printStackTrace();
-		}
-		return lecture;
 	}
 }

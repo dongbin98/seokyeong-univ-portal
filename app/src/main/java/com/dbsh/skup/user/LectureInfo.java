@@ -2,6 +2,16 @@ package com.dbsh.skup.user;
 
 public class LectureInfo {
     String lectureName;     // 강의명
+    String lectureCd;           // 학수번호
+    String lectureNumber;       // 분반
+    String lectureTime;         // 강의시간
+    String professor;           // 담당교수 번호
+    String year;                // 년도
+    String term;                // 학기
+
+    public LectureInfo() {
+    }
+
 
     public String getLectureName() {
         return lectureName;
@@ -9,16 +19,6 @@ public class LectureInfo {
 
     public void setLectureName(String lectureName) {
         this.lectureName = lectureName;
-    }
-
-    String lectureCd;           // 학수번호
-    String lectureNumber;       // 분반
-    String lectureTime;         // 강의시간
-    String professor;           // 담당교수
-    String year;                // 년도
-    String term;                // 학기
-
-    public LectureInfo() {
     }
 
     public String getLectureCd() {

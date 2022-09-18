@@ -52,7 +52,6 @@ public class AttendanceDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         itemController.attendanceType.setText(item.text);
         itemController.attendanceState.setText(item.text2);
-        item.text3 = item.text3.replace("/", "-");
         itemController.attendanceDate.setText("ㆍ" + item.text3);
         itemController.attendanceString.setText(item.text4);
     }
@@ -87,6 +86,38 @@ public class AttendanceDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
             this.text2 = text2;     // 출석 상태
             this.text3 = text3;     // 날짜
             this.text4 = text4;     // 텍스트로 안내
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public String getText2() {
+            return text2;
+        }
+
+        public void setText2(String text2) {
+            this.text2 = text2;
+        }
+
+        public String getText3() {
+            return text3;
+        }
+
+        public void setText3(String text3) {
+            this.text3 = text3;
+        }
+
+        public String getText4() {
+            return text4;
+        }
+
+        public void setText4(String text4) {
+            this.text4 = text4;
         }
     }
 }
