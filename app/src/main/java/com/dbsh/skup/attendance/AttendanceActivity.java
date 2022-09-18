@@ -63,8 +63,8 @@ public class AttendanceActivity extends AppCompatActivity {
         attendanceList = (RecyclerView) findViewById(R.id.attendance_recyclerview);
         adapter = new AttendanceAdapter(data);
 
-        adapter.setOnItemClickListener (new AttendanceAdapter.OnItemClickListener () {
-            //아이템 클릭시 토스트메시지
+        adapter.setOnItemClickListener(new AttendanceAdapter.OnItemClickListener() {
+            // 아이템 클릭시 토스트메시지
             @Override
             public void onItemClick(View v, int position) {
                 String title = data.get(position).text;
@@ -80,24 +80,23 @@ public class AttendanceActivity extends AppCompatActivity {
                 detailIntent.putExtra("CD", cd);
                 detailIntent.putExtra("NUMB", numb);
                 detailIntent.putExtra("TIME", time);
-                detailIntent.putExtra("YEAR", year);
-                detailIntent.putExtra("TERM", term);
+                detailIntent.putExtra("YEAR", "2018");
+                detailIntent.putExtra("TERM", "2");
                 startActivity(detailIntent);
             }
         });
 
         ArrayList<String> spinnerItem = new ArrayList<>();
-        for(LectureInfo lectureInfo : ((User) getApplication()).getLectureInfos()) {
+        for (LectureInfo lectureInfo : ((User) getApplication()).getLectureInfos()) {
             String value = lectureInfo.getYear() + "년 " + lectureInfo.getTerm() + "학기";
 
-            if(!spinnerItem.contains(value)) {
+            if (!spinnerItem.contains(value)) {
                 spinnerItem.add(value);
             }
         }
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, spinnerItem);
         attendanceSpinner.setAdapter(spinnerAdapter);
-        attendanceSpinner.setSelected(false);
         attendanceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -109,7 +108,7 @@ public class AttendanceActivity extends AppCompatActivity {
                     public void run() {
                         attendanceSpinner.setEnabled(false);
                         adapter.dataClear();
-                        if(getAttendance(token, id, year, term))
+                        if (getAttendance(token, id, year, term))
                             // 쓰레드 안에서 UI 변경 시 필요
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -121,6 +120,7 @@ public class AttendanceActivity extends AppCompatActivity {
                     }
                 }).start();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 year = ((User) getApplication()).getSchYear();
@@ -130,7 +130,7 @@ public class AttendanceActivity extends AppCompatActivity {
                     public void run() {
                         attendanceSpinner.setEnabled(false);
                         adapter.dataClear();
-                        if(getAttendance(token, id, year, term))
+                        if (getAttendance(token, id, year, term))
                             // 쓰레드 안에서 UI 변경 시 필요
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -146,12 +146,12 @@ public class AttendanceActivity extends AppCompatActivity {
 
         attendanceList.setLayoutManager(new LinearLayoutManager(this));
         attendanceList.setAdapter(adapter);
-
+//
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
 //                adapter.dataClear();
-//                if(getAttendance(token, id, year, term))
+//                if(getAttendance(token, id, "2018", "2"))
 //                    // 쓰레드 안에서 UI 변경 시 필요
 //                    runOnUiThread(new Runnable() {
 //                        @Override

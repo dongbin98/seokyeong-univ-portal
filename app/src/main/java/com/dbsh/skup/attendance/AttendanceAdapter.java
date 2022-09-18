@@ -52,11 +52,14 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         itemController.attendance_title.setText(item.text);
         itemController.attendance_subj.setText(item.text2);
         itemController.attendance_percent.setText(item.text3 + "%");
-        
-        if(Integer.parseInt(item.text3) == 100) {
+        System.out.println(item.percent);
+
+        int percent = Integer.parseInt(item.text3);
+        if(percent == 100) {
             // 파란색 막대기
+            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_progressbar));
         }
-        else if(Integer.parseInt(item.text3) >= 75 && Integer.parseInt(item.text3) < 100) {
+        else if(percent >= 75 && percent < 100) {
             // 주황색 막대기
             itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_progressbar2));
         }
