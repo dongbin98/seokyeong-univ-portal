@@ -1,6 +1,5 @@
 package com.dbsh.skup.home;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.dbsh.skup.HttpUrlConnector;
 import com.dbsh.skup.R;
 import com.dbsh.skup.user.LectureInfo;
 import com.dbsh.skup.user.User;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +26,7 @@ public class HomeCenterTimetableFragment extends Fragment {
     ArrayList<String> todayList;
     Calendar cal = Calendar.getInstance();
     User user;
-//    NetworkTask networkTask;
+	//    NetworkTask networkTask;
     String token;
     String id;
     String year;
@@ -167,10 +161,9 @@ public class HomeCenterTimetableFragment extends Fragment {
 //    }
 
     public ArrayList<String> getTimetable(String year, String term) {
-
 	    for (LectureInfo lectureInfo : user.getLectureInfos()) {
 			if(lectureInfo.getYear().equals(year) && lectureInfo.getTerm().equals(term)) {
-				if(!lectureInfo.getLectureDay().equals("null")) {
+				if(!lectureInfo.getLectureDay().equals("null") && lectureInfo.getLectureDay().equals(Integer.toString(cal.get(Calendar.DAY_OF_WEEK) - 1))) {
 					todayList.add(lectureInfo.getLectureStartTime() + " ~ " + lectureInfo.getLectureEndTime() + " " + lectureInfo.getLectureName());
 				}
 			}

@@ -31,6 +31,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
+
             <TableLayout
                 android:id="@+id/card2_timetableTodayTable"
                 android:layout_width="wrap_content"

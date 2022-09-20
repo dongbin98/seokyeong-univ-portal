@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 	Switch loginAuto;
 	Button loginBtn;
 
+	long time = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +117,19 @@ public class MainActivity extends AppCompatActivity {
 		    }
 	    });
     }
+
+	@Override
+	public void onBackPressed() {
+		if(System.currentTimeMillis()-time >= 2000) {
+			time=System.currentTimeMillis();
+			Toast.makeText(getApplicationContext(),"한번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show();
+		}
+		else if(System.currentTimeMillis()-time < 2000){
+			finishAffinity();
+			System.runFinalization();
+			System.exit(0);
+		}
+	}
 
 	public void login(String userId, String userPw) throws JSONException {
 		try {
@@ -225,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
 
 			if(response.get("RTN_STATUS").toString().equals("S")) {
 				JSONArray jsonArray = response.getJSONArray("LIST");
-				System.out.println(year + "년도 " + term + "학기 강의정보 가져옴");
 				int count = Integer.parseInt(response.get("COUNT").toString());
 
 				for (int i = 0; i < count; i++) {
@@ -241,13 +255,8 @@ public class MainActivity extends AppCompatActivity {
 					lectureInfo.setYear(year);
 					lectureInfo.setTerm(term);
 
-					System.out.println(lectureInfo.getLectureName() + "과목 학수번호 = " + lectureInfo.getLectureCd() + "-" + lectureInfo.getLectureNumber() + " 수업시간 = " + lectureInfo.getLectureTime());
-
 					((User) getApplication()).addLectureInfo(lectureInfo);
 				}
-			}
-			else if(response.get("RTN_STATUS").toString().equals("0")) {
-				System.out.println(year + "년도 " + term + "학기 강의정보 없음");
 			}
 		} catch (JSONException exception) {
 			exception.printStackTrace();

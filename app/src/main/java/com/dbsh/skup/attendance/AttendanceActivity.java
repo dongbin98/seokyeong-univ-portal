@@ -2,7 +2,6 @@ package com.dbsh.skup.attendance;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -87,7 +86,6 @@ public class AttendanceActivity extends AppCompatActivity {
 						count += 1.0;
 					}
 				}
-				Log.d("notify", title + " 수업시간은 " + time + "시간 수업횟수는 " + count + "회 하루 수업시간은 " + (time/count));
 				time /= count;
 
 				Intent detailIntent = new Intent(AttendanceActivity.this, AttendanceDetailActivity.class);
@@ -191,15 +189,14 @@ public class AttendanceActivity extends AppCompatActivity {
 
 	// 과목 별 간략한 정보
 	public boolean getAttendance(String token, String id, String year, String term) {
-
-		int i = 0;
 		cdList.clear();
 		numbList.clear();
 		data.clear();
+
 		for (LectureInfo lectureInfo : user.getLectureInfos()) {
 			if (lectureInfo.getYear().equals(year) && lectureInfo.getTerm().equals(term)) {
 				if(!cdList.contains(lectureInfo.getLectureCd())) {  // 2일이상 수업하는 과목 중복 표시 방지
-					int percent = getDetailAttendance(token, id, year, term, lectureInfo.getLectureCd(), lectureInfo.getLectureNumber(), i);
+					int percent = getDetailAttendance(token, id, year, term, lectureInfo.getLectureCd(), lectureInfo.getLectureNumber());
 					cdList.add(lectureInfo.getLectureCd());
 					numbList.add(lectureInfo.getLectureNumber());
 					data.add(new AttendanceAdapter.AttendanceItem(
@@ -208,14 +205,13 @@ public class AttendanceActivity extends AppCompatActivity {
 							Integer.toString(percent),
 							percent)
 					);
-					i++;
 				}
 			}
 		}
 		return true;
 	}
 	// 과목별 상세 정보
-	public int getDetailAttendance(String token, String id, String year, String term, String CD, String NUMB, int number) {
+	public int getDetailAttendance(String token, String id, String year, String term, String CD, String NUMB) {
 		int percent = 0;
 		try {
 			JSONObject payload = new JSONObject();
@@ -248,19 +244,19 @@ public class AttendanceActivity extends AppCompatActivity {
 				double all = 0.0;       // 총 수업시간
 				double absn = 0.0;      // 지각 및 결석시간
 				double time = 0.0;      // 하루 수업시간
-				double total;
+				double cnt = 0.0;		// 주 수업횟수
+				double total;			// 수강 수업시간
 
 				for(LectureInfo lectureInfo : user.getLectureInfos()) {
 					if(lectureInfo.getLectureCd().equals(CD)) {
 						time = Double.parseDouble(lectureInfo.getLectureTime());
-						count += 1.0;
+						cnt += 1.0;
 					}
 				}
+				time /= cnt;
 				for (int i = 0; i < count; i++) {
-					for (LectureInfo lectureInfo : user.getLectureInfos()) {
-						if(lectureInfo.getLectureCd().equals(jsonArray.getJSONObject(i).get("SUBJ_CD").toString()))
-							all += time;
-					}
+					System.out.println(i);
+					all += time;
 					absn += Double.parseDouble(jsonArray.getJSONObject(i).get("ABSN_TIME").toString());
 				}
 				total = all - absn;

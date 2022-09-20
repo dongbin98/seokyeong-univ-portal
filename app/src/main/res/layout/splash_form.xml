@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splash_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/mainBlue">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/splash_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="SKUP"
+            android:textColor="@color/onlyWhite"
+            android:textAlignment="center"
+            android:textSize="40dp"
+            android:fontFamily="@font/jalnan"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/splash_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학교 정보 한 스쿱?"
+            android:textColor="@color/onlyWhite"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto"
+            app:layout_constraintTop_toBottomOf="@id/splash_text1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
