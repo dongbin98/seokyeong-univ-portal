@@ -162,7 +162,7 @@ public class HomeCenterFragment extends Fragment {
 
         mPager2.setCurrentItem(0);
         mPager2.setOffscreenPageLimit(3);
-        mPager2.setPadding(0, 0, 60, 0);
+        mPager2.setPadding(0, 0, 90, 0);
 
         mPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -188,7 +188,7 @@ public class HomeCenterFragment extends Fragment {
         mPager3.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         mPager3.setCurrentItem(0);
         mPager3.setOffscreenPageLimit(3);
-        mPager3.setPadding(0, 0, 60, 0);
+        mPager3.setPadding(0, 0, 90, 0);
 
         mPager3.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

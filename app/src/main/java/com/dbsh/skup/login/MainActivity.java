@@ -235,6 +235,9 @@ public class MainActivity extends AppCompatActivity {
 					lectureInfo.setLectureTime(jsonArray.getJSONObject(i).get("SUBJ_TIME").toString());
 					lectureInfo.setLectureName(jsonArray.getJSONObject(i).get("CLASS_NAME").toString());
 					lectureInfo.setProfessor(jsonArray.getJSONObject(i).get("PROF_NO").toString());
+					lectureInfo.setLectureStartTime(jsonArray.getJSONObject(i).get("CLASSHOUR_START_TIME").toString());
+					lectureInfo.setLectureEndTime(jsonArray.getJSONObject(i).get("CLASSHOUR_END_TIME").toString());
+					lectureInfo.setLectureDay(jsonArray.getJSONObject(i).get("CLASSDAY").toString());
 					lectureInfo.setYear(year);
 					lectureInfo.setTerm(term);
 

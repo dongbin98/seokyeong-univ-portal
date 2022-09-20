@@ -53,10 +53,13 @@ public class AttendanceDetailActivity extends AppCompatActivity {
     AttendanceDetailAdapter adapter;
     RecyclerView attendanceDetailList;
 
+	User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendance_detail_form);
+		user = ((User) getApplication());
 
         data = new ArrayList<>();
 
@@ -71,8 +74,8 @@ public class AttendanceDetailActivity extends AppCompatActivity {
         percent = intent.getIntExtra("PERCENT", 0);
         time = intent.getDoubleExtra("TIME", time);
 
-        token = ((User) getApplication()).getToken();
-        id = ((User) getApplication()).getId();
+        token = user.getToken();
+        id = user.getId();
         year = intent.getStringExtra("YEAR");
         term = intent.getStringExtra("TERM");
 

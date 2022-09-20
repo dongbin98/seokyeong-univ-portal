@@ -15,6 +15,9 @@
     <color name="gray3">#FFC9C9C9</color>
     <color name="gray4">#FFEAEAEA</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="subSky">#FFEDF3FF</color>
+    <color name="subYellow">#FFFFF7EB</color>
+    <color name="subRed">#FFFFF2F2</color>
     <color name="onlyWhite">#FFFFFFFF</color>
     <color name="onlyBlack">#FF000000</color>
     <color name="gridentStartColor">#FF4E7CD7</color>

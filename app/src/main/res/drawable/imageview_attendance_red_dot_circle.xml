@@ -14,7 +14,7 @@
                 android:height="56dp" />
 
             <solid
-                android:color="#FFF2F2" />
+                android:color="@color/subRed" />
 
             <stroke
                 android:dashWidth="1dp"

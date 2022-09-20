@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="82dp"
     android:layout_margin="8dp"
-    android:background="@drawable/attendance_list_background"
+    android:background="@drawable/attendance_detail_list_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.HttpUrlConnector;
 import com.dbsh.skup.R;
+import com.dbsh.skup.adapter.SpinnerAdapter;
 import com.dbsh.skup.user.LectureInfo;
 import com.dbsh.skup.user.User;
 
@@ -42,19 +43,21 @@ public class AttendanceActivity extends AppCompatActivity {
 	Spinner attendanceSpinner, attendanceSpinner2;
 	Button attendanceBtn;
 	ArrayList<String> spinnerItem, spinnerItem2;
+	User user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.attendance_form);
+		user = ((User) getApplication());
 
 		data = new ArrayList<>();
 
 		Intent intent = getIntent();
-		token = ((User) getApplication()).getToken();
-		id = ((User) getApplication()).getId();
-		year = ((User) getApplication()).getSchYear();
-		term = ((User) getApplication()).getSchTerm();
+		token = user.getToken();
+		id = user.getId();
+		year = user.getSchYear();
+		term = user.getSchTerm();
 
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.attendance_toolbar);
 		setSupportActionBar(mToolbar);
@@ -77,7 +80,7 @@ public class AttendanceActivity extends AppCompatActivity {
 				String cd = cdList.get(position);
 				String numb = numbList.get(position);
 
-				double time = Double.parseDouble(((User) getApplication()).getLectureInfos().get(position).getLectureTime());
+				double time = Double.parseDouble(user.getLectureInfos().get(position).getLectureTime());
 
 				Intent detailIntent = new Intent(AttendanceActivity.this, AttendanceDetailActivity.class);
 				detailIntent.putExtra("TITLE", title);
@@ -95,7 +98,7 @@ public class AttendanceActivity extends AppCompatActivity {
 		attendanceList.setAdapter(adapter);
 
 		spinnerItem = new ArrayList<>();
-		for (LectureInfo lectureInfo : ((User) getApplication()).getLectureInfos()) {
+		for (LectureInfo lectureInfo : user.getLectureInfos()) {
 			String value = lectureInfo.getYear() + "년";
 
 			if (!spinnerItem.contains(value)) {
@@ -104,7 +107,7 @@ public class AttendanceActivity extends AppCompatActivity {
 		}
 
 		spinnerItem2 = new ArrayList<>();
-		for (LectureInfo lectureInfo : ((User) getApplication()).getLectureInfos()) {
+		for (LectureInfo lectureInfo : user.getLectureInfos()) {
 			String value = lectureInfo.getTerm() + "학기";
 
 			if (!spinnerItem2.contains(value)) {
@@ -112,7 +115,7 @@ public class AttendanceActivity extends AppCompatActivity {
 			}
 		}
 
-		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, spinnerItem);
+		SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, spinnerItem);
 		attendanceSpinner.setAdapter(spinnerAdapter);
 		attendanceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -125,7 +128,7 @@ public class AttendanceActivity extends AppCompatActivity {
 			}
 		});
 
-		ArrayAdapter<String> spinnerAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, spinnerItem2);
+		SpinnerAdapter spinnerAdapter2 = new SpinnerAdapter(this, spinnerItem2);
 		attendanceSpinner2.setAdapter(spinnerAdapter2);
 		attendanceSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -185,18 +188,20 @@ public class AttendanceActivity extends AppCompatActivity {
 		cdList.clear();
 		numbList.clear();
 		data.clear();
-		for (LectureInfo lectureInfo : ((User) getApplication()).getLectureInfos()) {
+		for (LectureInfo lectureInfo : user.getLectureInfos()) {
 			if (lectureInfo.getYear().equals(year) && lectureInfo.getTerm().equals(term)) {
-				int percent = getDetailAttendance(token, id, year, term, lectureInfo.getLectureCd(), lectureInfo.getLectureNumber(), i);
-				cdList.add(lectureInfo.getLectureCd());
-				numbList.add(lectureInfo.getLectureNumber());
-				data.add(new AttendanceAdapter.AttendanceItem(
-						lectureInfo.getLectureName(),
-						(lectureInfo.getLectureCd() + "-" + lectureInfo.getLectureNumber()),
-						Integer.toString(percent),
-						percent)
-				);
-				i++;
+				if(!cdList.contains(lectureInfo.getLectureCd())) {  // 2일이상 수업하는 과목 중복 방지
+					int percent = getDetailAttendance(token, id, year, term, lectureInfo.getLectureCd(), lectureInfo.getLectureNumber(), i);
+					cdList.add(lectureInfo.getLectureCd());
+					numbList.add(lectureInfo.getLectureNumber());
+					data.add(new AttendanceAdapter.AttendanceItem(
+							lectureInfo.getLectureName(),
+							(lectureInfo.getLectureCd() + "-" + lectureInfo.getLectureNumber()),
+							Integer.toString(percent),
+							percent)
+					);
+					i++;
+				}
 			}
 		}
 		return true;
@@ -235,7 +240,7 @@ public class AttendanceActivity extends AppCompatActivity {
 				double absn = 0;
 				double total;
 				for (int i = 0; i < count; i++) {
-					for (LectureInfo lectureInfo : ((User) getApplication()).getLectureInfos()) {
+					for (LectureInfo lectureInfo : user.getLectureInfos()) {
 						if(lectureInfo.getLectureCd().equals(jsonArray.getJSONObject(i).get("SUBJ_CD").toString()))
 							all += Double.parseDouble(lectureInfo.getLectureTime());
 					}

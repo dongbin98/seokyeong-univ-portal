@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:layout_marginLeft="16dp"
+            android:background="@drawable/spinner_attendance_background"
             app:layout_constraintTop_toBottomOf="@id/attendance_toolbar"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -50,13 +51,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:layout_marginLeft="16dp"
+            android:background="@drawable/spinner_attendance_background"
             app:layout_constraintTop_toBottomOf="@id/attendance_toolbar"
             app:layout_constraintLeft_toRightOf="@id/attendance_spinner"/>
 
         <Button
             android:id="@+id/attendance_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginLeft="16dp"
             android:textColor="@color/onlyWhite"
             android:textStyle="bold"
