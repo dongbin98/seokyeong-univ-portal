@@ -24,6 +24,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import needle.Needle;
+
 public class MainActivity extends AppCompatActivity {
 
     private static String loginUrl = "https://sportal.skuniv.ac.kr/sportal/auth2/login.sku";
@@ -82,16 +84,26 @@ public class MainActivity extends AppCompatActivity {
 		    loginAuto.setChecked(true);
 		    loginId.setText(userId);
 		    loginPw.setText(userPw);
-		    new Thread(new Runnable() {
-			    @Override
-			    public void run() {
-				    try {
-					    login(userId, userPw);
-				    } catch (JSONException e) {
-					    e.printStackTrace();
-				    }
-			    }
-		    }).start();
+//		    new Thread(new Runnable() {
+//			    @Override
+//			    public void run() {
+//				    try {
+//					    login(userId, userPw);
+//				    } catch (JSONException e) {
+//					    e.printStackTrace();
+//				    }
+//			    }
+//		    }).start();
+			Needle.onBackgroundThread().execute(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						login(userId, userPw);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			});
 	    }
 	    loginBtn = (Button) findViewById(R.id.loginBtn);
 	    loginBtn.setOnClickListener(new View.OnClickListener(){
@@ -104,16 +116,26 @@ public class MainActivity extends AppCompatActivity {
 				    Editor.clear();
 				    Editor.commit();
 			    }
-			    new Thread(new Runnable() {
-				    @Override
-				    public void run() {
-					    try {
-						    login(userId, userPw);
-					    } catch (JSONException e) {
-						    e.printStackTrace();
-					    }
-				    }
-			    }).start();
+//			    new Thread(new Runnable() {
+//				    @Override
+//				    public void run() {
+//					    try {
+//						    login(userId, userPw);
+//					    } catch (JSONException e) {
+//						    e.printStackTrace();
+//					    }
+//				    }
+//			    }).start();
+				Needle.onBackgroundThread().execute(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							login(userId, userPw);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 		    }
 	    });
     }

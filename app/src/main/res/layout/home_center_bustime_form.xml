@@ -37,22 +37,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/imageview_location"
-                android:layout_marginLeft="134dp"
                 app:layout_constraintTop_toTopOf="@id/card3_text1"
                 app:layout_constraintBottom_toBottomOf="@id/card3_text1"
-                app:layout_constraintLeft_toRightOf="@id/card3_text1"/>
+                app:layout_constraintRight_toLeftOf="@id/card3_location_text"/>
 
             <TextView
+                android:id="@+id/card3_location_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="서경대 본관"
                 android:textSize="12dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/roboto"
-                android:layout_marginLeft="1dp"
+                android:layout_marginRight="16dp"
                 app:layout_constraintTop_toTopOf="@id/card3_text1"
                 app:layout_constraintBottom_toBottomOf="@id/card3_text1"
-                app:layout_constraintLeft_toRightOf="@id/card3_location_img"/>
+                app:layout_constraintRight_toRightOf="parent"/>
 
             <ImageView
                 android:id="@+id/card3_1164"
