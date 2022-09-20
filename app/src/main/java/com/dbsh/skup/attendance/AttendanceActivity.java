@@ -2,10 +2,10 @@ package com.dbsh.skup.attendance;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
@@ -79,8 +79,16 @@ public class AttendanceActivity extends AppCompatActivity {
 				int percent = data.get(position).percent;
 				String cd = cdList.get(position);
 				String numb = numbList.get(position);
+				Double time = 0.0, count = 0.0;
 
-				double time = Double.parseDouble(user.getLectureInfos().get(position).getLectureTime());
+				for(LectureInfo lectureInfo : user.getLectureInfos()) {
+					if(lectureInfo.getLectureCd().equals(cd)) {
+						time = Double.parseDouble(lectureInfo.getLectureTime());
+						count += 1.0;
+					}
+				}
+				Log.d("notify", title + " 수업시간은 " + time + "시간 수업횟수는 " + count + "회 하루 수업시간은 " + (time/count));
+				time /= count;
 
 				Intent detailIntent = new Intent(AttendanceActivity.this, AttendanceDetailActivity.class);
 				detailIntent.putExtra("TITLE", title);
@@ -190,7 +198,7 @@ public class AttendanceActivity extends AppCompatActivity {
 		data.clear();
 		for (LectureInfo lectureInfo : user.getLectureInfos()) {
 			if (lectureInfo.getYear().equals(year) && lectureInfo.getTerm().equals(term)) {
-				if(!cdList.contains(lectureInfo.getLectureCd())) {  // 2일이상 수업하는 과목 중복 방지
+				if(!cdList.contains(lectureInfo.getLectureCd())) {  // 2일이상 수업하는 과목 중복 표시 방지
 					int percent = getDetailAttendance(token, id, year, term, lectureInfo.getLectureCd(), lectureInfo.getLectureNumber(), i);
 					cdList.add(lectureInfo.getLectureCd());
 					numbList.add(lectureInfo.getLectureNumber());
@@ -233,21 +241,29 @@ public class AttendanceActivity extends AppCompatActivity {
 			JSONObject response = HttpUrlConnector.getInstance().getResponseWithToken(attendanceDetailUrl, payload, token);
 
 			if (response.get("RTN_STATUS").toString().equals("S")) {
+
 				JSONArray jsonArray = response.getJSONArray("LIST");
 				int count = Integer.parseInt(response.get("COUNT").toString());
 
-				double all = 0;
-				double absn = 0;
+				double all = 0.0;       // 총 수업시간
+				double absn = 0.0;      // 지각 및 결석시간
+				double time = 0.0;      // 하루 수업시간
 				double total;
+
+				for(LectureInfo lectureInfo : user.getLectureInfos()) {
+					if(lectureInfo.getLectureCd().equals(CD)) {
+						time = Double.parseDouble(lectureInfo.getLectureTime());
+						count += 1.0;
+					}
+				}
 				for (int i = 0; i < count; i++) {
 					for (LectureInfo lectureInfo : user.getLectureInfos()) {
 						if(lectureInfo.getLectureCd().equals(jsonArray.getJSONObject(i).get("SUBJ_CD").toString()))
-							all += Double.parseDouble(lectureInfo.getLectureTime());
+							all += time;
 					}
 					absn += Double.parseDouble(jsonArray.getJSONObject(i).get("ABSN_TIME").toString());
 				}
 				total = all - absn;
-				// System.out.println("total = " + total + " all = " + all + " absn = " + absn);
 				percent = (int) (total / all * 100);
 			}
 			return percent;

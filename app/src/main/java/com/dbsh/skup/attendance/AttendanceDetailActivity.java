@@ -79,8 +79,6 @@ public class AttendanceDetailActivity extends AppCompatActivity {
         year = intent.getStringExtra("YEAR");
         term = intent.getStringExtra("TERM");
 
-        System.out.printf("받아온 값 : 연도 = %s, 학기 = %s, 학수번호 = %s, 분반 = %s, 학번 = %s\n", year, term, cd, numb, id);
-
         attendance_detail_atte_cnt = (TextView) findViewById(R.id.attendance_detail_atte_cnt);
         attendance_detail_late_cnt = (TextView) findViewById(R.id.attendance_detail_late_cnt);
         attendance_detail_absn_cnt = (TextView) findViewById(R.id.attendance_detail_absn_cnt);
@@ -198,8 +196,6 @@ public class AttendanceDetailActivity extends AppCompatActivity {
                                 "결석", "결석", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString().replace("/", "-"), "결석했습니다."));
                     }
                 }
-            } else {
-				System.out.println("결과값 없음");
             }
         } catch (JSONException | NullPointerException exception) {
             exception.printStackTrace();
