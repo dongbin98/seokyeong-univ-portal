@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Station1164PositionTask extends AsyncTask<String, Void, ArrayList<Station>> {
+public class StationTask extends AsyncTask<String, Void, ArrayList<Station>> {
 
     @Override
     protected ArrayList<Station> doInBackground(String... strings) {
@@ -31,72 +31,80 @@ public class Station1164PositionTask extends AsyncTask<String, Void, ArrayList<S
                 int eventType = xpp.getEventType();
 
                 String headerCd = "";
-                String stationId = "";       // 정류소아이디
-                String stationName = "";     // 정류소명
-                String direction = "";       // 방향
-                String posX = "";            // 정류소 좌표X
-                String posY = "";            // 정류소 좌표Y
-                String seq = "";             // 정류소 순번
+				String routeId = "";            // 노선 아이디
+                String stationId = "";          // 정류장 아이디
+                String stationName = "";        // 정류장 이름
+                String direction = "";          // 방향
+                String posX = "";               // 정류장 좌표X
+                String posY = "";               // 정류장 좌표Y
+                String seq = "";                // 정류장 순번
 
-                boolean bSet_headerCd = false;
-                boolean bSet_gpsX = false;
-                boolean bSet_gpsY = false;
-                boolean bSet_stationId = false;
-                boolean bSet_direction = false;
-                boolean bSet_stationNm = false;
-                boolean bSet_seq = false;
+                boolean isHeaderCd = false;
+				boolean isRouteId = false;
+                boolean isGpsX = false;
+                boolean isGpsY = false;
+                boolean isStationid = false;
+                boolean isDirection = false;
+                boolean isStationName = false;
+                boolean isSequence = false;
 
                 while(eventType != XmlPullParser.END_DOCUMENT) {
                     if(eventType == XmlPullParser.START_DOCUMENT) { ; }
                     else if(eventType == XmlPullParser.START_TAG) {
                         String tag_name = xpp.getName();
                         if(tag_name.equals("station"))
-                            bSet_stationId = true;
+	                        isStationid = true;
+						if(tag_name.equals("busRouteId"))
+							isRouteId = true;
                         if(tag_name.equals("headerCd"))
-                            bSet_headerCd = true;
+	                        isHeaderCd = true;
                         if(tag_name.equals("gpsX"))
-                            bSet_gpsX = true;
+	                        isGpsX = true;
                         if(tag_name.equals("gpsY"))
-                            bSet_gpsY = true;
+	                        isGpsY = true;
                         if(tag_name.equals("direction"))
-                            bSet_direction = true;
+	                        isDirection = true;
                         if(tag_name.equals("stationNm"))
-                            bSet_stationNm = true;
+	                        isStationName = true;
                         if(tag_name.equals("seq"))
-                            bSet_seq = true;
+	                        isSequence = true;
                     }
                     else if(eventType == XmlPullParser.TEXT)
                     {
-                        if(bSet_headerCd)
+                        if(isHeaderCd)
                         {
                             headerCd = xpp.getText();
-                            bSet_headerCd = false;
+                            isHeaderCd = false;
                         }
                         if(headerCd.equals("0")) {
-                            if(bSet_direction) {
+                            if(isDirection) {
                                 direction = xpp.getText(); // 1164-서경대, 2115-서경대입구
-                                bSet_direction = false;
+                                isDirection = false;
                             }
-                            if (bSet_stationId) {
+							if(isRouteId) {
+								routeId = xpp.getText();
+								isRouteId = false;
+							}
+                            if (isStationid) {
                                 stationId = xpp.getText();
-                                bSet_stationId = false;
+                                isStationid = false;
                             }
-                            if (bSet_gpsX) {
+                            if (isGpsX) {
                                 posX = xpp.getText();
-                                bSet_gpsX = false;
+                                isGpsX = false;
                             }
-                            if (bSet_gpsY) {
+                            if (isGpsY) {
                                 posY = xpp.getText();
-                                bSet_gpsY = false;
+                                isGpsY = false;
                             }
-                            if (bSet_seq) {
+                            if (isSequence) {
                                 seq = xpp.getText();
-                                bSet_seq = false;
+                                isSequence = false;
                             }
-                            if (bSet_stationNm) {
+                            if (isStationName) {
                                 stationName = xpp.getText();
-                                bSet_stationNm = false;
-                                Station station = new Station(stationId, stationName, seq, direction, Double.parseDouble(posX), Double.parseDouble(posY));
+                                isStationName = false;
+                                Station station = new Station(routeId, stationId, stationName, seq, direction, Double.parseDouble(posX), Double.parseDouble(posY));
                                 stations.add(station);
                             }
                         }

@@ -1,5 +1,6 @@
 package com.dbsh.skup.login;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.dbsh.skup.HttpUrlConnector;
 import com.dbsh.skup.R;

@@ -2,14 +2,16 @@ package com.dbsh.skup.bus;
 
 public class Station {
 
-    private String stationId;       // 정류소아이디
-    private String stationName;     // 정류소명
+	private String routeId;         // 노선 아이디
+    private String stationId;       // 정류장 아이디
+	private String stationName;     // 정류장 이름
     private String direction;       // 방향
-    private String seq;             // 정류소순번
-    private double posX;            // 정류소 좌표X
-    private double posY;            // 정류소 좌표Y
+    private String seq;             // 정류장 순번
+    private double posX;            // 정류장 좌표X
+    private double posY;            // 정류장 좌표Y
 
-    public Station(String stationId, String stationName, String seq, String direction, double posX, double posY) {
+    public Station(String routeId, String stationId, String stationName, String seq, String direction, double posX, double posY) {
+		this.routeId = routeId;
         this.stationId = stationId;
         this.stationName = stationName;
         this.seq = seq;
@@ -20,6 +22,14 @@ public class Station {
 
     public Station() {
     }
+
+	public String getRouteId() {
+		return routeId;
+	}
+
+	public void setRouteId(String routeId) {
+		this.routeId = routeId;
+	}
 
     public String getStationId() {
         return stationId;
