@@ -45,6 +45,7 @@ public class HomeRightFragment extends Fragment {
 	    stations = new ArrayList<>();
 
 		getStationBtn = (Button) rootView.findViewById(R.id.getStationBtn);
+
 		getStationBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
