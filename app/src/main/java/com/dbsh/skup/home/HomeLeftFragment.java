@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
+import com.dbsh.skup.tuition.TuitionActivity;
 
 public class HomeLeftFragment extends Fragment {
 
@@ -83,8 +84,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_regist_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), TuitionActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), TuitionActivity.class);
+                startActivity(intent);
             }
         });
 

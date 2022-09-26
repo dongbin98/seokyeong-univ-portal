@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/qr_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="등록"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tuition_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/roboto"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:text="2022년 1학기 등록금"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="86dp"/>
+
+    <ImageView
+        android:id="@+id/tuition_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/tuition_background"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tuition_title"/>
+
+    <ImageView
+        android:id="@+id/tuition_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:src="@drawable/tuition_paid_circle"
+        app:layout_constraintTop_toTopOf="@+id/tuition_background"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"
+        app:layout_constraintRight_toRightOf="@+id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_circle_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="납부 완료"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/onlyWhite"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        android:layout_marginTop="19dp"
+        app:layout_constraintTop_toBottomOf="@id/tuition_circle"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_circle"
+        app:layout_constraintRight_toRightOf="@id/tuition_circle"/>
+
+    <TextView
+        android:id="@+id/tuition_entfee_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="입학금"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="86dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_circle_text"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_entfee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray2"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="86dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_circle_text"
+        app:layout_constraintRight_toRightOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_lesnfee_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="수업료"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_entfee_title"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_lesnfee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray2"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_entfee"
+        app:layout_constraintRight_toRightOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_coopdegree_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="공동학위"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_lesnfee_title"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_coopdegree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray2"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_lesnfee"
+        app:layout_constraintRight_toRightOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_ussentfee_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="장학입학금"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_coopdegree_title"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_ussentfee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray2"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_coopdegree"
+        app:layout_constraintRight_toRightOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_usslesnfee_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="장학수업료"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_ussentfee_title"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_usslesnfee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray2"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_ussentfee"
+        app:layout_constraintRight_toRightOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_sclstot_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="장학금"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_usslesnfee_title"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_sclstot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray2"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_usslesnfee"
+        app:layout_constraintRight_toRightOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_totamt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="등록금 합계"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_sclstot_title"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_totamt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray2"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_sclstot"
+        app:layout_constraintRight_toRightOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_regamt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="납부 금액"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_totamt_title"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_regamt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray2"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_totamt"
+        app:layout_constraintRight_toRightOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_tmpacct_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="신한은행 가상계좌"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_regamt_title"
+        app:layout_constraintLeft_toLeftOf="@id/tuition_background"/>
+
+    <TextView
+        android:id="@+id/tuition_tmpacct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray2"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="@id/tuition_regamt"
+        app:layout_constraintRight_toRightOf="@id/tuition_background"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

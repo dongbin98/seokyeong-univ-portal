@@ -1,11 +1,13 @@
 package com.dbsh.skup.home;
 
-import android.content.Context;
+import static java.lang.Thread.sleep;
+
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,9 @@ import com.dbsh.skup.R;
 import com.dbsh.skup.bus.BusArriveTask;
 import com.dbsh.skup.bus.Station;
 import com.dbsh.skup.bus.StationTask;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,14 +35,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -52,9 +53,9 @@ public class HomeCenterBustimeFragment extends Fragment {
 	int COUNT = 0;
 	final String fileName = "station.json";
 
-	// for Distance
-	Location location;
-	LocationManager locationManager;
+	// for GPS
+	FusedLocationProviderClient fusedLocationProviderClient;            // GPS + Network 통합
+
 	double myPosX = 0, myPosY = 0, distance = 5000.0;
 	double skuPosY = 37.61601970f, skuPosX = 127.01185885f;
 	final double limitedDistance = 0.005f;
@@ -93,11 +94,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 			getStation();
 		}
 
-		locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-		// 북악관에서 내 위치까지의 거리구하기
-		double myDistance = updateMyDistance();
-		JSONObject result = readFile();
-		updateBusArrive(result, myDistance);
+		fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
 		cardText1.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -108,9 +105,39 @@ public class HomeCenterBustimeFragment extends Fragment {
 				double myDistance = updateMyDistance();
 				JSONObject result = readFile();
 				updateBusArrive(result, myDistance);
-				Toast.makeText(getActivity(), "시간표 새로고침 완료", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "수동갱신", Toast.LENGTH_SHORT).show();
 			}
 		});
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					while (true) {
+						sleep(60000);
+						// 1분마다 갱신
+						Handler handler = new Handler(Looper.getMainLooper());
+						handler.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								arrive1164.clear();
+								arrive2115.clear();
+								double myDistance = updateMyDistance();
+								JSONObject result = readFile();
+								updateBusArrive(result, myDistance);
+							}
+						}, 0);
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+		// 북악관에서 내 위치까지의 거리구하기
+		double myDistance = updateMyDistance();
+		JSONObject result = readFile();
+		updateBusArrive(result, myDistance);
 
         return rootView;
     }
@@ -216,11 +243,17 @@ public class HomeCenterBustimeFragment extends Fragment {
 					0 );
 		}
 		else {
-			location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-			myPosX = location.getLongitude();
-			myPosY = location.getLatitude();
+			fusedLocationProviderClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+				@Override
+				public void onSuccess(Location location) {
+					myPosX = location.getLongitude();
+					myPosY = location.getLatitude();
+				}
+			});
 		}
 		double myDistance = Math.sqrt(Math.pow(skuPosX - myPosX, 2) + Math.pow(skuPosY - myPosY, 2));   // 북악관에서 내위치까지의 거리
+		System.out.println("현재 내 위치는 = " + myPosX +", " + myPosY);
+		System.out.println("거리는 = " + myDistance);
 		return myDistance;
 	}
 
@@ -251,8 +284,10 @@ public class HomeCenterBustimeFragment extends Fragment {
 					double x = Double.parseDouble(jsonArray.getJSONObject(i).get("posX").toString());
 					double y = Double.parseDouble(jsonArray.getJSONObject(i).get("posY").toString());
 					double d = Math.sqrt(Math.pow(x - myPosX, 2) + Math.pow(y - myPosY, 2));
+					System.out.printf("%d번째 조회 : %s정거장(%f, %f)에서 내 거리는 %f입니다.\n", i, jsonArray.getJSONObject(i).get("stationName").toString(), x, y, d);
 					if (distance > d) {
 						distance = d;
+						System.out.println("이 정류장이 우선 채택됨");
 						shortestStationName = jsonArray.getJSONObject(i).get("stationName").toString();
 						shortestStationId = jsonArray.getJSONObject(i).get("stationId").toString();
 						shortestStationSeq = jsonArray.getJSONObject(i).get("sequence").toString();
@@ -298,9 +333,6 @@ public class HomeCenterBustimeFragment extends Fragment {
 			arrive1164Text2.setText(arrive1164.get(1));
 			arrive2115Text1.setText(arrive2115.get(0));
 			arrive2115Text2.setText(arrive2115.get(1));
-
-			System.out.println(arrive1164);
-			System.out.println(arrive2115);
 
 		} catch (JSONException e) {
 			e.printStackTrace();
