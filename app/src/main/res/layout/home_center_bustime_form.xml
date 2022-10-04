@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -32,28 +33,29 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageView
-                android:id="@+id/card3_location_img"
+            <ImageButton
+                android:id="@+id/card3_location_refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/imageview_location"
-                android:layout_marginRight="5dp"
-                app:layout_constraintTop_toTopOf="@id/card3_text1"
-                app:layout_constraintBottom_toBottomOf="@id/card3_text1"
-                app:layout_constraintRight_toLeftOf="@id/card3_location_text"/>
-
-            <TextView
-                android:id="@+id/card3_location_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="서경대 본관"
-                android:textSize="12dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/roboto"
-                android:layout_marginRight="16dp"
+                android:background="@drawable/button_refresh"
+                android:layout_marginRight="22dp"
                 app:layout_constraintTop_toTopOf="@id/card3_text1"
                 app:layout_constraintBottom_toBottomOf="@id/card3_text1"
                 app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                android:id="@+id/card3_location_refresh_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="@color/gray2"
+                android:fontFamily="@font/roboto"
+                android:text="위치갱신 필요"
+                android:layout_marginRight="5dp"
+                app:layout_constraintRight_toLeftOf="@+id/card3_location_refresh"
+                app:layout_constraintTop_toTopOf="@id/card3_location_refresh"
+                app:layout_constraintBottom_toBottomOf="@id/card3_location_refresh"/>
+
 
             <ImageView
                 android:id="@+id/card3_1164"
@@ -64,9 +66,10 @@
                 android:background="@drawable/card_home_center_timetable_background"
                 android:layout_marginTop="14dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card3_location_img"/>
+                app:layout_constraintTop_toBottomOf="@id/card3_location_refresh"/>
 
             <TextView
+                android:id="@+id/card3_1164_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1164"
@@ -76,8 +79,27 @@
                 android:fontFamily="@font/roboto"
                 android:layout_marginLeft="16dp"
                 app:layout_constraintLeft_toLeftOf="@id/card3_1164"
-                app:layout_constraintTop_toTopOf="@id/card3_1164"
-                app:layout_constraintBottom_toBottomOf="@+id/card3_1164"/>
+                app:layout_constraintTop_toTopOf="@id/card3_1164"/>
+
+            <ImageView
+                android:id="@+id/card3_1164_location_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/card3_1164_text"
+                app:layout_constraintTop_toBottomOf="@id/card3_1164_text"
+                android:src="@drawable/imageview_location"/>
+
+            <TextView
+                android:id="@+id/card3_1164_location_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray1"
+                android:textSize="12dp"
+                android:fontFamily="@font/roboto"
+                android:layout_marginLeft="4.5dp"
+                app:layout_constraintTop_toTopOf="@id/card3_1164_location_img"
+                app:layout_constraintLeft_toRightOf="@id/card3_1164_location_img"
+                app:layout_constraintBottom_toBottomOf="@id/card3_1164_location_img"/>
 
             <TextView
                 android:id="@+id/card3_1164_arrive1"
@@ -118,6 +140,7 @@
                 app:layout_constraintTop_toBottomOf="@id/card3_1164"/>
 
             <TextView
+                android:id="@+id/card3_2115_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2115"
@@ -127,8 +150,27 @@
                 android:fontFamily="@font/roboto"
                 android:layout_marginLeft="16dp"
                 app:layout_constraintLeft_toLeftOf="@id/card3_2115"
-                app:layout_constraintTop_toTopOf="@id/card3_2115"
-                app:layout_constraintBottom_toBottomOf="@+id/card3_2115"/>
+                app:layout_constraintTop_toTopOf="@id/card3_2115" />
+
+            <ImageView
+                android:id="@+id/card3_2115_location_img"
+                android:layout_width="11dp"
+                android:layout_height="13dp"
+                android:src="@drawable/imageview_location"
+                app:layout_constraintLeft_toLeftOf="@id/card3_2115_text"
+                app:layout_constraintTop_toBottomOf="@id/card3_2115_text" />
+
+            <TextView
+                android:id="@+id/card3_2115_location_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray1"
+                android:textSize="12dp"
+                android:fontFamily="@font/roboto"
+                android:layout_marginLeft="4.5dp"
+                app:layout_constraintTop_toTopOf="@id/card3_2115_location_img"
+                app:layout_constraintLeft_toRightOf="@id/card3_2115_location_img"
+                app:layout_constraintBottom_toBottomOf="@id/card3_2115_location_img"/>
 
             <TextView
                 android:id="@+id/card3_2115_arrive1"

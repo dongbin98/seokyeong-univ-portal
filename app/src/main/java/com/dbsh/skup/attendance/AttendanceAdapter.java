@@ -51,11 +51,12 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final AttendanceItem item = data.get(position);
         final AttendanceHolder itemController = (AttendanceHolder) holder;
-        itemController.attendance_title.setText(item.text);
+        itemController.attendance_title.setText(item.   text);
         itemController.attendance_subj.setText(item.text2);
         itemController.attendance_percent.setText(item.text3 + "%");
 
         itemController.attendance_progressbar.setProgress(0);
+		itemController.attendance_progressbar.setProgress(1);
         if(item.percent == 100) {
             // 파란색 막대기
             itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_blue_progressbar));
