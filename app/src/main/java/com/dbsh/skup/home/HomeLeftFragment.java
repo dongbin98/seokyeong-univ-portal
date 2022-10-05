@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
+import com.dbsh.skup.attendance.AttendanceActivity;
+import com.dbsh.skup.qrcode.QrcodeActivity;
+import com.dbsh.skup.scholarship.ScholarshipActivity;
 import com.dbsh.skup.tuition.TuitionActivity;
 
 public class HomeLeftFragment extends Fragment {
@@ -37,14 +40,16 @@ public class HomeLeftFragment extends Fragment {
         main_menu_poten_btn = rootView.findViewById(R.id.main_menu_poten_btn);
         main_menu_qr_btn = rootView.findViewById(R.id.main_menu_qr_btn);
 
+		// 출결 버튼
         main_menu_attendance_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), AttendanceActivity.class);
+                startActivity(intent);
             }
         });
 
+		// 시간표 버튼
         main_menu_timetable_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,8 +80,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_scholarship_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), ScholarshipActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), ScholarshipActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -111,8 +116,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_qr_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), QRActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), QrcodeActivity.class);
+                startActivity(intent);
             }
         });
 

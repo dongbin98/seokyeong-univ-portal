@@ -1,10 +1,16 @@
 package com.dbsh.skup.tuition;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,6 +30,7 @@ public class TuitionActivity extends AppCompatActivity {
     ImageView view;         // 백그라운드
     TextView divide_text;   // 납부 완료 OR 납부 미완료
     ImageView circle;       // 납부 완료 미완료 동그라미
+	ImageButton tuitionPaste;   // 가상계좌번호 복사버튼
 
     TextView title;         // 제목
     TextView entFee;        // 입학금
@@ -80,7 +87,17 @@ public class TuitionActivity extends AppCompatActivity {
         sclsTot = (TextView) findViewById(R.id.tuition_sclstot);      // 장학금(합계)
         totAmt = (TextView) findViewById(R.id.tuition_totamt);        // 등록금합계
         regAmt = (TextView) findViewById(R.id.tuition_regamt);        // 납부금액
-        tmpAcct = (TextView) findViewById(R.id.tuition_tmpacct);     // 신한은행 가상계좌
+        tmpAcct = (TextView) findViewById(R.id.tuition_tmpacct);      // 신한은행 가상계좌
+	    tuitionPaste = (ImageButton) findViewById(R.id.tuition_paste);    // 가상계좌번호 복사버튼
+	    tuitionPaste.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View view) {
+			    ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+			    ClipData clip = ClipData.newPlainText("sex", tmpAcct.getText());
+			    clipboard.setPrimaryClip(clip);
+			    Toast.makeText(TuitionActivity.this, "복사되었습니다.", Toast.LENGTH_SHORT).show();
+		    }
+	    });
 
         new Thread(new Runnable() {
             @Override

@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +41,7 @@ public class AttendanceActivity extends AppCompatActivity {
 	AttendanceAdapter adapter;
 	RecyclerView attendanceList;
 	Spinner attendanceSpinner, attendanceSpinner2;
-	Button attendanceBtn;
+	ImageButton attendanceBtn;
 	ArrayList<String> spinnerItem, spinnerItem2;
 	User user;
 
@@ -66,7 +67,7 @@ public class AttendanceActivity extends AppCompatActivity {
 
 		attendanceSpinner = (Spinner) findViewById(R.id.attendance_spinner);
 		attendanceSpinner2 = (Spinner) findViewById(R.id.attendance_spinner2);
-		attendanceBtn = (Button) findViewById(R.id.attendance_btn);
+		attendanceBtn = (ImageButton) findViewById(R.id.attendance_btn);
 		attendanceList = (RecyclerView) findViewById(R.id.attendance_recyclerview);
 		adapter = new AttendanceAdapter(data);
 

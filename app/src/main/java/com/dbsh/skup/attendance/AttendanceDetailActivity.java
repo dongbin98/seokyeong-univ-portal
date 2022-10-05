@@ -125,8 +125,8 @@ public class AttendanceDetailActivity extends AppCompatActivity {
                         Date t1Date = null;
 
                         try {
-                            dateDate = format.parse(data.getText3());
-                            t1Date = format.parse(t1.getText3());
+                            dateDate = format.parse(data.getDate());
+                            t1Date = format.parse(t1.getDate());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -183,17 +183,17 @@ public class AttendanceDetailActivity extends AppCompatActivity {
                     if(div == 0) {
                         atte_cnt += 1;
                         data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
-                                "출석", "출석", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString().replace("/", "-"), "출석했습니다."));
+                                "출석", "출석", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString(), "출석했습니다."));
                     }
                     else if(div < time) {
                         late_cnt += 1;
                         data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
-                                "지각", "지각", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString().replace("/", "-"), (div + "시간 지각했습니다.")));
+                                "지각", "지각", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString(), (div + "시간 지각했습니다.")));
                     }
                     else {
                         absn_cnt += 1;
                         data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
-                                "결석", "결석", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString().replace("/", "-"), "결석했습니다."));
+                                "결석", "결석", jsonArray.getJSONObject(i).get("CHECK_DATE_NM").toString(), "결석했습니다."));
                     }
                 }
             }

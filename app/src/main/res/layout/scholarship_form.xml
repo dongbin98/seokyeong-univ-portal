@@ -14,7 +14,7 @@
         android:background="@color/white">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/attendance_toolbar"
+            android:id="@+id/scholarship_toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@color/white"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto"
-                android:text="출결"
+                android:text="장학"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:textStyle="bold"
@@ -36,51 +36,51 @@
         </androidx.appcompat.widget.Toolbar>
 
         <Spinner
-            android:id="@+id/attendance_spinner"
+            android:id="@+id/scholarship_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:layout_marginLeft="16dp"
             android:background="@drawable/spinner_attendance_background"
-            app:layout_constraintTop_toBottomOf="@id/attendance_toolbar"
+            app:layout_constraintTop_toBottomOf="@id/scholarship_toolbar"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <Spinner
-            android:id="@+id/attendance_spinner2"
+            android:id="@+id/scholarship_spinner2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:layout_marginLeft="8dp"
             android:background="@drawable/spinner_attendance_background"
-            app:layout_constraintTop_toBottomOf="@id/attendance_toolbar"
-            app:layout_constraintLeft_toRightOf="@id/attendance_spinner"/>
+            app:layout_constraintTop_toBottomOf="@id/scholarship_toolbar"
+            app:layout_constraintLeft_toRightOf="@id/scholarship_spinner"/>
 
         <ImageButton
-            android:id="@+id/attendance_btn"
+            android:id="@+id/scholarship_btn"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginLeft="8dp"
             android:background="@drawable/button_mainblue_background"
-            app:layout_constraintTop_toTopOf="@id/attendance_spinner2"
-            app:layout_constraintBottom_toBottomOf="@id/attendance_spinner2"
-            app:layout_constraintLeft_toRightOf="@id/attendance_spinner2"/>
+            app:layout_constraintTop_toTopOf="@id/scholarship_spinner2"
+            app:layout_constraintBottom_toBottomOf="@id/scholarship_spinner2"
+            app:layout_constraintLeft_toRightOf="@id/scholarship_spinner2"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/button_search"
             android:elevation="1dp"
-            app:layout_constraintTop_toTopOf="@id/attendance_btn"
-            app:layout_constraintLeft_toLeftOf="@id/attendance_btn"
-            app:layout_constraintRight_toRightOf="@+id/attendance_btn"
-            app:layout_constraintBottom_toBottomOf="@id/attendance_btn"/>
+            app:layout_constraintTop_toTopOf="@id/scholarship_btn"
+            app:layout_constraintLeft_toLeftOf="@id/scholarship_btn"
+            app:layout_constraintRight_toRightOf="@+id/scholarship_btn"
+            app:layout_constraintBottom_toBottomOf="@id/scholarship_btn"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/attendance_recyclerview"
+            android:id="@+id/scholarship_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/attendance_spinner"
+            app:layout_constraintTop_toBottomOf="@id/scholarship_spinner"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 

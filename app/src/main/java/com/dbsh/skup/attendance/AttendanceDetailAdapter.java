@@ -50,10 +50,10 @@ public class AttendanceDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
             itemController.attendanceTypeCircle.setImageDrawable(context.getDrawable(R.drawable.imageview_attendance_red_dot_circle));
         }
 
-        itemController.attendanceType.setText(item.text);
-        itemController.attendanceState.setText(item.text2);
-        itemController.attendanceDate.setText("ㆍ" + item.text3);
-        itemController.attendanceString.setText(item.text4);
+        itemController.attendanceType.setText(item.type);
+        itemController.attendanceState.setText(item.state);
+        itemController.attendanceDate.setText(item.date);
+        itemController.attendanceString.setText(item.text);
     }
 
     @Override
@@ -79,45 +79,46 @@ public class AttendanceDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public static class AttendanceDetailItem {
-        public String text, text2, text3, text4;
+        public String type, state, date, text;
         public AttendanceDetailItem() {}
-        public AttendanceDetailItem(String text, String text2, String text3, String text4) {
-            this.text = text;       // 동그라미 안에 출석 타입
-            this.text2 = text2;     // 출석 상태
-            this.text3 = text3;     // 날짜
-            this.text4 = text4;     // 텍스트로 안내
-        }
 
-        public String getText() {
-            return text;
-        }
+	    public AttendanceDetailItem(String type, String state, String date, String text) {
+		    this.type = type;       // 동그라미 안에 출석 타입
+		    this.state = state;     // 출석 상태
+		    this.date = "ㆍ" + date.replace("/", "-");     // 날짜
+		    this.text = text;     // 텍스트로 안내
+	    }
 
-        public void setText(String text) {
-            this.text = text;
-        }
+	    public String getType() {
+		    return type;
+	    }
 
-        public String getText2() {
-            return text2;
-        }
+	    public void setType(String type) {
+		    this.type = type;
+	    }
 
-        public void setText2(String text2) {
-            this.text2 = text2;
-        }
+	    public String getState() {
+		    return state;
+	    }
 
-        public String getText3() {
-            return text3;
-        }
+	    public void setState(String state) {
+		    this.state = state;
+	    }
 
-        public void setText3(String text3) {
-            this.text3 = text3;
-        }
+	    public String getDate() {
+		    return date;
+	    }
 
-        public String getText4() {
-            return text4;
-        }
+	    public void setDate(String date) {
+		    this.date = date;
+	    }
 
-        public void setText4(String text4) {
-            this.text4 = text4;
-        }
+	    public String getText() {
+		    return text;
+	    }
+
+	    public void setText(String text) {
+		    this.text = text;
+	    }
     }
 }

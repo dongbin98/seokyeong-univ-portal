@@ -127,7 +127,7 @@
             android:id="@+id/main_menu_grade_img"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/button_quick_attendance"
+            android:src="@drawable/button_quick_grade"
             app:layout_constraintTop_toTopOf="@id/main_menu_grade_btn"
             app:layout_constraintLeft_toLeftOf="@id/main_menu_grade_btn"
             app:layout_constraintRight_toRightOf="@id/main_menu_grade_btn"

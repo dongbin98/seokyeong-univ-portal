@@ -32,6 +32,7 @@
         <activity android:name=".qrcode.QrcodeActivity"/>
         <activity android:name=".login.MainActivity"/>
         <activity android:name=".tuition.TuitionActivity"/>
+        <activity android:name=".scholarship.ScholarshipActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
