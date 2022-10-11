@@ -36,11 +36,11 @@ public class AttendanceDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
         final AttendanceDetailItem item = data.get(position);
         final AttendanceDetailHolder itemController = (AttendanceDetailHolder) holder;
 
-        if(item.text.equals("출석")) {
+        if(item.type.equals("출석")) {
             itemController.attendanceType.setTextColor(context.getColor(R.color.mainBlue));
             itemController.attendanceState.setTextColor(context.getColor(R.color.mainBlue));
             itemController.attendanceTypeCircle.setImageDrawable(context.getDrawable(R.drawable.imageview_attendance_blue_dot_circle));
-        } else if(item.text.equals("지각")) {
+        } else if(item.type.equals("지각")) {
             itemController.attendanceType.setTextColor(context.getColor(R.color.mainYellow));
             itemController.attendanceState.setTextColor(context.getColor(R.color.mainYellow));
             itemController.attendanceTypeCircle.setImageDrawable(context.getDrawable(R.drawable.imageview_attendance_yellow_dot_circle));
@@ -52,7 +52,7 @@ public class AttendanceDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         itemController.attendanceType.setText(item.type);
         itemController.attendanceState.setText(item.state);
-        itemController.attendanceDate.setText(item.date);
+        itemController.attendanceDate.setText("ㆍ" + item.date);
         itemController.attendanceString.setText(item.text);
     }
 
@@ -85,7 +85,7 @@ public class AttendanceDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
 	    public AttendanceDetailItem(String type, String state, String date, String text) {
 		    this.type = type;       // 동그라미 안에 출석 타입
 		    this.state = state;     // 출석 상태
-		    this.date = "ㆍ" + date.replace("/", "-");     // 날짜
+		    this.date = date.replace("/", "-");     // 날짜
 		    this.text = text;     // 텍스트로 안내
 	    }
 

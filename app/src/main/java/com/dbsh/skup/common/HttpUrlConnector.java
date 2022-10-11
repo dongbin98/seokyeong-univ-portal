@@ -1,4 +1,4 @@
-package com.dbsh.skup;
+package com.dbsh.skup.common;
 
 import org.json.JSONException;
 import org.json.JSONObject;

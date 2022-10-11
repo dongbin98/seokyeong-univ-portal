@@ -7,16 +7,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dbsh.skup.HttpUrlConnector;
+import com.dbsh.skup.common.HttpUrlConnector;
 import com.dbsh.skup.R;
-import com.dbsh.skup.adapter.SpinnerAdapter;
+import com.dbsh.skup.common.SpinnerAdapter;
 import com.dbsh.skup.user.LectureInfo;
 import com.dbsh.skup.user.User;
 

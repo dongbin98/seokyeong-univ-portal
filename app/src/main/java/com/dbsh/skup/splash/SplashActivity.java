@@ -1,4 +1,4 @@
-package com.dbsh.skup;
+package com.dbsh.skup.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.dbsh.skup.R;
 import com.dbsh.skup.login.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {

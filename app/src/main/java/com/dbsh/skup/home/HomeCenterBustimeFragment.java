@@ -314,7 +314,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 					}
 				}
 			}
-			locationText2.setText(shortestStationName);
+			locationText1.setText(shortestStationName);
 			arrive1164 = getArrive(shortestStationId, "100100171", shortestStationSeq);
 
 			// 2115
@@ -345,7 +345,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 					}
 				}
 			}
-			locationText1.setText(shortestStationName);
+			locationText2.setText(shortestStationName);
 			arrive2115 = getArrive(shortestStationId, "100100598", shortestStationSeq);
 
 			System.out.println(arrive1164.get(0));

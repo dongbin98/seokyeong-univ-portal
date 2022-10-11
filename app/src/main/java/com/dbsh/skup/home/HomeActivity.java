@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ public class HomeActivity extends AppCompatActivity {
 	HomeCenterFragment centerFragment;
 	HomeLeftFragment leftFragment;
 	HomeRightFragment rightFragment;
+
+	long time = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,5 +79,16 @@ public class HomeActivity extends AppCompatActivity {
 				return true;
 			}
 		});
+	}
+
+	@Override
+	public void onBackPressed() {
+		if(System.currentTimeMillis()-time >= 2000) {
+			time=System.currentTimeMillis();
+			Toast.makeText(getApplicationContext(),"한번 더 누르면 로그인창으로 이동합니다.", Toast.LENGTH_SHORT).show();
+		}
+		else if(System.currentTimeMillis()-time < 2000){
+			finish();
+		}
 	}
 }

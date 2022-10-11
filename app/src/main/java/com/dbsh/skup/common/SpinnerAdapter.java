@@ -1,16 +1,11 @@
-package com.dbsh.skup.adapter;
+package com.dbsh.skup.common;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.dbsh.skup.R;
 

@@ -19,8 +19,6 @@ import com.dbsh.skup.notice.Notice;
 import com.dbsh.skup.R;
 import com.dbsh.skup.qrcode.QrcodeActivity;
 import com.dbsh.skup.webview.WebviewActivity;
-import com.dbsh.skup.adapter.HomeNoticeCardAdapter;
-import com.dbsh.skup.adapter.HomeTopCardAdapter;
 import com.dbsh.skup.user.User;
 
 import org.jsoup.Jsoup;

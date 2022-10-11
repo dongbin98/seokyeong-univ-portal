@@ -8,10 +8,10 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_centerHorizontal="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/white"
+        android:background="@drawable/home_navigator_menu_line"
         app:labelVisibilityMode="unlabeled"
         app:itemIconTint="@color/home_navigator_color"
         app:itemTextColor="@color/home_navigator_color"

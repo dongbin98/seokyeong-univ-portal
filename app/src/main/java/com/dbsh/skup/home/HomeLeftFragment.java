@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.attendance.AttendanceActivity;
+import com.dbsh.skup.graduate.GraduateActivity;
 import com.dbsh.skup.qrcode.QrcodeActivity;
 import com.dbsh.skup.scholarship.ScholarshipActivity;
 import com.dbsh.skup.tuition.TuitionActivity;
@@ -98,8 +99,8 @@ public class HomeLeftFragment extends Fragment {
         main_menu_graduate_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), GraduateActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), GraduateActivity.class);
+                startActivity(intent);
             }
         });
 

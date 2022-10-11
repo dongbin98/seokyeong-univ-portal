@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dbsh.skup.HttpUrlConnector;
+import com.dbsh.skup.common.HttpUrlConnector;
 import com.dbsh.skup.R;
 import com.dbsh.skup.user.User;
 

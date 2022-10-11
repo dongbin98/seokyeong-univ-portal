@@ -3,7 +3,6 @@ package com.dbsh.skup.tuition;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,14 +14,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.dbsh.skup.HttpUrlConnector;
+import com.dbsh.skup.common.HttpUrlConnector;
 import com.dbsh.skup.R;
 import com.dbsh.skup.user.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.HttpURLConnection;
 
 public class TuitionActivity extends AppCompatActivity {
     private static final String tuitionURL = "https://sportal.skuniv.ac.kr/sportal/common/selectOne.sku";

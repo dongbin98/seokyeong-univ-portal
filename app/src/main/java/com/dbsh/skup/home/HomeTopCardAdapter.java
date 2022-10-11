@@ -1,4 +1,4 @@
-package com.dbsh.skup.adapter;
+package com.dbsh.skup.home;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
