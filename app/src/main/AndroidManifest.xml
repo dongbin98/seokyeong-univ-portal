@@ -38,6 +38,7 @@
 
         <!-- Temporal Activity -->
         <activity android:name=".tmpstructure.views.MainActivity"/>
+        <activity android:name=".tmpstructure.views.HomeActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
