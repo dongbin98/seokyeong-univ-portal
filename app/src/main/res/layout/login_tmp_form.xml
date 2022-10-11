@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dbsh.skup.tmpstructure.viewmodels.LoginViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/skup_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SKUP"
+            android:textSize="36dp"
+            android:textColor="#4E7CD7"
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="162dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <EditText
+            android:id="@+id/loginID"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:paddingLeft="20dp"
+            android:background="@drawable/edittext_white_background"
+            android:textStyle="normal"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
+            android:textColorHint="#8b8b8b"
+            android:singleLine="true"
+            android:layout_marginTop="90dp"
+            android:text="@{viewModel.id}"
+            android:hint="학번입력"
+            app:layout_constraintTop_toBottomOf="@id/skup_logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <EditText
+            android:id="@+id/loginPW"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="20dp"
+            android:background="@drawable/edittext_white_background"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
+            android:textColorHint="#8b8b8b"
+            android:singleLine="true"
+            android:text="@{viewModel.password}"
+            android:hint="비밀번호 입력"
+            android:password="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginID" />
+
+        <TextView
+            android:id="@+id/login_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자동 로그인"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto"
+            android:textSize="16dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginPW"/>
+
+        <Switch
+            android:id="@+id/loginAuto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:track="@drawable/switch_login_background"
+            android:thumb="@drawable/switch_login_thumb"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toLeftOf="@+id/login_text1"
+            app:layout_constraintTop_toBottomOf="@+id/loginPW"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="로그인"
+            android:textSize="15dp"
+            android:fontFamily="@font/roboto"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/onlyWhite"
+            android:background="@drawable/button_mainblue_background"
+            android:layout_marginTop="10dp"
+            android:onClick="@{() -> viewModel.onLoginClicked()}"
+            tools:toastMessage="@{viewModel.toastMessage}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginAuto" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -10,7 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.login.MainActivity;
+// import com.dbsh.skup.login.MainActivity;
+import com.dbsh.skup.tmpstructure.views.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
     Animation animFadeIn;

@@ -34,6 +34,10 @@
         <activity android:name=".tuition.TuitionActivity"/>
         <activity android:name=".scholarship.ScholarshipActivity"/>
         <activity android:name=".graduate.GraduateActivity"/>
+
+
+        <!-- Temporal Activity -->
+        <activity android:name=".tmpstructure.views.MainActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
