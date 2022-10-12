@@ -34,19 +34,19 @@ public class BusArriveTask extends AsyncTask<String, Void, ArrayList<String>> {
                 String arrmsg2 = "";            // 두번째 오는 버스
 
                 boolean isHeaderCd = false;
-				boolean isArrmsg1 = false;
-				boolean isArrmsg2 = false;
+                boolean isArrmsg1 = false;
+                boolean isArrmsg2 = false;
 
                 while(eventType != XmlPullParser.END_DOCUMENT) {
                     if(eventType == XmlPullParser.START_DOCUMENT) { ; }
                     else if(eventType == XmlPullParser.START_TAG) {
-	                    String tag_name = xpp.getName();
+                        String tag_name = xpp.getName();
                         if(tag_name.equals("headerCd"))
-	                        isHeaderCd = true;
+                            isHeaderCd = true;
                         if(tag_name.equals("arrmsg1"))
-	                        isArrmsg1 = true;
+                            isArrmsg1 = true;
                         if(tag_name.equals("arrmsg2"))
-	                        isArrmsg2 = true;
+                            isArrmsg2 = true;
                     }
                     else if(eventType == XmlPullParser.TEXT)
                     {
@@ -58,19 +58,19 @@ public class BusArriveTask extends AsyncTask<String, Void, ArrayList<String>> {
                         if(headerCd.equals("0")) {
                             if(isArrmsg1) {
                                 arrmsg1 = xpp.getText(); // 1164-서경대, 2115-서경대입구
-	                            isArrmsg1 = false;
+                                isArrmsg1 = false;
                             }
                             if (isArrmsg2) {
-	                            arrmsg2 = xpp.getText();
-	                            isArrmsg2 = false;
+                                arrmsg2 = xpp.getText();
+                                isArrmsg2 = false;
                             }
                         }
                     }
                     else if(eventType == XmlPullParser.END_TAG) { ; }
                     eventType = xpp.next();
                 }
-	            shortestStation.add(arrmsg1);
-	            shortestStation.add(arrmsg2);
+                shortestStation.add(arrmsg1);
+                shortestStation.add(arrmsg2);
             } catch (Exception e) { Log.e("Error", e.getMessage()); }
         } catch (IOException ex) {
             ex.printStackTrace();

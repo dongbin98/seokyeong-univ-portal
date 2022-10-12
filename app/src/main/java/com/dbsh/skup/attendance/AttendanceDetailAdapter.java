@@ -82,43 +82,43 @@ public class AttendanceDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
         public String type, state, date, text;
         public AttendanceDetailItem() {}
 
-	    public AttendanceDetailItem(String type, String state, String date, String text) {
-		    this.type = type;       // 동그라미 안에 출석 타입
-		    this.state = state;     // 출석 상태
-		    this.date = date.replace("/", "-");     // 날짜
-		    this.text = text;     // 텍스트로 안내
-	    }
+        public AttendanceDetailItem(String type, String state, String date, String text) {
+            this.type = type;       // 동그라미 안에 출석 타입
+            this.state = state;     // 출석 상태
+            this.date = date.replace("/", "-");     // 날짜
+            this.text = text;     // 텍스트로 안내
+        }
 
-	    public String getType() {
-		    return type;
-	    }
+        public String getType() {
+            return type;
+        }
 
-	    public void setType(String type) {
-		    this.type = type;
-	    }
+        public void setType(String type) {
+            this.type = type;
+        }
 
-	    public String getState() {
-		    return state;
-	    }
+        public String getState() {
+            return state;
+        }
 
-	    public void setState(String state) {
-		    this.state = state;
-	    }
+        public void setState(String state) {
+            this.state = state;
+        }
 
-	    public String getDate() {
-		    return date;
-	    }
+        public String getDate() {
+            return date;
+        }
 
-	    public void setDate(String date) {
-		    this.date = date;
-	    }
+        public void setDate(String date) {
+            this.date = date;
+        }
 
-	    public String getText() {
-		    return text;
-	    }
+        public String getText() {
+            return text;
+        }
 
-	    public void setText(String text) {
-		    this.text = text;
-	    }
+        public void setText(String text) {
+            this.text = text;
+        }
     }
 }

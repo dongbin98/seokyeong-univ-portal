@@ -8,36 +8,36 @@ public class LectureInfo {
     String professor;           // 담당교수 번호
     String year;                // 년도
     String term;                // 학기
-	String lectureStartTime;    // 강의 시작시간
-	String lectureEndTime;      // 강의 종료시간
-	String lectureDay;          // 강의 요일
+    String lectureStartTime;    // 강의 시작시간
+    String lectureEndTime;      // 강의 종료시간
+    String lectureDay;          // 강의 요일
 
-	public String getLectureDay() {
-		return lectureDay;
-	}
+    public String getLectureDay() {
+        return lectureDay;
+    }
 
-	public void setLectureDay(String lectureDay) {
-		this.lectureDay = lectureDay;
-	}
+    public void setLectureDay(String lectureDay) {
+        this.lectureDay = lectureDay;
+    }
 
-	public LectureInfo() {
-	}
+    public LectureInfo() {
+    }
 
-	public String getLectureStartTime() {
-		return lectureStartTime;
-	}
+    public String getLectureStartTime() {
+        return lectureStartTime;
+    }
 
-	public void setLectureStartTime(String lectureStartTime) {
-		this.lectureStartTime = lectureStartTime;
-	}
+    public void setLectureStartTime(String lectureStartTime) {
+        this.lectureStartTime = lectureStartTime;
+    }
 
-	public String getLectureEndTime() {
-		return lectureEndTime;
-	}
+    public String getLectureEndTime() {
+        return lectureEndTime;
+    }
 
-	public void setLectureEndTime(String lectureEndTime) {
-		this.lectureEndTime = lectureEndTime;
-	}
+    public void setLectureEndTime(String lectureEndTime) {
+        this.lectureEndTime = lectureEndTime;
+    }
 
     public String getLectureName() {
         return lectureName;

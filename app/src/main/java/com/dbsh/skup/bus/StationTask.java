@@ -31,7 +31,7 @@ public class StationTask extends AsyncTask<String, Void, ArrayList<Station>> {
                 int eventType = xpp.getEventType();
 
                 String headerCd = "";
-				String routeId = "";            // 노선 아이디
+                String routeId = "";            // 노선 아이디
                 String stationId = "";          // 정류장 아이디
                 String stationName = "";        // 정류장 이름
                 String direction = "";          // 방향
@@ -40,7 +40,7 @@ public class StationTask extends AsyncTask<String, Void, ArrayList<Station>> {
                 String seq = "";                // 정류장 순번
 
                 boolean isHeaderCd = false;
-				boolean isRouteId = false;
+                boolean isRouteId = false;
                 boolean isGpsX = false;
                 boolean isGpsY = false;
                 boolean isStationid = false;
@@ -53,21 +53,21 @@ public class StationTask extends AsyncTask<String, Void, ArrayList<Station>> {
                     else if(eventType == XmlPullParser.START_TAG) {
                         String tag_name = xpp.getName();
                         if(tag_name.equals("station"))
-	                        isStationid = true;
-						if(tag_name.equals("busRouteId"))
-							isRouteId = true;
+                            isStationid = true;
+                        if(tag_name.equals("busRouteId"))
+                            isRouteId = true;
                         if(tag_name.equals("headerCd"))
-	                        isHeaderCd = true;
+                            isHeaderCd = true;
                         if(tag_name.equals("gpsX"))
-	                        isGpsX = true;
+                            isGpsX = true;
                         if(tag_name.equals("gpsY"))
-	                        isGpsY = true;
+                            isGpsY = true;
                         if(tag_name.equals("direction"))
-	                        isDirection = true;
+                            isDirection = true;
                         if(tag_name.equals("stationNm"))
-	                        isStationName = true;
+                            isStationName = true;
                         if(tag_name.equals("seq"))
-	                        isSequence = true;
+                            isSequence = true;
                     }
                     else if(eventType == XmlPullParser.TEXT)
                     {
@@ -81,10 +81,10 @@ public class StationTask extends AsyncTask<String, Void, ArrayList<Station>> {
                                 direction = xpp.getText(); // 1164-서경대, 2115-서경대입구
                                 isDirection = false;
                             }
-							if(isRouteId) {
-								routeId = xpp.getText();
-								isRouteId = false;
-							}
+                            if(isRouteId) {
+                                routeId = xpp.getText();
+                                isRouteId = false;
+                            }
                             if (isStationid) {
                                 stationId = xpp.getText();
                                 isStationid = false;

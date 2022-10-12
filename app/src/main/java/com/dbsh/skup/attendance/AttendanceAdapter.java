@@ -1,8 +1,6 @@
 package com.dbsh.skup.attendance;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +54,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         itemController.attendance_percent.setText(item.text3 + "%");
 
         itemController.attendance_progressbar.setProgress(0);
-		itemController.attendance_progressbar.setProgress(1);
+        itemController.attendance_progressbar.setProgress(1);
         if(item.percent == 100) {
             // 파란색 막대기
             itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_blue_progressbar));
@@ -69,7 +67,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             // 빨간색 막대기
             itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_red_progressbar));
         }
-        
+
         itemController.itemView.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View view) {

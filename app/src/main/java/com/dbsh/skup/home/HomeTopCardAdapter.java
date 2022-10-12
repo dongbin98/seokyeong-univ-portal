@@ -5,12 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.dbsh.skup.home.HomeCenterBustimeFragment;
-import com.dbsh.skup.home.HomeCenterInformationFragment;
-import com.dbsh.skup.home.HomeCenterTimetableFragment;
-
-import java.util.ArrayList;
-
 public class HomeTopCardAdapter extends FragmentStateAdapter {
     private int mCount;
     public HomeTopCardAdapter(FragmentActivity fa, int count) {

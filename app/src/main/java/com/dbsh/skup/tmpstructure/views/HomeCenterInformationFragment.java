@@ -4,39 +4,34 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.user.User;
+import com.dbsh.skup.databinding.HomeTmpCenterInformationFormBinding;
+import com.dbsh.skup.tmpstructure.data.UserData;
+import com.dbsh.skup.tmpstructure.viewmodels.HomeCenterInformationViewModel;
 
 public class HomeCenterInformationFragment extends Fragment {
 
-    User userData;
+    private HomeTmpCenterInformationFormBinding binding;
+    private HomeCenterInformationViewModel viewModel;
 
-    TextView college;
-    TextView major;
-    TextView stu_info;
-    TextView mail_addr;
-    TextView mentor_name;
-    TextView haknyun_text;
+    UserData userData;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.home_center_information_form, container, false);
+        /* Data Binding */
+        binding = DataBindingUtil.inflate(inflater, R.layout.home_tmp_center_information_form, container, false);
+        viewModel = new HomeCenterInformationViewModel();
+        binding.setViewModel(viewModel);
+        binding.executePendingBindings();
 
-        college = rootView.findViewById(R.id.card1_college);
-        major = rootView.findViewById(R.id.card1_major);
-        stu_info = rootView.findViewById(R.id.card1_stu_info);
-        mail_addr = rootView.findViewById(R.id.card1_mail_addr);
-        mentor_name = rootView.findViewById(R.id.card1_mentor_name);
-        haknyun_text = rootView.findViewById(R.id.card1_haknyun_text);
-
-        userData = ((User) getActivity().getApplication());
+        userData = ((UserData) getActivity().getApplication());
 
         String col = userData.getColName();
         String ma = userData.getDeptName();
@@ -45,13 +40,15 @@ public class HomeCenterInformationFragment extends Fragment {
         String mentor = userData.getTutorName() + " 멘토";
         String haknyun = userData.getSchYR() + "학년";
 
-        college.setText(col);
-        major.setText(ma);
-        stu_info.setText(studentId);
-        mail_addr.setText(email);
-        mentor_name.setText(mentor);
-        haknyun_text.setText(haknyun);
+        System.out.println("college = " + col);
 
-        return rootView;
+        binding.card1College.setText(col);
+        binding.card1Major.setText(ma);
+        binding.card1StuInfo.setText(studentId);
+        binding.card1MailAddr.setText(email);
+        binding.card1MentorName.setText(mentor);
+        binding.card1HaknyunText.setText(haknyun);
+
+        return binding.getRoot();
     }
 }

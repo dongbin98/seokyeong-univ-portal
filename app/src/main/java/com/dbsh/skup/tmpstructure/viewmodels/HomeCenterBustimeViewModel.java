@@ -3,8 +3,10 @@ package com.dbsh.skup.tmpstructure.viewmodels;
 import android.content.Context;
 import android.util.Log;
 
-import com.dbsh.skup.tmpstructure.api.RetrofitBusAPI;
-import com.dbsh.skup.tmpstructure.api.RetrofitBusClient;
+import androidx.lifecycle.MutableLiveData;
+
+import com.dbsh.skup.tmpstructure.Service.BusService;
+import com.dbsh.skup.tmpstructure.api.BusApi;
 import com.dbsh.skup.tmpstructure.model.ResponseArrive;
 import com.dbsh.skup.tmpstructure.model.ResponseStation;
 import com.dbsh.skup.tmpstructure.model.ResponseStationItem;
@@ -29,6 +31,16 @@ import retrofit2.Response;
 
 public class HomeCenterBustimeViewModel {
 
+    // for TextView Change
+    public MutableLiveData<String> location1164 = new MutableLiveData<>();
+    public MutableLiveData<String> arriveFirst1164 = new MutableLiveData<>();
+    public MutableLiveData<String> arriveSecond1164 = new MutableLiveData<>();
+
+    public MutableLiveData<String> location2115 = new MutableLiveData<>();
+    public MutableLiveData<String> arriveFirst2115 = new MutableLiveData<>();
+    public MutableLiveData<String> arriveSecond2115 = new MutableLiveData<>();
+
+
     // Data.go.kr
     final String serviceKey = "6QzxyxwgIYyrLx303Ylnud8BZMmZ4Caw%2Ble0fsW8oc9lsv0KHGZWV5jhZ%2BLgzGbESVdaYzjRmnnwdzWychAaeA%3D%3D";
 
@@ -45,21 +57,27 @@ public class HomeCenterBustimeViewModel {
     final String direction2115Sku = "서경대입구";         // 2115 서경대 방향
     final String direction2115Garage = "중랑공영차고지";   // 2115 차고지 방향
 
-    String shortestStationName, shortestStationId, shortestStationSeq;
-    public ArrayList<String> arrive1164, arrive2115;
+    public String shortestStationId, shortestStationSeq;
 
-    public HomeCenterBustimeViewModel(Context context) {
-        this.context = context;
-    }
-
-    public RetrofitBusAPI retrofitBusAPI;
+    // Retrofit Client
+    public BusApi busApi;
 
     // for Json File
     int COUNT = 0;
     final String fileName = "station.json";
 
-    public void getStation() {
-        RetrofitBusClient retrofitBusClient = RetrofitBusClient.getInstance();
+    public HomeCenterBustimeViewModel(Context context) {
+        this.context = context;
+        location1164.setValue("");
+        location2115.setValue("");
+        arriveFirst1164.setValue("");
+        arriveFirst2115.setValue("");
+        arriveSecond1164.setValue("");
+        arriveSecond2115.setValue("");
+    }
+
+    public void getStation() throws IOException {
+        BusService retrofitBusClient = BusService.getInstance();
         ArrayList<ResponseStationItem> stations = new ArrayList<>();
         if(retrofitBusClient != null) {
 
@@ -71,37 +89,16 @@ public class HomeCenterBustimeViewModel {
             map2115.put("serviceKey", serviceKey);
             map2115.put("busRouteId", "100100598");
 
-            retrofitBusAPI = RetrofitBusClient.getRetrofitBusAPI();
+            busApi = BusService.getBusApi();
 
-            retrofitBusAPI.getStationData(map1164).enqueue(new Callback<ResponseStation>() {
-                @Override
-                public void onResponse(Call<ResponseStation> call, Response<ResponseStation> response) {
-                    ResponseStation station = response.body();
-                    if(response.body().getHeader().getHeaderCd().equals("0"))
-                        stations.addAll(station.getBody().getItems());
-                }
+            // 파일생성전에 데이터가 다 만들어져야 하기때문에 동기식으로 call
+            ResponseStation station = busApi.getStationData(map1164).execute().body();
+            if(station.getHeader().getHeaderCd().equals("0"))
+                stations.addAll(station.getBody().getItems());
 
-                @Override
-                public void onFailure(Call<ResponseStation> call, Throwable t) {
-                    // 통신 불가능
-                    Log.d("Failure", t.getLocalizedMessage());
-                }
-            });
-
-            retrofitBusAPI.getStationData(map2115).enqueue(new Callback<ResponseStation>() {
-                @Override
-                public void onResponse(Call<ResponseStation> call, Response<ResponseStation> response) {
-                    ResponseStation station = response.body();
-                    if(response.body().getHeader().getHeaderCd().equals("0"))
-                        stations.addAll(station.getBody().getItems());
-                }
-
-                @Override
-                public void onFailure(Call<ResponseStation> call, Throwable t) {
-                    // 통신 불가능
-                    Log.d("Failure", t.getLocalizedMessage());
-                }
-            });
+            ResponseStation station2 = busApi.getStationData(map2115).execute().body();
+            if(station2.getHeader().getHeaderCd().equals("0"))
+                stations.addAll(station2.getBody().getItems());
 
             try {
                 writeFile(makeJson(stations));
@@ -150,9 +147,8 @@ public class HomeCenterBustimeViewModel {
         bw.close();
     }
 
-    public ArrayList<String> getArrive(String stationId, String routeId, String seq) {
-        RetrofitBusClient retrofitBusClient = RetrofitBusClient.getInstance();
-        ArrayList<String> result = new ArrayList<>();
+    public void getArrive(String stationId, String routeId, String seq) {
+        BusService retrofitBusClient = BusService.getInstance();
         if(retrofitBusClient != null) {
 
             Map<String, String> arrive = new HashMap<>();
@@ -161,10 +157,8 @@ public class HomeCenterBustimeViewModel {
             arrive.put("busRouteId", routeId);
             arrive.put("ord", seq);
 
-            System.out.println(arrive.toString());
-
-            retrofitBusAPI = RetrofitBusClient.getRetrofitBusAPI();
-            retrofitBusAPI.getArriveData(arrive).enqueue(new Callback<ResponseArrive>() {
+            busApi = BusService.getBusApi();
+            busApi.getArriveData(arrive).enqueue(new Callback<ResponseArrive>() {
                 @Override
                 public void onResponse(Call<ResponseArrive> call, Response<ResponseArrive> response) {
                     ResponseArrive responseArrive = response.body();
@@ -172,11 +166,16 @@ public class HomeCenterBustimeViewModel {
                     if (responseArrive.getHeader().getHeaderCd().equals("0")) {
                         System.out.println(responseArrive);
                         System.out.println(responseArrive.getHeader());
-//                        System.out.println(responseArrive.getBody());
-//                        System.out.println(responseArrive.getBody().getItem());
-//
-//                        result.add(responseArrive.getBody().getItem().getArrMsg1());
-//                        result.add(responseArrive.getBody().getItem().getArrMsg2());
+                        System.out.println(responseArrive.getBody());
+                        System.out.println(responseArrive.getBody().getItem());
+
+                        if (routeId.equals("100100171")) {  // 1164 정보
+                            arriveFirst1164.setValue(responseArrive.getBody().getItem().getArrMsg1());
+                            arriveSecond1164.setValue(responseArrive.getBody().getItem().getArrMsg2());
+                        } else {    // 2115 정보
+                            arriveFirst2115.setValue(responseArrive.getBody().getItem().getArrMsg1());
+                            arriveSecond2115.setValue(responseArrive.getBody().getItem().getArrMsg2());
+                        }
                     }
                 }
 
@@ -187,13 +186,12 @@ public class HomeCenterBustimeViewModel {
                 }
             });
         }
-        return result;
 	}
 
     public void updateBusArrive(double myGpsX, double myGpsY) {
         // 내 거리 구하기
         double myDistance = Math.sqrt(Math.pow(skuPosX - myGpsX, 2) + Math.pow(skuPosY - myGpsY, 2));   // 북악관에서 내위치까지의 거리
-        System.out.println("현재 내 위치는!! = " + myGpsX + ", " + myGpsY);
+        System.out.println("현재 내 위치는 = " + myGpsX + ", " + myGpsY);
         System.out.println("거리는 = " + myDistance);
 
         // 정류장 정보 파일에서 읽어오기
@@ -230,7 +228,7 @@ public class HomeCenterBustimeViewModel {
 					double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
 					if (distance > d) {
 						distance = d;
-						shortestStationName = jsonArray.getJSONObject(i).get("stationName").toString();
+                        location1164.setValue(jsonArray.getJSONObject(i).get("stationName").toString());
 						shortestStationId = jsonArray.getJSONObject(i).get("stationId").toString();
 						shortestStationSeq = jsonArray.getJSONObject(i).get("sequence").toString();
 					}
@@ -244,16 +242,13 @@ public class HomeCenterBustimeViewModel {
 					//System.out.printf("%d번째 조회 : %s정거장(%f, %f)에서 내 거리는 %f입니다.\n", i, jsonArray.getJSONObject(i).get("stationName").toString(), x, y, d);
 					if (distance > d) {
 						distance = d;
-						shortestStationName = jsonArray.getJSONObject(i).get("stationName").toString();
+                        location1164.setValue(jsonArray.getJSONObject(i).get("stationName").toString());
 						shortestStationId = jsonArray.getJSONObject(i).get("stationId").toString();
 						shortestStationSeq = jsonArray.getJSONObject(i).get("sequence").toString();
 					}
 				}
 			}
-			//locationText1.setText(shortestStationName);
-            System.out.println(shortestStationId);
-            System.out.println(shortestStationSeq);
-			arrive1164 = getArrive(shortestStationId, "100100171", shortestStationSeq);
+			getArrive(shortestStationId, "100100171", shortestStationSeq);
 
 			// 2115
 			distance = 5000;
@@ -265,7 +260,7 @@ public class HomeCenterBustimeViewModel {
 					double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
 					if(distance > d) {
 						distance = d;
-						shortestStationName = jsonArray.getJSONObject(i).get("stationName").toString();
+                        location2115.setValue(jsonArray.getJSONObject(i).get("stationName").toString());
 						shortestStationId = jsonArray.getJSONObject(i).get("stationId").toString();
 						shortestStationSeq = jsonArray.getJSONObject(i).get("sequence").toString();
 					}
@@ -277,22 +272,13 @@ public class HomeCenterBustimeViewModel {
 					double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
 					if(distance > d) {
 						distance = d;
-						shortestStationName = jsonArray.getJSONObject(i).get("stationName").toString();
+                        location2115.setValue(jsonArray.getJSONObject(i).get("stationName").toString());
 						shortestStationId = jsonArray.getJSONObject(i).get("stationId").toString();
 						shortestStationSeq = jsonArray.getJSONObject(i).get("sequence").toString();
 					}
 				}
 			}
-			//locationText2.setText(shortestStationName);
-			arrive2115 = getArrive(shortestStationId, "100100598", shortestStationSeq);
-
-			//System.out.println(arrive1164.get(0));
-			//System.out.println(arrive2115.get(0));
-
-			//arrive1164Text1.setText(arrive1164.get(0));
-			//arrive1164Text2.setText(arrive1164.get(1));
-			//arrive2115Text1.setText(arrive2115.get(0));
-			//arrive2115Text2.setText(arrive2115.get(1));
+			getArrive(shortestStationId, "100100598", shortestStationSeq);
 
 		} catch (JSONException e) {
 			e.printStackTrace();

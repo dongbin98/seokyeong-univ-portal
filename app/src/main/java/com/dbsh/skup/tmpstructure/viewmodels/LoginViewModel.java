@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.tmpstructure.api.RetrofitAPI;
-import com.dbsh.skup.tmpstructure.api.RetrofitClient;
+import com.dbsh.skup.tmpstructure.Service.PortalService;
+import com.dbsh.skup.tmpstructure.api.PortalApi;
 import com.dbsh.skup.tmpstructure.model.RequestUserData;
 import com.dbsh.skup.tmpstructure.model.ResponseLogin;
 import com.dbsh.skup.tmpstructure.model.ResponseUserInfo;
@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class LoginViewModel extends ViewModel {
 
-	public RetrofitAPI retrofitAPI;
+	public PortalApi portalApi;
 
 	// 로그인 데이터
 	public LiveData<String> loginId = new MutableLiveData<>();
@@ -51,43 +51,18 @@ public class LoginViewModel extends ViewModel {
 
 	public void getLectureData(String token, String id, String year, String term) {
 		System.out.printf("%s년 %s학기 조회", year, term);
-		RetrofitClient retrofitClient = RetrofitClient.getInstance();
+		PortalService retrofitClient = PortalService.getInstance();
 		if(retrofitClient != null) {
-			retrofitAPI = RetrofitClient.getRetrofitAPI();
+			portalApi = PortalService.getPortalApi();
 		}
 	}
 
 	public ResponseLogin getUserData(String loginId, String loginPassword) throws IOException {
 		ResponseLogin login = null;
-		RetrofitClient retrofitClient = RetrofitClient.getInstance();
+		PortalService retrofitClient = PortalService.getInstance();
 		if(retrofitClient != null) {
-			retrofitAPI = RetrofitClient.getRetrofitAPI();
-			login = retrofitAPI.getUserData(new RequestUserData(loginId, loginPassword, "password", "sku")).execute().body();
-			/* 비동기식 처리 */
-//			retrofitAPI.getUserData(new RequestUserData(loginId, loginPassword, "password", "sku")).enqueue(new Callback<ResponseLogin>() {
-//				@Override
-//				public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-//
-//					assert response.body() != null;
-//					login = response.body();
-//
-//					if(login.getRtnStatus().equals("S")) {
-//						ResponseUserInfo userInfo = login.getUserInfo();
-//						List<ResponseYearList> yearList = login.getYearList();
-//						System.out.println(login);
-//						System.out.println(userInfo);
-//						for (ResponseYearList year : yearList)
-//							System.out.println(year);
-//						success[0] = true;
-//					}
-//				}
-//
-//				@Override
-//				public void onFailure(Call<ResponseLogin> call, Throwable t) {
-//					// 서버통신 안될 때
-//					success[0] = false;
-//				}
-//			});
+			portalApi = PortalService.getPortalApi();
+			login = portalApi.getUserData(new RequestUserData(loginId, loginPassword, "password", "sku")).execute().body();
 		}
 		return login;
 	}

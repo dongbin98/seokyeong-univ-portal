@@ -8,7 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
-public interface RetrofitAPI {
+public interface PortalApi {
 	/* Login */
 	@Headers({"Accept: application/json", "content-type: application/json"})
 	@POST("auth2/login.sku")

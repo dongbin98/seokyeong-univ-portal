@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".user.User"
+        android:name=".tmpstructure.data.UserData"
         android:hardwareAccelerated="true"
         android:theme="@style/Theme.SKUP"
         android:usesCleartextTraffic="true"
@@ -35,10 +35,10 @@
         <activity android:name=".scholarship.ScholarshipActivity"/>
         <activity android:name=".graduate.GraduateActivity"/>
 
-
         <!-- Temporal Activity -->
         <activity android:name=".tmpstructure.views.MainActivity"/>
         <activity android:name=".tmpstructure.views.HomeActivity"/>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

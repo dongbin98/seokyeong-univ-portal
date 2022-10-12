@@ -94,4 +94,20 @@ public class LectureData {
     public void setTerm(String term) {
         this.term = term;
     }
+
+    @Override
+    public String toString() {
+        return "LectureData{" +
+                "lectureName='" + lectureName + '\'' +
+                ", lectureCd='" + lectureCd + '\'' +
+                ", lectureNumber='" + lectureNumber + '\'' +
+                ", lectureTime='" + lectureTime + '\'' +
+                ", professor='" + professor + '\'' +
+                ", year='" + year + '\'' +
+                ", term='" + term + '\'' +
+                ", lectureStartTime='" + lectureStartTime + '\'' +
+                ", lectureEndTime='" + lectureEndTime + '\'' +
+                ", lectureDay='" + lectureDay + '\'' +
+                '}';
+    }
 }

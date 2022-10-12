@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
 					case R.id.menu_framgent:
 						if(leftFragment == null) {
 							leftFragment = new HomeLeftFragment();
-							getSupportFragmentManager().beginTransaction().add(R.id.main_container, leftFragment).commit();
+							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), leftFragment).commit();
 						}
 						if(leftFragment != null)
 							getSupportFragmentManager().beginTransaction().show(leftFragment).commit();
@@ -61,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
 					case R.id.home_fragment:
 						if(centerFragment == null) {
 							centerFragment = new HomeCenterFragment();
-							getSupportFragmentManager().beginTransaction().add(R.id.main_container, centerFragment).commit();
+							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), centerFragment).commit();
 						}
 						if(leftFragment != null)
 							getSupportFragmentManager().beginTransaction().hide(leftFragment).commit();
@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
 					case R.id.setting_fragment:
 						if(rightFragment == null) {
 							rightFragment = new HomeRightFragment();
-							getSupportFragmentManager().beginTransaction().add(R.id.main_container, rightFragment).commit();
+							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), rightFragment).commit();
 						}
 						if(leftFragment != null)
 							getSupportFragmentManager().beginTransaction().hide(leftFragment).commit();

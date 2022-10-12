@@ -1,6 +1,7 @@
 package com.dbsh.skup.tmpstructure.views;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.HomeTmpCenterBustimeFormBinding;
@@ -28,8 +30,8 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class HomeCenterBustimeFragment extends Fragment {
@@ -42,6 +44,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 
 	// refresh
 	Date date;
+	@SuppressLint("SimpleDateFormat")
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 	// for GPS
@@ -60,14 +63,57 @@ public class HomeCenterBustimeFragment extends Fragment {
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();
 
-		viewModel.arrive1164 = new ArrayList<>();
-		viewModel.arrive2115 = new ArrayList<>();
+		viewModel.location1164.observe(getViewLifecycleOwner(), new Observer<String>() {
+			@Override
+			public void onChanged(String s) {
+				binding.card31164LocationText.setText(s);
+			}
+		});
+		viewModel.arriveFirst1164.observe(getViewLifecycleOwner(), new Observer<String>() {
+			@Override
+			public void onChanged(String s) {
+				binding.card31164Arrive1.setText(s);
+			}
+		});
+		viewModel.arriveSecond1164.observe(getViewLifecycleOwner(), new Observer<String>() {
+			@Override
+			public void onChanged(String s) {
+				binding.card31164Arrive2.setText(s);
+			}
+		});
+		viewModel.location2115.observe(getViewLifecycleOwner(), new Observer<String>() {
+			@Override
+			public void onChanged(String s) {
+				binding.card32115LocationText.setText(s);
+			}
+		});
+		viewModel.arriveFirst2115.observe(getViewLifecycleOwner(), new Observer<String>() {
+			@Override
+			public void onChanged(String s) {
+				binding.card32115Arrive1.setText(s);
+			}
+		});
+		viewModel.arriveSecond2115.observe(getViewLifecycleOwner(), new Observer<String>() {
+			@Override
+			public void onChanged(String s) {
+				binding.card32115Arrive2.setText(s);
+			}
+		});
 
-		// 정류장 정보 가져오기
+		// 정류장 정보 가져오기 (동기식)
 		File file = new File(getActivity().getFilesDir(), fileName);
 		if (!file.exists()) {
 			System.out.println("파일이 존재하지 않음");
-			viewModel.getStation();
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						viewModel.getStation();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
 		}
 
 		fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -95,8 +141,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 					for (Location loc : locationResult.getLocations()) {
 						myGpsX = loc.getLongitude();
 						myGpsY = loc.getLatitude();
-						viewModel.arrive1164.clear();
-						viewModel.arrive2115.clear();
+						// 최인접 버스정류장 도착시간 구하기 (비동기식)
 						viewModel.updateBusArrive(myGpsX, myGpsY);
 						date = new Date(System.currentTimeMillis());
 						simpleDateFormat.format(date);
@@ -118,8 +163,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 			public void onClick(View view) {
 				if(file.exists()) {
 					// 클릭 시 북악관에서 내 위치까지의 거리 다시구하기
-					viewModel.arrive1164.clear();
-					viewModel.arrive2115.clear();
+					// 최인접 버스정류장 도착시간 구하기 (비동기식)
 					viewModel.updateBusArrive(myGpsX, myGpsY);
 					date = new Date(System.currentTimeMillis());
 					simpleDateFormat.format(date);

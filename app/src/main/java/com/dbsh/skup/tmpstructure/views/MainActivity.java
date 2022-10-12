@@ -15,8 +15,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.LoginTmpFormBinding;
-import com.dbsh.skup.tmpstructure.model.ResponseLogin;
 import com.dbsh.skup.tmpstructure.data.UserData;
+import com.dbsh.skup.tmpstructure.model.ResponseLogin;
 import com.dbsh.skup.tmpstructure.viewmodels.LoginViewModel;
 
 import java.io.IOException;
@@ -83,27 +83,26 @@ public class MainActivity extends AppCompatActivity {
 									autoLoginEdit.apply();
 								}
 								/* 유저데이터 저장 */
-								userData.setId(response.getUserInfo().getId());
-								userData.setKorName(response.getUserInfo().getKorName());
-								userData.setPhoneNumber(response.getUserInfo().getPhoneMobile());
-								userData.setMajor(response.getUserInfo().getTeamNm());
-								userData.setEmailAddress(response.getUserInfo().getEmail());
-								userData.setWebmailAddress(response.getUserInfo().getWebmailId());
-								userData.setTutorName(response.getUserInfo().getTutorName());
-								userData.setSchInfo(response.getUserInfo().getSchYear(), response.getUserInfo().getSchTerm(), response.getUserInfo().getSchyr(), response.getUserInfo().getSchRegStatNm());
-								userData.setToken(response.getAccessToken());
-								System.out.println("유저정보 저장 성공");
+								((UserData) getApplication()).setId(response.getUserInfo().getId());
+								((UserData) getApplication()).setKorName(response.getUserInfo().getKorName());
+								((UserData) getApplication()).setPhoneNumber(response.getUserInfo().getPhoneMobile());
+								((UserData) getApplication()).setMajor(response.getUserInfo().getColNm(), response.getUserInfo().getTeamNm());
+								((UserData) getApplication()).setEmailAddress(response.getUserInfo().getEmail());
+								((UserData) getApplication()).setWebmailAddress(response.getUserInfo().getWebmailId());
+								((UserData) getApplication()).setTutorName(response.getUserInfo().getTutorName());
+								((UserData) getApplication()).setSchInfo(response.getUserInfo().getSchYear(), response.getUserInfo().getSchTerm(), response.getUserInfo().getSchyr(), response.getUserInfo().getSchRegStatNm());
+								((UserData) getApplication()).setToken(response.getAccessToken());
+								System.out.println(getApplication());
 								/* 강의정보 저장 */
-								if (!userData.getLectureInfos().isEmpty()) {
-									userData.clearLectureInfo();
+								if (!((UserData) getApplication()).getLectureDatas().isEmpty()) {
+									((UserData) getApplication()).clearLectureInfo();
 								}
 								for (int i = 0; i < response.getYearList().size(); i++) {
 									for (int j = 4; j >= 1 ; j--) {	// 1,2,여름계절(3),겨울계절(4) 학기중 수강한 과목 저장
-										viewModel.getLectureData(userData.getToken(), userData.getId(), response.getYearList().get(i).getValue(), Integer.toString(j));
+										viewModel.getLectureData(((UserData) getApplication()).getToken(), ((UserData) getApplication()).getId(), response.getYearList().get(i).getValue(), Integer.toString(j));
 									}
 								}
 								System.out.println("강의정보 저장 성공");
-								System.out.println("acessToken = " + userData.getToken());
 
 								// 홈페이지로 넘어가기
 								Intent intent = new Intent(com.dbsh.skup.tmpstructure.views.MainActivity.this, com.dbsh.skup.tmpstructure.views.HomeActivity.class);

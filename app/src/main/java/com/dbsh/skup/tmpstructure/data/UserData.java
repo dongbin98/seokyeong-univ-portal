@@ -2,8 +2,6 @@ package com.dbsh.skup.tmpstructure.data;
 
 import android.app.Application;
 
-import com.dbsh.skup.user.LectureInfo;
-
 import java.util.ArrayList;
 
 public class UserData extends Application {
@@ -20,10 +18,10 @@ public class UserData extends Application {
     private String schYR;           // 현재 학년
     private String schReg;          // 재학 휴학 여부(한글)
     private String token;           // 로그인 토큰
-	private ArrayList<LectureInfo> lectureInfos;	// 강의정보리스트
+	private ArrayList<LectureData> lectureDatas;	// 강의정보리스트
     
     public UserData() {
-		lectureInfos = new ArrayList<LectureInfo>();
+		lectureDatas = new ArrayList<LectureData>();
     }
 
 	/* Setter */
@@ -40,7 +38,7 @@ public class UserData extends Application {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public void setMajor(String colName) {
+	public void setMajor(String colName, String deptName) {
 		this.colName = colName;
 		this.deptName = deptName;
 	}
@@ -123,18 +121,38 @@ public class UserData extends Application {
 
 	/* clear ArrayList */
 	public void clearLectureInfo() {
-		this.lectureInfos.clear();
+		this.lectureDatas.clear();
 	}
 
-	public ArrayList<LectureInfo> getLectureInfos() {
-		return lectureInfos;
+	public ArrayList<LectureData> getLectureDatas() {
+		return lectureDatas;
 	}
 
-	public void setLectureInfos(ArrayList<LectureInfo> lectureInfos) {
-		this.lectureInfos = lectureInfos;
+	public void setLectureDatas(ArrayList<LectureData> lectureDatas) {
+		this.lectureDatas = lectureDatas;
 	}
 
-	public void addLectureInfo(LectureInfo lectureInfo) {
-		lectureInfos.add(lectureInfo);
+	public void addLectureInfo(LectureData lectureData) {
+		lectureDatas.add(lectureData);
+	}
+
+	@Override
+	public String toString() {
+		return "UserData{" +
+				"id='" + id + '\'' +
+				", korName='" + korName + '\'' +
+				", phoneNumber='" + phoneNumber + '\'' +
+				", colName='" + colName + '\'' +
+				", deptName='" + deptName + '\'' +
+				", emailAddress='" + emailAddress + '\'' +
+				", webmailAddress='" + webmailAddress + '\'' +
+				", tutorName='" + tutorName + '\'' +
+				", schYear='" + schYear + '\'' +
+				", schTerm='" + schTerm + '\'' +
+				", schYR='" + schYR + '\'' +
+				", schReg='" + schReg + '\'' +
+				", token='" + token + '\'' +
+				", lectureDatas=" + lectureDatas +
+				'}';
 	}
 }

@@ -18,121 +18,121 @@ public class User extends Application {
     private String schYR;           // 현재 학년
     private String schReg;          // 재학 휴학 여부(한글)
     private String token;           // 로그인 토큰
-	private ArrayList<LectureInfo> lectureInfos;	// 강의정보리스트
-    
+    private ArrayList<LectureInfo> lectureInfos;	// 강의정보리스트
+
     public User() {
-		lectureInfos = new ArrayList<LectureInfo>();
+        lectureInfos = new ArrayList<LectureInfo>();
     }
 
-	/* Setter */
-	
-	public void setId(String id) {
-		this.id = id;
-	}
-	
-	public void setKorName(String korName) {
-		this.korName = korName;
-	}
-	
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    /* Setter */
 
-	public void setMajor(String colName, String deptName) {
-		this.colName = colName;
-		this.deptName = deptName;
-	}
-	
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
-	
-	public void setWebmailAddress(String webmailAddress) {
-		this.webmailAddress = webmailAddress;
-	}
-	
-	public void setTutorName(String tutorName) {
-		this.tutorName = tutorName;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setSchInfo(String schYear, String schTerm, String schYR, String schReg) {
-		this.schReg = schReg;
-		this.schTerm = schTerm;
-		this.schYR = schYR;
-		this.schYear = schYear;
-	}
-	
-	public void setToken(String token) {
-		this.token = token;
-	}
+    public void setKorName(String korName) {
+        this.korName = korName;
+    }
 
-	/* Getter */
-	public String getId() {
-		return id;
-	}
-	
-	public String getKorName() {
-		return korName;
-	}
-	
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-	
-	public String getColName() {
-		return colName;
-	}
-	
-	public String getDeptName() {
-		return deptName;
-	}
-	
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-	
-	public String getWebmailAddress() {
-		return webmailAddress;
-	}
-	
-	public String getTutorName() {
-		return tutorName;
-	}
-	
-	public String getSchYear() {
-		return schYear;
-	}
-	
-	public String getSchTerm() {
-		return schTerm;
-	}
-	
-	public String getSchYR() {
-		return schYR;
-	}
-	
-	public String getSchReg() {
-		return schReg;
-	}
-	
-	public String getToken() {
-		return token;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	/* clear ArrayList */
-	public void clearLectureInfo() {
-		this.lectureInfos.clear();
-	}
+    public void setMajor(String colName, String deptName) {
+        this.colName = colName;
+        this.deptName = deptName;
+    }
 
-	public ArrayList<LectureInfo> getLectureInfos() {
-		return lectureInfos;
-	}
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
 
-	public void setLectureInfos(ArrayList<LectureInfo> lectureInfos) {
-		this.lectureInfos = lectureInfos;
-	}
+    public void setWebmailAddress(String webmailAddress) {
+        this.webmailAddress = webmailAddress;
+    }
 
-	public void addLectureInfo(LectureInfo lectureInfo) {
-		lectureInfos.add(lectureInfo);
-	}
+    public void setTutorName(String tutorName) {
+        this.tutorName = tutorName;
+    }
+
+    public void setSchInfo(String schYear, String schTerm, String schYR, String schReg) {
+        this.schReg = schReg;
+        this.schTerm = schTerm;
+        this.schYR = schYR;
+        this.schYear = schYear;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    /* Getter */
+    public String getId() {
+        return id;
+    }
+
+    public String getKorName() {
+        return korName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getColName() {
+        return colName;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getWebmailAddress() {
+        return webmailAddress;
+    }
+
+    public String getTutorName() {
+        return tutorName;
+    }
+
+    public String getSchYear() {
+        return schYear;
+    }
+
+    public String getSchTerm() {
+        return schTerm;
+    }
+
+    public String getSchYR() {
+        return schYR;
+    }
+
+    public String getSchReg() {
+        return schReg;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    /* clear ArrayList */
+    public void clearLectureInfo() {
+        this.lectureInfos.clear();
+    }
+
+    public ArrayList<LectureInfo> getLectureInfos() {
+        return lectureInfos;
+    }
+
+    public void setLectureInfos(ArrayList<LectureInfo> lectureInfos) {
+        this.lectureInfos = lectureInfos;
+    }
+
+    public void addLectureInfo(LectureInfo lectureInfo) {
+        lectureInfos.add(lectureInfo);
+    }
 }
