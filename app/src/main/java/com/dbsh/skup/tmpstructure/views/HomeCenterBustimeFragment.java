@@ -30,7 +30,6 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -100,21 +99,8 @@ public class HomeCenterBustimeFragment extends Fragment {
 			}
 		});
 
-		// 정류장 정보 가져오기 (동기식)
+		// 정류장 정보 가져오기
 		File file = new File(getActivity().getFilesDir(), fileName);
-		if (!file.exists()) {
-			System.out.println("파일이 존재하지 않음");
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						viewModel.getStation();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}).start();
-		}
 
 		fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 

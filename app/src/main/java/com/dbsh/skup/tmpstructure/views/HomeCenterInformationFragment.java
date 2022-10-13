@@ -40,8 +40,6 @@ public class HomeCenterInformationFragment extends Fragment {
         String mentor = userData.getTutorName() + " 멘토";
         String haknyun = userData.getSchYR() + "학년";
 
-        System.out.println("college = " + col);
-
         binding.card1College.setText(col);
         binding.card1Major.setText(ma);
         binding.card1StuInfo.setText(studentId);

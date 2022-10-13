@@ -2,6 +2,9 @@ package com.dbsh.skup.tmpstructure.data;
 
 import android.app.Application;
 
+import com.dbsh.skup.tmpstructure.model.ResponseLecture;
+import com.dbsh.skup.tmpstructure.model.ResponseLectureDetail;
+
 import java.util.ArrayList;
 
 public class UserData extends Application {
@@ -18,10 +21,10 @@ public class UserData extends Application {
     private String schYR;           // 현재 학년
     private String schReg;          // 재학 휴학 여부(한글)
     private String token;           // 로그인 토큰
-	private ArrayList<LectureData> lectureDatas;	// 강의정보리스트
-    
+	private ArrayList<ResponseLectureDetail> lectureDatas;	// 강의정보리스트
+
     public UserData() {
-		lectureDatas = new ArrayList<LectureData>();
+		lectureDatas = new ArrayList<ResponseLectureDetail>();
     }
 
 	/* Setter */
@@ -124,16 +127,16 @@ public class UserData extends Application {
 		this.lectureDatas.clear();
 	}
 
-	public ArrayList<LectureData> getLectureDatas() {
+	public ArrayList<ResponseLectureDetail> getLectureDatas() {
 		return lectureDatas;
 	}
 
-	public void setLectureDatas(ArrayList<LectureData> lectureDatas) {
+	public void setLectureDatas(ArrayList<ResponseLectureDetail> lectureDatas) {
 		this.lectureDatas = lectureDatas;
 	}
 
-	public void addLectureInfo(LectureData lectureData) {
-		lectureDatas.add(lectureData);
+	public void addLectureInfo(ResponseLecture lecture) {
+		lectureDatas.addAll(lecture.getLectureDetail());
 	}
 
 	@Override

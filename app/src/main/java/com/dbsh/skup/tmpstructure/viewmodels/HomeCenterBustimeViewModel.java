@@ -8,20 +8,15 @@ import androidx.lifecycle.MutableLiveData;
 import com.dbsh.skup.tmpstructure.Service.BusService;
 import com.dbsh.skup.tmpstructure.api.BusApi;
 import com.dbsh.skup.tmpstructure.model.ResponseArrive;
-import com.dbsh.skup.tmpstructure.model.ResponseStation;
-import com.dbsh.skup.tmpstructure.model.ResponseStationItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,77 +71,6 @@ public class HomeCenterBustimeViewModel {
         arriveSecond2115.setValue("");
     }
 
-    public void getStation() throws IOException {
-        BusService retrofitBusClient = BusService.getInstance();
-        ArrayList<ResponseStationItem> stations = new ArrayList<>();
-        if(retrofitBusClient != null) {
-
-            Map<String, String> map1164 = new HashMap<>();
-            map1164.put("serviceKey", serviceKey);
-            map1164.put("busRouteId", "100100171");
-
-            Map<String, String> map2115 = new HashMap<>();
-            map2115.put("serviceKey", serviceKey);
-            map2115.put("busRouteId", "100100598");
-
-            busApi = BusService.getBusApi();
-
-            // 파일생성전에 데이터가 다 만들어져야 하기때문에 동기식으로 call
-            ResponseStation station = busApi.getStationData(map1164).execute().body();
-            if(station.getHeader().getHeaderCd().equals("0"))
-                stations.addAll(station.getBody().getItems());
-
-            ResponseStation station2 = busApi.getStationData(map2115).execute().body();
-            if(station2.getHeader().getHeaderCd().equals("0"))
-                stations.addAll(station2.getBody().getItems());
-
-            try {
-                writeFile(makeJson(stations));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public JSONObject makeJson(ArrayList<ResponseStationItem> stations) {
-        JSONObject json = new JSONObject();
-        JSONArray result = new JSONArray();
-        try {
-            for (ResponseStationItem station : stations) {
-                COUNT++;
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("routeId", station.getRouteId());
-                jsonObject.put("stationId", station.getStationId());
-                jsonObject.put("stationName", station.getStationName());
-                jsonObject.put("sequence", station.getSeq());
-                jsonObject.put("posX", station.getGpsX());
-                jsonObject.put("posY", station.getGpsY());
-                jsonObject.put("direction", station.getDirection());
-                result.put(jsonObject);
-            }
-            json.put("COUNT", COUNT);
-            json.put("LIST", result);
-            return json;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public void writeFile(JSONObject json) throws IOException {
-        File file = new File(context.getFilesDir(), fileName);
-        if (!file.exists()) {
-            file.createNewFile();
-        } else {
-            file.delete();
-            file.createNewFile();
-        }
-        BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
-        bw.write(json.toString());
-        bw.newLine();
-        bw.close();
-    }
-
     public void getArrive(String stationId, String routeId, String seq) {
         BusService retrofitBusClient = BusService.getInstance();
         if(retrofitBusClient != null) {
@@ -161,22 +85,24 @@ public class HomeCenterBustimeViewModel {
             busApi.getArriveData(arrive).enqueue(new Callback<ResponseArrive>() {
                 @Override
                 public void onResponse(Call<ResponseArrive> call, Response<ResponseArrive> response) {
-                    ResponseArrive responseArrive = response.body();
-                    System.out.println(responseArrive);
-                    if (responseArrive.getHeader().getHeaderCd().equals("0")) {
-                        System.out.println(responseArrive);
-                        System.out.println(responseArrive.getHeader());
-                        System.out.println(responseArrive.getBody());
-                        System.out.println(responseArrive.getBody().getItem());
+					if (response.isSuccessful()) {
+						ResponseArrive responseArrive = response.body();
+						System.out.println(responseArrive);
+						if (responseArrive.getHeader().getHeaderCd().equals("0")) {
+							System.out.println(responseArrive);
+							System.out.println(responseArrive.getHeader());
+							System.out.println(responseArrive.getBody());
+							System.out.println(responseArrive.getBody().getItem());
 
-                        if (routeId.equals("100100171")) {  // 1164 정보
-                            arriveFirst1164.setValue(responseArrive.getBody().getItem().getArrMsg1());
-                            arriveSecond1164.setValue(responseArrive.getBody().getItem().getArrMsg2());
-                        } else {    // 2115 정보
-                            arriveFirst2115.setValue(responseArrive.getBody().getItem().getArrMsg1());
-                            arriveSecond2115.setValue(responseArrive.getBody().getItem().getArrMsg2());
-                        }
-                    }
+							if (routeId.equals("100100171")) {  // 1164 정보
+								arriveFirst1164.setValue(responseArrive.getBody().getItem().getArrMsg1());
+								arriveSecond1164.setValue(responseArrive.getBody().getItem().getArrMsg2());
+							} else {    // 2115 정보
+								arriveFirst2115.setValue(responseArrive.getBody().getItem().getArrMsg1());
+								arriveSecond2115.setValue(responseArrive.getBody().getItem().getArrMsg2());
+							}
+						}
+					}
                 }
 
                 @Override

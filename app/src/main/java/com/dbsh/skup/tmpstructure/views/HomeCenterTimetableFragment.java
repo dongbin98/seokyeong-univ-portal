@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.HomeTmpCenterTimetableFormBinding;
-import com.dbsh.skup.tmpstructure.data.LectureData;
 import com.dbsh.skup.tmpstructure.data.UserData;
+import com.dbsh.skup.tmpstructure.model.ResponseLectureDetail;
 import com.dbsh.skup.tmpstructure.viewmodels.HomeCenterTimetableViewModel;
 
 import java.util.ArrayList;
@@ -97,10 +97,10 @@ public class HomeCenterTimetableFragment extends Fragment {
     }
 
     public ArrayList<String> getTimetable(String year, String term) {
-	    for (LectureData lectureData : userData.getLectureDatas()) {
-			if(lectureData.getYear().equals(year) && lectureData.getTerm().equals(term)) {
-				if(!lectureData.getLectureDay().equals("null") && lectureData.getLectureDay().equals(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK) - 1))) {
-					todayList.add(lectureData.getLectureStartTime() + " ~ " + lectureData.getLectureEndTime() + " " + lectureData.getLectureName());
+	    for (ResponseLectureDetail lectureDetail : userData.getLectureDatas()) {
+			if(lectureDetail.getYear().equals(year) && lectureDetail.getTerm().equals(term)) {
+				if(!lectureDetail.getLectureDay().equals("null") && lectureDetail.getLectureDay().equals(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK) - 1))) {
+					todayList.add(lectureDetail.getLectureStartTime() + " ~ " + lectureDetail.getLectureEndTime() + " " + lectureDetail.getLectureName());
 				}
 			}
 	    }
