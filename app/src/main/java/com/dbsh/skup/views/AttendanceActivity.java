@@ -165,14 +165,16 @@ public class AttendanceActivity extends AppCompatActivity {
 		attendanceBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				data.clear();
+				adapter.setAdapterClickable(false);
 				attendanceBtn.setClickable(false);
+				data.clear();
 				nowCount = 0;
 				totalCount = 0;
 				viewModel.getAttendance(token, id, year, term);
 			}
 		});
 
+		adapter.setAdapterClickable(false);
 		attendanceBtn.setClickable(false);
 		data.clear();
 		nowCount = 0;
@@ -206,6 +208,7 @@ public class AttendanceActivity extends AppCompatActivity {
 				if(totalCount == nowCount) {
 					System.out.println("All list done!");
 					attendanceBtn.setClickable(true);
+					adapter.setAdapterClickable(true);
 				}
 			}
 		});

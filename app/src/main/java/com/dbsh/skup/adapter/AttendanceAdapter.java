@@ -18,12 +18,18 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<AttendanceItem> data;
 
     Context context;
+    boolean clickable;
 
-    //아이템 클릭 리스너 인터페이스
+    // 데이터 덜 들어왔을 때 아이템 클릭 방지 메소드
+    public void setAdapterClickable(boolean clickable) {
+        this.clickable = clickable;
+    }
+
+    // 아이템 클릭 리스너 인터페이스
     public interface OnItemClickListener{
         void onItemClick(View v, int position); //뷰와 포지션값
     }
-    //리스너 객체 참조 변수
+    // 리스너 객체 참조 변수
     private OnItemClickListener mListener = null;
     //리스너 객체 참조를 어댑터에 전달 메서드
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -72,7 +78,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View view) {
                 if (position != RecyclerView.NO_POSITION){
-                    if (mListener!=null){
+                    if (mListener!=null && clickable){
                         mListener.onItemClick (view, position);
                     }
                 }
