@@ -2,7 +2,7 @@ package com.dbsh.skup.tmpstructure.data;
 
 import android.app.Application;
 
-import com.dbsh.skup.tmpstructure.model.ResponseLectureDetail;
+import com.dbsh.skup.tmpstructure.model.ResponseYearList;
 
 import java.util.ArrayList;
 
@@ -20,11 +20,7 @@ public class UserData extends Application {
     private String schYR;           // 현재 학년
     private String schReg;          // 재학 휴학 여부(한글)
     private String token;           // 로그인 토큰
-	private ArrayList<ResponseLectureDetail> lectureDatas;	// 강의정보리스트
-
-    public UserData() {
-		lectureDatas = new ArrayList<ResponseLectureDetail>();
-    }
+	private ArrayList<ResponseYearList> yearList;        // 입학 ~ 지금까지 년도
 
 	/* Setter */
 	
@@ -121,40 +117,11 @@ public class UserData extends Application {
 		return token;
 	}
 
-	/* clear ArrayList */
-	public void clearLectureInfo() {
-		this.lectureDatas.clear();
+	public ArrayList<ResponseYearList> getYearList() {
+		return yearList;
 	}
 
-	public ArrayList<ResponseLectureDetail> getLectureDatas() {
-		return lectureDatas;
-	}
-
-	public void setLectureDatas(ArrayList<ResponseLectureDetail> lectureDatas) {
-		this.lectureDatas = lectureDatas;
-	}
-
-	public void addLectureInfo(ResponseLectureDetail lecture) {
-		lectureDatas.add(lecture);
-	}
-
-	@Override
-	public String toString() {
-		return "UserData{" +
-				"id='" + id + '\'' +
-				", korName='" + korName + '\'' +
-				", phoneNumber='" + phoneNumber + '\'' +
-				", colName='" + colName + '\'' +
-				", deptName='" + deptName + '\'' +
-				", emailAddress='" + emailAddress + '\'' +
-				", webmailAddress='" + webmailAddress + '\'' +
-				", tutorName='" + tutorName + '\'' +
-				", schYear='" + schYear + '\'' +
-				", schTerm='" + schTerm + '\'' +
-				", schYR='" + schYR + '\'' +
-				", schReg='" + schReg + '\'' +
-				", token='" + token + '\'' +
-				", lectureDatas=" + lectureDatas +
-				'}';
+	public void setYearList(ArrayList<ResponseYearList> yearList) {
+		this.yearList = yearList;
 	}
 }

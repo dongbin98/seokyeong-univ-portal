@@ -10,13 +10,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.attendance.AttendanceActivity;
 import com.dbsh.skup.databinding.HomeTmpLeftFormBinding;
-import com.dbsh.skup.graduate.GraduateActivity;
-import com.dbsh.skup.qrcode.QrcodeActivity;
-import com.dbsh.skup.scholarship.ScholarshipActivity;
 import com.dbsh.skup.tmpstructure.viewmodels.HomeLeftViewModel;
-import com.dbsh.skup.tuition.TuitionActivity;
 
 public class HomeLeftFragment extends Fragment {
 
@@ -30,7 +25,6 @@ public class HomeLeftFragment extends Fragment {
         viewModel = new HomeLeftViewModel();
         binding.setViewModel(viewModel);
         binding.executePendingBindings();
-
 
 		// 출결 버튼
         binding.mainMenuAttendanceBtn.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +66,8 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuScholarshipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScholarshipActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), ScholarshipActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -90,8 +84,8 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuGraduateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), GraduateActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), GraduateActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -108,8 +102,8 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuQrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), QrcodeActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), QrcodeActivity.class);
+//                startActivity(intent);
             }
         });
 

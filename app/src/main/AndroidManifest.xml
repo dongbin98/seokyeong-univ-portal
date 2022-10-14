@@ -39,6 +39,10 @@
         <!-- Temporal Activity -->
         <activity android:name=".tmpstructure.views.MainActivity"/>
         <activity android:name=".tmpstructure.views.HomeActivity"/>
+        <activity android:name=".tmpstructure.views.TuitionActivity"/>
+        <activity android:name=".tmpstructure.views.WebviewActivity"/>
+        <activity android:name=".tmpstructure.views.AttendanceActivity"/>
+        <activity android:name=".tmpstructure.views.AttendanceDetailActivity"/>
 
     </application>
 

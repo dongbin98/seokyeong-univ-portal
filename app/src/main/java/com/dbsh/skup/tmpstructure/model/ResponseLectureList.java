@@ -3,7 +3,7 @@ package com.dbsh.skup.tmpstructure.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseLectureDetail {
+public class ResponseLectureList {
 	@SerializedName("CLASSDAY")
 	@Expose
 	private String lectureDay;
@@ -126,7 +126,7 @@ public class ResponseLectureDetail {
 
 	@Override
 	public String toString() {
-		return "ResponseLectureDetail{" +
+		return "ResponseLectureList{" +
 				"lectureDay='" + lectureDay + '\'' +
 				", lectureNumber='" + lectureNumber + '\'' +
 				", lectureCd='" + lectureCd + '\'' +

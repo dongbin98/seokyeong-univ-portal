@@ -13,14 +13,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.attendance.AttendanceActivity;
 import com.dbsh.skup.databinding.HomeTmpCenterFormBinding;
 import com.dbsh.skup.notice.Notice;
 import com.dbsh.skup.qrcode.QrcodeActivity;
 import com.dbsh.skup.tmpstructure.adapter.HomeNoticeCardAdapter;
 import com.dbsh.skup.tmpstructure.adapter.HomeTopCardAdapter;
 import com.dbsh.skup.tmpstructure.viewmodels.HomeCenterViewModel;
-import com.dbsh.skup.webview.WebviewActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

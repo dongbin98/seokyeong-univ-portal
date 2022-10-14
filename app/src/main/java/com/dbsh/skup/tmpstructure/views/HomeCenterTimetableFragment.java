@@ -12,11 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.HomeTmpCenterTimetableFormBinding;
 import com.dbsh.skup.tmpstructure.data.UserData;
-import com.dbsh.skup.tmpstructure.model.ResponseLectureDetail;
+import com.dbsh.skup.tmpstructure.model.ResponseLectureList;
 import com.dbsh.skup.tmpstructure.viewmodels.HomeCenterTimetableViewModel;
 
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ public class HomeCenterTimetableFragment extends Fragment {
 
     TableLayout card2_timetableTodayTable;
     TextView card2_today;
-    ArrayList<String> todayList;
     Calendar calendar = Calendar.getInstance();
     UserData userData;
 
@@ -52,12 +52,35 @@ public class HomeCenterTimetableFragment extends Fragment {
         id = userData.getId();
         year = userData.getSchYear();
         term = userData.getSchTerm();
-        todayList = new ArrayList<String>();
 
         card2_today = binding.card2Today;
         card2_timetableTodayTable = binding.card2TimetableTodayTable;
 
-	    todayList = getTimetable(year, term);
+	    getTimetable(token, id, year, term);
+
+	    TableRow.LayoutParams params = new TableRow.LayoutParams(
+			    ViewGroup.LayoutParams.WRAP_CONTENT,
+			    ViewGroup.LayoutParams.WRAP_CONTENT
+	    );
+
+	    viewModel.lectureLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<ResponseLectureList>>() {
+		    @Override
+		    public void onChanged(ArrayList<ResponseLectureList> responseLectureLists) {
+				for(ResponseLectureList lecture : responseLectureLists) {
+					if (lecture.getLectureDay() != null && lecture.getLectureDay().equals(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK) - 1))) {
+						TableRow tableRow = new TableRow(getActivity());
+						tableRow.setLayoutParams(params);
+						TextView textView = new TextView(getActivity());
+						String time = lecture.getLectureStartTime() + " ~ " + lecture.getLectureEndTime() + " " + lecture.getLectureName();
+						textView.setText(time);
+						textView.setTextColor(getActivity().getColor(R.color.black));
+						textView.setPadding(0, 0, 0, 20);
+						tableRow.addView(textView);
+						card2_timetableTodayTable.addView(tableRow);
+					}
+				}
+		    }
+	    });
 
 	    switch (calendar.get(Calendar.DAY_OF_WEEK) - 1) {
 		    case 1:
@@ -79,31 +102,10 @@ public class HomeCenterTimetableFragment extends Fragment {
 			    card2_today.setText("주말 시간표");
 			    break;
 	    }
-	    TableRow.LayoutParams params = new TableRow.LayoutParams(
-			    ViewGroup.LayoutParams.WRAP_CONTENT,
-			    ViewGroup.LayoutParams.WRAP_CONTENT
-	    );
-	    for(int i = 0; i < todayList.size(); i++) {
-		    TableRow tableRow = new TableRow(getActivity());
-		    tableRow.setLayoutParams(params);
-		    TextView textView = new TextView(getActivity());
-		    textView.setText(todayList.get(i));
-		    textView.setTextColor(getActivity().getColor(R.color.black));
-		    textView.setPadding(0,0,0,20);
-		    tableRow.addView(textView);
-		    card2_timetableTodayTable.addView(tableRow);
-	    }
         return binding.getRoot();
     }
 
-    public ArrayList<String> getTimetable(String year, String term) {
-	    for (ResponseLectureDetail lectureDetail : userData.getLectureDatas()) {
-			if(lectureDetail.getYear().equals(year) && lectureDetail.getTerm().equals(term)) {
-				if(!(lectureDetail.getLectureDay() == null) && lectureDetail.getLectureDay().equals(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK) - 1))) {
-					todayList.add(lectureDetail.getLectureStartTime() + " ~ " + lectureDetail.getLectureEndTime() + " " + lectureDetail.getLectureName());
-				}
-			}
-	    }
-	    return todayList;
+    public void getTimetable(String token, String id, String year, String term) {
+		viewModel.getLectureData(token, id, year, term);
     }
 }

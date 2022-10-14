@@ -14,8 +14,6 @@ import androidx.databinding.DataBindingUtil;
 import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.LoginTmpFormBinding;
 import com.dbsh.skup.tmpstructure.data.UserData;
-import com.dbsh.skup.tmpstructure.model.ResponseLecture;
-import com.dbsh.skup.tmpstructure.model.ResponseLectureDetail;
 import com.dbsh.skup.tmpstructure.model.ResponseLogin;
 import com.dbsh.skup.tmpstructure.viewmodels.LoginViewModel;
 
@@ -89,23 +87,8 @@ public class MainActivity extends AppCompatActivity {
 								((UserData) getApplication()).setTutorName(response.getUserInfo().getTutorName());
 								((UserData) getApplication()).setSchInfo(response.getUserInfo().getSchYear(), response.getUserInfo().getSchTerm(), response.getUserInfo().getSchyr(), response.getUserInfo().getSchRegStatNm());
 								((UserData) getApplication()).setToken(response.getAccessToken());
+								((UserData) getApplication()).setYearList(response.getYearList());
 								System.out.println(getApplication());
-								/* 강의정보 저장 */
-								if (!((UserData) getApplication()).getLectureDatas().isEmpty()) {
-									((UserData) getApplication()).clearLectureInfo();
-								}
-								for (int i = 0; i < response.getYearList().size(); i++) {
-									for (int j = 4; j >= 1 ; j--) {	// 1,2,여름계절(3),겨울계절(4) 학기중 수강한 과목 저장
-										ResponseLecture lecture = viewModel.getLectureData(((UserData) getApplication()).getToken(), ((UserData) getApplication()).getId(), response.getYearList().get(i).getValue(), Integer.toString(j));
-										if (lecture.getRtnStatus().equals("S")) {
-											for(ResponseLectureDetail lectureDetail : lecture.getLectureDetail()) {
-												System.out.println(lectureDetail);
-												((UserData) getApplication()).addLectureInfo(lectureDetail);
-											}
-										}
-									}
-								}
-								System.out.println("강의정보 저장 성공");
 								return "로그인 성공";
 							} else {
 								return "로그인 실패";

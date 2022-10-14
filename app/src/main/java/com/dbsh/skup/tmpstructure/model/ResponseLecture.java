@@ -12,7 +12,7 @@ public class ResponseLecture {
 
 	@SerializedName("LIST")
 	@Expose
-	private ArrayList<ResponseLectureDetail> lectureDetails = null;
+	private ArrayList<ResponseLectureList> lectureLists = null;
 
 	public String getRtnStatus() {
 		return rtnStatus;
@@ -22,19 +22,19 @@ public class ResponseLecture {
 		this.rtnStatus = rtnStatus;
 	}
 
-	public ArrayList<ResponseLectureDetail> getLectureDetail() {
-		return lectureDetails;
+	public ArrayList<ResponseLectureList> getLectureLists() {
+		return lectureLists;
 	}
 
-	public void setLectureDetail(ArrayList<ResponseLectureDetail> lectureDetails) {
-		this.lectureDetails = lectureDetails;
+	public void setLectureLists(ArrayList<ResponseLectureList> lectureLists) {
+		this.lectureLists = lectureLists;
 	}
 
 	@Override
 	public String toString() {
 		return "ResponseLecture{" +
 				"rtnStatus='" + rtnStatus + '\'' +
-				", lectureLists=" + lectureDetails +
+				", lectureLists=" + lectureLists +
 				'}';
 	}
 }
