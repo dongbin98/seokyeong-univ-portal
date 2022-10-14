@@ -37,6 +37,7 @@ public class HomeCenterTimetableFragment extends Fragment {
     String id;
     String year;
     String term;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

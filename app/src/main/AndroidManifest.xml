@@ -34,6 +34,7 @@
         <activity android:name=".views.AttendanceDetailActivity"/>
         <activity android:name=".views.ScholarshipActivity"/>
         <activity android:name=".views.QrcodeActivity"/>
+        <activity android:name=".views.GraduateActivity"/>
 
     </application>
 

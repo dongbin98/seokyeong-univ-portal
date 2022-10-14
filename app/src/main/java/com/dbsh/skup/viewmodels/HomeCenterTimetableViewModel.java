@@ -39,7 +39,7 @@ public class HomeCenterTimetableViewModel extends ViewModel {
 			@Override
 			public void onResponse(Call<ResponseLecture> call, Response<ResponseLecture> response) {
 				if (response.isSuccessful()) {
-					lectureLiveData.setValue(response.body().getLectureLists());
+					lectureLiveData.setValue(response.body().getResponseLectureLists());
 				}
 			}
 

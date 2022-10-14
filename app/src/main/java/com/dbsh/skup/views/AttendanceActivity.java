@@ -204,9 +204,7 @@ public class AttendanceActivity extends AppCompatActivity {
 					nowCount++;
 				}
 				adapter.notifyDataSetChanged();
-				System.out.println(nowCount + "/" + totalCount);
 				if(totalCount == nowCount) {
-					System.out.println("All list done!");
 					attendanceBtn.setClickable(true);
 					adapter.setAdapterClickable(true);
 				}

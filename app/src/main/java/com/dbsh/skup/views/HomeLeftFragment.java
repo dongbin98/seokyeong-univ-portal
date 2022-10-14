@@ -84,8 +84,8 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuGraduateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), GraduateActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), GraduateActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -1,57 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/graduate_toolbar"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dbsh.skup.viewmodels.GraduateViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="졸업"
-            android:textStyle="bold"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center" />
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:background="@color/white">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/graduate_tab"
-        android:layout_width="194dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="12dp"
-        app:tabBackground="@drawable/graduate_tab_background"
-        app:tabMode="auto"
-        app:tabGravity="fill"
-        app:tabTextColor="@color/gray2"
-        app:tabSelectedTextColor="@color/onlyWhite"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/graduate_toolbar" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/graduate_tab"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/graduate_viewpager"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/graduate_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:clipChildren="false"/>
-    </FrameLayout>
+            android:layout_height="56dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="졸업"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center" />
+        </androidx.appcompat.widget.Toolbar>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/graduate_tab"
+            android:layout_width="194dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="12dp"
+            app:tabBackground="@drawable/graduate_tab_background"
+            app:tabIndicatorColor="@null"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabTextColor="@color/gray2"
+            app:tabSelectedTextColor="@color/onlyWhite"
+            app:layout_constraintTop_toBottomOf="@id/graduate_toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/graduate_tab"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/graduate_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:clipChildren="false"/>
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

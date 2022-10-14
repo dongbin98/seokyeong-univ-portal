@@ -179,9 +179,7 @@ public class ScholarshipActivity extends AppCompatActivity {
                     nowCount++;
                 }
                 adapter.notifyDataSetChanged();
-                System.out.println(nowCount + "/" + totalCount);
                 if (totalCount == nowCount) {
-                    System.out.println("All list done!");
                     scholarshipBtn.setClickable(true);
                 }
             }
