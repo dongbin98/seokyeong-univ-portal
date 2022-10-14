@@ -11,13 +11,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".tmpstructure.data.UserData"
+        android:name=".data.UserData"
         android:hardwareAccelerated="true"
         android:theme="@style/Theme.SKUP"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".tmpstructure.views.SplashActivity"
+            android:name=".views.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,24 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity"/>
-        <activity android:name=".splash.SplashActivity"/>
-        <activity android:name=".webview.WebviewActivity"/>
-        <activity android:name=".attendance.AttendanceActivity"/>
-        <activity android:name=".attendance.AttendanceDetailActivity"/>
-        <activity android:name=".qrcode.QrcodeActivity"/>
-        <activity android:name=".login.MainActivity"/>
-        <activity android:name=".tuition.TuitionActivity"/>
-        <activity android:name=".scholarship.ScholarshipActivity"/>
-        <activity android:name=".graduate.GraduateActivity"/>
 
-        <!-- Temporal Activity -->
-        <activity android:name=".tmpstructure.views.MainActivity"/>
-        <activity android:name=".tmpstructure.views.HomeActivity"/>
-        <activity android:name=".tmpstructure.views.TuitionActivity"/>
-        <activity android:name=".tmpstructure.views.WebviewActivity"/>
-        <activity android:name=".tmpstructure.views.AttendanceActivity"/>
-        <activity android:name=".tmpstructure.views.AttendanceDetailActivity"/>
+        <activity android:name=".views.MainActivity"/>
+        <activity android:name=".views.HomeActivity"/>
+        <activity android:name=".views.TuitionActivity"/>
+        <activity android:name=".views.WebviewActivity"/>
+        <activity android:name=".views.AttendanceActivity"/>
+        <activity android:name=".views.AttendanceDetailActivity"/>
+        <activity android:name=".views.ScholarshipActivity"/>
+        <activity android:name=".views.QrcodeActivity"/>
 
     </application>
 
