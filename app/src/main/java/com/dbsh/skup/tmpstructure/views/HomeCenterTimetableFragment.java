@@ -99,7 +99,7 @@ public class HomeCenterTimetableFragment extends Fragment {
     public ArrayList<String> getTimetable(String year, String term) {
 	    for (ResponseLectureDetail lectureDetail : userData.getLectureDatas()) {
 			if(lectureDetail.getYear().equals(year) && lectureDetail.getTerm().equals(term)) {
-				if(!lectureDetail.getLectureDay().equals("null") && lectureDetail.getLectureDay().equals(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK) - 1))) {
+				if(!(lectureDetail.getLectureDay() == null) && lectureDetail.getLectureDay().equals(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK) - 1))) {
 					todayList.add(lectureDetail.getLectureStartTime() + " ~ " + lectureDetail.getLectureEndTime() + " " + lectureDetail.getLectureName());
 				}
 			}

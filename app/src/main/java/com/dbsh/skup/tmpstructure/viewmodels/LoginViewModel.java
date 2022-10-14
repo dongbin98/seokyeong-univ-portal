@@ -66,7 +66,6 @@ public class LoginViewModel extends ViewModel {
 				"UAL_03333_T",
 				id,
 				parameter)).execute().body();
-		System.out.printf("%s년 %s학기 과목 : %s\n", year, term, lecture);
 		return lecture;
 	}
 

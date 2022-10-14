@@ -2,7 +2,6 @@ package com.dbsh.skup.tmpstructure.data;
 
 import android.app.Application;
 
-import com.dbsh.skup.tmpstructure.model.ResponseLecture;
 import com.dbsh.skup.tmpstructure.model.ResponseLectureDetail;
 
 import java.util.ArrayList;
@@ -135,8 +134,8 @@ public class UserData extends Application {
 		this.lectureDatas = lectureDatas;
 	}
 
-	public void addLectureInfo(ResponseLecture lecture) {
-		lectureDatas.addAll(lecture.getLectureDetail());
+	public void addLectureInfo(ResponseLectureDetail lecture) {
+		lectureDatas.add(lecture);
 	}
 
 	@Override
