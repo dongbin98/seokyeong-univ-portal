@@ -45,7 +45,7 @@
             android:layout_marginTop="12dp"
             android:fontFamily="@font/roboto"
             android:text="2022년 1학기 등록금"
-            android:textColor="@color/mainBlue"
+            android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"

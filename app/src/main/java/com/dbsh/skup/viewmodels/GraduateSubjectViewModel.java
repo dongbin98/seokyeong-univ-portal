@@ -41,6 +41,8 @@ public class GraduateSubjectViewModel extends ViewModel {
                 parameter)).enqueue(new Callback<ResponseGraduateBasic>() {
             @Override
             public void onResponse(Call<ResponseGraduateBasic> call, Response<ResponseGraduateBasic> response) {
+                // 졸업생의 경우 response.body() == null
+                // System.out.println(response.body());
                 if (response.isSuccessful()) {
                     if (response.body().getRtnStatus().equals("S")) {
                         ResponseGraduateBasicMap responseGraduateBasicMap = response.body().getResponseGraduateBasicMap();
@@ -69,6 +71,8 @@ public class GraduateSubjectViewModel extends ViewModel {
                 parameter)).enqueue(new Callback<ResponseGraduateSubject>() {
             @Override
             public void onResponse(Call<ResponseGraduateSubject> call, Response<ResponseGraduateSubject> response) {
+                // 졸업생의 경우 response.body() == null
+                // System.out.println(response.body());
                 if (response.isSuccessful()) {
                     if (response.body().getRtnStatus().equals("S")) {
                         ArrayList<ResponseGraduateSubjectList> responseGraduateSubjectLists = response.body().getResponseGraduateSubjectLists();

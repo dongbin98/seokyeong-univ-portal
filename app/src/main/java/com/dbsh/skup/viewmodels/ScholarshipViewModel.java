@@ -39,16 +39,21 @@ public class ScholarshipViewModel extends ViewModel {
             @Override
             public void onResponse(Call<ResponseScholar> call, Response<ResponseScholar> response) {
                 if (response.isSuccessful()) {
+                    // 졸업생의 경우 response.body() == null
+                    // System.out.println(response.body());
                     if (response.body().getRtnStatus().equals("S")) {
                         ArrayList<ResponseScholarList> responseScholarListArrayList = response.body().getResponseScholarLists();
                         totalSizeLiveData.setValue(responseScholarListArrayList.size());
                         for (ResponseScholarList responseScholarList : responseScholarListArrayList) {
                             scholarLiveData.setValue(responseScholarList);
                         }
-                    } else {
+                    } else {    // 잘못된 파라미터 참조 case
                         totalSizeLiveData.setValue(0);
                         scholarLiveData.setValue(null);
                     }
+                } else {        // null case
+                    totalSizeLiveData.setValue(0);
+                    scholarLiveData.setValue(null);
                 }
             }
 

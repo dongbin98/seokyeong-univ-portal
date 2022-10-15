@@ -35,6 +35,8 @@ public class TuitionViewModel extends ViewModel {
 				parameter)).enqueue(new Callback<ResponseTuition>() {
 			@Override
 			public void onResponse(Call<ResponseTuition> call, Response<ResponseTuition> response) {
+				// 졸업생의 경우 response.body() == null
+				// System.out.println(response.body());
 				if (response.isSuccessful()) {
 					tuitionLiveData.setValue(response.body().getMap());
 				}

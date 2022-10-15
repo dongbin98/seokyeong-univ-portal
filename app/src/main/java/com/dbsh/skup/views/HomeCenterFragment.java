@@ -148,7 +148,8 @@ public class HomeCenterFragment extends Fragment {
         });
 
         ArrayList<Fragment> fragments = new ArrayList<>();
-        for(int i = 0; i < noticeData.size(); i++) {
+        for(int i = 0; i < 5; i++) {
+//        for(int i = 0; i < noticeData.size(); i++) {  // 전체 다 가져오기
             fragments.add(HomeCenterNoticeFragment.newInstance(i, noticeData.get(i).getTitle(), noticeData.get(i).getType(), noticeData.get(i).getDate(), noticeData.get(i).getDepartment(), noticeData.get(i).getUrl()));
         }
         mPager2 = binding.viewpager2;
@@ -175,7 +176,8 @@ public class HomeCenterFragment extends Fragment {
         });
 
         ArrayList<Fragment> fragments2 = new ArrayList<>();
-        for(int i = 0; i < noticeData.size(); i++) {
+        for(int i = 0; i < 5; i++) {
+//        for(int i = 0; i < majorNoticeData.size(); i++) { // 전체 다 가져오기
             fragments2.add(HomeCenterNoticeFragment.newInstance(i, majorNoticeData.get(i).getTitle(), majorNoticeData.get(i).getType(), majorNoticeData.get(i).getDate(), majorNoticeData.get(i).getDepartment(), majorNoticeData.get(i).getUrl()));
         }
         mPager3 = binding.viewpager3;
@@ -215,7 +217,6 @@ public class HomeCenterFragment extends Fragment {
                 Elements noticeList = document.select(".bg1");
                 noticeList.addAll(document.select(".bg2"));
 
-                int i = 0;
                 for(Element e: noticeList) {
                     NoticeData noticeData = new NoticeData();
                     noticeData.setTitle(e.select(".title").text().substring(3));
@@ -225,9 +226,6 @@ public class HomeCenterFragment extends Fragment {
                     noticeData.setNumber(Integer.parseInt(e.select(".num").text()));
                     noticeData.setUrl(e.select(".title").select("a").attr("href"));
                     list.add(noticeData);
-                    i++;
-                    if(i > 4)
-                        break;
                 }
                 list.sort(new Comparator<NoticeData>() {
                     @Override
@@ -256,7 +254,6 @@ public class HomeCenterFragment extends Fragment {
                 Document document = Jsoup.connect(majorNoticeUrl).get();
                 Elements noticeList = document.select("tr.notice");
 
-                int i = 0;
                 for(Element e: noticeList) {
                     NoticeData noticeData = new NoticeData();
                     noticeData.setTitle(e.select(".title").text());
@@ -265,9 +262,6 @@ public class HomeCenterFragment extends Fragment {
                     noticeData.setType(e.select("td.notice").text());
                     noticeData.setUrl(e.select(".title").select("a").attr("href"));
                     list.add(noticeData);
-                    i++;
-                    if(i > 4)
-                        break;
                 }
 
             } catch (IOException e) {

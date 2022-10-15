@@ -2,8 +2,6 @@ package com.dbsh.skup.viewmodels;
 
 import android.widget.EditText;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.R;
@@ -17,18 +15,6 @@ import java.io.IOException;
 public class LoginViewModel extends ViewModel {
 
 	public LoginApi loginApi;
-
-	// 로그인 데이터
-	public LiveData<String> loginId = new MutableLiveData<>();
-	public LiveData<String> loginPassword = new MutableLiveData<>();
-
-	public LiveData<String> getLoginId() {
-		return loginId;
-	}
-
-	public LiveData<String> getLoginPassword() {
-		return loginPassword;
-	}
 
 	public EditText.OnFocusChangeListener loginFocusListener() {
 		return (v, hasFocus) -> {

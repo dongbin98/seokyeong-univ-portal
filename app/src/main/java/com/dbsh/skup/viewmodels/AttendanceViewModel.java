@@ -31,11 +31,9 @@ public class AttendanceViewModel extends ViewModel {
 	public PortalApi portalApi;
 
 	public void getAttendance(String token, String id, String year, String term) {
-		System.out.println("call getAttendance");
 		PortalService portalService = PortalService.getInstance(token);
 		portalApi = PortalService.getPortalApi();
 		RequestAttendanceParameterData parameter = new RequestAttendanceParameterData(id, year, term, id);
-		ResponseAttendance responseAttendance = null;
 		portalApi.getAttendanceData(new RequestAttendanceData(
 				"education.ual.UAL_04004_T.select",
 				"AL",
@@ -48,6 +46,8 @@ public class AttendanceViewModel extends ViewModel {
 			public void onResponse(Call<ResponseAttendance> call, Response<ResponseAttendance> response) {
 				if (response.isSuccessful()) {
 					if (response.body().getRtnStatus().equals("S")) {
+						// 졸업생의 경우 response.body() == null
+						// System.out.println(response.body());
 						ArrayList<ResponseAttendanceList> attendanceList = response.body().getResponseAttendanceLists();
 						for (ResponseAttendanceList responseAttendanceList : attendanceList) {
 							try {
@@ -56,10 +56,13 @@ public class AttendanceViewModel extends ViewModel {
 								e.printStackTrace();
 							}
 						}
-					} else {
+					} else {	// 잘못된 파라미터 참조 case
 						totalSizeLiveData.setValue(0);
 						attendanceLiveData.setValue(null);
 					}
+				} else {		// null case
+					totalSizeLiveData.setValue(0);
+					attendanceLiveData.setValue(null);
 				}
 			}
 

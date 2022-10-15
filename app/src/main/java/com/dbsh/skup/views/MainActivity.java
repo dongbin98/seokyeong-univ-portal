@@ -103,8 +103,10 @@ public class MainActivity extends AppCompatActivity {
 					protected void thenDoUiRelatedWork(String toastMessage) {
 						Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
 						// 홈페이지로 넘어가기
-						Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-						startActivity(intent);
+						if(toastMessage.equals("로그인 성공")) {
+							Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+							startActivity(intent);
+						}
 					}
 				});
 			}

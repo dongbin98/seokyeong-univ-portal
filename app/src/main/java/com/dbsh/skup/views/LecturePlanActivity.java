@@ -1,0 +1,220 @@
+package com.dbsh.skup.views;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.dbsh.skup.R;
+import com.dbsh.skup.adapter.LectureplanAdapter;
+import com.dbsh.skup.adapter.SpinnerAdapter;
+import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.databinding.LecturePlanFormBinding;
+import com.dbsh.skup.model.ResponseLectureplanList;
+import com.dbsh.skup.model.ResponseYearList;
+import com.dbsh.skup.viewmodels.LecturePlanViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class LecturePlanActivity extends AppCompatActivity {
+    LecturePlanFormBinding binding;
+    LecturePlanViewModel viewModel;
+
+    String token;
+    String id;
+    String year;
+    String term;
+    int totalCount;
+    int nowCount;
+
+    Spinner lectureplahSpinner;
+    Spinner lectureplahSpinner2;
+    ImageButton lectureplanBtn;
+    RecyclerView lectureplanRecyclerview;
+
+    ArrayList<String> spinnerItem, spinnerItem2;
+    List<LectureplanAdapter.LectureplanItem> data;
+    LectureplanAdapter adapter;
+
+    UserData userData;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        /* DataBinding */
+        binding = DataBindingUtil.setContentView(this, R.layout.lecture_plan_form);
+        binding.setLifecycleOwner(this);
+        viewModel = new LecturePlanViewModel();
+        binding.setViewModel(viewModel);
+        binding.executePendingBindings();    // 바인딩 강제 즉시실행
+
+        userData = ((UserData) getApplication());
+
+        Intent intent = getIntent();
+
+        token = userData.getToken();
+        id = userData.getId();
+        year = userData.getSchYear();
+        term = userData.getSchTerm();
+
+        data = new ArrayList<>();
+
+        Toolbar mToolbar = binding.lectureplanToolbar;
+        setSupportActionBar(mToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
+
+        lectureplahSpinner = binding.lectureplanSpinner;
+        lectureplahSpinner2 = binding.lectureplanSpinner2;
+        lectureplanBtn = binding.lectureplanBtn;
+        lectureplanRecyclerview = binding.lectureplanRecyclerview;
+        adapter = new LectureplanAdapter(data);
+
+        // 강의계획서, 주차별 진도사항 보기
+        adapter.setOnItemClickListener(new LectureplanAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                System.out.println(data.get(position).subjectName);
+            }
+        });
+
+        lectureplanRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        lectureplanRecyclerview.setAdapter(adapter);
+
+        spinnerItem = new ArrayList<>();
+        for (ResponseYearList yearList : userData.getYearList()) {
+            String value = yearList.getValue() + "년";
+
+            if (!spinnerItem.contains(value)) {
+                spinnerItem.add(value);
+            }
+        }
+
+        spinnerItem2 = new ArrayList<>();
+        for (int i = 1; i < 5; i++) {
+            String value = i + "학기";
+
+            if (!spinnerItem2.contains(value)) {
+                spinnerItem2.add(value);
+            }
+        }
+
+        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, spinnerItem);
+        lectureplahSpinner.setAdapter(spinnerAdapter);
+        lectureplahSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                year = spinnerItem.get(i).substring(0, 4);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        SpinnerAdapter spinnerAdapter2 = new SpinnerAdapter(this, spinnerItem2);
+        lectureplahSpinner2.setAdapter(spinnerAdapter2);
+        lectureplahSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                term = spinnerItem2.get(i).substring(0, 1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        for (int i = 0; i < spinnerItem.size(); i++) {
+            if (spinnerItem.get(i).substring(0, 4).equals(year)) {
+                lectureplahSpinner.setSelection(i);
+            }
+        }
+
+        for (int i = 0; i < spinnerItem2.size(); i++) {
+            if (spinnerItem2.get(i).substring(0, 1).equals(term)) {
+                lectureplahSpinner2.setSelection(i);
+            }
+        }
+
+        // 강의 조회버튼
+        lectureplanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.setAdapterClickable(false);
+                lectureplanBtn.setClickable(false);
+                data.clear();
+                totalCount = 0;
+                nowCount = 0;
+                viewModel.getLecturePlan(token, id, year, term);
+            }
+        });
+
+        adapter.setAdapterClickable(false);
+        lectureplanBtn.setClickable(false);
+        data.clear();
+        nowCount = 0;
+        totalCount = 0;
+        viewModel.getLecturePlan(token, id, year, term);
+
+        viewModel.totalSizeLiveData.observe(binding.getLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                totalCount = integer;
+            }
+        });
+
+        viewModel.responseLectureplanListLiveData.observe(binding.getLifecycleOwner(), new Observer<ResponseLectureplanList>() {
+            @Override
+            public void onChanged(ResponseLectureplanList responseLectureplanList) {
+                if(responseLectureplanList != null) {
+                    data.add(new LectureplanAdapter.LectureplanItem(
+                            responseLectureplanList.getSubjNm(),
+                            responseLectureplanList.getProfNm(),
+                            responseLectureplanList.getDeptNm(),
+                            responseLectureplanList.getSubjCd(),
+                            responseLectureplanList.getColeNm(),
+                            responseLectureplanList.getSchlShyr(),
+                            responseLectureplanList.getSubjPont(),
+                            responseLectureplanList.getSubjTime()
+                    ));
+                    nowCount++;
+                    System.out.println("Made list : " + nowCount + "/" +totalCount);
+                }
+                adapter.notifyDataSetChanged();
+                if (totalCount == nowCount) {
+                    System.out.println("All List Done!");
+                    lectureplanBtn.setClickable(true);
+                    adapter.setAdapterClickable(true);
+                }
+            }
+        });
+    }
+
+    public void searchFilter(String searchText) {
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}

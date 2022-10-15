@@ -3,17 +3,19 @@ package com.dbsh.skup.api;
 import com.dbsh.skup.model.RequestAttendanceData;
 import com.dbsh.skup.model.RequestAttendanceDetailData;
 import com.dbsh.skup.model.RequestGraduateBasicData;
-import com.dbsh.skup.model.RequestGraduateSubjectData;
 import com.dbsh.skup.model.RequestGraduateNoneSubjectData;
+import com.dbsh.skup.model.RequestGraduateSubjectData;
 import com.dbsh.skup.model.RequestLectureData;
+import com.dbsh.skup.model.RequestLectureplanData;
 import com.dbsh.skup.model.RequestScholarshipData;
 import com.dbsh.skup.model.RequestTuitionData;
 import com.dbsh.skup.model.ResponseAttendance;
 import com.dbsh.skup.model.ResponseAttendanceDetail;
 import com.dbsh.skup.model.ResponseGraduateBasic;
-import com.dbsh.skup.model.ResponseGraduateSubject;
 import com.dbsh.skup.model.ResponseGraduateNoneSubject;
+import com.dbsh.skup.model.ResponseGraduateSubject;
 import com.dbsh.skup.model.ResponseLecture;
+import com.dbsh.skup.model.ResponseLectureplan;
 import com.dbsh.skup.model.ResponseScholar;
 import com.dbsh.skup.model.ResponseTuition;
 
@@ -63,4 +65,9 @@ public interface PortalApi {
 	@Headers({"Accept: application/json", "content-type: application/json"})
 	@POST("common/selectOne.sku")
 	Call<ResponseGraduateNoneSubject> getGraduateNoneSubjectData(@Body RequestGraduateNoneSubjectData requestGraduateNoneSubjectData);
+
+	/* 강의계획서 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/selectList.sku")
+	Call<ResponseLectureplan> getLectureplanData(@Body RequestLectureplanData requestLectureplanData);
 }

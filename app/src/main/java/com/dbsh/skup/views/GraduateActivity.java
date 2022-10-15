@@ -27,7 +27,7 @@ public class GraduateActivity extends AppCompatActivity {
     private ViewPager2 mPager;
     private FragmentStateAdapter pagerAdapter;
 
-    private int numPage = 3;
+    private int numPage = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,6 @@ public class GraduateActivity extends AppCompatActivity {
         binding.executePendingBindings();    // 바인딩 강제 즉시실행
 
         Intent intent = getIntent();
-        Bundle bundle = new Bundle();
 
         Toolbar mToolbar = binding.graduateToolbar;
         setSupportActionBar(mToolbar);
@@ -52,11 +51,12 @@ public class GraduateActivity extends AppCompatActivity {
         String[] titles = new String[] {"교과", "비교과"};
 
         mPager = binding.graduateViewpager;
-        pagerAdapter = new GraduatePagerAdapter(this, numPage, bundle);
+        pagerAdapter = new GraduatePagerAdapter(this, numPage);
         mPager.setAdapter(pagerAdapter);
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         mPager.setCurrentItem(0);
         mPager.setOffscreenPageLimit(2);
+
         mPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

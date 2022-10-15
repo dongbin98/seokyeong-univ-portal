@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="124dp"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/attendance_detail_list_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/lectureplan_subject_and_professor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전산회계실무 | 조수익"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/roboto"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/lectureplan_department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="경영학부"
+        android:textColor="@color/mainBlue"
+        android:textSize="12dp"
+        android:fontFamily="@font/roboto"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/lectureplan_subject_and_professor"
+        app:layout_constraintLeft_toLeftOf="@id/lectureplan_subject_and_professor"/>
+
+    <TextView
+        android:id="@+id/lectureplan_subject_cd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ㆍAC1020"
+        android:textColor="@color/gray1"
+        android:textSize="12dp"
+        android:fontFamily="@font/roboto"
+        app:layout_constraintTop_toTopOf="@+id/lectureplan_department"
+        app:layout_constraintLeft_toRightOf="@+id/lectureplan_department"/>
+
+    <TextView
+        android:id="@+id/lectureplan_college"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/attendance_list_background"
+        android:text="사회과학대학"
+        android:textColor="@color/mainBlue"
+        android:textSize="12dp"
+        android:fontFamily="@font/roboto"
+        android:paddingTop="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="6dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintTop_toBottomOf="@+id/lectureplan_subject_cd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/lectureplan_grade"/>
+
+    <TextView
+        android:id="@+id/lectureplan_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/attendance_list_background"
+        android:text="2학년"
+        android:textColor="@color/mainBlue"
+        android:textSize="12dp"
+        android:fontFamily="@font/roboto"
+        android:paddingTop="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="6dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/lectureplan_subject_cd"
+        app:layout_constraintStart_toEndOf="@id/lectureplan_college"
+        app:layout_constraintEnd_toStartOf="@id/lectureplan_credit"/>
+
+    <TextView
+        android:id="@+id/lectureplan_credit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/attendance_list_background"
+        android:text="3학점"
+        android:textColor="@color/mainBlue"
+        android:textSize="12dp"
+        android:fontFamily="@font/roboto"
+        android:paddingTop="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="6dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/lectureplan_subject_cd"
+        app:layout_constraintStart_toEndOf="@id/lectureplan_grade"
+        app:layout_constraintEnd_toStartOf="@id/lectureplan_time"/>
+
+    <TextView
+        android:id="@+id/lectureplan_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/attendance_list_background"
+        android:text="3학점"
+        android:textColor="@color/mainBlue"
+        android:textSize="12dp"
+        android:fontFamily="@font/roboto"
+        android:paddingTop="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="6dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/lectureplan_subject_cd"
+        app:layout_constraintStart_toEndOf="@id/lectureplan_credit"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

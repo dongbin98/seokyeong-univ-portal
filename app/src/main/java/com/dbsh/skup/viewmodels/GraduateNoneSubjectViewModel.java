@@ -34,6 +34,8 @@ public class GraduateNoneSubjectViewModel extends ViewModel {
                 parameter)).enqueue(new Callback<ResponseGraduateNoneSubject>() {
             @Override
             public void onResponse(Call<ResponseGraduateNoneSubject> call, Response<ResponseGraduateNoneSubject> response) {
+                // 졸업생의 경우 response.body() == null
+                // System.out.println(response.body());
                 if (response.isSuccessful()) {
                     if (response.body().getRtnStatus().equals("S")) {
                         ResponseGraduateNoneSubjectMap responseGraduateNoneSubjectMap = response.body().getResponseGraduateNoneSubjectMap();
