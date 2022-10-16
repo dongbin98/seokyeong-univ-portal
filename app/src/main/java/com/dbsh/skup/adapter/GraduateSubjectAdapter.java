@@ -48,7 +48,6 @@ public class GraduateSubjectAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         itemController.graduateSubjectName.setText(item.name);
         itemController.graduateSubjectTypeDetail.setText("ㆍ" + item.typeDetail);
         itemController.graduateSubjectGrade.setText(item.grade);
-        /* 원 색깔 */
     }
 
     @Override

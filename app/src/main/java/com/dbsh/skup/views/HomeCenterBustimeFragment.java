@@ -62,6 +62,12 @@ public class HomeCenterBustimeFragment extends Fragment {
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();
 
+		viewModel.busType.observe(getViewLifecycleOwner(), new Observer<String>() {
+			@Override
+			public void onChanged(String s) {
+				binding.card3Text1.setText(s);
+			}
+		});
 		viewModel.location1164.observe(getViewLifecycleOwner(), new Observer<String>() {
 			@Override
 			public void onChanged(String s) {
@@ -112,7 +118,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 
 		locationRequest = locationRequest.create();
 		locationRequest.setInterval(60000);
-		locationRequest.setFastestInterval(30000);
+		locationRequest.setFastestInterval(50000);
 
 		locationCallback = new LocationCallback() {
 			@Override
@@ -158,7 +164,6 @@ public class HomeCenterBustimeFragment extends Fragment {
 				}
 			}
 		});
-
 		return binding.getRoot();
 	}
 }

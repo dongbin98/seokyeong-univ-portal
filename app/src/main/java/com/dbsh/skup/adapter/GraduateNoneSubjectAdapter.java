@@ -35,7 +35,6 @@ public class GraduateNoneSubjectAdapter extends RecyclerView.Adapter<RecyclerVie
         final GraduateNoneSubjectItem item = data.get(position);
         final GraduateNoneSubjectHolder itemController = (GraduateNoneSubjectHolder) holder;
 
-        /* 이수 미이수 색상구분 */
         if(item.type.equals("이수")) {
             itemController.graduateNoneSubjectType.setTextColor(context.getColor(R.color.mainBlue));
             itemController.graduateNoneSubjectType2.setTextColor(context.getColor(R.color.mainBlue));

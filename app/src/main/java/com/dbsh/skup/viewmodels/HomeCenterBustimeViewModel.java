@@ -35,6 +35,8 @@ public class HomeCenterBustimeViewModel {
     public MutableLiveData<String> arriveFirst2115 = new MutableLiveData<>();
     public MutableLiveData<String> arriveSecond2115 = new MutableLiveData<>();
 
+    public MutableLiveData<String> busType = new MutableLiveData<>();
+
 
     // Data.go.kr
     final String serviceKey = "6QzxyxwgIYyrLx303Ylnud8BZMmZ4Caw%2Ble0fsW8oc9lsv0KHGZWV5jhZ%2BLgzGbESVdaYzjRmnnwdzWychAaeA%3D%3D";
@@ -63,12 +65,12 @@ public class HomeCenterBustimeViewModel {
 
     public HomeCenterBustimeViewModel(Context context) {
         this.context = context;
-        location1164.setValue("");
-        location2115.setValue("");
-        arriveFirst1164.setValue("");
-        arriveFirst2115.setValue("");
-        arriveSecond1164.setValue("");
-        arriveSecond2115.setValue("");
+//        location1164.setValue("");
+//        location2115.setValue("");
+//        arriveFirst1164.setValue("");
+//        arriveFirst2115.setValue("");
+//        arriveSecond1164.setValue("");
+//        arriveSecond2115.setValue("");
     }
 
     public void getArrive(String stationId, String routeId, String seq) {
@@ -149,6 +151,7 @@ public class HomeCenterBustimeViewModel {
 				// 내 거리가 한계치보다 멀면 학교로 가는 버스 도착시간 알려줌
 				if (myDistance > limitedDistance && jsonArray.getJSONObject(i).get("routeId").equals("100100171") &&
 						jsonArray.getJSONObject(i).get("direction").equals(direction1164Sku)) {
+                    busType.setValue("실시간 등교버스");
 					double x = Double.parseDouble(jsonArray.getJSONObject(i).get("posX").toString());
 					double y = Double.parseDouble(jsonArray.getJSONObject(i).get("posY").toString());
 					double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
@@ -162,6 +165,7 @@ public class HomeCenterBustimeViewModel {
 				// 내 거리가 한계치보다 가까우면 집으로 가는 버스 도착시간 알려줌
 				else if (myDistance <= limitedDistance && jsonArray.getJSONObject(i).get("routeId").equals("100100171") &&
 						jsonArray.getJSONObject(i).get("direction").equals(direction1164Garage)) {
+                    busType.setValue("실시간 하교버스");
 					double x = Double.parseDouble(jsonArray.getJSONObject(i).get("posX").toString());
 					double y = Double.parseDouble(jsonArray.getJSONObject(i).get("posY").toString());
 					double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));

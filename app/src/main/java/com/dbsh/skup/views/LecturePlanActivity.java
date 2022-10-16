@@ -2,11 +2,14 @@ package com.dbsh.skup.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,7 +28,6 @@ import com.dbsh.skup.model.ResponseYearList;
 import com.dbsh.skup.viewmodels.LecturePlanViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LecturePlanActivity extends AppCompatActivity {
     LecturePlanFormBinding binding;
@@ -44,7 +46,7 @@ public class LecturePlanActivity extends AppCompatActivity {
     RecyclerView lectureplanRecyclerview;
 
     ArrayList<String> spinnerItem, spinnerItem2;
-    List<LectureplanAdapter.LectureplanItem> data;
+    ArrayList<LectureplanAdapter.LectureplanItem> data;          // 원본
     LectureplanAdapter adapter;
 
     UserData userData;
@@ -85,8 +87,8 @@ public class LecturePlanActivity extends AppCompatActivity {
         // 강의계획서, 주차별 진도사항 보기
         adapter.setOnItemClickListener(new LectureplanAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View v, int position) {
-                System.out.println(data.get(position).subjectName);
+            public void onItemClick(LectureplanAdapter.LectureplanItem data) {
+                Toast.makeText(getApplicationContext(), data.subjectName + "클릭!\n상세 페이지 미구현", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -155,6 +157,7 @@ public class LecturePlanActivity extends AppCompatActivity {
             public void onClick(View view) {
                 adapter.setAdapterClickable(false);
                 lectureplanBtn.setClickable(false);
+                 binding.lectureplanSearch.setText("");
                 data.clear();
                 totalCount = 0;
                 nowCount = 0;
@@ -179,19 +182,29 @@ public class LecturePlanActivity extends AppCompatActivity {
         viewModel.responseLectureplanListLiveData.observe(binding.getLifecycleOwner(), new Observer<ResponseLectureplanList>() {
             @Override
             public void onChanged(ResponseLectureplanList responseLectureplanList) {
+                String subject = "", professor = "", department = "", subjectCd = "", college = "", grade = "", credit = "", time = "";
                 if(responseLectureplanList != null) {
-                    data.add(new LectureplanAdapter.LectureplanItem(
-                            responseLectureplanList.getSubjNm(),
-                            responseLectureplanList.getProfNm(),
-                            responseLectureplanList.getDeptNm(),
-                            responseLectureplanList.getSubjCd(),
-                            responseLectureplanList.getColeNm(),
-                            responseLectureplanList.getSchlShyr(),
-                            responseLectureplanList.getSubjPont(),
-                            responseLectureplanList.getSubjTime()
-                    ));
+                    /* 유효성 검사 */
+                    if(responseLectureplanList.getSubjNm() != null)
+                        subject = responseLectureplanList.getSubjNm();
+                    if(responseLectureplanList.getProfNm() != null)
+                        professor = responseLectureplanList.getProfNm();
+                    if(responseLectureplanList.getDeptNm() != null)
+                        department = responseLectureplanList.getDeptNm();
+                    if(responseLectureplanList.getSubjCd() != null)
+                        subjectCd = responseLectureplanList.getSubjCd();
+                    if(responseLectureplanList.getColeNm() != null)
+                        college = responseLectureplanList.getColeNm();
+                    if(responseLectureplanList.getSchlShyr() != null)
+                        grade = responseLectureplanList.getSchlShyr();
+                    if(responseLectureplanList.getSubjPont() != null)
+                        credit = responseLectureplanList.getSubjPont();
+                    if(responseLectureplanList.getSubjTime() != null)
+                        time = responseLectureplanList.getSubjTime();
+
+                    /* 데이터 추가 */
+                    data.add(new LectureplanAdapter.LectureplanItem(subject, professor, department, subjectCd, college, grade, credit, time));
                     nowCount++;
-                    System.out.println("Made list : " + nowCount + "/" +totalCount);
                 }
                 adapter.notifyDataSetChanged();
                 if (totalCount == nowCount) {
@@ -201,10 +214,23 @@ public class LecturePlanActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    public void searchFilter(String searchText) {
+        binding.lectureplanSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override

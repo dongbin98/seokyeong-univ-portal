@@ -62,7 +62,6 @@ public class GraduateSubjectFragment extends Fragment {
         viewModel.graduateBasicLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseGraduateBasicMap>() {
             @Override
             public void onChanged(ResponseGraduateBasicMap responseGraduateBasicMap) {
-                System.out.println(responseGraduateBasicMap.getAcquPnt());
                 binding.graduateTotalCredit.setText(responseGraduateBasicMap.getAcquPnt());
                 binding.graduateAverageGrade.setText(responseGraduateBasicMap.getGrdMarkAvg());
                 binding.graduatePassCheck.setText(responseGraduateBasicMap.getGrdScrnRslt());
@@ -79,6 +78,7 @@ public class GraduateSubjectFragment extends Fragment {
                             responseGraduateSubjectList.getAreaNm(),
                             responseGraduateSubjectList.getDisData()
                     ));
+                    System.out.println(responseGraduateSubjectList.getSubjNm());
                     adapter.notifyDataSetChanged();
                 }
             }

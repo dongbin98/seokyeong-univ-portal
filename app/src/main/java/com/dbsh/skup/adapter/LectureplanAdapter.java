@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,10 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<LectureplanItem> data;
+public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
+    private ArrayList<LectureplanItem> data;
+    private ArrayList<LectureplanItem> filteredData;
 
     Context context;
     boolean clickable;
@@ -24,9 +27,43 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.clickable = clickable;
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if (search.isEmpty()) {     // 필터가 비어있을 시
+                    filteredData = data;
+                } else {                    // 뭔가 검색했을 시
+                    ArrayList<LectureplanItem> filteringData = new ArrayList<>();
+                    for(LectureplanItem item : data) {
+                        if(item.subjectName.toLowerCase().contains(search.toLowerCase()) ||
+                            item.subjectCd.toLowerCase().contains(search.toLowerCase()) ||
+                            item.department.toLowerCase().contains(search.toLowerCase()) ||
+                            item.professorName.toLowerCase().contains(search.toLowerCase())
+                        ) {
+                            filteringData.add(item);
+                        }
+                    }
+                    filteredData = filteringData;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredData;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                filteredData = (ArrayList<LectureplanItem>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
     // 아이템 클릭 리스너 인터페이스
     public interface OnItemClickListener{
-        void onItemClick(View v, int position); //뷰와 포지션값
+        void onItemClick(LectureplanItem data); // 데이터 보내기
     }
     // 리스너 객체 참조 변수
     private OnItemClickListener mListener = null;
@@ -35,10 +72,11 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.mListener = listener;
     }
 
-    public void dataClear() {data.clear();}
-    public LectureplanAdapter(List<LectureplanItem> data) {
+    public LectureplanAdapter(ArrayList<LectureplanItem> data) {
         this.data = data;
+        this.filteredData = data;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,9 +90,13 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final LectureplanItem item = data.get(position);
+        final LectureplanItem item = filteredData.get(position);
         final LectureplanHolder itemController = (LectureplanHolder) holder;
-        itemController.lectureplanSubjectAndProfessor.setText(item.subjectName + " | " + item.professorName);
+        if (item.professorName.equals("")) {
+            itemController.lectureplanSubjectAndProfessor.setText(item.subjectName);
+        } else {
+            itemController.lectureplanSubjectAndProfessor.setText(item.subjectName + " | " + item.professorName);
+        }
         itemController.lectureplanDepartment.setText(item.department);
         itemController.lectureplanSubjectCd.setText("ㆍ" + item.subjectCd);
         itemController.lectureplanCollege.setText(item.college);
@@ -67,7 +109,7 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View view) {
                 if (position != RecyclerView.NO_POSITION){
                     if (mListener!=null && clickable){
-                        mListener.onItemClick (view, position);
+                        mListener.onItemClick (filteredData.get(position));
                     }
                 }
             }
@@ -76,7 +118,7 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return filteredData.size();
     }
 
     private static class LectureplanHolder extends RecyclerView.ViewHolder {
@@ -98,6 +140,11 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             lectureplanCredit = (TextView) itemView.findViewById(R.id.lectureplan_credit);
             lectureplanTime = (TextView) itemView.findViewById(R.id.lectureplan_time);
         }
+    }
+
+    public void setFilter(ArrayList<LectureplanItem> searchData) {
+        this.data = searchData;
+        notifyDataSetChanged();
     }
 
     public static class LectureplanItem {
