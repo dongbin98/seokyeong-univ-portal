@@ -1,5 +1,6 @@
 package com.dbsh.skup.views;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.AttendanceDetailAdapter;
+import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.AttendanceDetailFormBinding;
 import com.dbsh.skup.model.ResponseAttendanceDetailList;
@@ -89,17 +91,22 @@ public class AttendanceDetailActivity extends AppCompatActivity {
         attendance_subj_toolbar.setText(title);
 
         attendance_detail_percent = binding.attendanceDetailPercent;
-        attendance_detail_percent.setText(percent + "%");
 
         progressBar = binding.attendanceHalfProgressbar;
-        if (percent == 100) {
-            progressBar.setProgressBarColor(getColor(R.color.mainBlue));
-        } else if (percent >= 75 && percent < 100) {
-            progressBar.setProgressBarColor(getColor(R.color.mainYellow));
-        } else {
-            progressBar.setProgressBarColor(getColor(R.color.mainRed));
-        }
-        progressBar.setPercent(percent);
+		// 기존의 프로그레스바 값 설정
+//        if (percent == 100) {
+//            progressBar.setProgressBarColor(getColor(R.color.mainBlue));
+//        } else if (percent >= 75 && percent < 100) {
+//            progressBar.setProgressBarColor(getColor(R.color.mainYellow));
+//        } else {
+//            progressBar.setProgressBarColor(getColor(R.color.mainRed));
+//        }
+//	      attendance_detail_percent.setText(percent + "%");
+//        progressBar.setPercent(percent);
+
+	    // 애니메이션 적용
+	    setAnimation(progressBar, attendance_detail_percent, percent);
+
 
         Toolbar mToolbar = binding.attendanceToolbar;
         setSupportActionBar(mToolbar);
@@ -109,7 +116,9 @@ public class AttendanceDetailActivity extends AppCompatActivity {
 
         attendanceDetailList = binding.attendanceDetailRecyclerview;
         adapter = new AttendanceDetailAdapter(data);
-        attendanceDetailList.setLayoutManager(new LinearLayoutManager(this));
+
+	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        attendanceDetailList.setLayoutManager(linearLayoutManagerWrapper);
         attendanceDetailList.setAdapter(adapter);
 
         viewModel.getAttendanceDetailData(token, id, year, term, cd, numb);
@@ -156,10 +165,30 @@ public class AttendanceDetailActivity extends AppCompatActivity {
                         return result;
                     }
                 });
-                adapter.notifyDataSetChanged();
+	            adapter.notifyItemInserted(data.size());
             }
         });
     }
+
+	private void setAnimation(final SemiCircleArcProgressBar progressBar, final TextView textView, final int percent) {
+		ValueAnimator animator = ValueAnimator.ofInt(0, percent).setDuration(1000);
+
+		animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator valueAnimator) {
+				if ((int) valueAnimator.getAnimatedValue() == 100) {
+		            progressBar.setProgressBarColor(getColor(R.color.mainBlue));
+		        } else if ((int) valueAnimator.getAnimatedValue() >= 75 && (int) valueAnimator.getAnimatedValue() < 100) {
+		            progressBar.setProgressBarColor(getColor(R.color.mainYellow));
+		        } else {
+		            progressBar.setProgressBarColor(getColor(R.color.mainRed));
+		        }
+				textView.setText((int) valueAnimator.getAnimatedValue() + "%");
+				progressBar.setPercent((int) valueAnimator.getAnimatedValue());
+			}
+		});
+		animator.start();
+	}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

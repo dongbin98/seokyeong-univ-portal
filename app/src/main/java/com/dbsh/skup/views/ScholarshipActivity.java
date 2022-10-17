@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
+import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.adapter.ScholarshipAdapter;
 import com.dbsh.skup.adapter.SpinnerAdapter;
 import com.dbsh.skup.data.UserData;
@@ -83,7 +84,8 @@ public class ScholarshipActivity extends AppCompatActivity {
 	    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	    getSupportActionBar().setTitle("");
 
-	    scholarshipRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+	    scholarshipRecyclerview.setLayoutManager(linearLayoutManagerWrapper);
 	    scholarshipRecyclerview.setAdapter(adapter);
 
         spinnerItem = new ArrayList<>();
@@ -147,7 +149,9 @@ public class ScholarshipActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 scholarshipBtn.setClickable(false);
+				adapter.dataClear();
                 data.clear();
+	            adapter.notifyDataSetChanged();
                 totalCount = 0;
                 nowCount = 0;
                 viewModel.getScholar(token, id, year, term);
@@ -155,7 +159,9 @@ public class ScholarshipActivity extends AppCompatActivity {
         });
 
         scholarshipBtn.setClickable(false);
+	    adapter.dataClear();
         data.clear();
+	    adapter.notifyDataSetChanged();
         nowCount = 0;
         totalCount = 0;
         viewModel.getScholar(token, id, year, term);
@@ -178,7 +184,7 @@ public class ScholarshipActivity extends AppCompatActivity {
                             responseScholarList.getSclsAmt().replace(" ", "")));
                     nowCount++;
                 }
-                adapter.notifyDataSetChanged();
+	            adapter.notifyItemInserted(data.size());
                 if (totalCount == nowCount) {
                     scholarshipBtn.setClickable(true);
                 }

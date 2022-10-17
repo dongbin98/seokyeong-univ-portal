@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.AttendanceAdapter;
+import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.adapter.SpinnerAdapter;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.AttendanceFormBinding;
@@ -102,7 +103,8 @@ public class AttendanceActivity extends AppCompatActivity {
 			}
 		});
 
-		attendanceList.setLayoutManager(new LinearLayoutManager(this));
+		LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+		attendanceList.setLayoutManager(linearLayoutManagerWrapper);
 		attendanceList.setAdapter(adapter);
 
 		spinnerItem = new ArrayList<>();
@@ -167,7 +169,9 @@ public class AttendanceActivity extends AppCompatActivity {
 			public void onClick(View view) {
 				adapter.setAdapterClickable(false);
 				attendanceBtn.setClickable(false);
+				adapter.dataClear();
 				data.clear();
+				adapter.notifyDataSetChanged();
 				nowCount = 0;
 				totalCount = 0;
 				viewModel.getAttendance(token, id, year, term);
@@ -176,7 +180,9 @@ public class AttendanceActivity extends AppCompatActivity {
 
 		adapter.setAdapterClickable(false);
 		attendanceBtn.setClickable(false);
+		adapter.dataClear();
 		data.clear();
+		adapter.notifyDataSetChanged();
 		nowCount = 0;
 		totalCount = 0;
 		viewModel.getAttendance(token, id, year, term);
@@ -203,7 +209,7 @@ public class AttendanceActivity extends AppCompatActivity {
 					));
 					nowCount++;
 				}
-				adapter.notifyDataSetChanged();
+				adapter.notifyItemInserted(data.size());
 				if(totalCount == nowCount) {
 					attendanceBtn.setClickable(true);
 					adapter.setAdapterClickable(true);

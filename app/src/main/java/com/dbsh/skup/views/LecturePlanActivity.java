@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.LectureplanAdapter;
+import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.adapter.SpinnerAdapter;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.LecturePlanFormBinding;
@@ -92,7 +93,8 @@ public class LecturePlanActivity extends AppCompatActivity {
             }
         });
 
-        lectureplanRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        lectureplanRecyclerview.setLayoutManager(linearLayoutManagerWrapper);
         lectureplanRecyclerview.setAdapter(adapter);
 
         spinnerItem = new ArrayList<>();
@@ -157,8 +159,10 @@ public class LecturePlanActivity extends AppCompatActivity {
             public void onClick(View view) {
                 adapter.setAdapterClickable(false);
                 lectureplanBtn.setClickable(false);
-                 binding.lectureplanSearch.setText("");
+				binding.lectureplanSearch.setText("");
+	            adapter.dataClear();
                 data.clear();
+	            adapter.notifyDataSetChanged();
                 totalCount = 0;
                 nowCount = 0;
                 viewModel.getLecturePlan(token, id, year, term);
@@ -167,7 +171,9 @@ public class LecturePlanActivity extends AppCompatActivity {
 
         adapter.setAdapterClickable(false);
         lectureplanBtn.setClickable(false);
+	    adapter.dataClear();
         data.clear();
+		adapter.notifyDataSetChanged();
         nowCount = 0;
         totalCount = 0;
         viewModel.getLecturePlan(token, id, year, term);
@@ -206,7 +212,7 @@ public class LecturePlanActivity extends AppCompatActivity {
                     data.add(new LectureplanAdapter.LectureplanItem(subject, professor, department, subjectCd, college, grade, credit, time));
                     nowCount++;
                 }
-                adapter.notifyDataSetChanged();
+	            adapter.notifyItemInserted(data.size());
                 if (totalCount == nowCount) {
                     System.out.println("All List Done!");
                     lectureplanBtn.setClickable(true);

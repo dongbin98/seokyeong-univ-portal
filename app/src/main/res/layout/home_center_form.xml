@@ -234,30 +234,36 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_home_quick_text1"/>
 
-            <TextView
+            <ImageButton
                 android:id="@+id/main_home_notice_plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="58dp"
+                android:layout_height="24dp"
                 android:background="@drawable/attendance_list_background"
                 android:layout_marginRight="16dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/main_home_notice"
+                app:layout_constraintBottom_toBottomOf="@id/main_home_notice"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="+ 더보기"
                 android:textSize="12dp"
                 android:textColor="@color/mainBlue"
                 android:fontFamily="@font/roboto"
                 android:textStyle="bold"
-                android:paddingTop="6dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="6dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/main_home_notice"
-                app:layout_constraintBottom_toBottomOf="@id/main_home_notice"/>
+                app:layout_constraintTop_toTopOf="@id/main_home_notice_plus"
+                app:layout_constraintLeft_toLeftOf="@id/main_home_notice_plus"
+                app:layout_constraintRight_toRightOf="@id/main_home_notice_plus"
+                app:layout_constraintBottom_toBottomOf="@id/main_home_notice_plus"/>
+
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="4dp"
                 android:layout_marginBottom="20dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
@@ -279,30 +285,35 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewpager2"/>
 
-            <TextView
+            <ImageButton
                 android:id="@+id/main_home_major_notice_plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="58dp"
+                android:layout_height="24dp"
                 android:background="@drawable/attendance_list_background"
                 android:layout_marginRight="16dp"
-                android:text="+ 더보기"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                android:textColor="@color/mainBlue"
-                android:fontFamily="@font/roboto"
-                android:paddingTop="6dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="6dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/main_home_major_notice"
                 app:layout_constraintBottom_toBottomOf="@id/main_home_major_notice"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ 더보기"
+                android:textSize="12dp"
+                android:textColor="@color/mainBlue"
+                android:fontFamily="@font/roboto"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/main_home_major_notice_plus"
+                app:layout_constraintLeft_toLeftOf="@id/main_home_major_notice_plus"
+                app:layout_constraintRight_toRightOf="@id/main_home_major_notice_plus"
+                app:layout_constraintBottom_toBottomOf="@id/main_home_major_notice_plus"/>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="4dp"
                 android:layout_marginBottom="20dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"

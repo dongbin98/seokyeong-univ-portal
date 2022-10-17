@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.GraduateSubjectAdapter;
+import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.GraduateSubjectFormBinding;
 import com.dbsh.skup.model.ResponseGraduateBasicMap;
@@ -52,10 +53,14 @@ public class GraduateSubjectFragment extends Fragment {
         data = new ArrayList<>();
         graduateSubjectRecyclerView = binding.graduateSubjectRecyclerview;
         adapter = new GraduateSubjectAdapter(data);
-        graduateSubjectRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        graduateSubjectRecyclerView.setLayoutManager(linearLayoutManagerWrapper);
         graduateSubjectRecyclerView.setAdapter(adapter);
 
+	    adapter.dataClear();
         data.clear();
+	    adapter.notifyDataSetChanged();
         viewModel.getGraduateBasic(token, id);
         viewModel.getGraduateSubject(token, id);
 
@@ -79,7 +84,7 @@ public class GraduateSubjectFragment extends Fragment {
                             responseGraduateSubjectList.getDisData()
                     ));
                     System.out.println(responseGraduateSubjectList.getSubjNm());
-                    adapter.notifyDataSetChanged();
+	                adapter.notifyItemInserted(data.size());
                 }
             }
         });

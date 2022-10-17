@@ -1,5 +1,6 @@
 package com.dbsh.skup.adapter;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public AttendanceAdapter(List<AttendanceItem> data) {
         this.data = data;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -59,20 +61,26 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         itemController.attendance_subj.setText(item.subjCd);
         itemController.attendance_percent.setText(item.strPercent + "%");
 
-        itemController.attendance_progressbar.setProgress(0);
-        itemController.attendance_progressbar.setProgress(1);
-        if(item.percent == 100) {
-            // 파란색 막대기
-            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_blue_progressbar));
-        }
-        else if(item.percent >= 75 && item.percent < 100) {
-            // 주황색 막대기
-            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_yellow_progressbar));
-        }
-        else {
-            // 빨간색 막대기
-            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_red_progressbar));
-        }
+		// 기존의 프로그레스바 값 설정
+//        itemController.attendance_progressbar.setProgress(0);
+//        itemController.attendance_progressbar.setProgress(1);
+//        if(item.percent == 100) {
+//            // 파란색 막대기
+//            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_blue_progressbar));
+//        }
+//        else if(item.percent >= 75 && item.percent < 100) {
+//            // 주황색 막대기
+//            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_yellow_progressbar));
+//        }
+//        else {
+//            // 빨간색 막대기
+//            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_red_progressbar));
+//        }
+//
+//	    itemController.attendance_progressbar.setProgress(item.percent);
+
+	    // 애니메이션 적용
+	    setAnimation(itemController.attendance_progressbar, itemController.attendance_percent, item.percent);
 
         itemController.itemView.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -84,7 +92,6 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         });
-        itemController.attendance_progressbar.setProgress(item.percent);
     }
 
     @Override
@@ -105,6 +112,22 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             attendance_percent = (TextView) itemView.findViewById(R.id.attendance_percent);
             attendance_progressbar = (ProgressBar) itemView.findViewById(R.id.attendance_progressbar);
         }
+
+	    public TextView getAttendance_title() {
+		    return attendance_title;
+	    }
+
+	    public TextView getAttendance_subj() {
+		    return attendance_subj;
+	    }
+
+	    public TextView getAttendance_percent() {
+		    return attendance_percent;
+	    }
+
+	    public ProgressBar getAttendance_progressbar() {
+		    return attendance_progressbar;
+	    }
     }
 
     public static class AttendanceItem {
@@ -121,4 +144,29 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             this.subjTime = subjTime;           // 해당 수업 시간
         }
     }
+
+	private void setAnimation(final ProgressBar progressBar, final TextView textView, final int percent) {
+		ValueAnimator animator = ValueAnimator.ofInt(0, percent).setDuration(1000);
+
+		animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator valueAnimator) {
+				if((int) valueAnimator.getAnimatedValue() == 100) {
+					// 파란색 막대기
+					progressBar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_blue_progressbar));
+				}
+				else if((int) valueAnimator.getAnimatedValue() >= 75 && (int) valueAnimator.getAnimatedValue() < 100) {
+					// 주황색 막대기
+					progressBar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_yellow_progressbar));
+				}
+				else {
+					// 빨간색 막대기
+					progressBar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_red_progressbar));
+				}
+				textView.setText((int) valueAnimator.getAnimatedValue() + "%");
+				progressBar.setProgress((int) valueAnimator.getAnimatedValue());
+			}
+		});
+		animator.start();
+	}
 }

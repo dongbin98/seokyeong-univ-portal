@@ -102,7 +102,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuQrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), QrcodeActivity.class);
+                Intent intent = new Intent(getActivity(), QrcodeFragment.class);
                 startActivity(intent);
             }
         });

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.GraduateNoneSubjectAdapter;
+import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.GraduateNoneSubjectFormBinding;
 import com.dbsh.skup.model.ResponseGraduateNoneSubjectMap;
@@ -51,10 +52,14 @@ public class GraduateNoneSubjectFragment extends Fragment {
         data = new ArrayList<>();
         graduateNoneSubjectRecyclerView = binding.graduateNoneSubjectRecyclerview;
         adapter = new GraduateNoneSubjectAdapter(data);
-        graduateNoneSubjectRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        graduateNoneSubjectRecyclerView.setLayoutManager(linearLayoutManagerWrapper);
         graduateNoneSubjectRecyclerView.setAdapter(adapter);
 
+	    adapter.dataClear();
         data.clear();
+	    adapter.notifyDataSetChanged();
         viewModel.getGraduateNoneSubject(token, id);
 
         viewModel.graduateNoneSubjectLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseGraduateNoneSubjectMap>() {
@@ -80,7 +85,7 @@ public class GraduateNoneSubjectFragment extends Fragment {
                         "비교과인증 이수여부",
                         "모든 캠프"
                 ));
-                adapter.notifyDataSetChanged();
+	            adapter.notifyItemInserted(data.size());
             }
         });
         return binding.getRoot();

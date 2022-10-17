@@ -1,16 +1,19 @@
 package com.dbsh.skup.views;
 
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.data.UserData;
@@ -21,7 +24,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-public class QrcodeActivity extends AppCompatActivity {
+public class QrcodeFragment extends Fragment implements HomeActivity.onBackPressedListener {
 
     QrcodeFormBinding binding;
     QrcodeViewModel viewModel;
@@ -30,25 +33,25 @@ public class QrcodeActivity extends AppCompatActivity {
     ImageView QR_CODE;
 
     UserData userData;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /* DataBinding */
-        binding = DataBindingUtil.setContentView(this, R.layout.qrcode_form);
+	    binding = DataBindingUtil.inflate(inflater, R.layout.qrcode_form, container, false);
         binding.setLifecycleOwner(this);
         viewModel = new QrcodeViewModel();
         binding.setViewModel(viewModel);
         binding.executePendingBindings();	// 바인딩 강제 즉시실행
 
-        userData = ((UserData) getApplication());
+        userData = ((UserData) getActivity().getApplication());
 
         Toolbar mToolbar = binding.qrToolbar;
-        setSupportActionBar(mToolbar);
+	    ((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+		((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    ((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
 
-        Intent intent = getIntent();
         String id = userData.getId();
         String date = "0000000022";
 
@@ -94,15 +97,33 @@ public class QrcodeActivity extends AppCompatActivity {
                 }catch (Exception e){}
             }
         });
+
+		return binding.getRoot();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-                finish();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
+//        switch (item.getItemId()){
+//            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+//	            onBackPressed();
+//                return true;
+//            }
+//        }
+//        return super.onOptionsItemSelected(item);
+	    super.onOptionsItemSelected(item);
+		onBackPressed();
+		return true;
     }
+
+	@Override
+	public void onBackPressed() {
+		getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+		getActivity().getSupportFragmentManager().popBackStack();
+	}
+
+	@Override
+	public void onAttach(@NonNull Context context) {
+		super.onAttach(context);
+		((HomeActivity)context).setOnBackPressedListner(this);
+	}
 }

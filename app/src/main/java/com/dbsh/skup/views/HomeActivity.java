@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.HomeFormBinding;
@@ -24,6 +25,17 @@ public class HomeActivity extends AppCompatActivity {
 	private long time = 0;
 	private HomeFormBinding binding;
 	private HomeViewModel viewModel;
+
+	public interface onBackPressedListener {
+		void onBackPressed();
+	}
+
+	private onBackPressedListener mBackListener;
+
+	public void setOnBackPressedListner(onBackPressedListener listener) {
+		mBackListener = listener;
+	}
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,14 +100,22 @@ public class HomeActivity extends AppCompatActivity {
 		});
 	}
 
+	public void replaceFragment(Fragment beforeFragment, Fragment afterFragment) {
+		getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), afterFragment).commit();
+		getSupportFragmentManager().beginTransaction().show(afterFragment).addToBackStack(null).commit();
+	}
+
 	@Override
 	public void onBackPressed() {
-		if(System.currentTimeMillis()-time >= 2000) {
-			time=System.currentTimeMillis();
-			Toast.makeText(getApplicationContext(),"한번 더 누르면 로그인창으로 이동합니다.", Toast.LENGTH_SHORT).show();
-		}
-		else if(System.currentTimeMillis()-time < 2000){
-			finish();
+		if (mBackListener != null) {
+			mBackListener.onBackPressed();
+		} else {
+			if (System.currentTimeMillis() - time >= 2000) {
+				time = System.currentTimeMillis();
+				Toast.makeText(getApplicationContext(), "한번 더 누르면 로그인창으로 이동합니다.", Toast.LENGTH_SHORT).show();
+			} else if (System.currentTimeMillis() - time < 2000) {
+				finish();
+			}
 		}
 	}
 }

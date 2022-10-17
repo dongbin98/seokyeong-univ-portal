@@ -40,6 +40,9 @@ public class HomeCenterFragment extends Fragment {
     private static final String noticeUrl = "https://skuniv.ac.kr/notice";
     private static final String majorNoticeUrl = "https://ce.skuniv.ac.kr/ce_notice";
 
+	Fragment QrFragment;
+	Fragment HomeCenterFragment;
+
     UserData userData;
 
     private ViewPager2 mPager, mPager2, mPager3;
@@ -55,6 +58,7 @@ public class HomeCenterFragment extends Fragment {
         binding.setViewModel(viewModel);
         binding.executePendingBindings();
 
+		HomeCenterFragment = this;
         userData = ((UserData) getActivity().getApplication());
 
         noticeData task = new noticeData();
@@ -91,7 +95,6 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeQuickBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(userData.getToken());
                 Intent intent = new Intent(getActivity(), AttendanceActivity.class);
                 startActivity(intent);
             }
@@ -106,9 +109,11 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeQuickBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), QrcodeActivity.class);
-                startActivity(intent);
-            }
+				if (QrFragment == null) {
+					QrFragment = new QrcodeFragment();
+				}
+	            ((HomeActivity) getActivity()).replaceFragment(HomeCenterFragment, QrFragment);
+			}
         });
         // Portal
         binding.mainHomeQuickBtn4.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +210,7 @@ public class HomeCenterFragment extends Fragment {
         return binding.getRoot();
     }
 
-    /* 전체 공지사항 파싱 */
+	/* 전체 공지사항 파싱 */
     private class noticeData extends AsyncTask<Void, Void, ArrayList<NoticeData>> {
 
         @Override

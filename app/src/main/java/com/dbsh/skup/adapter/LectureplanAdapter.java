@@ -76,6 +76,10 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.data = data;
         this.filteredData = data;
     }
+	public void dataClear() {
+		data.clear();
+		filteredData.clear();
+	}
 
     @NonNull
     @Override
@@ -90,7 +94,8 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final LectureplanItem item = filteredData.get(position);
+//        final LectureplanItem item = filteredData.get(position);
+	    final LectureplanItem item = (filteredData != null) ? filteredData.get(position) : data.get(position);
         final LectureplanHolder itemController = (LectureplanHolder) holder;
         if (item.professorName.equals("")) {
             itemController.lectureplanSubjectAndProfessor.setText(item.subjectName);
