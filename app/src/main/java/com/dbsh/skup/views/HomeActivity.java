@@ -101,7 +101,7 @@ public class HomeActivity extends AppCompatActivity {
 	public void onBackPressed() {
 		List<Fragment> fragments = getSupportFragmentManager().getFragments();
 		for(Fragment fragment : fragments) {
-			if(fragment instanceof OnBackPressedListener) {
+			if(fragment instanceof OnBackPressedListener && fragment.isVisible()) {
 				((OnBackPressedListener)fragment).onBackPressed();
 				return;
 			}

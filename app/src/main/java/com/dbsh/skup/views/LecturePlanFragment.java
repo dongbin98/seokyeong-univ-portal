@@ -1,19 +1,21 @@
 package com.dbsh.skup.views;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,9 +32,12 @@ import com.dbsh.skup.viewmodels.LecturePlanViewModel;
 
 import java.util.ArrayList;
 
-public class LecturePlanActivity extends AppCompatActivity {
+public class LecturePlanFragment extends Fragment implements OnBackPressedListener {
     LecturePlanFormBinding binding;
     LecturePlanViewModel viewModel;
+
+	// parent Fragment
+	private HomeLeftContainer homeLeftContainer;
 
     String token;
     String id;
@@ -53,18 +58,18 @@ public class LecturePlanActivity extends AppCompatActivity {
     UserData userData;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        /* DataBinding */
-        binding = DataBindingUtil.setContentView(this, R.layout.lecture_plan_form);
-        binding.setLifecycleOwner(this);
-        viewModel = new LecturePlanViewModel();
-        binding.setViewModel(viewModel);
-        binding.executePendingBindings();    // 바인딩 강제 즉시실행
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    /* DataBinding */
+	    binding = DataBindingUtil.inflate(inflater, R.layout.lecture_plan_form, container, false);
+	    binding.setLifecycleOwner(this);
+	    viewModel = new LecturePlanViewModel();
+	    binding.setViewModel(viewModel);
+	    binding.executePendingBindings();    // 바인딩 강제 즉시실행
 
-        userData = ((UserData) getApplication());
+	    homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
 
-        Intent intent = getIntent();
+        userData = ((UserData) getActivity().getApplication());
 
         token = userData.getToken();
         id = userData.getId();
@@ -74,10 +79,10 @@ public class LecturePlanActivity extends AppCompatActivity {
         data = new ArrayList<>();
 
         Toolbar mToolbar = binding.lectureplanToolbar;
-        setSupportActionBar(mToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+	    ((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
+	    ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    ((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
 
         lectureplahSpinner = binding.lectureplanSpinner;
         lectureplahSpinner2 = binding.lectureplanSpinner2;
@@ -89,11 +94,11 @@ public class LecturePlanActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new LectureplanAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(LectureplanAdapter.LectureplanItem data) {
-                Toast.makeText(getApplicationContext(), data.subjectName + "클릭!\n상세 페이지 미구현", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), data.subjectName + "클릭!\n상세 페이지 미구현", Toast.LENGTH_SHORT).show();
             }
         });
 
-	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false);
         lectureplanRecyclerview.setLayoutManager(linearLayoutManagerWrapper);
         lectureplanRecyclerview.setAdapter(adapter);
 
@@ -115,7 +120,7 @@ public class LecturePlanActivity extends AppCompatActivity {
             }
         }
 
-        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, spinnerItem);
+        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getContext(), spinnerItem);
         lectureplahSpinner.setAdapter(spinnerAdapter);
         lectureplahSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -128,7 +133,7 @@ public class LecturePlanActivity extends AppCompatActivity {
             }
         });
 
-        SpinnerAdapter spinnerAdapter2 = new SpinnerAdapter(this, spinnerItem2);
+        SpinnerAdapter spinnerAdapter2 = new SpinnerAdapter(getContext(), spinnerItem2);
         lectureplahSpinner2.setAdapter(spinnerAdapter2);
         lectureplahSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -237,16 +242,19 @@ public class LecturePlanActivity extends AppCompatActivity {
 
             }
         });
+
+		return binding.getRoot();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-                finish();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public void onBackPressed() {
+		homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+		homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+	}
+
+	@Override
+	public void onAttach(@NonNull Context context) {
+		super.onAttach(context);
+		((HomeActivity) context).setOnBackPressedListner(this);
+	}
 }

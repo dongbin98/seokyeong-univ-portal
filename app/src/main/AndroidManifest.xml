@@ -29,11 +29,7 @@
 
         <activity android:name=".views.MainActivity"/>
         <activity android:name=".views.HomeActivity"/>
-        <activity android:name=".views.TuitionActivity"/>
         <activity android:name=".views.WebviewActivity"/>
-        <activity android:name=".views.ScholarshipActivity"/>
-        <activity android:name=".views.GraduateActivity"/>
-        <activity android:name=".views.LecturePlanActivity"/>
 
     </application>
 

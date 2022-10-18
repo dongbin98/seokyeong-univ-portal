@@ -36,9 +36,6 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 	private AttendanceFormBinding binding;
 	private AttendanceViewModel viewModel;
 
-	// will be replaced Fragment
-	private Fragment AttendanceDetailFragment;
-
 	// this Fragment
 	private Fragment AttendanceFragment;
 
@@ -72,8 +69,7 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();	// 바인딩 강제 즉시실행
 
-		type = "";
-
+		userData = ((UserData) getActivity().getApplication());
 		if(getArguments() != null) {
 			type = getArguments().getString("type");
 		}
@@ -81,10 +77,8 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 		AttendanceFragment = this;
 		if(type.equals("left"))
 			homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
-		else
+		else if(type.equals("center"))
 			homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
-
-		userData = ((UserData) getActivity().getApplication());
 
 		data = new ArrayList<>();
 
@@ -124,11 +118,14 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 				bundle.putString("YEAR", year);
 				bundle.putString("TERM", term);
 				bundle.putString("type", type);
-				homeCenterContainer.replaceFragment(new AttendanceDetailFragment(), bundle);
+				if(type.equals("center"))
+					homeCenterContainer.replaceFragment(new AttendanceDetailFragment(), bundle);
+				else if(type.equals("left"))
+					homeLeftContainer.replaceFragment(new AttendanceDetailFragment(), bundle);
 			}
 		});
 
-		LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+		LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false);
 		attendanceList.setLayoutManager(linearLayoutManagerWrapper);
 		attendanceList.setAdapter(adapter);
 
@@ -249,7 +246,7 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 		if(type.equals("center")) {
 			homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
 			homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
-		} else {
+		} else if(type.equals("left")){
 			homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
 			homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
 		}

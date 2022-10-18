@@ -1,16 +1,20 @@
 package com.dbsh.skup.views;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
@@ -19,31 +23,35 @@ import com.dbsh.skup.databinding.TuitionFormBinding;
 import com.dbsh.skup.model.ResponseTuitionMap;
 import com.dbsh.skup.viewmodels.TuitionViewModel;
 
-public class TuitionActivity extends AppCompatActivity {
+public class TuitionFragment extends Fragment implements OnBackPressedListener {
 	private TuitionFormBinding binding;
 	private TuitionViewModel viewModel;
+
+	// parent Fragment
+	private HomeLeftContainer homeLeftContainer;
 
 	public UserData userData;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    /* DataBinding */
-	    binding = DataBindingUtil.setContentView(this, R.layout.tuition_form);
+	    binding = DataBindingUtil.inflate(inflater, R.layout.tuition_form, container, false);
 	    binding.setLifecycleOwner(this);
 	    viewModel = new TuitionViewModel();
 	    binding.setViewModel(viewModel);
-	    binding.executePendingBindings();	// 바인딩 강제 즉시실행
+	    binding.executePendingBindings();    // 바인딩 강제 즉시실행
+
+	    homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
 
         Toolbar mToolbar = binding.tuitionToolbar;
-        setSupportActionBar(mToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+	    ((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
+	    ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    ((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
 
-	    userData = ((UserData) getApplication());
+	    userData = ((UserData) getActivity().getApplication());
 
-        Intent intent = getIntent();
         String token = userData.getToken();
         String id = userData.getId();
         String year = userData.getSchYear();
@@ -80,22 +88,25 @@ public class TuitionActivity extends AppCompatActivity {
 	    binding.tuitionPaste.setOnClickListener(new View.OnClickListener() {    // 가상계좌 복사버튼 이벤트
 		    @Override
 		    public void onClick(View view) {
-			    ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+			    ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
 			    ClipData clip = ClipData.newPlainText("sex", binding.tuitionTmpacct.getText());
 			    clipboard.setPrimaryClip(clip);
-			    Toast.makeText(TuitionActivity.this, "복사되었습니다.", Toast.LENGTH_SHORT).show();
+			    Toast.makeText(getContext(), "복사되었습니다.", Toast.LENGTH_SHORT).show();
 		    }
 	    });
+
+		return binding.getRoot();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-                finish();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public void onBackPressed() {
+		homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+		homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+	}
+
+	@Override
+	public void onAttach(@NonNull Context context) {
+		super.onAttach(context);
+		((HomeActivity) context).setOnBackPressedListner(this);
+	}
 }

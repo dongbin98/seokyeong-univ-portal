@@ -1,6 +1,5 @@
 package com.dbsh.skup.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,8 +49,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuTimetableBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), TimetableActivity.class);
-//                startActivity(intent);
+//                homeLeftContainer.replaceFragment(new TimeTableFragment(), null);
             }
         });
 
@@ -59,8 +57,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuGradeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), GradeActivity.class);
-//                startActivity(intent);
+//                homeLeftContainer.replaceFragment(new GradeFragment(), null);
             }
         });
 
@@ -68,8 +65,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuLectureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), LecturePlanActivity.class);
-                startActivity(intent);
+	            homeLeftContainer.replaceFragment(new LecturePlanFragment(), null);
             }
         });
 
@@ -77,8 +73,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuScholarshipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScholarshipActivity.class);
-                startActivity(intent);
+	            homeLeftContainer.replaceFragment(new ScholarshipFragment(), null);
             }
         });
 
@@ -86,8 +81,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuRegistBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), TuitionActivity.class);
-                startActivity(intent);
+				homeLeftContainer.replaceFragment(new TuitionFragment(), null);
             }
         });
 
@@ -95,8 +89,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuGraduateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), GraduateActivity.class);
-                startActivity(intent);
+	            homeLeftContainer.replaceFragment(new GraduateFragment(), null);
             }
         });
 
@@ -104,8 +97,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuPotenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), TempPotenSelectActivity.class);
-//                startActivity(intent);
+//                homeLeftContainer.replaceFragment(new NonLectureFragment(), null);
             }
         });
 

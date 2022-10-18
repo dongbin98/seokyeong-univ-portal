@@ -28,11 +28,13 @@ public class QrcodeFragment extends Fragment implements OnBackPressedListener {
     private QrcodeFormBinding binding;
     private QrcodeViewModel viewModel;
 
-	// parent Pragment
+	// parent Fragment
 	private HomeCenterContainer homeCenterContainer;
+	private HomeLeftContainer homeLeftContainer;
 
     Button QRBtn;
     ImageView QR_CODE;
+	String type;
 
     UserData userData;
 
@@ -46,8 +48,15 @@ public class QrcodeFragment extends Fragment implements OnBackPressedListener {
         binding.setViewModel(viewModel);
         binding.executePendingBindings();	// 바인딩 강제 즉시실행
 
-	    homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
-        userData = ((UserData) getActivity().getApplication());
+	    userData = ((UserData) getActivity().getApplication());
+	    if(getArguments() != null) {
+		    type = getArguments().getString("type");
+	    }
+
+	    if(type.equals("left"))
+		    homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
+	    else if(type.equals("center"))
+		    homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
 
         Toolbar mToolbar = binding.qrToolbar;
 	    ((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
@@ -105,8 +114,13 @@ public class QrcodeFragment extends Fragment implements OnBackPressedListener {
 
 	@Override
 	public void onBackPressed() {
-		homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-		homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+		if(type.equals("center")) {
+			homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+			homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+		} else if(type.equals("left")){
+			homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+			homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+		}
 	}
 
 	@Override

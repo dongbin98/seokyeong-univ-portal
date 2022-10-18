@@ -76,16 +76,7 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();	// 바인딩 강제 즉시실행
 
-		homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
 		userData = ((UserData) getActivity().getApplication());
-
-        data = new ArrayList<>();
-
-        totalCount = 0;
-        attendanceCount = 0;
-        lateCount = 0;
-        absentCount = 0;
-
 		if(getArguments() != null) {
 			cd = getArguments().getString("CD");
 			numb = getArguments().getString("NUMB");
@@ -97,13 +88,20 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
 			id = userData.getId();
 			year = getArguments().getString("YEAR");
 			term = getArguments().getString("TERM");
-            type = getArguments().getString("type");
+			type = getArguments().getString("type");
 		}
 
-        if(type.equals("left"))
-            homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
-        else
-            homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
+		if(type.equals("left"))
+			homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
+		else if(type.equals("center"))
+			homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
+
+        data = new ArrayList<>();
+
+        totalCount = 0;
+        attendanceCount = 0;
+        lateCount = 0;
+        absentCount = 0;
 
         attendance_subj_toolbar = binding.attendanceSubjToolbar;
         attendance_subj_toolbar.setText(title);
@@ -212,13 +210,13 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
 	@Override
 	public void onBackPressed() {
 		animator.cancel();
-        if(type.equals("center")) {
-            homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-            homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
-        } else {
-            homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-            homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
-        }
+		if(type.equals("center")) {
+			homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+			homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+		} else if(type.equals("left")){
+			homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+			homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+		}
 	}
 
 	@Override

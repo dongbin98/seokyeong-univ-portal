@@ -1,16 +1,18 @@
 package com.dbsh.skup.views;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,10 +30,13 @@ import com.dbsh.skup.viewmodels.ScholarshipViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScholarshipActivity extends AppCompatActivity {
+public class ScholarshipFragment extends Fragment implements OnBackPressedListener {
 
     private ScholarshipFormBinding binding;
     private ScholarshipViewModel viewModel;
+
+	// parent Fragment
+	private HomeLeftContainer homeLeftContainer;
 
     String token;
     String id;
@@ -51,19 +56,19 @@ public class ScholarshipActivity extends AppCompatActivity {
 
 	UserData userData;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        /* DataBinding */
-        binding = DataBindingUtil.setContentView(this, R.layout.scholarship_form);
-        binding.setLifecycleOwner(this);
-        viewModel = new ScholarshipViewModel();
-        binding.setViewModel(viewModel);
-        binding.executePendingBindings();	// 바인딩 강제 즉시실행
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		/* DataBinding */
+		binding = DataBindingUtil.inflate(inflater, R.layout.scholarship_form, container, false);
+		binding.setLifecycleOwner(this);
+		viewModel = new ScholarshipViewModel();
+		binding.setViewModel(viewModel);
+		binding.executePendingBindings();    // 바인딩 강제 즉시실행
 
-        userData = ((UserData) getApplication());
+		homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
 
-        Intent intent = getIntent();
+        userData = ((UserData) getActivity().getApplication());
 
         token = userData.getToken();
         id = userData.getId();
@@ -79,12 +84,12 @@ public class ScholarshipActivity extends AppCompatActivity {
         adapter = new ScholarshipAdapter(data);
 
 	    Toolbar mToolbar = binding.scholarshipToolbar;
-	    setSupportActionBar(mToolbar);
 
-	    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	    getSupportActionBar().setTitle("");
+		((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
+		((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
 
-	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false);
 	    scholarshipRecyclerview.setLayoutManager(linearLayoutManagerWrapper);
 	    scholarshipRecyclerview.setAdapter(adapter);
 
@@ -106,7 +111,7 @@ public class ScholarshipActivity extends AppCompatActivity {
             }
         }
 
-	    SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, spinnerItem);
+	    SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getContext(), spinnerItem);
 	    scholarshipSpinner.setAdapter(spinnerAdapter);
 	    scholarshipSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 		    @Override
@@ -119,7 +124,7 @@ public class ScholarshipActivity extends AppCompatActivity {
 		    }
 	    });
 
-	    SpinnerAdapter spinnerAdapter2 = new SpinnerAdapter(this, spinnerItem2);
+	    SpinnerAdapter spinnerAdapter2 = new SpinnerAdapter(getContext(), spinnerItem2);
 	    scholarshipSpinner2.setAdapter(spinnerAdapter2);
 	    scholarshipSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 		    @Override
@@ -190,16 +195,19 @@ public class ScholarshipActivity extends AppCompatActivity {
                 }
             }
         });
+
+		return binding.getRoot();
     }
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()){
-			case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-				finish();
-				return true;
-			}
-		}
-		return super.onOptionsItemSelected(item);
+	public void onBackPressed() {
+		homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+		homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+	}
+
+	@Override
+	public void onAttach(@NonNull Context context) {
+		super.onAttach(context);
+		((HomeActivity) context).setOnBackPressedListner(this);
 	}
 }
