@@ -18,6 +18,13 @@ public class HomeLeftFragment extends Fragment {
     private HomeLeftFormBinding binding;
     private HomeLeftViewModel viewModel;
 
+	// will be replaced Fragment
+	private Fragment QrFragment;
+	private Fragment AttendanceFragment;
+
+	// this Fragment
+	private Fragment HomeCenterFragment;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /* Data Binding */
@@ -30,8 +37,10 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuAttendanceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-                startActivity(intent);
+//	            if (AttendanceFragment == null) {
+//		            AttendanceFragment = new AttendanceFragment();
+//	            }
+//	            ((HomeActivity) getActivity()).replaceFragment(HomeCenterFragment, AttendanceFragment, null);
             }
         });
 
@@ -102,8 +111,10 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuQrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), QrcodeFragment.class);
-                startActivity(intent);
+//	            if (QrFragment == null) {
+//		            QrFragment = new QrcodeFragment();
+//	            }
+//	            ((HomeActivity) getActivity()).replaceFragment(HomeCenterFragment, QrFragment, null);
             }
         });
 

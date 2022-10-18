@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,10 +23,13 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-public class QrcodeFragment extends Fragment implements HomeActivity.onBackPressedListener {
+public class QrcodeFragment extends Fragment implements OnBackPressedListener {
 
-    QrcodeFormBinding binding;
-    QrcodeViewModel viewModel;
+    private QrcodeFormBinding binding;
+    private QrcodeViewModel viewModel;
+
+	// parent Pragment
+	private HomeCenterContainer homeCenterContainer;
 
     Button QRBtn;
     ImageView QR_CODE;
@@ -44,11 +46,11 @@ public class QrcodeFragment extends Fragment implements HomeActivity.onBackPress
         binding.setViewModel(viewModel);
         binding.executePendingBindings();	// 바인딩 강제 즉시실행
 
+	    homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
         userData = ((UserData) getActivity().getApplication());
 
         Toolbar mToolbar = binding.qrToolbar;
 	    ((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
-
 		((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	    ((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
 
@@ -101,24 +103,10 @@ public class QrcodeFragment extends Fragment implements HomeActivity.onBackPress
 		return binding.getRoot();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()){
-//            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-//	            onBackPressed();
-//                return true;
-//            }
-//        }
-//        return super.onOptionsItemSelected(item);
-	    super.onOptionsItemSelected(item);
-		onBackPressed();
-		return true;
-    }
-
 	@Override
 	public void onBackPressed() {
-		getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-		getActivity().getSupportFragmentManager().popBackStack();
+		homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+		homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
 	}
 
 	@Override

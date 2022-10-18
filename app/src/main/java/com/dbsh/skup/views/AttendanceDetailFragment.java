@@ -1,14 +1,17 @@
 package com.dbsh.skup.views;
 
 import android.animation.ValueAnimator;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,13 +33,17 @@ import java.util.List;
 
 import me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar;
 
-public class AttendanceDetailActivity extends AppCompatActivity {
+public class AttendanceDetailFragment extends Fragment implements OnBackPressedListener {
 
     private AttendanceDetailFormBinding binding;
     private AttendanceDetailViewModel viewModel;
 
+	// parent Pragment
+	private HomeCenterContainer homeCenterContainer;
+
     SemiCircleArcProgressBar progressBar;
     TextView attendance_subj_toolbar, attendance_detail_percent;
+	ValueAnimator animator;
 
     String token;
     String id;
@@ -57,16 +64,18 @@ public class AttendanceDetailActivity extends AppCompatActivity {
 
 	UserData userData;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        /* DataBinding */
-        binding = DataBindingUtil.setContentView(this, R.layout.attendance_detail_form);
-        binding.setLifecycleOwner(this);
-        viewModel = new AttendanceDetailViewModel();
-        binding.setViewModel(viewModel);
-        binding.executePendingBindings();    // 바인딩 강제 즉시실행
-        userData = ((UserData) getApplication());
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		/* DataBinding */
+		binding = DataBindingUtil.inflate(inflater, R.layout.attendance_detail_form, container, false);
+		binding.setLifecycleOwner(this);
+		viewModel = new AttendanceDetailViewModel();
+		binding.setViewModel(viewModel);
+		binding.executePendingBindings();	// 바인딩 강제 즉시실행
+
+		homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
+		userData = ((UserData) getActivity().getApplication());
 
         data = new ArrayList<>();
 
@@ -75,17 +84,18 @@ public class AttendanceDetailActivity extends AppCompatActivity {
         lateCount = 0;
         absentCount = 0;
 
-        Intent intent = getIntent();
-        cd = intent.getStringExtra("CD");
-        numb = intent.getStringExtra("NUMB");
-        title = intent.getStringExtra("TITLE");
-        percent = intent.getIntExtra("PERCENT", 0);
-        time = intent.getDoubleExtra("TIME", time);
+		if(getArguments() != null) {
+			cd = getArguments().getString("CD");
+			numb = getArguments().getString("NUMB");
+			title = getArguments().getString("TITLE");
+			percent = getArguments().getInt("PERCENT", 0);
+			time = getArguments().getDouble("TIME", time);
 
-        token = userData.getToken();
-        id = userData.getId();
-        year = intent.getStringExtra("YEAR");
-        term = intent.getStringExtra("TERM");
+			token = userData.getToken();
+			id = userData.getId();
+			year = getArguments().getString("YEAR");
+			term = getArguments().getString("TERM");
+		}
 
         attendance_subj_toolbar = binding.attendanceSubjToolbar;
         attendance_subj_toolbar.setText(title);
@@ -109,15 +119,15 @@ public class AttendanceDetailActivity extends AppCompatActivity {
 
 
         Toolbar mToolbar = binding.attendanceToolbar;
-        setSupportActionBar(mToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+		((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
+		((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
 
         attendanceDetailList = binding.attendanceDetailRecyclerview;
         adapter = new AttendanceDetailAdapter(data);
 
-	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false);
         attendanceDetailList.setLayoutManager(linearLayoutManagerWrapper);
         attendanceDetailList.setAdapter(adapter);
 
@@ -168,20 +178,21 @@ public class AttendanceDetailActivity extends AppCompatActivity {
 	            adapter.notifyItemInserted(data.size());
             }
         });
+		return binding.getRoot();
     }
 
 	private void setAnimation(final SemiCircleArcProgressBar progressBar, final TextView textView, final int percent) {
-		ValueAnimator animator = ValueAnimator.ofInt(0, percent).setDuration(1000);
+		animator = ValueAnimator.ofInt(0, percent).setDuration(1000);
 
 		animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 			@Override
 			public void onAnimationUpdate(ValueAnimator valueAnimator) {
 				if ((int) valueAnimator.getAnimatedValue() == 100) {
-		            progressBar.setProgressBarColor(getColor(R.color.mainBlue));
+		            progressBar.setProgressBarColor(getContext().getColor(R.color.mainBlue));
 		        } else if ((int) valueAnimator.getAnimatedValue() >= 75 && (int) valueAnimator.getAnimatedValue() < 100) {
-		            progressBar.setProgressBarColor(getColor(R.color.mainYellow));
+		            progressBar.setProgressBarColor(getContext().getColor(R.color.mainYellow));
 		        } else {
-		            progressBar.setProgressBarColor(getColor(R.color.mainRed));
+		            progressBar.setProgressBarColor(getContext().getColor(R.color.mainRed));
 		        }
 				textView.setText((int) valueAnimator.getAnimatedValue() + "%");
 				progressBar.setPercent((int) valueAnimator.getAnimatedValue());
@@ -190,14 +201,16 @@ public class AttendanceDetailActivity extends AppCompatActivity {
 		animator.start();
 	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-                finish();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public void onBackPressed() {
+		animator.cancel();
+		homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+		homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+	}
+
+	@Override
+	public void onAttach(@NonNull Context context) {
+		super.onAttach(context);
+		((HomeActivity)context).setOnBackPressedListner(this);
+	}
 }

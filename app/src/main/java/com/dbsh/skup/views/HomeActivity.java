@@ -16,23 +16,21 @@ import com.dbsh.skup.databinding.HomeFormBinding;
 import com.dbsh.skup.viewmodels.HomeViewModel;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
 	Menu menu;
-	HomeCenterFragment centerFragment;
-	HomeLeftFragment leftFragment;
-	HomeRightFragment rightFragment;
+	HomeCenterContainer centerContainer;
+	HomeLeftContainer leftContainer;
+	HomeRightContainer rightContainer;
 
 	private long time = 0;
 	private HomeFormBinding binding;
 	private HomeViewModel viewModel;
 
-	public interface onBackPressedListener {
-		void onBackPressed();
-	}
+	private OnBackPressedListener mBackListener;
 
-	private onBackPressedListener mBackListener;
-
-	public void setOnBackPressedListner(onBackPressedListener listener) {
+	public void setOnBackPressedListner(OnBackPressedListener listener) {
 		mBackListener = listener;
 	}
 
@@ -50,8 +48,8 @@ public class HomeActivity extends AppCompatActivity {
 		binding.executePendingBindings();	// 바인딩 강제 즉시실행
 
 		menu = binding.bottomNavi.getMenu();
-		centerFragment = new HomeCenterFragment();
-		getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), centerFragment).commit();
+		centerContainer = new HomeCenterContainer();
+		getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), centerContainer).commit();
 		menu.findItem(R.id.home_fragment).setChecked(true);
 
 		binding.bottomNavi.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -59,40 +57,40 @@ public class HomeActivity extends AppCompatActivity {
 			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 				switch (item.getItemId()) {
 					case R.id.menu_framgent:
-						if(leftFragment == null) {
-							leftFragment = new HomeLeftFragment();
-							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), leftFragment).commit();
+						if(leftContainer == null) {
+							leftContainer = new HomeLeftContainer();
+							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), leftContainer).commit();
 						}
-						if(leftFragment != null)
-							getSupportFragmentManager().beginTransaction().show(leftFragment).commit();
-						if(centerFragment != null)
-							getSupportFragmentManager().beginTransaction().hide(centerFragment).commit();
-						if(rightFragment != null)
-							getSupportFragmentManager().beginTransaction().hide(rightFragment).commit();
+						if(leftContainer != null)
+							getSupportFragmentManager().beginTransaction().show(leftContainer).commit();
+						if(centerContainer != null)
+							getSupportFragmentManager().beginTransaction().hide(centerContainer).commit();
+						if(rightContainer != null)
+							getSupportFragmentManager().beginTransaction().hide(rightContainer).commit();
 						break;
 					case R.id.home_fragment:
-						if(centerFragment == null) {
-							centerFragment = new HomeCenterFragment();
-							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), centerFragment).commit();
+						if(centerContainer == null) {
+							centerContainer = new HomeCenterContainer();
+							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), centerContainer).commit();
 						}
-						if(leftFragment != null)
-							getSupportFragmentManager().beginTransaction().hide(leftFragment).commit();
-						if(centerFragment != null)
-							getSupportFragmentManager().beginTransaction().show(centerFragment).commit();
-						if(rightFragment != null)
-							getSupportFragmentManager().beginTransaction().hide(rightFragment).commit();
+						if(leftContainer != null)
+							getSupportFragmentManager().beginTransaction().hide(leftContainer).commit();
+						if(centerContainer != null)
+							getSupportFragmentManager().beginTransaction().show(centerContainer).commit();
+						if(rightContainer != null)
+							getSupportFragmentManager().beginTransaction().hide(rightContainer).commit();
 						break;
 					case R.id.setting_fragment:
-						if(rightFragment == null) {
-							rightFragment = new HomeRightFragment();
-							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), rightFragment).commit();
+						if(rightContainer == null) {
+							rightContainer = new HomeRightContainer();
+							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), rightContainer).commit();
 						}
-						if(leftFragment != null)
-							getSupportFragmentManager().beginTransaction().hide(leftFragment).commit();
-						if(centerFragment != null)
-							getSupportFragmentManager().beginTransaction().hide(centerFragment).commit();
-						if(rightFragment != null)
-							getSupportFragmentManager().beginTransaction().show(rightFragment).commit();
+						if(leftContainer != null)
+							getSupportFragmentManager().beginTransaction().hide(leftContainer).commit();
+						if(centerContainer != null)
+							getSupportFragmentManager().beginTransaction().hide(centerContainer).commit();
+						if(rightContainer != null)
+							getSupportFragmentManager().beginTransaction().show(rightContainer).commit();
 						break;
 				}
 				return true;
@@ -100,22 +98,30 @@ public class HomeActivity extends AppCompatActivity {
 		});
 	}
 
-	public void replaceFragment(Fragment beforeFragment, Fragment afterFragment) {
-		getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), afterFragment).commit();
-		getSupportFragmentManager().beginTransaction().show(afterFragment).addToBackStack(null).commit();
+	@Override
+	public void onBackPressed() {
+		List<Fragment> fragments = getSupportFragmentManager().getFragments();
+		for(Fragment fragment : fragments) {
+			if(fragment instanceof OnBackPressedListener) {
+				((OnBackPressedListener)fragment).onBackPressed();
+				return;
+			}
+		}
+		if (System.currentTimeMillis() - time >= 2000) {
+			time = System.currentTimeMillis();
+			Toast.makeText(getApplicationContext(), "한번 더 누르면 로그인창으로 이동합니다.", Toast.LENGTH_SHORT).show();
+		} else if (System.currentTimeMillis() - time < 2000) {
+			finish();
+		}
 	}
 
 	@Override
-	public void onBackPressed() {
-		if (mBackListener != null) {
-			mBackListener.onBackPressed();
-		} else {
-			if (System.currentTimeMillis() - time >= 2000) {
-				time = System.currentTimeMillis();
-				Toast.makeText(getApplicationContext(), "한번 더 누르면 로그인창으로 이동합니다.", Toast.LENGTH_SHORT).show();
-			} else if (System.currentTimeMillis() - time < 2000) {
-				finish();
-			}
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
 		}
+		return super.onOptionsItemSelected(item);
 	}
 }

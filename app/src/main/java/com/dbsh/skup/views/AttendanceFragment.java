@@ -1,17 +1,19 @@
 package com.dbsh.skup.views;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,10 +31,19 @@ import com.dbsh.skup.viewmodels.AttendanceViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttendanceActivity extends AppCompatActivity {
+public class AttendanceFragment extends Fragment implements OnBackPressedListener {
 
 	private AttendanceFormBinding binding;
 	private AttendanceViewModel viewModel;
+
+	// will be replaced Fragment
+	private Fragment AttendanceDetailFragment;
+
+	// this Fragment
+	private Fragment AttendanceFragment;
+
+	// parent Pragment
+	private HomeCenterContainer homeCenterContainer;
 
 	String token;
 	String id;
@@ -50,30 +61,31 @@ public class AttendanceActivity extends AppCompatActivity {
 	UserData userData;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		/* DataBinding */
-		binding = DataBindingUtil.setContentView(this, R.layout.attendance_form);
+		binding = DataBindingUtil.inflate(inflater, R.layout.attendance_form, container, false);
 		binding.setLifecycleOwner(this);
 		viewModel = new AttendanceViewModel();
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();	// 바인딩 강제 즉시실행
 
-		userData = ((UserData) getApplication());
+		AttendanceFragment = this;
+		homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
+		userData = ((UserData) getActivity().getApplication());
 
 		data = new ArrayList<>();
 
-		Intent intent = getIntent();
 		token = userData.getToken();
 		id = userData.getId();
 		year = userData.getSchYear();
 		term = userData.getSchTerm();
 
 		Toolbar mToolbar = binding.attendanceToolbar;
-		setSupportActionBar(mToolbar);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setTitle("");
+		((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
+		((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
 
 		attendanceSpinner = binding.attendanceSpinner;
 		attendanceSpinner2 = binding.attendanceSpinner2;
@@ -91,19 +103,19 @@ public class AttendanceActivity extends AppCompatActivity {
 				String numb = data.get(position).subjNumber;
 				Double time = data.get(position).subjTime;
 
-				Intent detailIntent = new Intent(AttendanceActivity.this, AttendanceDetailActivity.class);
-				detailIntent.putExtra("TITLE", title);
-				detailIntent.putExtra("PERCENT", percent);
-				detailIntent.putExtra("CD", cd);
-				detailIntent.putExtra("NUMB", numb);
-				detailIntent.putExtra("TIME", time);
-				detailIntent.putExtra("YEAR", year);
-				detailIntent.putExtra("TERM", term);
-				startActivity(detailIntent);
+				Bundle bundle = new Bundle();
+				bundle.putString("TITLE", title);
+				bundle.putInt("PERCENT", percent);
+				bundle.putString("CD", cd);
+				bundle.putString("NUMB", numb);
+				bundle.putDouble("TIME", time);
+				bundle.putString("YEAR", year);
+				bundle.putString("TERM", term);
+				homeCenterContainer.replaceFragment(AttendanceFragment, new AttendanceDetailFragment(), bundle);
 			}
 		});
 
-		LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+		LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
 		attendanceList.setLayoutManager(linearLayoutManagerWrapper);
 		attendanceList.setAdapter(adapter);
 
@@ -125,7 +137,7 @@ public class AttendanceActivity extends AppCompatActivity {
 			}
 		}
 
-		SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, spinnerItem);
+		SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getContext(), spinnerItem);
 		attendanceSpinner.setAdapter(spinnerAdapter);
 		attendanceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -138,7 +150,7 @@ public class AttendanceActivity extends AppCompatActivity {
 			}
 		});
 
-		SpinnerAdapter spinnerAdapter2 = new SpinnerAdapter(this, spinnerItem2);
+		SpinnerAdapter spinnerAdapter2 = new SpinnerAdapter(getContext(), spinnerItem2);
 		attendanceSpinner2.setAdapter(spinnerAdapter2);
 		attendanceSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -216,16 +228,18 @@ public class AttendanceActivity extends AppCompatActivity {
 				}
 			}
 		});
+		return binding.getRoot();
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()){
-			case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-				finish();
-				return true;
-			}
-		}
-		return super.onOptionsItemSelected(item);
+	public void onBackPressed() {
+		homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+		homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+	}
+
+	@Override
+	public void onAttach(@NonNull Context context) {
+		super.onAttach(context);
+		((HomeActivity)context).setOnBackPressedListner(this);
 	}
 }
