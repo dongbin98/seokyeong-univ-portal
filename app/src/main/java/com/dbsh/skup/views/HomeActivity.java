@@ -60,8 +60,16 @@ public class HomeActivity extends AppCompatActivity {
 							leftContainer = new HomeLeftContainer();
 							getSupportFragmentManager().beginTransaction().add(binding.mainContainer.getId(), leftContainer).commit();
 						}
-						if(leftContainer != null)
+						if(leftContainer != null) {
+							if(leftContainer.isVisible()) {
+								List<Fragment> fragments = leftContainer.getChildFragmentManager().getFragments();
+								for (Fragment fragment : fragments) {
+									if (fragment instanceof OnBackPressedListener)
+										((OnBackPressedListener) fragment).onBackPressed();
+								}
+							}
 							getSupportFragmentManager().beginTransaction().show(leftContainer).commit();
+						}
 						if(centerContainer != null)
 							getSupportFragmentManager().beginTransaction().hide(centerContainer).commit();
 						if(rightContainer != null)
@@ -74,8 +82,16 @@ public class HomeActivity extends AppCompatActivity {
 						}
 						if(leftContainer != null)
 							getSupportFragmentManager().beginTransaction().hide(leftContainer).commit();
-						if(centerContainer != null)
+						if(centerContainer != null) {
+							if(centerContainer.isVisible()) {
+								List<Fragment> fragments = centerContainer.getChildFragmentManager().getFragments();
+								for (Fragment fragment : fragments) {
+									if (fragment instanceof OnBackPressedListener)
+										((OnBackPressedListener) fragment).onBackPressed();
+								}
+							}
 							getSupportFragmentManager().beginTransaction().show(centerContainer).commit();
+						}
 						if(rightContainer != null)
 							getSupportFragmentManager().beginTransaction().hide(rightContainer).commit();
 						break;
@@ -88,8 +104,16 @@ public class HomeActivity extends AppCompatActivity {
 							getSupportFragmentManager().beginTransaction().hide(leftContainer).commit();
 						if(centerContainer != null)
 							getSupportFragmentManager().beginTransaction().hide(centerContainer).commit();
-						if(rightContainer != null)
+						if(rightContainer != null) {
+							if(rightContainer.isVisible()) {
+								List<Fragment> fragments = rightContainer.getChildFragmentManager().getFragments();
+								for (Fragment fragment : fragments) {
+									if (fragment instanceof OnBackPressedListener)
+										((OnBackPressedListener) fragment).onBackPressed();
+								}
+							}
 							getSupportFragmentManager().beginTransaction().show(rightContainer).commit();
+						}
 						break;
 				}
 				return true;

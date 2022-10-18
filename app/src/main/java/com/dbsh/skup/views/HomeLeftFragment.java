@@ -57,7 +57,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuGradeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                homeLeftContainer.replaceFragment(new GradeFragment(), null);
+                homeLeftContainer.replaceFragment(new GradeFragment(), null);
             }
         });
 

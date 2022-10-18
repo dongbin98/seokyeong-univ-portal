@@ -2,6 +2,10 @@ package com.dbsh.skup.api;
 
 import com.dbsh.skup.model.RequestAttendanceData;
 import com.dbsh.skup.model.RequestAttendanceDetailData;
+import com.dbsh.skup.model.RequestGradeTermData;
+import com.dbsh.skup.model.RequestGradeTermSubjectData;
+import com.dbsh.skup.model.RequestGradeTotalCreditData;
+import com.dbsh.skup.model.RequestGradeTotalData;
 import com.dbsh.skup.model.RequestGraduateBasicData;
 import com.dbsh.skup.model.RequestGraduateNoneSubjectData;
 import com.dbsh.skup.model.RequestGraduateSubjectData;
@@ -11,6 +15,10 @@ import com.dbsh.skup.model.RequestScholarshipData;
 import com.dbsh.skup.model.RequestTuitionData;
 import com.dbsh.skup.model.ResponseAttendance;
 import com.dbsh.skup.model.ResponseAttendanceDetail;
+import com.dbsh.skup.model.ResponseGradeTerm;
+import com.dbsh.skup.model.ResponseGradeTermSubject;
+import com.dbsh.skup.model.ResponseGradeTotal;
+import com.dbsh.skup.model.ResponseGradeTotalCredit;
 import com.dbsh.skup.model.ResponseGraduateBasic;
 import com.dbsh.skup.model.ResponseGraduateNoneSubject;
 import com.dbsh.skup.model.ResponseGraduateSubject;
@@ -70,4 +78,25 @@ public interface PortalApi {
 	@Headers({"Accept: application/json", "content-type: application/json"})
 	@POST("common/selectList.sku")
 	Call<ResponseLectureplan> getLectureplanData(@Body RequestLectureplanData requestLectureplanData);
+
+	/* 성적 -> 이수 구분 별 신청/취득 학점 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/selectList.sku")
+	Call<ResponseGradeTotalCredit> getGradeTotalCredit(@Body RequestGradeTotalCreditData requestGradeTotalCreditData);
+
+	/* 성적 -> 총 신청/취득 학점, 백분위, 총평점평균 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/selectOne.sku")
+	Call<ResponseGradeTotal> getGradeTotal(@Body RequestGradeTotalData requestGradeTotalData);
+
+	/* 성적 -> 학기 별 성적 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/selectList.sku")
+	Call<ResponseGradeTerm> getGradeTerm(@Body RequestGradeTermData requestGradeTermData);
+
+	/* 성적 -> 학기 별 과목 별 성적 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/selectList.sku")
+	Call<ResponseGradeTermSubject> getGradeTermSubject(@Body RequestGradeTermSubjectData requestGradeTermSubjectData);
+	
 }

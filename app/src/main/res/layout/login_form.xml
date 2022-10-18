@@ -14,9 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/skup_logo"
@@ -35,6 +33,8 @@
             android:id="@+id/loginID"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:paddingLeft="20dp"
             android:background="@drawable/edittext_white_background"
             android:textStyle="normal"
@@ -54,6 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:paddingLeft="20dp"
             android:background="@drawable/edittext_white_background"
             android:fontFamily="@font/roboto"
@@ -72,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="자동 로그인"
+            android:layout_marginRight="16dp"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto"
             android:textSize="16dp"
@@ -103,6 +106,8 @@
             android:textColor="@color/onlyWhite"
             android:background="@drawable/button_mainblue_background"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginAuto" />

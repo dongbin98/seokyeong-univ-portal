@@ -12,7 +12,7 @@ public class ResponseLecture {
 
 	@SerializedName("LIST")
 	@Expose
-	private ArrayList<ResponseLectureList> responseLectureLists = null;
+	private ArrayList<ResponseLectureList> responseLectureLists;
 
 	public String getRtnStatus() {
 		return rtnStatus;
