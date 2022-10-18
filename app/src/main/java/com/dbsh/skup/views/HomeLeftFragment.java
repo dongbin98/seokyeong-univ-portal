@@ -18,12 +18,11 @@ public class HomeLeftFragment extends Fragment {
     private HomeLeftFormBinding binding;
     private HomeLeftViewModel viewModel;
 
-	// will be replaced Fragment
-	private Fragment QrFragment;
-	private Fragment AttendanceFragment;
-
 	// this Fragment
-	private Fragment HomeCenterFragment;
+	private Fragment HomeLeftFragment;
+
+    // parent Fragment
+    private HomeLeftContainer homeLeftContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,14 +32,17 @@ public class HomeLeftFragment extends Fragment {
         binding.setViewModel(viewModel);
         binding.executePendingBindings();
 
+        HomeLeftFragment = this;
+        homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
+
+        Bundle bundle = new Bundle();
+        bundle.putString("type", "left");
+
 		// 출결 버튼
         binding.mainMenuAttendanceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//	            if (AttendanceFragment == null) {
-//		            AttendanceFragment = new AttendanceFragment();
-//	            }
-//	            ((HomeActivity) getActivity()).replaceFragment(HomeCenterFragment, AttendanceFragment, null);
+                homeLeftContainer.replaceFragment(new AttendanceFragment(), bundle);
             }
         });
 
@@ -111,10 +113,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuQrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//	            if (QrFragment == null) {
-//		            QrFragment = new QrcodeFragment();
-//	            }
-//	            ((HomeActivity) getActivity()).replaceFragment(HomeCenterFragment, QrFragment, null);
+                homeLeftContainer.replaceFragment(new QrcodeFragment(), bundle);
             }
         });
 

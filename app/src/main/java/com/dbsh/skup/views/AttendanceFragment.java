@@ -42,13 +42,15 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 	// this Fragment
 	private Fragment AttendanceFragment;
 
-	// parent Pragment
+	// parent Fragment
+	private HomeLeftContainer homeLeftContainer;
 	private HomeCenterContainer homeCenterContainer;
 
 	String token;
 	String id;
 	String year;
 	String term;
+	String type;
 	int totalCount;
 	int nowCount;
 
@@ -70,8 +72,18 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();	// 바인딩 강제 즉시실행
 
+		type = "";
+
+		if(getArguments() != null) {
+			type = getArguments().getString("type");
+		}
+
 		AttendanceFragment = this;
-		homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
+		if(type.equals("left"))
+			homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
+		else
+			homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
+
 		userData = ((UserData) getActivity().getApplication());
 
 		data = new ArrayList<>();
@@ -111,7 +123,8 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 				bundle.putDouble("TIME", time);
 				bundle.putString("YEAR", year);
 				bundle.putString("TERM", term);
-				homeCenterContainer.replaceFragment(AttendanceFragment, new AttendanceDetailFragment(), bundle);
+				bundle.putString("type", type);
+				homeCenterContainer.replaceFragment(new AttendanceDetailFragment(), bundle);
 			}
 		});
 
@@ -233,8 +246,13 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 
 	@Override
 	public void onBackPressed() {
-		homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-		homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+		if(type.equals("center")) {
+			homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+			homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+		} else {
+			homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+			homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+		}
 	}
 
 	@Override

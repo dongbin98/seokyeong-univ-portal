@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -20,6 +21,7 @@ public class HomeCenterContainer extends Fragment implements OnBackPressedListen
 
     private HomeCenterContainerBinding binding;
     private HomeCenterContainerViewModel viewModel;
+	private long time = 0;
 
     private static final String noticeUrl = "https://skuniv.ac.kr/notice";
     private static final String majorNoticeUrl = "https://ce.skuniv.ac.kr/ce_notice";
@@ -41,7 +43,7 @@ public class HomeCenterContainer extends Fragment implements OnBackPressedListen
         return binding.getRoot();
     }
 
-	public void replaceFragment(Fragment beforeFragment, Fragment afterFragment, Bundle bundle) {
+	public void replaceFragment(Fragment afterFragment, Bundle bundle) {
 		if (bundle != null) {
 			afterFragment.setArguments(bundle);
 		}
@@ -50,7 +52,6 @@ public class HomeCenterContainer extends Fragment implements OnBackPressedListen
 		} else {
 			getChildFragmentManager().beginTransaction().replace(binding.homeCenterContainer.getId(), afterFragment).commit();
 		}
-//		getChildFragmentManager().beginTransaction().hide(beforeFragment).commit();
 		getChildFragmentManager().beginTransaction().show(afterFragment).addToBackStack(null).commit();
 	}
 
@@ -62,6 +63,12 @@ public class HomeCenterContainer extends Fragment implements OnBackPressedListen
 				((OnBackPressedListener) childFragments.get(i)).onBackPressed();
 				return;
 			}
+		}
+		if (System.currentTimeMillis() - time >= 2000) {
+			time = System.currentTimeMillis();
+			Toast.makeText(getContext(), "한번 더 누르면 로그인창으로 이동합니다.", Toast.LENGTH_SHORT).show();
+		} else if (System.currentTimeMillis() - time < 2000) {
+			((HomeActivity)getActivity()).finish();
 		}
 	}
 

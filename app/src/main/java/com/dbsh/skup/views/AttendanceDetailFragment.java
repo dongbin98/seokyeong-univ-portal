@@ -38,8 +38,9 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
     private AttendanceDetailFormBinding binding;
     private AttendanceDetailViewModel viewModel;
 
-	// parent Pragment
+	// parent Fragment
 	private HomeCenterContainer homeCenterContainer;
+    private HomeLeftContainer homeLeftContainer;
 
     SemiCircleArcProgressBar progressBar;
     TextView attendance_subj_toolbar, attendance_detail_percent;
@@ -51,6 +52,7 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
     String term;
     String cd;
     String numb;
+    String type;
 
     String title;
     int percent;
@@ -95,7 +97,13 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
 			id = userData.getId();
 			year = getArguments().getString("YEAR");
 			term = getArguments().getString("TERM");
+            type = getArguments().getString("type");
 		}
+
+        if(type.equals("left"))
+            homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
+        else
+            homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
 
         attendance_subj_toolbar = binding.attendanceSubjToolbar;
         attendance_subj_toolbar.setText(title);
@@ -204,8 +212,13 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
 	@Override
 	public void onBackPressed() {
 		animator.cancel();
-		homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-		homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+        if(type.equals("center")) {
+            homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+            homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+        } else {
+            homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+            homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+        }
 	}
 
 	@Override

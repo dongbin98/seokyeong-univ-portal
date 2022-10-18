@@ -40,14 +40,10 @@ public class HomeCenterFragment extends Fragment {
     private static final String noticeUrl = "https://skuniv.ac.kr/notice";
     private static final String majorNoticeUrl = "https://ce.skuniv.ac.kr/ce_notice";
 
-	// will be replaced Fragment
-	private Fragment QrFragment;
-	private Fragment AttendanceFragment;
-
 	// this Fragment
 	private Fragment HomeCenterFragment;
 
-	// parent Pragment
+	// parent Fragment
 	private HomeCenterContainer homeCenterContainer;
 
     UserData userData;
@@ -68,6 +64,10 @@ public class HomeCenterFragment extends Fragment {
 		HomeCenterFragment = this;
 		homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
         userData = ((UserData) getActivity().getApplication());
+
+        // 자식 프래그먼트에서 부모 프래그먼트 확인을 위함
+        Bundle bundle = new Bundle();
+        bundle.putString("type", "center");
 
         noticeData task = new noticeData();
         majorNoticeData task2 = new majorNoticeData();
@@ -103,11 +103,7 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeQuickBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (AttendanceFragment == null) {
-					AttendanceFragment = new AttendanceFragment();
-                }
-				homeCenterContainer.replaceFragment(HomeCenterFragment, AttendanceFragment, null);
-//	            getParentFragment().replaceFragment(HomeCenterFragment, AttendanceFragment, null);
+				homeCenterContainer.replaceFragment(new AttendanceFragment(), bundle);
             }
         });
         // 학사일정
@@ -120,10 +116,7 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeQuickBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-				if (QrFragment == null) {
-					QrFragment = new QrcodeFragment();
-				}
-	            homeCenterContainer.replaceFragment(HomeCenterFragment, QrFragment, null);
+	            homeCenterContainer.replaceFragment(new QrcodeFragment(), bundle);
 			}
         });
         // Portal
