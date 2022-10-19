@@ -11,11 +11,4 @@ public class ResponseArriveMsgHeader {
     public String getHeaderCd() {
         return headerCd;
     }
-
-    @Override
-    public String toString() {
-        return "ResponseArriveMsgHeader{" +
-                "headerCd='" + headerCd + '\'' +
-                '}';
-    }
 }

@@ -11,11 +11,4 @@ public class ResponseArriveMsgBody {
     public ResponseArriveItem getItem() {
         return item;
     }
-
-    @Override
-    public String toString() {
-        return "ResponseArriveMsgBody{" +
-                "item=" + item +
-                '}';
-    }
 }

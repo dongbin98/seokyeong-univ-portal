@@ -18,12 +18,4 @@ public class ResponseArrive {
     public ResponseArriveMsgBody getBody() {
         return body;
     }
-
-    @Override
-    public String toString() {
-        return "ResponseArrive{" +
-                "header=" + header +
-                ", body=" + body +
-                '}';
-    }
 }

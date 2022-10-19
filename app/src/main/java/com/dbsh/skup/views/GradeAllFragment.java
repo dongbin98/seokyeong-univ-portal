@@ -18,6 +18,9 @@ import com.dbsh.skup.databinding.GradeAllFormBinding;
 import com.dbsh.skup.model.ResponseGradeTermList;
 import com.dbsh.skup.model.ResponseGradeTotalCreditList;
 import com.dbsh.skup.model.ResponseGradeTotalMap;
+import com.dbsh.skup.mpandroidchart.MyMarkerView;
+import com.dbsh.skup.mpandroidchart.XAxisFormatter;
+import com.dbsh.skup.mpandroidchart.XAxisRenderer;
 import com.dbsh.skup.viewmodels.GradeAllViewModel;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -80,9 +83,9 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 			@Override
 			public void onChanged(ArrayList<ResponseGradeTotalCreditList> responseGradeTotalCreditLists) {
 				// 0 -> 신청, 1 -> 취득
-				binding.gradeMajorCredit.setText(responseGradeTotalCreditLists.get(0).getMajorPoint());
-				binding.gradeLiberalCredit.setText(responseGradeTotalCreditLists.get(0).getLiberalPoint());
-				binding.gradeEtcCredit.setText(responseGradeTotalCreditLists.get(0).getEtcPoint());
+				binding.gradeMajorCredit.setText(responseGradeTotalCreditLists.get(0).getMajorTotalPoint());
+				binding.gradeLiberalCredit.setText(responseGradeTotalCreditLists.get(0).getLiberalTotalPoint());
+				binding.gradeEtcCredit.setText(responseGradeTotalCreditLists.get(0).getEtcTotalPoint());
 			}
 		});
 
@@ -92,14 +95,21 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 				// 그래프 그릴 공간
 				List<Entry> entries = new ArrayList<>();
 				ArrayList<String> xValues = new ArrayList<>();
+				ArrayList<Float> yValues = new ArrayList<>();
 				for(int i = 0; i < responseGradeTermLists.size(); i++) {
-					xValues.add(responseGradeTermLists.get(i).getSchYear() + "-" + responseGradeTermLists.get(i).getSchTerm());
-					entries.add(new Entry(i, Float.parseFloat(responseGradeTermLists.get(i).getGrdMarkAvg().replace(" ", ""))));
+					String x = responseGradeTermLists.get(i).getSchYear().substring(2, 4) + "-" + responseGradeTermLists.get(i).getSchTerm();
+					Float y = Float.parseFloat(responseGradeTermLists.get(i).getGrdMarkAvg().replace(" ", ""));
+
+					// 추후 포매팅
+					xValues.add(responseGradeTermLists.get(i).getSchYear() + "년\n" + responseGradeTermLists.get(i).getSchTerm() + "학기");
+					yValues.add(Float.parseFloat(responseGradeTermLists.get(i).getGrdMarkAvg().replace(" ", "")));
+
+					entries.add(new Entry(i, y));
 				}
 
 				LineDataSet lineDataSet = new LineDataSet(entries, null);
 				// 선 두께
-				lineDataSet.setLineWidth(1);
+				lineDataSet.setLineWidth(2);
 				lineDataSet.setColor(getContext().getColor(R.color.mainBlue));
 				// 동그라미
 				lineDataSet.setDrawCircles(true);
@@ -110,38 +120,50 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 				lineDataSet.setCircleHoleRadius(3);
 				lineDataSet.setCircleHoleColor(getContext().getColor(R.color.white));
 				// 데이터 값 표시
+				/*
 				lineDataSet.setValueTextSize(8);
+				lineDataSet.setValueFormatter(new YAxisFormatter());
 				lineDataSet.setValueTextColor(getContext().getColor(R.color.gray2));
+				 */
+				lineDataSet.setDrawValues(false);
 				// 하이라이트 인디케이터
 				lineDataSet.setDrawHighlightIndicators(false);
 
 				LineData lineData = new LineData(lineDataSet);
 				gradeGraph.setData(lineData);
 
+				// 하단 x label
 				XAxis xAxis = gradeGraph.getXAxis();
 				xAxis.setValueFormatter(new IndexAxisValueFormatter(xValues));
 				xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 				xAxis.setTextSize(8);
-				xAxis.setGranularity(1f);
-				xAxis.setGranularityEnabled(true);
 				xAxis.setTextColor(getContext().getColor(R.color.gray2));
-				xAxis.setDrawAxisLine(false);
+				xAxis.setGridColor(getContext().getColor(R.color.gray2));
 				xAxis.setDrawGridLines(false);
+				xAxis.setDrawAxisLine(false);
 
+				// 좌측 y label
 				YAxis yLAxis = gradeGraph.getAxisLeft();
+				yLAxis.setValueFormatter(new XAxisFormatter());
 				yLAxis.setTextSize(8);
 				yLAxis.setTextColor(getContext().getColor(R.color.gray2));
 				yLAxis.setAxisMinimum(0);
 				yLAxis.setAxisMaximum(4.5f);
 				yLAxis.setLabelCount(3);
-				yLAxis.setSpaceMin(10);
 				yLAxis.setDrawAxisLine(false);
 
+				// 우측 y label
 				YAxis yRAxis = gradeGraph.getAxisRight();
-				yRAxis.setDrawLabels(false);
+				yRAxis.setDrawLabels(true);
+				yRAxis.setTextColor(getContext().getColor(R.color.white));
 				yRAxis.setDrawAxisLine(false);
 				yRAxis.setDrawGridLines(false);
 
+				// 마커 설정
+				MyMarkerView myMarkerView = new MyMarkerView(getContext(), R.layout.grade_all_marker_form);
+
+				// 그래프 자체 설정
+				gradeGraph.setMarker(myMarkerView);
 				gradeGraph.setNoDataText("데이터 불러오는중");
 				gradeGraph.setDoubleTapToZoomEnabled(false);
 				gradeGraph.setDragEnabled(false);
@@ -149,9 +171,10 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 				gradeGraph.setDrawGridBackground(false);
 				gradeGraph.setDescription(null);
 				gradeGraph.setScaleEnabled(false);
-				gradeGraph.setExtraOffsets(10, 10, 10, 10);
-				gradeGraph.setPadding(10, 10, 10, 10);
+				gradeGraph.setXAxisRenderer(new XAxisRenderer(gradeGraph.getViewPortHandler(), gradeGraph.getXAxis(), gradeGraph.getTransformer(YAxis.AxisDependency.LEFT)));
+				gradeGraph.setExtraOffsets(10, 30, 10, 30);
 
+				// legend 비활성화
 				Legend legend = gradeGraph.getLegend();
 				legend.setEnabled(false);
 

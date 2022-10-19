@@ -50,14 +50,4 @@ public class ResponseLogin {
     public void setYearList(ArrayList<ResponseYearList> yearList) {
         this.yearList = yearList;
     }
-
-    @Override
-    public String toString() {
-        return "ResponseLogin{" +
-                "accessToken='" + accessToken + '\'' +
-                ", userInfo=" + userInfo +
-                ", rtnStatus='" + rtnStatus + '\'' +
-                ", yearList=" + yearList +
-                '}';
-    }
 }

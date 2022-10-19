@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,83 +7,73 @@
     <data>
         <variable
             name="viewModel"
-            type="com.dbsh.skup.viewmodels.ScholarshipViewModel"/>
+            type="com.dbsh.skup.viewmodels.TimeTableViwModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="@color/white">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/scholarship_toolbar"
+            android:id="@+id/timetable_toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:text="시간표"
+                android:textStyle="bold"
                 android:fontFamily="@font/roboto"
-                android:text="장학"
                 android:textColor="@color/black"
                 android:textSize="16dp"
-                android:textStyle="bold" />
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center" />
         </androidx.appcompat.widget.Toolbar>
 
         <Spinner
-            android:id="@+id/scholarship_spinner"
+            android:id="@+id/timetable_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/spinner_attendance_background"
-            app:layout_constraintTop_toBottomOf="@id/scholarship_toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/timetable_toolbar"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <Spinner
-            android:id="@+id/scholarship_spinner2"
+            android:id="@+id/timetable_spinner2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginLeft="8dp"
             android:background="@drawable/spinner_attendance_background"
-            app:layout_constraintTop_toBottomOf="@id/scholarship_toolbar"
-            app:layout_constraintLeft_toRightOf="@id/scholarship_spinner"/>
+            app:layout_constraintTop_toTopOf="@id/timetable_spinner"
+            app:layout_constraintLeft_toRightOf="@id/timetable_spinner"/>
 
         <ImageButton
-            android:id="@+id/scholarship_btn"
+            android:id="@+id/timetable_btn"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginLeft="8dp"
             android:background="@drawable/button_mainblue_background"
-            app:layout_constraintTop_toTopOf="@id/scholarship_spinner2"
-            app:layout_constraintBottom_toBottomOf="@id/scholarship_spinner2"
-            app:layout_constraintLeft_toRightOf="@id/scholarship_spinner2"/>
+            app:layout_constraintTop_toTopOf="@id/timetable_spinner2"
+            app:layout_constraintBottom_toBottomOf="@id/timetable_spinner2"
+            app:layout_constraintLeft_toRightOf="@id/timetable_spinner2"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/button_search"
             android:elevation="1dp"
-            app:layout_constraintTop_toTopOf="@id/scholarship_btn"
-            app:layout_constraintLeft_toLeftOf="@id/scholarship_btn"
-            app:layout_constraintRight_toRightOf="@+id/scholarship_btn"
-            app:layout_constraintBottom_toBottomOf="@id/scholarship_btn"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scholarship_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/scholarship_spinner"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintTop_toTopOf="@id/timetable_btn"
+            app:layout_constraintLeft_toLeftOf="@id/timetable_btn"
+            app:layout_constraintRight_toRightOf="@+id/timetable_btn"
+            app:layout_constraintBottom_toBottomOf="@id/timetable_btn"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

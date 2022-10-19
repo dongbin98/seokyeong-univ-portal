@@ -18,12 +18,4 @@ public class ResponseArriveItem {
     public String getArrMsg2() {
         return arrMsg2;
     }
-
-    @Override
-    public String toString() {
-        return "ResponseArriveItem{" +
-                "arrMsg1='" + arrMsg1 + '\'' +
-                ", arrMsg2='" + arrMsg2 + '\'' +
-                '}';
-    }
 }

@@ -49,7 +49,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuTimetableBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                homeLeftContainer.replaceFragment(new TimeTableFragment(), null);
+                homeLeftContainer.replaceFragment(new TimeTableFragment(), null);
             }
         });
 

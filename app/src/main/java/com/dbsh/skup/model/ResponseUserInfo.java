@@ -139,23 +139,5 @@ public class ResponseUserInfo  {
 	public void setSchRegStatNm(String schRegStatNm) {
 		this.schRegStatNm = schRegStatNm;
 	}
-
-	@Override
-	public String toString() {
-		return "ResponseUserInfo{" +
-				"id='" + id + '\'' +
-				", korName='" + korName + '\'' +
-				", phoneMobile='" + phoneMobile + '\'' +
-				", colNm='" + colNm + '\'' +
-				", teamNm='" + teamNm + '\'' +
-				", email='" + email + '\'' +
-				", webmailId='" + webmailId + '\'' +
-				", tutorName='" + tutorName + '\'' +
-				", schYear='" + schYear + '\'' +
-				", schTerm='" + schTerm + '\'' +
-				", schyr='" + schyr + '\'' +
-				", schRegStatNm='" + schRegStatNm + '\'' +
-				'}';
-	}
 }
 

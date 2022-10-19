@@ -57,7 +57,7 @@ public class HomeCenterTimetableFragment extends Fragment {
         card2_today = binding.card2Today;
         card2_timetableTodayTable = binding.card2TimetableTodayTable;
 
-	    getTimetable(token, id, year, term);
+		viewModel.getLectureData(token, id, year, term);
 
 	    TableRow.LayoutParams params = new TableRow.LayoutParams(
 			    ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -104,9 +104,5 @@ public class HomeCenterTimetableFragment extends Fragment {
 			    break;
 	    }
         return binding.getRoot();
-    }
-
-    public void getTimetable(String token, String id, String year, String term) {
-		viewModel.getLectureData(token, id, year, term);
     }
 }

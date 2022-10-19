@@ -51,14 +51,4 @@ public class RequestUserData {
     public void setUserType(String userType) {
         this.userType = userType;
     }
-
-    @Override
-    public String toString() {
-        return "RequestUserData{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", grant_type='" + grant_type + '\'' +
-                ", userType='" + userType + '\'' +
-                '}';
-    }
 }

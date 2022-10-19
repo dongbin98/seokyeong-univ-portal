@@ -29,12 +29,4 @@ public class ResponseLecture {
 	public void setResponseLectureLists(ArrayList<ResponseLectureList> lectureLists) {
 		this.responseLectureLists = lectureLists;
 	}
-
-	@Override
-	public String toString() {
-		return "ResponseLecture{" +
-				"rtnStatus='" + rtnStatus + '\'' +
-				", lectureLists=" + responseLectureLists +
-				'}';
-	}
 }

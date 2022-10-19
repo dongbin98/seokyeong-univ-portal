@@ -42,8 +42,6 @@ public class ScholarshipFragment extends Fragment implements OnBackPressedListen
     String id;
     String year;
     String term;
-    int totalCount;
-    int nowCount;
 
     Spinner scholarshipSpinner;
     Spinner scholarshipSpinner2;

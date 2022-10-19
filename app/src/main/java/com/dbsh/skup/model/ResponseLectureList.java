@@ -123,20 +123,4 @@ public class ResponseLectureList {
 	public void setTerm(String term) {
 		this.term = term;
 	}
-
-	@Override
-	public String toString() {
-		return "ResponseLectureList{" +
-				"lectureDay='" + lectureDay + '\'' +
-				", lectureNumber='" + lectureNumber + '\'' +
-				", lectureCd='" + lectureCd + '\'' +
-				", lectureTime='" + lectureTime + '\'' +
-				", lectureName='" + lectureName + '\'' +
-				", professor='" + professor + '\'' +
-				", lectureStartTime='" + lectureStartTime + '\'' +
-				", lectureEndTime='" + lectureEndTime + '\'' +
-				", year='" + year + '\'' +
-				", term='" + term + '\'' +
-				'}';
-	}
 }

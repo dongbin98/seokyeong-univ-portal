@@ -304,7 +304,7 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/grade_all_graph"
             android:layout_width="match_parent"
-            android:layout_height="182dp"
+            android:layout_height="168dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/attendance_detail_list_background"
             app:layout_constraintTop_toBottomOf="@id/grade_all_graph_text"
