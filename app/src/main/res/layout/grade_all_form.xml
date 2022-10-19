@@ -261,7 +261,7 @@
                 android:background="@drawable/attendance_detail_box5"/>
 
             <TextView
-                android:id="@+id/grade_requirement_credit"
+                android:id="@+id/grade_liberal_credit"
                 android:layout_column="1"
                 android:layout_row="0"
                 android:layout_gravity="center"
@@ -278,7 +278,7 @@
                 android:background="@drawable/attendance_detail_box6"/>
 
             <TextView
-                android:id="@+id/grade_selection_credit"
+                android:id="@+id/grade_etc_credit"
                 android:layout_column="2"
                 android:layout_row="0"
                 android:layout_gravity="center"
@@ -293,13 +293,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="학기 평균 및 등수"
+            android:text="학기별 평점평균"
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto"
             app:layout_constraintTop_toBottomOf="@id/grade_all_grid4"
             app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/grade_all_graph"
+            android:layout_width="match_parent"
+            android:layout_height="182dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/attendance_detail_list_background"
+            app:layout_constraintTop_toBottomOf="@id/grade_all_graph_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

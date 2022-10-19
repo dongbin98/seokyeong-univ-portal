@@ -19,8 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ScholarshipViewModel extends ViewModel {
-    public MutableLiveData<ResponseScholarList> scholarLiveData = new MutableLiveData<>();
-    public MutableLiveData<Integer> totalSizeLiveData = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<ResponseScholarList>> scholarLiveData = new MutableLiveData<>();
 
     public PortalApi portalApi;
 
@@ -40,20 +39,9 @@ public class ScholarshipViewModel extends ViewModel {
             public void onResponse(Call<ResponseScholar> call, Response<ResponseScholar> response) {
                 if (response.isSuccessful()) {
                     // 졸업생의 경우 response.body() == null
-                    // System.out.println(response.body());
                     if (response.body().getRtnStatus().equals("S")) {
-                        ArrayList<ResponseScholarList> responseScholarListArrayList = response.body().getResponseScholarLists();
-                        totalSizeLiveData.setValue(responseScholarListArrayList.size());
-                        for (ResponseScholarList responseScholarList : responseScholarListArrayList) {
-                            scholarLiveData.setValue(responseScholarList);
-                        }
-                    } else {    // 잘못된 파라미터 참조 case
-                        totalSizeLiveData.setValue(0);
-                        scholarLiveData.setValue(null);
+                        scholarLiveData.setValue(response.body().getResponseScholarLists());
                     }
-                } else {        // null case
-                    totalSizeLiveData.setValue(0);
-                    scholarLiveData.setValue(null);
                 }
             }
 

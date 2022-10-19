@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class GraduateSubjectViewModel extends ViewModel {
     public MutableLiveData<ResponseGraduateBasicMap> graduateBasicLiveData = new MutableLiveData<>();
-    public MutableLiveData<ResponseGraduateSubjectList> graduateSubjectLiveData = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<ResponseGraduateSubjectList>> graduateSubjectLiveData = new MutableLiveData<>();
     public PortalApi portalApi;
 
     public void getGraduateBasic(String token, String id) {
@@ -75,10 +75,7 @@ public class GraduateSubjectViewModel extends ViewModel {
                 // System.out.println(response.body());
                 if (response.isSuccessful()) {
                     if (response.body().getRtnStatus().equals("S")) {
-                        ArrayList<ResponseGraduateSubjectList> responseGraduateSubjectLists = response.body().getResponseGraduateSubjectLists();
-                        for (ResponseGraduateSubjectList responseGraduateSubjectList : responseGraduateSubjectLists) {
-                            graduateSubjectLiveData.setValue(responseGraduateSubjectList);
-                        }
+						graduateSubjectLiveData.setValue(response.body().getResponseGraduateSubjectLists());
                     }
                 }
             }

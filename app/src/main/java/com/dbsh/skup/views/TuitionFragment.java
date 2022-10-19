@@ -59,7 +59,7 @@ public class TuitionFragment extends Fragment implements OnBackPressedListener {
 
 		binding.tuitionTitle.setText(year + "년 " + term + "학기 등록금");
 
-		viewModel.tuitionLiveData.observe(binding.getLifecycleOwner(), new Observer<ResponseTuitionMap>() {
+		viewModel.tuitionLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseTuitionMap>() {
 			@Override
 			public void onChanged(ResponseTuitionMap responseTuitionMap) {
 				binding.tuitionEntfee.setText(responseTuitionMap.getEntFee());

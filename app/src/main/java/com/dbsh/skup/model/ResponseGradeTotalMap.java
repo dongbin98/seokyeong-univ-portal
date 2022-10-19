@@ -19,4 +19,20 @@ public class ResponseGradeTotalMap {
 	@SerializedName("TOT_SCR")
 	@Expose
 	private String totScr;
+
+	public String getAcquPnt() {
+		return acquPnt;
+	}
+
+	public String getApplyPnt() {
+		return applyPnt;
+	}
+
+	public String getGrdMarkAvg() {
+		return grdMarkAvg;
+	}
+
+	public String getTotScr() {
+		return totScr;
+	}
 }

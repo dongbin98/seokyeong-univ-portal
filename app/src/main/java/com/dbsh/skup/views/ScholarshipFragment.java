@@ -157,8 +157,6 @@ public class ScholarshipFragment extends Fragment implements OnBackPressedListen
 				adapter.dataClear();
                 data.clear();
 	            adapter.notifyDataSetChanged();
-                totalCount = 0;
-                nowCount = 0;
                 viewModel.getScholar(token, id, year, term);
             }
         });
@@ -167,33 +165,21 @@ public class ScholarshipFragment extends Fragment implements OnBackPressedListen
 	    adapter.dataClear();
         data.clear();
 	    adapter.notifyDataSetChanged();
-        nowCount = 0;
-        totalCount = 0;
         viewModel.getScholar(token, id, year, term);
 
-        viewModel.totalSizeLiveData.observe(binding.getLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                totalCount = integer;
-            }
-        });
-
-        viewModel.scholarLiveData.observe(binding.getLifecycleOwner(), new Observer<ResponseScholarList>() {
-            @Override
-            public void onChanged(ResponseScholarList responseScholarList) {
-                if(responseScholarList != null) {
-                    data.add(new ScholarshipAdapter.ScholarshipItem(
-                            responseScholarList.getSclsNm(),
-                            responseScholarList.getSclsNm(),
-                            responseScholarList.getRemkText(),
-                            responseScholarList.getSclsAmt().replace(" ", "")));
-                    nowCount++;
-                }
-	            adapter.notifyItemInserted(data.size());
-                if (totalCount == nowCount) {
-                    scholarshipBtn.setClickable(true);
-                }
-            }
+        viewModel.scholarLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<ResponseScholarList>>() {
+	        @Override
+	        public void onChanged(ArrayList<ResponseScholarList> responseScholarLists) {
+		        for(ResponseScholarList responseScholarList : responseScholarLists) {
+			        data.add(new ScholarshipAdapter.ScholarshipItem(
+					        responseScholarList.getSclsNm(),
+					        responseScholarList.getSclsNm(),
+					        responseScholarList.getRemkText(),
+					        responseScholarList.getSclsAmt().replace(" ", "")));
+					adapter.notifyItemInserted(data.size());
+		        }
+				scholarshipBtn.setClickable(true);
+	        }
         });
 
 		return binding.getRoot();

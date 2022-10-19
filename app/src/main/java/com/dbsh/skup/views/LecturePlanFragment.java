@@ -183,14 +183,14 @@ public class LecturePlanFragment extends Fragment implements OnBackPressedListen
         totalCount = 0;
         viewModel.getLecturePlan(token, id, year, term);
 
-        viewModel.totalSizeLiveData.observe(binding.getLifecycleOwner(), new Observer<Integer>() {
+        viewModel.totalSizeLiveData.observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 totalCount = integer;
             }
         });
 
-        viewModel.responseLectureplanListLiveData.observe(binding.getLifecycleOwner(), new Observer<ResponseLectureplanList>() {
+        viewModel.responseLectureplanListLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseLectureplanList>() {
             @Override
             public void onChanged(ResponseLectureplanList responseLectureplanList) {
                 String subject = "", professor = "", department = "", subjectCd = "", college = "", grade = "", credit = "", time = "";

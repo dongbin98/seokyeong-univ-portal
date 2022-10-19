@@ -27,4 +27,28 @@ public class ResponseGradeTermList {
 	@SerializedName("SCH_TERM")
 	@Expose
 	private String schTerm;
+
+	public String getAcquPnt() {
+		return acquPnt;
+	}
+
+	public String getApplyPnt() {
+		return applyPnt;
+	}
+
+	public String getGrdMarkAvg() {
+		return grdMarkAvg;
+	}
+
+	public String getSchRank() {
+		return schRank;
+	}
+
+	public String getSchYear() {
+		return schYear;
+	}
+
+	public String getSchTerm() {
+		return schTerm;
+	}
 }

@@ -10,13 +10,15 @@ import com.dbsh.skup.model.RequestAttendanceDetailParameterData;
 import com.dbsh.skup.model.ResponseAttendanceDetail;
 import com.dbsh.skup.model.ResponseAttendanceDetailList;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AttendanceDetailViewModel extends ViewModel {
 
-    public MutableLiveData<ResponseAttendanceDetailList> attendanceDetailLiveData = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<ResponseAttendanceDetailList>> attendanceDetailLiveData = new MutableLiveData<>();
     public PortalApi portalApi;
 
     public void getAttendanceDetailData(String token, String id, String year, String term, String cd, String numb) {
@@ -37,9 +39,7 @@ public class AttendanceDetailViewModel extends ViewModel {
             public void onResponse(Call<ResponseAttendanceDetail> call, Response<ResponseAttendanceDetail> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getRtnStatus().equals("S")) {
-                        for (ResponseAttendanceDetailList responseAttendanceDetailList : response.body().getResponseAttendanceDetailLists()) {
-                            attendanceDetailLiveData.setValue(responseAttendanceDetailList);
-                        }
+                        attendanceDetailLiveData.setValue(response.body().getResponseAttendanceDetailLists());
                     }
                 }
             }

@@ -209,14 +209,14 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 		totalCount = 0;
 		viewModel.getAttendance(token, id, year, term);
 
-		viewModel.totalSizeLiveData.observe(binding.getLifecycleOwner(), new Observer<Integer>() {
+		viewModel.totalSizeLiveData.observe(getViewLifecycleOwner(), new Observer<Integer>() {
 			@Override
 			public void onChanged(Integer integer) {
 				totalCount = integer;
 			}
 		});
 
-		viewModel.attendanceLiveData.observe(binding.getLifecycleOwner(), new Observer<ResponseAttendanceList>() {
+		viewModel.attendanceLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseAttendanceList>() {
 			@SuppressLint("NotifyDataSetChanged")
 			@Override
 			public void onChanged(ResponseAttendanceList responseAttendanceList) {

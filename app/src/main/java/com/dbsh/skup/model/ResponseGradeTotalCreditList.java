@@ -15,4 +15,16 @@ public class ResponseGradeTotalCreditList {
 	@SerializedName("PNT_00")
 	@Expose
 	private String etcPoint;
+
+	public String getMajorPoint() {
+		return majorPoint;
+	}
+
+	public String getLiberalPoint() {
+		return liberalPoint;
+	}
+
+	public String getEtcPoint() {
+		return etcPoint;
+	}
 }

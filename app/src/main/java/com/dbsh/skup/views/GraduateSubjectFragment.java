@@ -73,20 +73,21 @@ public class GraduateSubjectFragment extends Fragment {
             }
         });
 
-        viewModel.graduateSubjectLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseGraduateSubjectList>() {
-            @Override
-            public void onChanged(ResponseGraduateSubjectList responseGraduateSubjectList) {
-                if (responseGraduateSubjectList.getSubjNm() != null) {
-                    data.add(new GraduateSubjectAdapter.GraduateSubjectItem(
-                            responseGraduateSubjectList.getIsuName(),
-                            responseGraduateSubjectList.getSubjNm(),
-                            responseGraduateSubjectList.getAreaNm(),
-                            responseGraduateSubjectList.getDisData()
-                    ));
-                    System.out.println(responseGraduateSubjectList.getSubjNm());
-	                adapter.notifyItemInserted(data.size());
-                }
-            }
+        viewModel.graduateSubjectLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<ResponseGraduateSubjectList>>() {
+	        @Override
+	        public void onChanged(ArrayList<ResponseGraduateSubjectList> responseGraduateSubjectLists) {
+		        for(ResponseGraduateSubjectList responseGraduateSubjectList : responseGraduateSubjectLists) {
+					if (responseGraduateSubjectList.getSubjNm() != null) {
+						data.add(new GraduateSubjectAdapter.GraduateSubjectItem(
+								responseGraduateSubjectList.getIsuName(),
+								responseGraduateSubjectList.getSubjNm(),
+								responseGraduateSubjectList.getAreaNm(),
+								responseGraduateSubjectList.getDisData()
+						));
+						adapter.notifyItemInserted(data.size());
+					}
+		        }
+	        }
         });
 
         return binding.getRoot();
