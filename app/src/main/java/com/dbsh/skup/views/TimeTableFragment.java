@@ -150,7 +150,6 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
             }
         });
 
-
         return binding.getRoot();
     }
     @Override

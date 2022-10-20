@@ -26,6 +26,12 @@
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable-v24/ic_quickbtn.xml" value="0.163" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable-v24/indicator_select.xml" value="0.163" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable-v24/spinner_attendance_background.xml" value="0.1235" />
+        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable-v24/timetable_background.xml" value="0.1675" />
+        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable-v24/timetable_body_background.xml" value="0.1685" />
+        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable-v24/timetable_body_end_background.xml" value="0.1685" />
+        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable-v24/timetable_header_background.xml" value="0.1685" />
+        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable-v24/timetable_header_start_background.xml" value="0.1685" />
+        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable-v24/timetable_index_background.xml" value="0.1675" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable/attendance_spinner_dropdown_triangle.xml" value="0.1235" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable/button_mainblue_background.xml" value="0.156" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/drawable/button_paste.xml" value="0.1525" />
@@ -58,7 +64,8 @@
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/attendance_spinner_form.xml" value="0.72" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/attendance_spinner_inner_form.xml" value="0.1125" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/attendance_tmp_form.xml" value="0.12335359675785208" />
-        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/grade_all_form.xml" value="0.176" />
+        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/grade_all_form.xml" value="0.152" />
+        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/grade_all_marker_form.xml" value="1.4405940594059405" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/grade_form.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/grade_term_form.xml" value="0.14010416666666667" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/grade_term_list.xml" value="0.25364583333333335" />
@@ -91,6 +98,7 @@
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/splash_form.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/splash_tmp_form.xml" value="0.12335359675785208" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/splashtmp__form.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/timetable_form.xml" value="0.4" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/tuition_form.xml" value="0.10400000000000001" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/tuition_tmp_form.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/yeomd/Desktop/SKUP/SKUP/app/src/main/res/layout/webview_form.xml" value="0.25364583333333335" />

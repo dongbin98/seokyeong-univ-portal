@@ -83,9 +83,21 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 			@Override
 			public void onChanged(ArrayList<ResponseGradeTotalCreditList> responseGradeTotalCreditLists) {
 				// 0 -> 신청, 1 -> 취득
-				binding.gradeMajorCredit.setText(responseGradeTotalCreditLists.get(0).getMajorTotalPoint());
-				binding.gradeLiberalCredit.setText(responseGradeTotalCreditLists.get(0).getLiberalTotalPoint());
-				binding.gradeEtcCredit.setText(responseGradeTotalCreditLists.get(0).getEtcTotalPoint());
+				// 전체 취득학점
+				binding.gradeMajorTotalCredit.setText(responseGradeTotalCreditLists.get(0).getMajorTotalPoint());
+				binding.gradeLiberalTotalCredit.setText(responseGradeTotalCreditLists.get(0).getLiberalTotalPoint());
+				binding.gradeEtcTotalCredit.setText(responseGradeTotalCreditLists.get(0).getEtcTotalPoint());
+				// 전공 취득 학점
+				binding.gradeMajorCredit.setText(responseGradeTotalCreditLists.get(0).getMajorPoint());
+				binding.gradeMajorDeepenCredit.setText(responseGradeTotalCreditLists.get(0).getMajorDeepenPoint());
+				binding.gradeMajorCoreCredit.setText(responseGradeTotalCreditLists.get(0).getMajorCorePoint());
+				// 교양 취득 학점
+				binding.gradeLiberalRequirementCredit.setText(responseGradeTotalCreditLists.get(0).getLiberalRequirementPoint());
+				binding.gradeLiberalSelectionCredit.setText(responseGradeTotalCreditLists.get(0).getLiberalSelectionPoint());
+				// 기타 취득 학점
+				binding.gradeDoubleMajorCredit.setText(responseGradeTotalCreditLists.get(0).getDoubleMajorPint());
+				binding.gradeNormalSelectionCredit.setText(responseGradeTotalCreditLists.get(0).getNormalSelectionPoint());
+				binding.gradeFreeSelectionCredit.setText(responseGradeTotalCreditLists.get(0).getFreeSelectionPoint());
 			}
 		});
 
@@ -97,7 +109,6 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 				ArrayList<String> xValues = new ArrayList<>();
 				ArrayList<Float> yValues = new ArrayList<>();
 				for(int i = 0; i < responseGradeTermLists.size(); i++) {
-					String x = responseGradeTermLists.get(i).getSchYear().substring(2, 4) + "-" + responseGradeTermLists.get(i).getSchTerm();
 					Float y = Float.parseFloat(responseGradeTermLists.get(i).getGrdMarkAvg().replace(" ", ""));
 
 					// 추후 포매팅
@@ -145,7 +156,7 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 				// 좌측 y label
 				YAxis yLAxis = gradeGraph.getAxisLeft();
 				yLAxis.setValueFormatter(new XAxisFormatter());
-				yLAxis.setTextSize(8);
+				yLAxis.setTextSize(10);
 				yLAxis.setTextColor(getContext().getColor(R.color.gray2));
 				yLAxis.setAxisMinimum(0);
 				yLAxis.setAxisMaximum(4.5f);

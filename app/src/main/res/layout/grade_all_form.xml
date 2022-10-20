@@ -10,307 +10,688 @@
             type="com.dbsh.skup.viewmodels.GradeAllViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:background="@color/white">
+        android:scrollbars="none"
+        android:overScrollMode="never">
 
-        <TextView
-            android:id="@+id/grade_all_total_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="전체 학점 및 성적"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:fontFamily="@font/roboto"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
-
-        <GridLayout
-            android:id="@+id/grade_all_grid1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:columnCount="3"
-            android:rowCount="1"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/grade_all_total_text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-
-            <ImageView
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box" />
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:background="@color/white">
 
             <TextView
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:text="총취득학점"
-                android:textColor="@color/gray2"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto"/>
-
-            <ImageView
-                android:layout_column="1"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box2"/>
-
-            <TextView
-                android:layout_column="1"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:text="백분위성적"
-                android:textColor="@color/gray2"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto"/>
-
-            <ImageView
-                android:layout_column="2"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box3"/>
-
-            <TextView
-                android:layout_column="2"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:text="총평점평균"
-                android:textColor="@color/gray2"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto"/>
-        </GridLayout>
-
-        <GridLayout
-            android:id="@+id/grade_all_grid2"
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:columnCount="3"
-            android:rowCount="1"
-            app:layout_constraintTop_toBottomOf="@id/grade_all_grid1">
-
-            <ImageView
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box4" />
-
-            <TextView
-                android:id="@+id/grade_all_total_credit"
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:textSize="24dp"
+                android:id="@+id/grade_all_graph_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="학기별 평점평균"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <ImageView
-                android:layout_column="1"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box5"/>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/grade_all_graph"
+                android:layout_width="match_parent"
+                android:layout_height="168dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/attendance_detail_list_background"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_graph_text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
 
             <TextView
-                android:id="@+id/grade_all_percentile"
-                android:layout_column="1"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:textSize="24dp"
+                android:id="@+id/grade_all_total_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="전체 학점 및 성적"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_graph"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <ImageView
-                android:layout_column="2"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box6"/>
+            <GridLayout
+                android:id="@+id/grade_all_grid1"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:columnCount="3"
+                android:rowCount="1"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/grade_all_total_text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box" />
+
+                <TextView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="총취득학점"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box2"/>
+
+                <TextView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="백분위성적"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box3"/>
+
+                <TextView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="총평점평균"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/grade_all_grid2"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:columnCount="3"
+                android:rowCount="1"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_grid1">
+
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box4" />
+
+                <TextView
+                    android:id="@+id/grade_all_total_credit"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box5"/>
+
+                <TextView
+                    android:id="@+id/grade_all_percentile"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box6"/>
+
+                <TextView
+                    android:id="@+id/grade_all_total_average"
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
 
             <TextView
-                android:id="@+id/grade_all_total_average"
-                android:layout_column="2"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:textSize="24dp"
+                android:id="@+id/grade_all_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="전체 취득 학점"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:fontFamily="@font/roboto"/>
-        </GridLayout>
+                android:fontFamily="@font/roboto"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_grid2"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <TextView
-            android:id="@+id/grade_all_credit_major_liberal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="전공 및 교양 취득 학점"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:fontFamily="@font/roboto"
-            app:layout_constraintTop_toBottomOf="@id/grade_all_grid2"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            <GridLayout
+                android:id="@+id/grade_all_grid3"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:columnCount="3"
+                android:rowCount="1"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/grade_all_credit"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
 
-        <GridLayout
-            android:id="@+id/grade_all_grid3"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:columnCount="3"
-            android:rowCount="1"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/grade_all_credit_major_liberal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box" />
 
-            <ImageView
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box" />
+                <TextView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="전공"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box2"/>
+
+                <TextView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="교양"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box3"/>
+
+                <TextView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="기타"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/grade_all_grid4"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:columnCount="3"
+                android:rowCount="1"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_grid3">
+
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box4" />
+
+                <TextView
+                    android:id="@+id/grade_major_total_credit"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box5"/>
+
+                <TextView
+                    android:id="@+id/grade_liberal_total_credit"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box6"/>
+
+                <TextView
+                    android:id="@+id/grade_etc_total_credit"
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
 
             <TextView
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:text="전공"
-                android:textColor="@color/gray2"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto"/>
-
-            <ImageView
-                android:layout_column="1"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box2"/>
-
-            <TextView
-                android:layout_column="1"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:text="교양"
-                android:textColor="@color/gray2"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto"/>
-
-            <ImageView
-                android:layout_column="2"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box3"/>
-
-            <TextView
-                android:layout_column="2"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:text="기타"
-                android:textColor="@color/gray2"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto"/>
-        </GridLayout>
-
-        <GridLayout
-            android:id="@+id/grade_all_grid4"
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:columnCount="3"
-            android:rowCount="1"
-            app:layout_constraintTop_toBottomOf="@id/grade_all_grid3">
-
-            <ImageView
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box4" />
-
-            <TextView
-                android:id="@+id/grade_major_credit"
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:textSize="24dp"
+                android:id="@+id/grade_all_credit_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="전공 취득 학점"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_grid4"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <ImageView
-                android:layout_column="1"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box5"/>
+            <GridLayout
+                android:id="@+id/grade_all_grid5"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:columnCount="3"
+                android:rowCount="1"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/grade_all_credit_major"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box" />
+
+                <TextView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="전공"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box2"/>
+
+                <TextView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="전공심화"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box3"/>
+
+                <TextView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="전공핵심"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/grade_all_grid6"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:columnCount="3"
+                android:rowCount="1"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_grid5">
+
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box4" />
+
+                <TextView
+                    android:id="@+id/grade_major_credit"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box5"/>
+
+                <TextView
+                    android:id="@+id/grade_major_deepen_credit"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box6"/>
+
+                <TextView
+                    android:id="@+id/grade_major_core_credit"
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
 
             <TextView
-                android:id="@+id/grade_liberal_credit"
-                android:layout_column="1"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:textSize="24dp"
+                android:id="@+id/grade_all_credit_liberal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="교양 취득 학점"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:fontFamily="@font/roboto"/>
+                android:fontFamily="@font/roboto"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_grid6"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <ImageView
-                android:layout_column="2"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:background="@drawable/attendance_detail_box6"/>
+            <GridLayout
+                android:id="@+id/grade_all_grid7"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:columnCount="2"
+                android:rowCount="1"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/grade_all_credit_liberal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box" />
+
+                <TextView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="교필"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box3"/>
+
+                <TextView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="교선"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/grade_all_grid8"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:columnCount="2"
+                android:rowCount="1"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_grid7">
+
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box4" />
+
+                <TextView
+                    android:id="@+id/grade_liberal_requirement_credit"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box6"/>
+
+                <TextView
+                    android:id="@+id/grade_liberal_selection_credit"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
 
             <TextView
-                android:id="@+id/grade_etc_credit"
-                android:layout_column="2"
-                android:layout_row="0"
-                android:layout_gravity="center"
-                android:textSize="24dp"
+                android:id="@+id/grade_all_credit_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="기타 취득 학점"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:fontFamily="@font/roboto"/>
-        </GridLayout>
+                android:fontFamily="@font/roboto"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_grid8"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <TextView
-            android:id="@+id/grade_all_graph_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="학기별 평점평균"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:fontFamily="@font/roboto"
-            app:layout_constraintTop_toBottomOf="@id/grade_all_grid4"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            <GridLayout
+                android:id="@+id/grade_all_grid9"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:columnCount="3"
+                android:rowCount="1"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/grade_all_credit_etc"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/grade_all_graph"
-            android:layout_width="match_parent"
-            android:layout_height="168dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/attendance_detail_list_background"
-            app:layout_constraintTop_toBottomOf="@id/grade_all_graph_text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box" />
 
+                <TextView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="복수전공"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box2"/>
+
+                <TextView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="일반선택"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box3"/>
+
+                <TextView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:text="자유선택"
+                    android:textColor="@color/gray2"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/grade_all_grid10"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginBottom="32dp"
+                android:columnCount="3"
+                android:rowCount="1"
+                app:layout_constraintTop_toBottomOf="@id/grade_all_grid9"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box4" />
+
+                <TextView
+                    android:id="@+id/grade_double_major_credit"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box5"/>
+
+                <TextView
+                    android:id="@+id/grade_normal_selection_credit"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box6"/>
+
+                <TextView
+                    android:id="@+id/grade_free_selection_credit"
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

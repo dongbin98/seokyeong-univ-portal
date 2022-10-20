@@ -6,12 +6,12 @@
 
     <TextView
         android:id="@+id/grade_all_marker_text"
-        android:layout_width="24dp"
-        android:layout_height="10dp"
+        android:layout_width="32dp"
+        android:layout_height="14dp"
         android:background="@drawable/marker_background"
         android:textAlignment="center"
         android:text="4.15"
-        android:textSize="8dp"
+        android:textSize="10dp"
         android:fontFamily="@font/roboto"
         android:textColor="@color/gray2"
         app:layout_constraintTop_toTopOf="parent"
