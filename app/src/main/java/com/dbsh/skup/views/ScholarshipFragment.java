@@ -59,7 +59,6 @@ public class ScholarshipFragment extends Fragment implements OnBackPressedListen
 		super.onCreate(savedInstanceState);
 		/* DataBinding */
 		binding = DataBindingUtil.inflate(inflater, R.layout.scholarship_form, container, false);
-		binding.setLifecycleOwner(this);
 		viewModel = new ScholarshipViewModel();
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();    // 바인딩 강제 즉시실행
@@ -187,6 +186,7 @@ public class ScholarshipFragment extends Fragment implements OnBackPressedListen
 	public void onBackPressed() {
 		homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
 		homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+		homeLeftContainer.popFragment();
 	}
 
 	@Override

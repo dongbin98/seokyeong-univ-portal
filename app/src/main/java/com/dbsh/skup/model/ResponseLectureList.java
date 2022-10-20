@@ -26,7 +26,11 @@ public class ResponseLectureList {
 
 	@SerializedName("PROF_NO")
 	@Expose
-	private String professor;
+	private String profNo;
+
+	@SerializedName("PROF_NAME")
+	@Expose
+	private String profName;
 
 	@SerializedName("CLASSHOUR_START_TIME")
 	@Expose
@@ -43,6 +47,10 @@ public class ResponseLectureList {
 	@SerializedName("LECT_TERM")
 	@Expose
 	private String term;
+
+	@SerializedName("CLASSROOM_NAME")
+	@Expose
+	private String classroomName;
 
 	public String getLectureDay() {
 		return lectureDay;
@@ -84,14 +92,6 @@ public class ResponseLectureList {
 		this.lectureName = lectureName;
 	}
 
-	public String getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(String professor) {
-		this.professor = professor;
-	}
-
 	public String getLectureStartTime() {
 		return lectureStartTime;
 	}
@@ -122,5 +122,17 @@ public class ResponseLectureList {
 
 	public void setTerm(String term) {
 		this.term = term;
+	}
+
+	public String getProfNo() {
+		return profNo;
+	}
+
+	public String getProfName() {
+		return profName;
+	}
+
+	public String getClassroomName() {
+		return classroomName;
 	}
 }

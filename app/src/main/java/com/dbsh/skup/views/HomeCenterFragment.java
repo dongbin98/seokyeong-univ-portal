@@ -103,7 +103,7 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeQuickBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-				homeCenterContainer.replaceFragment(new AttendanceFragment(), bundle);
+				homeCenterContainer.pushFragment(HomeCenterFragment, new AttendanceFragment(), bundle);
             }
         });
         // 학사일정
@@ -116,7 +116,7 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeQuickBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-	            homeCenterContainer.replaceFragment(new QrcodeFragment(), bundle);
+	            homeCenterContainer.pushFragment(HomeCenterFragment, new QrcodeFragment(), bundle);
 			}
         });
         // Portal

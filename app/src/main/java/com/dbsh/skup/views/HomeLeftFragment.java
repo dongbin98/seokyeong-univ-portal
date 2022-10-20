@@ -41,7 +41,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuAttendanceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeLeftContainer.replaceFragment(new AttendanceFragment(), bundle);
+                homeLeftContainer.pushFragment(HomeLeftFragment, new AttendanceFragment(), bundle);
             }
         });
 
@@ -49,7 +49,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuTimetableBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeLeftContainer.replaceFragment(new TimeTableFragment(), null);
+                homeLeftContainer.pushFragment(HomeLeftFragment, new TimeTableFragment(), null);
             }
         });
 
@@ -57,7 +57,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuGradeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeLeftContainer.replaceFragment(new GradeFragment(), null);
+                homeLeftContainer.pushFragment(HomeLeftFragment, new GradeFragment(), null);
             }
         });
 
@@ -65,7 +65,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuLectureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-	            homeLeftContainer.replaceFragment(new LecturePlanFragment(), null);
+	            homeLeftContainer.pushFragment(HomeLeftFragment, new LecturePlanFragment(), null);
             }
         });
 
@@ -73,7 +73,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuScholarshipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-	            homeLeftContainer.replaceFragment(new ScholarshipFragment(), null);
+	            homeLeftContainer.pushFragment(HomeLeftFragment, new ScholarshipFragment(), null);
             }
         });
 
@@ -81,7 +81,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuRegistBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-				homeLeftContainer.replaceFragment(new TuitionFragment(), null);
+				homeLeftContainer.pushFragment(HomeLeftFragment, new TuitionFragment(), null);
             }
         });
 
@@ -89,7 +89,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuGraduateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-	            homeLeftContainer.replaceFragment(new GraduateFragment(), null);
+	            homeLeftContainer.pushFragment(HomeLeftFragment, new GraduateFragment(), null);
             }
         });
 
@@ -97,7 +97,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuPotenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                homeLeftContainer.replaceFragment(new NonLectureFragment(), null);
+//                homeLeftContainer.pushFragment(HomeLeftFragment, new NonLectureFragment(), null);
             }
         });
 
@@ -105,7 +105,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuQrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeLeftContainer.replaceFragment(new QrcodeFragment(), bundle);
+                homeLeftContainer.pushFragment(HomeLeftFragment, new QrcodeFragment(), bundle);
             }
         });
 

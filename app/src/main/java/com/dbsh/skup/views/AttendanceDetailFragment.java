@@ -71,7 +71,6 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
 		super.onCreate(savedInstanceState);
 		/* DataBinding */
 		binding = DataBindingUtil.inflate(inflater, R.layout.attendance_detail_form, container, false);
-		binding.setLifecycleOwner(this);
 		viewModel = new AttendanceDetailViewModel();
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();	// 바인딩 강제 즉시실행
@@ -185,50 +184,7 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
                 binding.attendanceDetailAbsnCnt.setText(Integer.toString(absentCount));
 	        }
         });
-//            @Override
-//            public void onChanged(ResponseAttendanceDetailList responseAttendanceDetailList) {
-//                double absnTime = Double.parseDouble(responseAttendanceDetailList.getAbsnTime());
-//                if (absnTime == 0) {
-//                    attendanceCount++;
-//                    data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
-//                            "출석", "출석", responseAttendanceDetailList.getCheckDateNm(), "출석했습니다."));
-//                } else if (absnTime < time) {
-//                    lateCount++;
-//                    data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
-//                            "지각", "지각", responseAttendanceDetailList.getCheckDateNm(), absnTime + "시간 지각했습니다."));
-//                } else {
-//                    absentCount++;
-//                    data.add(new AttendanceDetailAdapter.AttendanceDetailItem(
-//                            "결석", "결석", responseAttendanceDetailList.getCheckDateNm(), "결석했습니다"));
-//                }
-//                binding.attendanceDetailAtteCnt.setText(Integer.toString(attendanceCount));
-//                binding.attendanceDetailLateCnt.setText(Integer.toString(lateCount));
-//                binding.attendanceDetailAbsnCnt.setText(Integer.toString(absentCount));
-//
-//                data.sort(new Comparator<AttendanceDetailAdapter.AttendanceDetailItem>() {
-//                    @Override
-//                    public int compare(AttendanceDetailAdapter.AttendanceDetailItem data, AttendanceDetailAdapter.AttendanceDetailItem t1) {
-//                        int result = 1;
-//                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//
-//                        Date dateDate = null;
-//                        Date t1Date = null;
-//
-//                        try {
-//                            dateDate = format.parse(data.getDate());
-//                            t1Date = format.parse(t1.getDate());
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//                        int compare = dateDate.compareTo(t1Date);
-//                        if(compare >= 0)
-//                            result = -1;
-//                        return result;
-//                    }
-//                });
-//	            adapter.notifyItemInserted(data.size());
-//            }
-//        });
+
 		return binding.getRoot();
     }
 
@@ -258,9 +214,11 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
 		if(type.equals("center")) {
 			homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
 			homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+			homeCenterContainer.popFragment();
 		} else if(type.equals("left")){
 			homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
 			homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+			homeLeftContainer.popFragment();
 		}
 	}
 

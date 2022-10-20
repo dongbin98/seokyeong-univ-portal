@@ -64,7 +64,6 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 		super.onCreate(savedInstanceState);
 		/* DataBinding */
 		binding = DataBindingUtil.inflate(inflater, R.layout.attendance_form, container, false);
-		binding.setLifecycleOwner(this);
 		viewModel = new AttendanceViewModel();
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();	// 바인딩 강제 즉시실행
@@ -119,9 +118,11 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 				bundle.putString("TERM", term);
 				bundle.putString("type", type);
 				if(type.equals("center"))
-					homeCenterContainer.replaceFragment(new AttendanceDetailFragment(), bundle);
-				else if(type.equals("left"))
-					homeLeftContainer.replaceFragment(new AttendanceDetailFragment(), bundle);
+					homeCenterContainer.pushFragment(AttendanceFragment, new AttendanceDetailFragment(), bundle);
+				else if(type.equals("left")) {
+					System.out.println("before : AttedanceFragment 삽입");
+					homeLeftContainer.pushFragment(AttendanceFragment, new AttendanceDetailFragment(), bundle);
+				}
 			}
 		});
 
@@ -246,9 +247,11 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 		if(type.equals("center")) {
 			homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
 			homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+			homeCenterContainer.popFragment();
 		} else if(type.equals("left")){
 			homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
 			homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+			homeLeftContainer.popFragment();
 		}
 	}
 

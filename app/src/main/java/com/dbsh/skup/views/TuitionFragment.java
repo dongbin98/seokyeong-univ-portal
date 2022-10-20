@@ -37,7 +37,6 @@ public class TuitionFragment extends Fragment implements OnBackPressedListener {
 	    super.onCreate(savedInstanceState);
 	    /* DataBinding */
 	    binding = DataBindingUtil.inflate(inflater, R.layout.tuition_form, container, false);
-	    binding.setLifecycleOwner(this);
 	    viewModel = new TuitionViewModel();
 	    binding.setViewModel(viewModel);
 	    binding.executePendingBindings();    // 바인딩 강제 즉시실행
@@ -102,6 +101,7 @@ public class TuitionFragment extends Fragment implements OnBackPressedListener {
 	public void onBackPressed() {
 		homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
 		homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+		homeLeftContainer.popFragment();
 	}
 
 	@Override

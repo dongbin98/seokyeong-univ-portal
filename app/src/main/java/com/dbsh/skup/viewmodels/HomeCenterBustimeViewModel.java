@@ -89,7 +89,6 @@ public class HomeCenterBustimeViewModel {
                 public void onResponse(Call<ResponseArrive> call, Response<ResponseArrive> response) {
 					if (response.isSuccessful()) {
 						ResponseArrive responseArrive = response.body();
-						System.out.println(responseArrive);
 						if (responseArrive.getHeader().getHeaderCd().equals("0")) {
 							System.out.println(responseArrive);
 							System.out.println(responseArrive.getHeader());

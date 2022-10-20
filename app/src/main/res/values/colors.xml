@@ -24,4 +24,10 @@
     <color name="gridentStartColor">#FF4E7CD7</color>
     <color name="gridentEndColor">#FF78B4DF</color>
     <color name="attendanceboxColor">#FFF7F7F7</color>
+    <color name="timetableitem1">#FF08348C</color>
+    <color name="timetableitem2">#FF4F6BA3</color>
+    <color name="timetableitem3">#FF225ACA</color>
+    <color name="timetableitem4">#FF8AAFF9</color>
+    <color name="timetableitem5">#FF839FD7</color>
+    <color name="timetableitem6">#AAB6CD</color>
 </resources>

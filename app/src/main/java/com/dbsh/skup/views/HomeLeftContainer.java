@@ -15,6 +15,7 @@ import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.HomeLeftContainerBinding;
 import com.dbsh.skup.viewmodels.HomeLeftContainerViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeLeftContainer extends Fragment implements OnBackPressedListener{
@@ -26,6 +27,9 @@ public class HomeLeftContainer extends Fragment implements OnBackPressedListener
 	// this Fragment
 	private Fragment HomeLeftFragment;
 
+	// before Fragment List
+	private ArrayList<Fragment> beforeFragments;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /* Data Binding */
@@ -35,21 +39,25 @@ public class HomeLeftContainer extends Fragment implements OnBackPressedListener
         binding.executePendingBindings();
 
 	    HomeLeftFragment = new HomeLeftFragment();
+		beforeFragments = new ArrayList<>();
 		getChildFragmentManager().beginTransaction().add(binding.homeLeftContainer.getId(), HomeLeftFragment).commit();
 
         return binding.getRoot();
     }
 
-	public void replaceFragment(Fragment afterFragment, Bundle bundle) {
+	public void pushFragment(Fragment beforeFragment, Fragment afterFragment, Bundle bundle) {
 		if (bundle != null) {
 			afterFragment.setArguments(bundle);
 		}
-		if (!afterFragment.isAdded()) {
-			getChildFragmentManager().beginTransaction().add(binding.homeLeftContainer.getId(), afterFragment).commit();
-		} else {
-			getChildFragmentManager().beginTransaction().replace(binding.homeLeftContainer.getId(), afterFragment).commit();
-		}
-		getChildFragmentManager().beginTransaction().show(afterFragment).addToBackStack(null).commit();
+		beforeFragments.add(beforeFragment);
+		System.out.println(beforeFragments.size());
+		getChildFragmentManager().beginTransaction().add(binding.homeLeftContainer.getId(), afterFragment).addToBackStack(null).commit();
+		getChildFragmentManager().beginTransaction().hide(beforeFragment).commit();
+		getChildFragmentManager().beginTransaction().show(afterFragment).commit();
+	}
+	public void popFragment() {
+		getChildFragmentManager().beginTransaction().show(beforeFragments.get(beforeFragments.size()-1)).commit();
+		beforeFragments.remove(beforeFragments.size()-1);
 	}
 
 	@Override
