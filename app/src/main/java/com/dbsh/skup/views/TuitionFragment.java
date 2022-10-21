@@ -71,11 +71,11 @@ public class TuitionFragment extends Fragment implements OnBackPressedListener {
 				binding.tuitionRegamt.setText(responseTuitionMap.getRegAmt());
 				binding.tuitionTmpacct.setText(responseTuitionMap.getTempAcct());
 				if (responseTuitionMap.getNonPay().equals("0")) {
-					binding.tuitionBackground.setImageResource(R.drawable.tuition_background);
+					binding.tuitionBackground.setBackground(getContext().getDrawable(R.drawable.tuition_background));
 					binding.tuitionCircle.setImageResource(R.drawable.tuition_paid_circle);
 					binding.tuitionCircleText.setText("납부 완료");
 				} else {
-					binding.tuitionBackground.setImageResource(R.drawable.tuition_none_paid_background);
+					binding.tuitionBackground.setBackground(getContext().getDrawable(R.drawable.tuition_none_paid_background));
 					binding.tuitionCircle.setImageResource(R.drawable.tuition_none_paid_circle);
 					binding.tuitionCircleText.setText("납부 미완료");
 				}

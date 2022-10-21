@@ -5,20 +5,20 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ResponseLectureplan {
+public class ResponseLecturePlan {
     @SerializedName("RTN_STATUS")
     @Expose
     private String rtnStatus;
 
     @SerializedName("LIST")
     @Expose
-    private ArrayList<ResponseLectureplanList> responseLectureplanLists;
+    private ArrayList<ResponseLecturePlanList> responseLecturePlanLists;
 
     public String getRtnStatus() {
         return rtnStatus;
     }
 
-    public ArrayList<ResponseLectureplanList> getResponseLectureplanLists() {
-        return responseLectureplanLists;
+    public ArrayList<ResponseLecturePlanList> getResponseLectureplanLists() {
+        return responseLecturePlanLists;
     }
 }

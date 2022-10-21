@@ -78,6 +78,7 @@ public class GraduateSubjectFragment extends Fragment {
 	        public void onChanged(ArrayList<ResponseGraduateSubjectList> responseGraduateSubjectLists) {
 		        for(ResponseGraduateSubjectList responseGraduateSubjectList : responseGraduateSubjectLists) {
 					if (responseGraduateSubjectList.getSubjNm() != null) {
+						// 어댑터에서 null 처리
 						data.add(new GraduateSubjectAdapter.GraduateSubjectItem(
 								responseGraduateSubjectList.getIsuName(),
 								responseGraduateSubjectList.getSubjNm(),

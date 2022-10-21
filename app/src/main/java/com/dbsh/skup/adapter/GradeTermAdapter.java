@@ -51,7 +51,10 @@ public class GradeTermAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 	    }
 		itemController.grade.setText(item.grade);
 		itemController.gradeType.setText(item.type);
-	    itemController.subjectAndProfessor.setText(item.subject + " | " + item.professor);
+		if(item.professor.equals(""))
+			itemController.subjectAndProfessor.setText(item.subject);
+		else
+	        itemController.subjectAndProfessor.setText(item.subject + " | " + item.professor);
 	    itemController.gradeCd.setText("ㆍ" + item.subjectCd);
 	    itemController.gradeCredit.setText("ㆍ" + item.credit + "학점");
     }
@@ -86,12 +89,12 @@ public class GradeTermAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public double subjTime;
         public GradeTermItem() {}
 	    public GradeTermItem(String grade, String type, String subject, String subjectCd, String credit, String professor) {
-		    this.grade = grade;
-		    this.type = type;
-		    this.subject = subject;
-		    this.subjectCd = subjectCd;
-		    this.credit = credit;
-		    this.professor = professor;
+		    this.grade = (grade != null ? grade : "");
+		    this.type = (type != null ? type : "");
+		    this.subject = (subject != null ? subject : "");
+		    this.subjectCd = (subjectCd != null ? subjectCd : "");
+		    this.credit = (credit != null ? credit : "");
+		    this.professor = (professor != null ? professor : "");
 	    }
     }
 }

@@ -83,6 +83,7 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 			@Override
 			public void onChanged(ArrayList<ResponseGradeTotalCreditList> responseGradeTotalCreditLists) {
 				// 0 -> 신청, 1 -> 취득
+				// null 처리 필요 X -> 없는 값은 0으로 나옴
 				// 전체 취득학점
 				binding.gradeMajorTotalCredit.setText(responseGradeTotalCreditLists.get(0).getMajorTotalPoint());
 				binding.gradeLiberalTotalCredit.setText(responseGradeTotalCreditLists.get(0).getLiberalTotalPoint());

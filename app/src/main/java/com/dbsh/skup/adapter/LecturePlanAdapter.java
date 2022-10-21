@@ -15,7 +15,7 @@ import com.dbsh.skup.R;
 
 import java.util.ArrayList;
 
-public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
+public class LecturePlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
     private ArrayList<LectureplanItem> data;
     private ArrayList<LectureplanItem> filteredData;
 
@@ -72,7 +72,7 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.mListener = listener;
     }
 
-    public LectureplanAdapter(ArrayList<LectureplanItem> data) {
+    public LecturePlanAdapter(ArrayList<LectureplanItem> data) {
         this.data = data;
         this.filteredData = data;
     }
@@ -87,7 +87,7 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         View view = null;
         context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.lectureplan_list, parent, false);
+        view = inflater.inflate(R.layout.lecture_plan_list, parent, false);
         LectureplanHolder header = new LectureplanHolder(view);
         return header;
     }
@@ -153,18 +153,22 @@ public class LectureplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public static class LectureplanItem {
-        public String subjectName, professorName, department, subjectCd, college, grade, credit, time;
+        public String subjectName, professorName, department, subjectCd, college, grade, credit, time, classNumb, professorId, year, term;
         public LectureplanItem() {}
 
-        public LectureplanItem(String subjectName, String professorName, String department, String subjectCd, String college, String grade, String credit, String time) {
-            this.subjectName = subjectName;         // 교과명
-            this.professorName = professorName;     // 교수명
-            this.department = department;           // 학과명
-            this.subjectCd = subjectCd;             // 학수번호
-            this.college = college;                 // 단대명
-            this.grade = grade;                     // 학년
-            this.credit = credit;                   // 학점
-            this.time = time;                       // 시간
+	    public LectureplanItem(String subjectName, String professorName, String department, String subjectCd, String college, String grade, String credit, String time, String classNumb, String professorId, String year, String term) {
+            this.subjectName = (subjectName != null ? subjectName : "");        // 교과명
+            this.professorName = (professorName != null ? professorName : "");  // 교수명
+            this.department = (department != null ? department : "");           // 학과명
+            this.subjectCd = (subjectCd != null ? subjectCd : "");          // 학수번호
+            this.college = (college != null ? college : "");                // 단대명
+            this.grade = (grade != null ? grade : "");                      // 대상 학년
+            this.credit = (credit != null ? credit : "");                   // 학점
+            this.time = (time != null ? time : "");                         // 수업 시간
+		    this.classNumb = (classNumb != null ? classNumb : "");          // 분반
+		    this.professorId = (professorId != null ? professorId : "");    // 교수 ID
+		    this.year = (year != null ? year : "");                         // 년도
+		    this.term = (term != null ? term : "");                         // 학기
         }
     }
 }

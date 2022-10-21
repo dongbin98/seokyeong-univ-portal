@@ -21,23 +21,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.adapter.LectureplanAdapter;
+import com.dbsh.skup.adapter.LecturePlanAdapter;
 import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.adapter.SpinnerAdapter;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.LecturePlanFormBinding;
-import com.dbsh.skup.model.ResponseLectureplanList;
+import com.dbsh.skup.model.ResponseLecturePlanList;
 import com.dbsh.skup.model.ResponseYearList;
 import com.dbsh.skup.viewmodels.LecturePlanViewModel;
 
 import java.util.ArrayList;
 
 public class LecturePlanFragment extends Fragment implements OnBackPressedListener {
-    LecturePlanFormBinding binding;
-    LecturePlanViewModel viewModel;
+    private LecturePlanFormBinding binding;
+    private LecturePlanViewModel viewModel;
 
 	// parent Fragment
 	private HomeLeftContainer homeLeftContainer;
+
+	// this Fragment
+	private Fragment LecturePlanFragment;
 
     String token;
     String id;
@@ -52,8 +55,8 @@ public class LecturePlanFragment extends Fragment implements OnBackPressedListen
     RecyclerView lectureplanRecyclerview;
 
     ArrayList<String> spinnerItem, spinnerItem2;
-    ArrayList<LectureplanAdapter.LectureplanItem> data;          // 원본
-    LectureplanAdapter adapter;
+    ArrayList<LecturePlanAdapter.LectureplanItem> data;          // 원본
+    LecturePlanAdapter adapter;
 
     UserData userData;
 
@@ -67,6 +70,7 @@ public class LecturePlanFragment extends Fragment implements OnBackPressedListen
 	    binding.executePendingBindings();    // 바인딩 강제 즉시실행
 
 	    homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
+		LecturePlanFragment = this;
 
         userData = ((UserData) getActivity().getApplication());
 
@@ -87,13 +91,25 @@ public class LecturePlanFragment extends Fragment implements OnBackPressedListen
         lectureplahSpinner2 = binding.lectureplanSpinner2;
         lectureplanBtn = binding.lectureplanBtn;
         lectureplanRecyclerview = binding.lectureplanRecyclerview;
-        adapter = new LectureplanAdapter(data);
+        adapter = new LecturePlanAdapter(data);
 
         // 강의계획서, 주차별 진도사항 보기
-        adapter.setOnItemClickListener(new LectureplanAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new LecturePlanAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(LectureplanAdapter.LectureplanItem data) {
-                Toast.makeText(getContext(), data.subjectName + "클릭!\n상세 페이지 미구현", Toast.LENGTH_SHORT).show();
+            public void onItemClick(LecturePlanAdapter.LectureplanItem data) {
+				// 어댑터에서 이미 null 처리를 했기에 ""와 비교하도록
+				if(!data.professorName.equals("")) {
+					Bundle bundle = new Bundle();
+					bundle.putString("SUBJ_CD", data.subjectCd);
+					bundle.putString("CLSS_NUMB", data.classNumb);
+					bundle.putString("LECT_YEAR", data.year);
+					bundle.putString("LECT_TERM", data.term);
+					bundle.putString("STAF_NO", data.professorId);
+					bundle.putString("LECT_NAME", data.subjectName);
+					homeLeftContainer.pushFragment(LecturePlanFragment, new LecturePlanDetailFragment(), bundle);
+				} else {
+					Toast.makeText(getContext(), data.subjectName + " 과목 강의계획서가 존재하지 않습니다", Toast.LENGTH_SHORT).show();
+				}
             }
         });
 
@@ -189,31 +205,24 @@ public class LecturePlanFragment extends Fragment implements OnBackPressedListen
             }
         });
 
-        viewModel.responseLectureplanListLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseLectureplanList>() {
+        viewModel.responseLectureplanListLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseLecturePlanList>() {
             @Override
-            public void onChanged(ResponseLectureplanList responseLectureplanList) {
+            public void onChanged(ResponseLecturePlanList responseLectureplanList) {
                 String subject = "", professor = "", department = "", subjectCd = "", college = "", grade = "", credit = "", time = "";
                 if(responseLectureplanList != null) {
-                    /* 유효성 검사 */
-                    if(responseLectureplanList.getSubjNm() != null)
-                        subject = responseLectureplanList.getSubjNm();
-                    if(responseLectureplanList.getProfNm() != null)
-                        professor = responseLectureplanList.getProfNm();
-                    if(responseLectureplanList.getDeptNm() != null)
-                        department = responseLectureplanList.getDeptNm();
-                    if(responseLectureplanList.getSubjCd() != null)
-                        subjectCd = responseLectureplanList.getSubjCd();
-                    if(responseLectureplanList.getColeNm() != null)
-                        college = responseLectureplanList.getColeNm();
-                    if(responseLectureplanList.getSchlShyr() != null)
-                        grade = responseLectureplanList.getSchlShyr();
-                    if(responseLectureplanList.getSubjPont() != null)
-                        credit = responseLectureplanList.getSubjPont();
-                    if(responseLectureplanList.getSubjTime() != null)
-                        time = responseLectureplanList.getSubjTime();
-
-                    /* 데이터 추가 */
-                    data.add(new LectureplanAdapter.LectureplanItem(subject, professor, department, subjectCd, college, grade, credit, time));
+                    // 어댑터에서 null 처리
+                    data.add(new LecturePlanAdapter.LectureplanItem(
+							responseLectureplanList.getSubjNm(),
+		                    responseLectureplanList.getProfNm(),
+		                    responseLectureplanList.getDeptNm(),
+		                    responseLectureplanList.getSubjCd(),
+		                    responseLectureplanList.getColeNm(),
+		                    responseLectureplanList.getSchlShyr(),
+		                    responseLectureplanList.getSubjPont(),
+		                    responseLectureplanList.getSubjTime(),
+		                    responseLectureplanList.getClssNumb(),
+							responseLectureplanList.getProf1(),
+		                    year, term));
                     nowCount++;
                 }
 	            adapter.notifyItemInserted(data.size());

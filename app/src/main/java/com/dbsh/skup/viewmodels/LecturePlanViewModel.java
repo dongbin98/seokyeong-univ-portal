@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModel;
 import com.dbsh.skup.R;
 import com.dbsh.skup.Service.PortalService;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestLectureplanData;
-import com.dbsh.skup.model.RequestLectureplanParameterData;
-import com.dbsh.skup.model.ResponseLectureplan;
-import com.dbsh.skup.model.ResponseLectureplanList;
+import com.dbsh.skup.model.RequestLecturePlanData;
+import com.dbsh.skup.model.RequestLecturePlanParameterData;
+import com.dbsh.skup.model.ResponseLecturePlan;
+import com.dbsh.skup.model.ResponseLecturePlanList;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ import retrofit2.Response;
 
 public class LecturePlanViewModel extends ViewModel {
 
-    public MutableLiveData<ResponseLectureplanList>  responseLectureplanListLiveData = new MutableLiveData<>();
+    public MutableLiveData<ResponseLecturePlanList>  responseLectureplanListLiveData = new MutableLiveData<>();
     public MutableLiveData<Integer> totalSizeLiveData = new MutableLiveData<>();
 
     public PortalApi portalApi;
@@ -29,8 +29,8 @@ public class LecturePlanViewModel extends ViewModel {
     public void getLecturePlan(String token, String id, String year, String term) {
         PortalService portalService = PortalService.getInstance(token);
         portalApi = PortalService.getPortalApi();
-        RequestLectureplanParameterData parameter = new RequestLectureplanParameterData(year, term, "%", "%", "%", "%", "1", "");
-        portalApi.getLectureplanData(new RequestLectureplanData(
+        RequestLecturePlanParameterData parameter = new RequestLecturePlanParameterData(year, term, "%", "%", "%", "%", "1", "");
+        portalApi.getLecturePlanData(new RequestLecturePlanData(
                 "education.ucs.UCS_03100_T.SELECT",
                 "AL",
                 token,
@@ -38,16 +38,16 @@ public class LecturePlanViewModel extends ViewModel {
                 "UCS_03090_T",
                 id,
                 parameter
-        )).enqueue(new Callback<ResponseLectureplan>() {
+        )).enqueue(new Callback<ResponseLecturePlan>() {
             @Override
-            public void onResponse(Call<ResponseLectureplan> call, Response<ResponseLectureplan> response) {
+            public void onResponse(Call<ResponseLecturePlan> call, Response<ResponseLecturePlan> response) {
                 if (response.isSuccessful()) {
                     // 졸업생의 경우 response.body() == null
                     // System.out.println(response.body());
                     if (response.body().getRtnStatus().equals("S")) {
-                        ArrayList<ResponseLectureplanList> responseScholarListArrayList = response.body().getResponseLectureplanLists();
+                        ArrayList<ResponseLecturePlanList> responseScholarListArrayList = response.body().getResponseLectureplanLists();
                         totalSizeLiveData.setValue(responseScholarListArrayList.size());
-                        for (ResponseLectureplanList responseScholarList : responseScholarListArrayList) {
+                        for (ResponseLecturePlanList responseScholarList : responseScholarListArrayList) {
                             responseLectureplanListLiveData.setValue(responseScholarList);
                         }
                     } else {    // 잘못된 파라미터 참조 case
@@ -61,7 +61,7 @@ public class LecturePlanViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<ResponseLectureplan> call, Throwable t) {
+            public void onFailure(Call<ResponseLecturePlan> call, Throwable t) {
 
             }
         });

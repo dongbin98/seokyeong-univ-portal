@@ -1,6 +1,6 @@
 package com.dbsh.skup.model;
 
-public class RequestLectureplanParameterData {
+public class RequestLecturePlanParameterData {
     /**
      *   "parameter": {
      *     "S_LECT_YEAR": "2022",
@@ -22,7 +22,7 @@ public class RequestLectureplanParameterData {
     private String S_INPUT_YSNO;
     private String S_FROM_DT;
 
-    public RequestLectureplanParameterData(String s_LECT_YEAR, String s_LECT_TERM, String s_UCS04, String s_DEPT02, String s_DEPT03, String s_DEPT04, String s_INPUT_YSNO, String s_FROM_DT) {
+    public RequestLecturePlanParameterData(String s_LECT_YEAR, String s_LECT_TERM, String s_UCS04, String s_DEPT02, String s_DEPT03, String s_DEPT04, String s_INPUT_YSNO, String s_FROM_DT) {
         S_LECT_YEAR = s_LECT_YEAR;
         S_LECT_TERM = s_LECT_TERM;
         S_UCS04 = s_UCS04;

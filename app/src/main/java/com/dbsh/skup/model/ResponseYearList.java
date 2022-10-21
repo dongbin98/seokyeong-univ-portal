@@ -4,10 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseYearList {
-    @SerializedName("text")
+    @SerializedName("text")     // 년ㄷ
     @Expose
     private String text;
-    @SerializedName("value")
+    @SerializedName("value")    // 년도
     @Expose
     private String value;
 

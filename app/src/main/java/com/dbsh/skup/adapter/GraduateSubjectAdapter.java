@@ -76,10 +76,10 @@ public class GraduateSubjectAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public String type, name, typeDetail, grade;
         public GraduateSubjectItem() {}
         public GraduateSubjectItem(String type, String name, String typeDetail, String grade) {
-            this.type = type;               // 교과영역 타입
-            this.name = name;               // 교과영역 강의명
-            this.typeDetail = typeDetail;   // 세부 역량
-            this.grade = grade;             // 성적
+            this.type = (type != null ? type : "");               // 교과영역 타입
+            this.name = (name != null ? name : "");               // 교과영역 강의명
+            this.typeDetail = (typeDetail != null ? typeDetail : "");   // 세부 역량
+            this.grade = (grade != null ? grade : "");             // 성적
         }
     }
 }

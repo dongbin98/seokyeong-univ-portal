@@ -4,51 +4,51 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseLectureList {
-	@SerializedName("CLASSDAY")
+	@SerializedName("CLASSDAY")     // 수업요일
 	@Expose
 	private String lectureDay;
 
-	@SerializedName("CLSS_NUMB")
+	@SerializedName("CLSS_NUMB")    // 분반
 	@Expose
 	private String lectureNumber;
 
-	@SerializedName("SUBJ_CD")
+	@SerializedName("SUBJ_CD")      // 학수번호
 	@Expose
 	private String lectureCd;
 
-	@SerializedName("SUBJ_TIME")
+	@SerializedName("SUBJ_TIME")    // 강의시간
 	@Expose
 	private String lectureTime;
 
-	@SerializedName("CLASS_NAME")
+	@SerializedName("CLASS_NAME")   // 수업명
 	@Expose
 	private String lectureName;
 
-	@SerializedName("PROF_NO")
+	@SerializedName("PROF_NO")      // 교수아이디
 	@Expose
 	private String profNo;
 
-	@SerializedName("PROF_NAME")
+	@SerializedName("PROF_NAME")    // 교수명
 	@Expose
 	private String profName;
 
-	@SerializedName("CLASSHOUR_START_TIME")
+	@SerializedName("CLASSHOUR_START_TIME") // 수업시작시간
 	@Expose
 	private String lectureStartTime;
 
-	@SerializedName("CLASSHOUR_END_TIME")
+	@SerializedName("CLASSHOUR_END_TIME")   // 수업종료시간
 	@Expose
 	private String lectureEndTime;
 
-	@SerializedName("LECT_YEAR")
+	@SerializedName("LECT_YEAR")    // 해당 년도
 	@Expose
 	private String year;
 
-	@SerializedName("LECT_TERM")
+	@SerializedName("LECT_TERM")    // 해당 학기
 	@Expose
 	private String term;
 
-	@SerializedName("CLASSROOM_NAME")
+	@SerializedName("CLASSROOM_NAME")       // 강의실명
 	@Expose
 	private String classroomName;
 

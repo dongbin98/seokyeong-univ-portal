@@ -5,18 +5,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
+import com.dbsh.skup.databinding.HomeCenterNoticeFormBinding;
+import com.dbsh.skup.viewmodels.HomeCenterNoticeViewModel;
 
 public class HomeCenterNoticeFragment extends Fragment {
-    TextView home_center_notice_type;
-    TextView home_center_notice_department;
-    TextView home_center_notice_date;
-    TextView home_center_notice_title;
+	private HomeCenterNoticeFormBinding binding;
+	private HomeCenterNoticeViewModel viewModel;
 
     public static HomeCenterNoticeFragment newInstance(int number, String title, String type, String date, String department, String url) {
         HomeCenterNoticeFragment fragment = new HomeCenterNoticeFragment();
@@ -39,10 +39,13 @@ public class HomeCenterNoticeFragment extends Fragment {
         }
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.home_center_notice_form, container, false);
-        rootView.setOnClickListener(new View.OnClickListener() {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	    /* DataBinding */
+	    binding = DataBindingUtil.inflate(inflater, R.layout.home_center_notice_form, container, false);
+	    viewModel = new HomeCenterNoticeViewModel();
+	    binding.setViewModel(viewModel);
+	    binding.executePendingBindings();    // 바인딩 강제 즉시실행
+	    binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
@@ -50,17 +53,13 @@ public class HomeCenterNoticeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        home_center_notice_type = rootView.findViewById(R.id.home_center_notice_type);
-        home_center_notice_department = rootView.findViewById(R.id.home_center_notice_department);
-        home_center_notice_date = rootView.findViewById(R.id.home_center_notice_date);
-        home_center_notice_title =  rootView.findViewById(R.id.home_center_notice_title);
 
         if(getArguments() != null) {
-            home_center_notice_type.setText(getArguments().getString("type"));
-            home_center_notice_department.setText(getArguments().getString("department"));
-            home_center_notice_date.setText("ㆍ" + getArguments().getString("date"));
-            home_center_notice_title.setText(getArguments().getString("title"));
+	        binding.homeCenterNoticeType.setText(getArguments().getString("type"));
+	        binding.homeCenterNoticeDepartment.setText(getArguments().getString("department"));
+	        binding.homeCenterNoticeDate.setText("ㆍ" + getArguments().getString("date"));
+            binding.homeCenterNoticeTitle.setText(getArguments().getString("title"));
         }
-        return rootView;
+        return binding.getRoot();
     }
 }

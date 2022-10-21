@@ -43,7 +43,6 @@ public class GradeTermViewModel extends ViewModel {
 			public void onResponse(Call<ResponseGradeTerm> call, Response<ResponseGradeTerm> response) {
 				if (response.isSuccessful()) {
 					if (response.body().getRtnStatus().equals("S")) {
-						System.out.println("getGradeTerm Successed!");
 						responseGradeTermListLiveData.setValue(response.body().getResponseGradeTermLists());
 					}
 				}
@@ -73,9 +72,12 @@ public class GradeTermViewModel extends ViewModel {
 			public void onResponse(Call<ResponseGradeTermSubject> call, Response<ResponseGradeTermSubject> response) {
 				if (response.isSuccessful()) {
 					if (response.body().getRtnStatus().equals("S")) {
-						System.out.println("getGradeTermSubject Successed!");
 						responseGradeTermSubjectLiveData.setValue(response.body().getResponseGradeTermSubjectLists());
+					} else {
+						responseGradeTermSubjectLiveData.setValue(null);
 					}
+				} else {
+					responseGradeTermSubjectLiveData.setValue(null);
 				}
 			}
 

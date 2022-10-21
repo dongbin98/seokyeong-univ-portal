@@ -4,15 +4,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseAttendanceList {
-	@SerializedName("SUBJ_CD")
+	@SerializedName("SUBJ_CD")      // 학수번호
 	@Expose
 	private String subjCd;
 
-	@SerializedName("CLSS_NUMB")
+	@SerializedName("CLSS_NUMB")    // 분반
 	@Expose
 	private String clssNumb;
 
-	@SerializedName("SUBJ_NM")
+	@SerializedName("SUBJ_NM")      // 강의명
 	@Expose
 	private String subjNm;
 

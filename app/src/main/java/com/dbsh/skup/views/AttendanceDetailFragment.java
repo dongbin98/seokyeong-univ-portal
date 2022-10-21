@@ -108,16 +108,6 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
         attendance_detail_percent = binding.attendanceDetailPercent;
 
         progressBar = binding.attendanceHalfProgressbar;
-		// 기존의 프로그레스바 값 설정
-//        if (percent == 100) {
-//            progressBar.setProgressBarColor(getColor(R.color.mainBlue));
-//        } else if (percent >= 75 && percent < 100) {
-//            progressBar.setProgressBarColor(getColor(R.color.mainYellow));
-//        } else {
-//            progressBar.setProgressBarColor(getColor(R.color.mainRed));
-//        }
-//	      attendance_detail_percent.setText(percent + "%");
-//        progressBar.setPercent(percent);
 
 	    // 애니메이션 적용
 	    setAnimation(progressBar, attendance_detail_percent, percent);

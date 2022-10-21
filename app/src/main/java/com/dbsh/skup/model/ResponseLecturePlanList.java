@@ -3,44 +3,44 @@ package com.dbsh.skup.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseLectureplanList {
-	@SerializedName("COLE_NM")
+public class ResponseLecturePlanList {
+	@SerializedName("COLE_NM")  // 단대명
 	@Expose
 	private String coleNm;
 
-	@SerializedName("DEPT_NM")
+	@SerializedName("DEPT_NM")  // 학과명
 	@Expose
 	private String deptNm;
 
-	@SerializedName("PROF_NM")
+	@SerializedName("PROF_NM")  // 교수명
 	@Expose
 	private String profNm;
 
-	@SerializedName("PROF1")
+	@SerializedName("PROF1")    // 교수아이디
 	@Expose
 	private String prof1;
 
-	@SerializedName("SUBJ_NM")
+	@SerializedName("SUBJ_NM")  // 강의명
 	@Expose
 	private String subjNm;
 
-	@SerializedName("SUBJ_CD")
+	@SerializedName("SUBJ_CD")  // 학수번호
 	@Expose
 	private String subjCd;
 
-	@SerializedName("CLSS_NUMB")
+	@SerializedName("CLSS_NUMB")// 분반
 	@Expose
 	private String clssNumb;
 
-	@SerializedName("SUBJ_TIME")
+	@SerializedName("SUBJ_TIME")// 강의시간
 	@Expose
 	private String subjTime;
 
-	@SerializedName("SUBJ_PONT")
+	@SerializedName("SUBJ_PONT")// 강의학점
 	@Expose
 	private String subjPont;
 
-	@SerializedName("SCHL_SHYR")
+	@SerializedName("SCHL_SHYR")// 대상학년
 	@Expose
 	private String schlShyr;
 

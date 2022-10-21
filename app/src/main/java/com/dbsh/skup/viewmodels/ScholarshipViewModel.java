@@ -41,7 +41,11 @@ public class ScholarshipViewModel extends ViewModel {
                     // 졸업생의 경우 response.body() == null
                     if (response.body().getRtnStatus().equals("S")) {
                         scholarLiveData.setValue(response.body().getResponseScholarLists());
+                    } else {
+						scholarLiveData.setValue(null);
                     }
+                } else {
+					scholarLiveData.setValue(null);
                 }
             }
 

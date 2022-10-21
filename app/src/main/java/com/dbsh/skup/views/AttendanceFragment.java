@@ -222,6 +222,7 @@ public class AttendanceFragment extends Fragment implements OnBackPressedListene
 			@Override
 			public void onChanged(ResponseAttendanceList responseAttendanceList) {
 				if (responseAttendanceList != null) {
+					// 어댑터에서 null 처리
 					data.add(new AttendanceAdapter.AttendanceItem(
 							responseAttendanceList.getSubjNm(),
 							responseAttendanceList.getSubjCd(),

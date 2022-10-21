@@ -31,7 +31,6 @@ import com.dbsh.skup.model.ResponseYearList;
 import com.dbsh.skup.viewmodels.TimeTableViwModel;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class TimeTableFragment extends Fragment implements OnBackPressedListener {
 
@@ -55,7 +54,9 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
     private ArrayList<String> spinnerItem, spinnerItem2;
     private ArrayList<TextView> timetableItems;
     private ArrayList<TextView> timetableIndexes;
-    final int[] colors = {R.color.timetableitem1, R.color.timetableitem2, R.color.timetableitem3, R.color.mainBlue, R.color.timetableitem4, R.color.timetableitem5, R.color.timetableitem6};
+    final int[] colors = {R.color.timetableitem1, R.color.timetableitem2, R.color.timetableitem3,
+		    R.color.mainBlue, R.color.timetableitem4, R.color.timetableitem5, R.color.timetableitem6,
+            R.color.mainYellow, R.color.purple_200, R.color.purple_500, R.color.teal_700};
 
     UserData userData;
 
@@ -171,11 +172,11 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
                 if(responseLectureLists != null) {
                     int startY, endY, height, marginY;
                     String lecture, classroom, professor;
-                    Random random = new Random();
                     // 시간표 그려주는 부분
                     for (ResponseLectureList responseLectureList : responseLectureLists) {
                         // 강의시간이 존재하는 수업의 경우
-                        if (!responseLectureList.getLectureTime().equals("0")) {
+	                    // OCU : 시작, 종료, 요일 정보 없음
+                        if (responseLectureList.getLectureDay() != null) {
                             startY = getYtoTime(responseLectureList.getLectureStartTime());
                             endY = getYtoTime(responseLectureList.getLectureEndTime());
 
@@ -187,14 +188,15 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
                             tv.setText(lecture + classroom + professor);
                             tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv.setTextSize(10);
+	                        tv.setMaxLines((endY-startY) / 12);   // 12dp 당 한 줄로 잡음
                             tv.setTextColor(getContext().getColor(R.color.onlyWhite));
+							// Text Style
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 tv.setTypeface(getResources().getFont(R.font.roboto), Typeface.BOLD);
                             } else {
                                 tv.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/roboto.ttf"), Typeface.BOLD);
                             }
-                            int colorSet = random.nextInt(6);
-                            System.out.println(colorSet);
+                            int colorSet = getRandomColor(responseLectureList.getLectureName(), colors.length);
                             tv.setBackgroundColor(getContext().getColor(colors[colorSet]));
 
                             height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (endY - startY), getResources().getDisplayMetrics());
@@ -289,4 +291,15 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
             overtime++;
         return y;
     }
+
+	public int getRandomColor(String subjectName, int length) {
+		int result = 0;
+		char c;
+		for(int i = 0; i < subjectName.length(); i++) {
+			c = subjectName.charAt(i);
+			result += ((int) c);
+		}
+		result += Integer.parseInt(userData.getId());
+		return result % length;
+	}
 }

@@ -61,24 +61,6 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         itemController.attendance_subj.setText(item.subjCd);
         itemController.attendance_percent.setText(item.strPercent + "%");
 
-		// 기존의 프로그레스바 값 설정
-//        itemController.attendance_progressbar.setProgress(0);
-//        itemController.attendance_progressbar.setProgress(1);
-//        if(item.percent == 100) {
-//            // 파란색 막대기
-//            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_blue_progressbar));
-//        }
-//        else if(item.percent >= 75 && item.percent < 100) {
-//            // 주황색 막대기
-//            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_yellow_progressbar));
-//        }
-//        else {
-//            // 빨간색 막대기
-//            itemController.attendance_progressbar.setProgressDrawable(context.getDrawable(R.drawable.attendance_list_red_progressbar));
-//        }
-//
-//	    itemController.attendance_progressbar.setProgress(item.percent);
-
 	    // 애니메이션 적용
 	    setAnimation(itemController.attendance_progressbar, itemController.attendance_percent, item.percent);
 
@@ -136,10 +118,10 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public double subjTime;
         public AttendanceItem() {}
         public AttendanceItem(String subjName, String subjCd, String strPercent, String subjNumber, int percent, double subjTime) {
-            this.subjName = subjName;           // 과목명
-            this.subjCd = subjCd;               // 학수번호
-            this.strPercent = strPercent;       // 퍼센트
-	        this.subjNumber = subjNumber;       // 분반
+            this.subjName = (subjName != null ? subjName : "");           // 과목명
+            this.subjCd = (subjCd != null ? subjCd : "");               // 학수번호
+            this.strPercent = (strPercent != null ? strPercent : "");       // 퍼센트
+	        this.subjNumber = (subjNumber != null ? subjNumber : "");       // 분반
             this.percent = percent;             // 프로그레스바에 넣을 int형 퍼센트
             this.subjTime = subjTime;           // 해당 수업 시간
         }

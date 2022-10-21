@@ -4,27 +4,27 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseGradeTermSubjectList {
-	@SerializedName("SUBJ_NO")
+	@SerializedName("SUBJ_NO")          // 학수번호
 	@Expose
 	private String subjNo;
 
-	@SerializedName("SUBJ_NM")
+	@SerializedName("SUBJ_NM")          // 강의명
 	@Expose
 	private String subjNm;
 
-	@SerializedName("CMPT_DIV_NM")
+	@SerializedName("CMPT_DIV_NM")      // 전공 교양 구분
 	@Expose
 	private String cmptDivNm;
 
-	@SerializedName("PNT")
+	@SerializedName("PNT")              // 학점
 	@Expose
 	private String pnt;
 
-	@SerializedName("GRD")
+	@SerializedName("GRD")              // 성적 ex) A+
 	@Expose
 	private String grd;
 
-	@SerializedName("PROF1_NM")
+	@SerializedName("PROF1_NM")         // 교수명
 	@Expose
 	private String prof1Nm;
 

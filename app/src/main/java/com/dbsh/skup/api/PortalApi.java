@@ -10,7 +10,9 @@ import com.dbsh.skup.model.RequestGraduateBasicData;
 import com.dbsh.skup.model.RequestGraduateNoneSubjectData;
 import com.dbsh.skup.model.RequestGraduateSubjectData;
 import com.dbsh.skup.model.RequestLectureData;
-import com.dbsh.skup.model.RequestLectureplanData;
+import com.dbsh.skup.model.RequestLecturePlanBookData;
+import com.dbsh.skup.model.RequestLecturePlanSummaryData;
+import com.dbsh.skup.model.RequestLecturePlanData;
 import com.dbsh.skup.model.RequestScholarshipData;
 import com.dbsh.skup.model.RequestTuitionData;
 import com.dbsh.skup.model.ResponseAttendance;
@@ -23,7 +25,9 @@ import com.dbsh.skup.model.ResponseGraduateBasic;
 import com.dbsh.skup.model.ResponseGraduateNoneSubject;
 import com.dbsh.skup.model.ResponseGraduateSubject;
 import com.dbsh.skup.model.ResponseLecture;
-import com.dbsh.skup.model.ResponseLectureplan;
+import com.dbsh.skup.model.ResponseLecturePlanBook;
+import com.dbsh.skup.model.ResponseLecturePlanSummary;
+import com.dbsh.skup.model.ResponseLecturePlan;
 import com.dbsh.skup.model.ResponseScholar;
 import com.dbsh.skup.model.ResponseTuition;
 
@@ -77,7 +81,17 @@ public interface PortalApi {
 	/* 강의계획서 */
 	@Headers({"Accept: application/json", "content-type: application/json"})
 	@POST("common/selectList.sku")
-	Call<ResponseLectureplan> getLectureplanData(@Body RequestLectureplanData requestLectureplanData);
+	Call<ResponseLecturePlan> getLecturePlanData(@Body RequestLecturePlanData requestLectureplanData);
+
+	/* 강의계획서 -> 개요 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/selectOne.sku")
+	Call<ResponseLecturePlanSummary> getLecturePlanSummaryData(@Body RequestLecturePlanSummaryData requestLecturePlanSummaryData);
+
+	/* 강의계획서 -> 책 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/selectOne.sku")
+	Call<ResponseLecturePlanBook> getLecturePlanBookData(@Body RequestLecturePlanBookData requestLecturePlanBookData);
 
 	/* 성적 -> 이수 구분 별 신청/취득 학점 */
 	@Headers({"Accept: application/json", "content-type: application/json"})

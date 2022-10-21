@@ -1,6 +1,6 @@
 package com.dbsh.skup.model;
 
-public class RequestLectureplanData {
+public class RequestLecturePlanData {
     /**
      * {
      *   "path": "common/selectList",
@@ -17,9 +17,9 @@ public class RequestLectureplanData {
     private String path;
     private String programID;
     private String userID;
-    private RequestLectureplanParameterData parameter;
+    private RequestLecturePlanParameterData parameter;
 
-    public RequestLectureplanData(String MAP_ID, String SYS_ID, String accessToken, String path, String programID, String userID, RequestLectureplanParameterData parameter) {
+    public RequestLecturePlanData(String MAP_ID, String SYS_ID, String accessToken, String path, String programID, String userID, RequestLecturePlanParameterData parameter) {
         this.MAP_ID = MAP_ID;
         this.SYS_ID = SYS_ID;
         this.accessToken = accessToken;

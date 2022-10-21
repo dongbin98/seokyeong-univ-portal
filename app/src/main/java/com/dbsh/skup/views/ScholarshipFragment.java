@@ -167,14 +167,18 @@ public class ScholarshipFragment extends Fragment implements OnBackPressedListen
         viewModel.scholarLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<ResponseScholarList>>() {
 	        @Override
 	        public void onChanged(ArrayList<ResponseScholarList> responseScholarLists) {
-		        for(ResponseScholarList responseScholarList : responseScholarLists) {
-			        data.add(new ScholarshipAdapter.ScholarshipItem(
-					        responseScholarList.getSclsNm(),
-					        responseScholarList.getSclsNm(),
-					        responseScholarList.getRemkText(),
-					        responseScholarList.getSclsAmt().replace(" ", "")));
-					adapter.notifyItemInserted(data.size());
-		        }
+				// 데이터가 없을 시에도 버튼 활성화를 처리해주기 위함
+				if(responseScholarLists != null) {
+					for (ResponseScholarList responseScholarList : responseScholarLists) {
+						// 어댑터에서 null 처리
+						data.add(new ScholarshipAdapter.ScholarshipItem(
+								responseScholarList.getSclsNm(),
+								responseScholarList.getSclsNm(),
+								responseScholarList.getRemkText(),
+								responseScholarList.getSclsAmt().replace(" ", "")));
+						adapter.notifyItemInserted(data.size());
+					}
+				}
 				scholarshipBtn.setClickable(true);
 	        }
         });

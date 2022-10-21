@@ -146,6 +146,9 @@ public class GradeTermFragment extends Fragment implements OnBackPressedListener
 			    adapter.dataClear();
 			    data.clear();
 			    adapter.notifyDataSetChanged();
+				binding.gradeTermCredit.setText("");
+				binding.gradeTermAverage.setText("");
+				binding.gradeTermRank.setText("");
 			    viewModel.getGradeTerm(token, id);
 			    viewModel.getGradeTermSubject(token, id, year, term);
 		    }
@@ -168,24 +171,27 @@ public class GradeTermFragment extends Fragment implements OnBackPressedListener
 						binding.gradeTermRank.setText(responseGradeTermList.getSchRank().replace(" ", ""));
 					}
 				}
-				gradeTermBtn.setClickable(true);
 			}
 		});
 
 		viewModel.responseGradeTermSubjectLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<ResponseGradeTermSubjectList>>() {
 			@Override
 			public void onChanged(ArrayList<ResponseGradeTermSubjectList> responseGradeTermSubjectLists) {
-				for(ResponseGradeTermSubjectList responseGradeTermSubjectList : responseGradeTermSubjectLists) {
-					data.add(new GradeTermAdapter.GradeTermItem(
-							responseGradeTermSubjectList.getGrd(),
-							responseGradeTermSubjectList.getCmptDivNm(),
-							responseGradeTermSubjectList.getSubjNm(),
-							responseGradeTermSubjectList.getSubjNo(),
-							responseGradeTermSubjectList.getPnt(),
-							responseGradeTermSubjectList.getProf1Nm()
-					));
-					adapter.notifyItemInserted(data.size());
+				if (responseGradeTermSubjectLists != null) {
+					for (ResponseGradeTermSubjectList responseGradeTermSubjectList : responseGradeTermSubjectLists) {
+						// 어댑터에서 null 처리
+						data.add(new GradeTermAdapter.GradeTermItem(
+								responseGradeTermSubjectList.getGrd(),
+								responseGradeTermSubjectList.getCmptDivNm(),
+								responseGradeTermSubjectList.getSubjNm(),
+								responseGradeTermSubjectList.getSubjNo(),
+								responseGradeTermSubjectList.getPnt(),
+								responseGradeTermSubjectList.getProf1Nm()
+						));
+						adapter.notifyItemInserted(data.size());
+					}
 				}
+				gradeTermBtn.setClickable(true);
 			}
 		});
 

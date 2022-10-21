@@ -68,13 +68,10 @@ public class ScholarshipAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public String type, name, detail, amount;
         public ScholarshipItem() {}
         public ScholarshipItem(String type, String name, String detail, String amount) {
-            this.type = type.substring(0, 2);       // 장학 타입
-            this.name = name;                       // 장학명
-            if(detail == null)                 // 비고
-                this.detail = "";
-            else
-                this.detail = "ㆍ" + detail;
-            this.amount = "￦" + amount;             // 금액
+            this.type = (type != null ? type.substring(0, 2) : "");      // 장학 타입
+            this.name = (name != null ? name : "");                      // 장학명
+	        this.detail = (detail != null ? "ㆍ" + detail : "");
+            this.amount = (amount != null ? "￦" + amount : "");         // 금액
         }
 
         public String getType() {

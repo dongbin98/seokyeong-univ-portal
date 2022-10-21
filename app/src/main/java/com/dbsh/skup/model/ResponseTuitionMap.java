@@ -4,43 +4,43 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseTuitionMap {
-	@SerializedName("ENT_FEE")
+	@SerializedName("ENT_FEE")      // 입학금
 	@Expose
 	private String entFee;
 
-	@SerializedName("LESN_FEE")
+	@SerializedName("LESN_FEE")     // 수업료
 	@Expose
 	private String lesnFee;
 
-	@SerializedName("COOP_DGR_AMT")
+	@SerializedName("COOP_DGR_AMT") // 공동학위
 	@Expose
-	private String coopDgrAmt;
+	private String coopDgrAmt;    
 
-	@SerializedName("USS_ENT_FEE")
+	@SerializedName("USS_ENT_FEE")  // 장학입학금
 	@Expose
 	private String ussEntFee;
 
-	@SerializedName("USS_LESN_FEE")
+	@SerializedName("USS_LESN_FEE") // 장학수업료
 	@Expose
 	private String ussLesnFee;
 
-	@SerializedName("SCLS_TOT")
+	@SerializedName("SCLS_TOT")     // 장학금 합계
 	@Expose
 	private String sclsTot;
 
-	@SerializedName("TOT_AMT")
+	@SerializedName("TOT_AMT")      // 등록금합계
 	@Expose
 	private String totAmt;
 
-	@SerializedName("REG_AMT")
+	@SerializedName("REG_AMT")      // 납부금액
 	@Expose
 	private String regAmt;
 
-	@SerializedName("NON_PAY")
+	@SerializedName("NON_PAY")      // 미납금액
 	@Expose
 	private String nonPay;
 
-	@SerializedName("TEMP_ACCT")
+	@SerializedName("TEMP_ACCT")    // 가상계좌
 	@Expose
 	private String tempAcct;
 
