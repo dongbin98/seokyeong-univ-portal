@@ -51,7 +51,6 @@ public class LecturePlanDetailSummaryViewModel extends ViewModel {
 
 			@Override
 			public void onFailure(Call<ResponseLecturePlanSummary> call, Throwable t) {
-
 			}
 		});
 	}

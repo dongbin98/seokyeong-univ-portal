@@ -34,16 +34,6 @@
                 android:fontFamily="@font/roboto"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/lectureplan_detail_summary_lecture_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_title1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
-
             <TextView
                 android:id="@+id/lectureplan_detail_summary_title2"
                 android:layout_width="wrap_content"
@@ -54,7 +44,7 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_lecture_layout"
+                app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_title1"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -229,7 +219,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_title5"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -246,7 +236,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginLeft="12dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_title5"
                 app:layout_constraintLeft_toRightOf="@id/lectureplan_detail_summary_is_lecture"/>
@@ -264,7 +254,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginLeft="12dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_title5"
                 app:layout_constraintLeft_toRightOf="@id/lectureplan_detail_summary_is_debate"/>
@@ -282,7 +272,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_lecture"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -299,7 +289,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="12dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_lecture"
                 app:layout_constraintLeft_toRightOf="@id/lectureplan_detail_summary_is_team"/>
@@ -317,7 +307,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="12dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_lecture"
                 app:layout_constraintLeft_toRightOf="@id/lectureplan_detail_summary_is_problem"/>
@@ -335,7 +325,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_team"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -352,7 +342,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="12dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_team"
                 app:layout_constraintLeft_toRightOf="@id/lectureplan_detail_summary_is_flip"/>
@@ -370,7 +360,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="12dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_team"
                 app:layout_constraintLeft_toRightOf="@id/lectureplan_detail_summary_is_invitation"/>
@@ -388,7 +378,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_flip"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -405,7 +395,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="12dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_flip"
                 app:layout_constraintLeft_toRightOf="@id/lectureplan_detail_summary_is_experience"/>
@@ -423,7 +413,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="6dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="12dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_flip"
                 app:layout_constraintLeft_toRightOf="@id/lectureplan_detail_summary_is_online"/>

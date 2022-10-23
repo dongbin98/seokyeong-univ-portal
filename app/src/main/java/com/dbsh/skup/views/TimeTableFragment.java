@@ -28,14 +28,14 @@ import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.TimetableFormBinding;
 import com.dbsh.skup.model.ResponseLectureList;
 import com.dbsh.skup.model.ResponseYearList;
-import com.dbsh.skup.viewmodels.TimeTableViwModel;
+import com.dbsh.skup.viewmodels.TimeTableViewModel;
 
 import java.util.ArrayList;
 
 public class TimeTableFragment extends Fragment implements OnBackPressedListener {
 
     private TimetableFormBinding binding;
-    private TimeTableViwModel viewModel;
+    private TimeTableViewModel viewModel;
 
     // parent Fragment
     private HomeLeftContainer homeLeftContainer;
@@ -65,7 +65,7 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
         super.onCreate(savedInstanceState);
         /* DataBinding */
         binding = DataBindingUtil.inflate(inflater, R.layout.timetable_form, container, false);
-        viewModel = new TimeTableViwModel();
+        viewModel = new TimeTableViewModel();
         binding.setViewModel(viewModel);
         binding.executePendingBindings();    // 바인딩 강제 즉시실행
 
@@ -199,8 +199,8 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
                             int colorSet = getRandomColor(responseLectureList.getLectureName(), colors.length);
                             tv.setBackgroundColor(getContext().getColor(colors[colorSet]));
 
-                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (endY - startY), getResources().getDisplayMetrics());
-                            marginY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, startY, getResources().getDisplayMetrics());
+                            height = int2dp(endY - startY);
+                            marginY = int2dp(startY);
 
                             ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(binding.timetableBodyMon.getWidth(), height);
                             lp.setMargins(0, marginY, 0, 0);
@@ -252,7 +252,7 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
                             }
                             GridLayout.LayoutParams lp = new GridLayout.LayoutParams();
                             lp.setGravity(Gravity.CENTER);
-                            lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getResources().getDisplayMetrics());
+                            lp.height = int2dp(48);
                             index.setLayoutParams(lp);
                             timetableIndexes.add(index);
                             binding.timetableIndex.addView(index);
@@ -302,4 +302,8 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
 		result += Integer.parseInt(userData.getId());
 		return result % length;
 	}
+
+    public int int2dp(int value) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics());
+    }
 }

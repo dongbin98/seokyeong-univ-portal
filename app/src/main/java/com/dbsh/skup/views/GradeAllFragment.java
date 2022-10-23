@@ -190,7 +190,8 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 				Legend legend = gradeGraph.getLegend();
 				legend.setEnabled(false);
 
-				gradeGraph.invalidate();
+				gradeGraph.animateY(1000);
+//				gradeGraph.invalidate();
 			}
 		});
 
@@ -199,6 +200,7 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 
 	@Override
 	public void onBackPressed() {
+		gradeGraph.clearAnimation();
 		homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
 		homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
 	}

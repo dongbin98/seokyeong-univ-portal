@@ -92,6 +92,9 @@ public class LecturePlanFragment extends Fragment implements OnBackPressedListen
         lectureplanBtn = binding.lectureplanBtn;
         lectureplanRecyclerview = binding.lectureplanRecyclerview;
         adapter = new LecturePlanAdapter(data);
+        LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false);
+        lectureplanRecyclerview.setLayoutManager(linearLayoutManagerWrapper);
+        lectureplanRecyclerview.setAdapter(adapter);
 
         // 강의계획서, 주차별 진도사항 보기
         adapter.setOnItemClickListener(new LecturePlanAdapter.OnItemClickListener() {
@@ -112,10 +115,6 @@ public class LecturePlanFragment extends Fragment implements OnBackPressedListen
 				}
             }
         });
-
-	    LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false);
-        lectureplanRecyclerview.setLayoutManager(linearLayoutManagerWrapper);
-        lectureplanRecyclerview.setAdapter(adapter);
 
         spinnerItem = new ArrayList<>();
         for (ResponseYearList yearList : userData.getYearList()) {

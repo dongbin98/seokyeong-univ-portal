@@ -25,15 +25,15 @@ public class RequestLecturePlanSummaryData {
 	private String path;
 	private String programID;
 	private String userID;
-	private RequestLecturePlanSummaryParameterData paramter;
+	private RequestLecturePlanSummaryParameterData parameter;
 
-	public RequestLecturePlanSummaryData(String MAP_ID, String SYS_ID, String accessToken, String path, String programID, String userID, RequestLecturePlanSummaryParameterData paramter) {
+	public RequestLecturePlanSummaryData(String MAP_ID, String SYS_ID, String accessToken, String path, String programID, String userID, RequestLecturePlanSummaryParameterData parameter) {
 		this.MAP_ID = MAP_ID;
 		this.SYS_ID = SYS_ID;
 		this.accessToken = accessToken;
 		this.path = path;
 		this.programID = programID;
 		this.userID = userID;
-		this.paramter = paramter;
+		this.parameter = parameter;
 	}
 }

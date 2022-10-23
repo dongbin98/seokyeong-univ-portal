@@ -13,6 +13,7 @@ import com.dbsh.skup.model.RequestLectureData;
 import com.dbsh.skup.model.RequestLecturePlanBookData;
 import com.dbsh.skup.model.RequestLecturePlanSummaryData;
 import com.dbsh.skup.model.RequestLecturePlanData;
+import com.dbsh.skup.model.RequestLecturePlanWeekData;
 import com.dbsh.skup.model.RequestScholarshipData;
 import com.dbsh.skup.model.RequestTuitionData;
 import com.dbsh.skup.model.ResponseAttendance;
@@ -28,6 +29,7 @@ import com.dbsh.skup.model.ResponseLecture;
 import com.dbsh.skup.model.ResponseLecturePlanBook;
 import com.dbsh.skup.model.ResponseLecturePlanSummary;
 import com.dbsh.skup.model.ResponseLecturePlan;
+import com.dbsh.skup.model.ResponseLecturePlanWeek;
 import com.dbsh.skup.model.ResponseScholar;
 import com.dbsh.skup.model.ResponseTuition;
 
@@ -90,8 +92,13 @@ public interface PortalApi {
 
 	/* 강의계획서 -> 책 */
 	@Headers({"Accept: application/json", "content-type: application/json"})
-	@POST("common/selectOne.sku")
+	@POST("common/selectList.sku")
 	Call<ResponseLecturePlanBook> getLecturePlanBookData(@Body RequestLecturePlanBookData requestLecturePlanBookData);
+
+	/* 강의계획서 -> 주차별 진도계획 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/selectList.sku")
+	Call<ResponseLecturePlanWeek> getLecturePlanWeekData(@Body RequestLecturePlanWeekData requestLecturePlanWeekData);
 
 	/* 성적 -> 이수 구분 별 신청/취득 학점 */
 	@Headers({"Accept: application/json", "content-type: application/json"})
