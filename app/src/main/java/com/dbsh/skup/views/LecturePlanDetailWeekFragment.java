@@ -1,12 +1,11 @@
 package com.dbsh.skup.views;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -25,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class LecturePlanDetailWeekFragment extends Fragment implements OnBackPressedListener {
+public class LecturePlanDetailWeekFragment extends Fragment {
 	private LecturePlanDetailWeekFormBinding binding;
 	private LecturePlanDetailWeekViewModel viewModel;
 
@@ -33,10 +32,9 @@ public class LecturePlanDetailWeekFragment extends Fragment implements OnBackPre
 	private HomeLeftContainer homeLeftContainer;
 
 	// this Fragment
-	private Fragment LecturePlanWeekFragment;
+	private Fragment LecturePlanDetailWeekFragment;
 
-	private Bundle bundle;
-	private String token, id, subjectCd, classNumber, lectureYear, lectureTerm, professorId, lectureName;
+	String token, id, subjectCd, classNumber, lectureYear, lectureTerm, professorId, lectureName;
 	int totalCount;
 	int nowCount;
 
@@ -56,8 +54,8 @@ public class LecturePlanDetailWeekFragment extends Fragment implements OnBackPre
 		binding.executePendingBindings();    // 바인딩 강제 즉시실행
 
 		homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
-		LecturePlanWeekFragment = this;
-		bundle = new Bundle();
+		System.out.println(this.getParentFragment());
+		LecturePlanDetailWeekFragment = this;
 
 		userData = ((UserData) getActivity().getApplication());
 
@@ -81,6 +79,15 @@ public class LecturePlanDetailWeekFragment extends Fragment implements OnBackPre
 		lecturePlanDetailWeekRecyclerview.setLayoutManager(linearLayoutManagerWrapper);
 		lecturePlanDetailWeekRecyclerview.setAdapter(adapter);
 
+		// 강의계획서, 주차별 진도사항 보기
+		adapter.setOnItemClickListener(new LecturePlanDetailWeekAdapter.OnItemClickListener() {
+			@SuppressLint("SetTextI18n")
+			@Override
+			public void onItemClick(LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem data) {
+				
+			}
+		});
+
 		adapter.setAdapterClickable(false);
 		adapter.dataClear();
 		data.clear();
@@ -94,25 +101,12 @@ public class LecturePlanDetailWeekFragment extends Fragment implements OnBackPre
 			public void onChanged(ArrayList<ResponseLecturePlanWeekList> responseLecturePlanWeekLists) {
 				if(responseLecturePlanWeekLists != null) {
 					for (ResponseLecturePlanWeekList responseLecturePlanWeekList : responseLecturePlanWeekLists) {
-						if (totalCount-1 <= nowCount) {
-							data.add(new LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem(
-									responseLecturePlanWeekList.getWeekNm(),
-									responseLecturePlanWeekList.getWeekTitl01(),
-									responseLecturePlanWeekList.getLectPlan01(),
-									responseLecturePlanWeekList.getLectMthd01(),
-									responseLecturePlanWeekList.getRepotEtc01(),
-									true
-							));
-						} else {
-							data.add(new LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem(
-									responseLecturePlanWeekList.getWeekNm(),
-									responseLecturePlanWeekList.getWeekTitl01(),
-									responseLecturePlanWeekList.getLectPlan01(),
-									responseLecturePlanWeekList.getLectMthd01(),
-									responseLecturePlanWeekList.getRepotEtc01(),
-									false
-							));
-						}
+						data.add(new LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem(
+								(responseLecturePlanWeekList.getWeekNm() != null ? responseLecturePlanWeekList.getWeekNm() : ""),
+								(responseLecturePlanWeekList.getWeekTitl01() != null ? responseLecturePlanWeekList.getWeekTitl01() : "기재되어있지 않습니다"),
+								(responseLecturePlanWeekList.getLectPlan01() != null ? responseLecturePlanWeekList.getLectPlan01() : "기재되어있지 않습니다"),
+								(responseLecturePlanWeekList.getLectMthd01() != null ? responseLecturePlanWeekList.getLectMthd01() : "기재되어있지 않습니다"),
+								(responseLecturePlanWeekList.getRepotEtc01() != null ? responseLecturePlanWeekList.getRepotEtc01() : "없음")));
 						nowCount++;
 						data.sort(new Comparator<LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem>() {
 							@Override
@@ -143,18 +137,5 @@ public class LecturePlanDetailWeekFragment extends Fragment implements OnBackPre
 		});
 
 		return binding.getRoot();
-	}
-
-	@Override
-	public void onBackPressed() {
-		homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-		homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
-		homeLeftContainer.popFragment();
-	}
-
-	@Override
-	public void onAttach(@NonNull Context context) {
-		super.onAttach(context);
-		((HomeActivity) context).setOnBackPressedListner(this);
 	}
 }

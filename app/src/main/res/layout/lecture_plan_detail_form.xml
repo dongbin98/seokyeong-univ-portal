@@ -68,6 +68,7 @@
                 android:id="@+id/lectureplan_detail_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:overScrollMode="never"
                 android:clipChildren="false"
                 android:clipToPadding="false" />
         </FrameLayout>

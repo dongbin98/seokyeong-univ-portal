@@ -19,7 +19,6 @@ public class LecturePlanDetailWeekAdapter extends RecyclerView.Adapter<RecyclerV
 
     Context context;
     boolean clickable;
-
     // 데이터 덜 들어왔을 때 아이템 클릭 방지 메소드
     public void setAdapterClickable(boolean clickable) {
         this.clickable = clickable;
@@ -61,8 +60,10 @@ public class LecturePlanDetailWeekAdapter extends RecyclerView.Adapter<RecyclerV
 
         itemController.lecturePlanDetailWeekNumber.setText(item.number);
         itemController.lecturePlanDetailWeekValue.setText(item.value);
-        if(item.isEnd) {
+        if(item.number.equals("15")) {
             itemController.lecturePlanDetailWeekLine.setVisibility(View.INVISIBLE);
+        } else {
+			itemController.lecturePlanDetailWeekLine.setVisibility(View.VISIBLE);
         }
 
         itemController.itemView.setOnClickListener (new View.OnClickListener () {
@@ -97,16 +98,14 @@ public class LecturePlanDetailWeekAdapter extends RecyclerView.Adapter<RecyclerV
 
     public static class LecturePlanDetailWeekItem {
         public String number, value, plan, type, report;
-        public boolean isEnd;
         public LecturePlanDetailWeekItem() {}
 
-        public LecturePlanDetailWeekItem(String number, String value, String plan, String type, String report, boolean isEnd) {
+        public LecturePlanDetailWeekItem(String number, String value, String plan, String type, String report) {
             this.number = number;   // 주
             this.value = value.replaceAll("\\n+", "\n");     // 주별주제
             this.plan = plan;       // 강의계획 및 내용
             this.type = type;       // 강의진행방식
             this.report = report;   // 과제물,시험,독서
-            this.isEnd = isEnd;     // 마지막 리스트 여부
         }
     }
 }
