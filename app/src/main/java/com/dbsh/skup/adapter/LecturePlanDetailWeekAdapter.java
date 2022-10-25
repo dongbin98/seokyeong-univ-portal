@@ -98,11 +98,9 @@ public class LecturePlanDetailWeekAdapter extends RecyclerView.Adapter<RecyclerV
 
     public static class LecturePlanDetailWeekItem {
         public String number, value, plan, type, report;
-        public String subjectName;
         public LecturePlanDetailWeekItem() {}
 
-        public LecturePlanDetailWeekItem(String number, String value, String plan, String type, String report, String subjectName) {
-            this.subjectName = subjectName;
+        public LecturePlanDetailWeekItem(String number, String value, String plan, String type, String report) {
             this.number = number;   // 주
             this.value = value.replaceAll("\\n+", "\n");     // 주별주제
             this.plan = plan;       // 강의계획 및 내용

@@ -3,8 +3,11 @@ package com.dbsh.skup.views;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
 import com.dbsh.skup.R;
@@ -33,11 +36,27 @@ public class LecturePlanDetailWeekSelectActivity extends AppCompatActivity {
 
 		Intent intent = getIntent();
 
+		Toolbar mToolbar = binding.lectureplanToolbar;
 
+		setSupportActionBar(mToolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("");
+
+		binding.lectureplanToolbarTitle.setText(intent.getStringExtra("subjectName"));
 		binding.lectureplanDetailWeekSelectNumber.setText(intent.getStringExtra("number"));
 		binding.lectureplanDetailWeekSelectTitle.setText(intent.getStringExtra("value"));
 		binding.lectureplanDetailWeekSelectValue.setText(intent.getStringExtra("plan"));
 		binding.lectureplanDetailWeekSelectType.setText(intent.getStringExtra("type"));
 		binding.lectureplanDetailWeekSelectReport.setText(intent.getStringExtra("report"));
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

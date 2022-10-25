@@ -91,6 +91,7 @@ public class LecturePlanDetailWeekFragment extends Fragment {
 				intent.putExtra("plan", data.plan);
 				intent.putExtra("type", data.type);
 				intent.putExtra("report", data.report);
+				intent.putExtra("subjectName", lectureName);
 				startActivity(intent);
 			}
 		});
@@ -112,8 +113,7 @@ public class LecturePlanDetailWeekFragment extends Fragment {
 								(responseLecturePlanWeekList.getWeekTitl01() != null ? responseLecturePlanWeekList.getWeekTitl01() : "기재되어있지 않습니다"),
 								(responseLecturePlanWeekList.getLectPlan01() != null ? responseLecturePlanWeekList.getLectPlan01() : "기재되어있지 않습니다"),
 								(responseLecturePlanWeekList.getLectMthd01() != null ? responseLecturePlanWeekList.getLectMthd01() : "기재되어있지 않습니다"),
-								(responseLecturePlanWeekList.getRepotEtc01() != null ? responseLecturePlanWeekList.getRepotEtc01() : "없음"),
-							"sex"));
+								(responseLecturePlanWeekList.getRepotEtc01() != null ? responseLecturePlanWeekList.getRepotEtc01() : "없음")));
 						nowCount++;
 						data.sort(new Comparator<LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem>() {
 							@Override
