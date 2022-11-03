@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.Service.LoginService;
+import com.dbsh.skup.repository.LoginRepository;
 import com.dbsh.skup.api.LoginApi;
 import com.dbsh.skup.model.RequestUserData;
 import com.dbsh.skup.model.ResponseLogin;
@@ -31,8 +31,8 @@ public class LoginViewModel extends ViewModel {
 	}
 
 	public void getUserData(String loginId, String loginPassword) {
-		LoginService loginService = new LoginService();
-		loginApi = loginService.getLoginApi();
+		LoginRepository loginRepository = new LoginRepository();
+		loginApi = loginRepository.getLoginApi();
 		loginApi.getUserData(new RequestUserData(loginId, loginPassword, "password", "sku")).enqueue(new Callback<ResponseLogin>() {
 			@Override
 			public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {

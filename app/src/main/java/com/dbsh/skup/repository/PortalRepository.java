@@ -1,4 +1,4 @@
-package com.dbsh.skup.Service;
+package com.dbsh.skup.repository;
 
 import com.dbsh.skup.api.PortalApi;
 
@@ -11,14 +11,14 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PortalService {
-	private static PortalService instance = null;
+public class PortalRepository {
+	private static PortalRepository instance = null;
 	private static PortalApi portalApi;
 
 	private final static String BASE_URL = "https://sportal.skuniv.ac.kr/sportal/";
 	private static String accessToken;
 
-	private PortalService(String accessToken) {
+	private PortalRepository(String accessToken) {
 		this.accessToken = accessToken;
 		Retrofit retrofit = new Retrofit.Builder()
 				.client(client)
@@ -28,9 +28,9 @@ public class PortalService {
 		portalApi = retrofit.create(PortalApi.class);
 	}
 
-	public static PortalService getInstance(String token) {
+	public static PortalRepository getInstance(String token) {
 		if(instance == null) {
-			instance = new PortalService(token);
+			instance = new PortalRepository(token);
 		} else {
 			instance.setAccessToken(token);
 		}
@@ -52,7 +52,7 @@ public class PortalService {
 	}
 
 	public static void setAccessToken(String accessToken) {
-		PortalService.accessToken = accessToken;
+		PortalRepository.accessToken = accessToken;
 	}
 
 	public static PortalApi getPortalApi() { return portalApi; }

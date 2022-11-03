@@ -3,8 +3,8 @@ package com.dbsh.skup.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.Service.MajorNoticeService;
-import com.dbsh.skup.Service.NoticeService;
+import com.dbsh.skup.repository.MajorNoticeRepository;
+import com.dbsh.skup.repository.NoticeRepository;
 import com.dbsh.skup.api.MajorNoticeApi;
 import com.dbsh.skup.api.NoticeApi;
 import com.dbsh.skup.data.NoticeData;
@@ -24,8 +24,8 @@ public class HomeCenterViewModel extends ViewModel {
     public MutableLiveData<NoticeData> majorNoticeDataLiveData = new MutableLiveData<>();
 
     public void getNotice() {
-        NoticeService noticeService = new NoticeService();
-        noticeApi = noticeService.getNoticeApi();
+        NoticeRepository noticeRepository = new NoticeRepository();
+        noticeApi = noticeRepository.getNoticeApi();
         noticeApi.getNotice().enqueue(new Callback<Document>() {
             @Override
             public void onResponse(Call<Document> call, Response<Document> response) {
@@ -55,8 +55,8 @@ public class HomeCenterViewModel extends ViewModel {
     }
 
     public void getMajorNotice() {
-        MajorNoticeService majorNoticeService = new MajorNoticeService();
-        majorNoticeApi = majorNoticeService.getNoticeApi();
+        MajorNoticeRepository majorNoticeRepository = new MajorNoticeRepository();
+        majorNoticeApi = majorNoticeRepository.getNoticeApi();
         majorNoticeApi.getMajorNotice().enqueue(new Callback<Document>() {
             @Override
             public void onResponse(Call<Document> call, Response<Document> response) {

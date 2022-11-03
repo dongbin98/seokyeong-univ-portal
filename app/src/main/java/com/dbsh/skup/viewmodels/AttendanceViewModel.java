@@ -3,7 +3,7 @@ package com.dbsh.skup.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.Service.PortalService;
+import com.dbsh.skup.repository.PortalRepository;
 import com.dbsh.skup.api.PortalApi;
 import com.dbsh.skup.model.RequestAttendanceData;
 import com.dbsh.skup.model.RequestAttendanceDetailData;
@@ -31,8 +31,8 @@ public class AttendanceViewModel extends ViewModel {
 	public PortalApi portalApi;
 
 	public void getAttendance(String token, String id, String year, String term) {
-		PortalService portalService = PortalService.getInstance(token);
-		portalApi = PortalService.getPortalApi();
+		PortalRepository portalRepository = PortalRepository.getInstance(token);
+		portalApi = PortalRepository.getPortalApi();
 		RequestAttendanceParameterData parameter = new RequestAttendanceParameterData(id, year, term, id);
 		portalApi.getAttendanceData(new RequestAttendanceData(
 				"education.ual.UAL_04004_T.select",
@@ -83,8 +83,8 @@ public class AttendanceViewModel extends ViewModel {
 				double fullTime = 0.0;  // 현재까지 수업시간 합계
 				double absnTime = 0.0;  // 지각 시간
 
-				PortalService portalService = PortalService.getInstance(token);
-				portalApi = PortalService.getPortalApi();
+				PortalRepository portalRepository = PortalRepository.getInstance(token);
+				portalApi = PortalRepository.getPortalApi();
 				RequestAttendanceDetailParameterData parameter = new RequestAttendanceDetailParameterData(numb, year, term, id, cd);
 				ResponseAttendanceDetail responseAttendanceDetail = null;
 				try {

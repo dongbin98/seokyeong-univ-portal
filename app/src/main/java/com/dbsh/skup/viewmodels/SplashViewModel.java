@@ -2,7 +2,7 @@ package com.dbsh.skup.viewmodels;
 
 import android.content.Context;
 
-import com.dbsh.skup.Service.BusService;
+import com.dbsh.skup.repository.BusRepository;
 import com.dbsh.skup.api.BusApi;
 import com.dbsh.skup.model.ResponseStation;
 import com.dbsh.skup.model.ResponseStationItem;
@@ -57,7 +57,7 @@ public class SplashViewModel {
 	}
 
 	private ArrayList<ResponseStationItem> getStation(String busRouteId) throws IOException {
-		BusService retrofitBusClient = BusService.getInstance();
+		BusRepository retrofitBusClient = BusRepository.getInstance();
 		ArrayList<ResponseStationItem> stations = new ArrayList<>();
 
 		if(retrofitBusClient != null) {
@@ -66,7 +66,7 @@ public class SplashViewModel {
 			query.put("serviceKey", serviceKey);
 			query.put("busRouteId", busRouteId);
 
-			busApi = BusService.getBusApi();
+			busApi = BusRepository.getBusApi();
 
 			// 파일생성전에 데이터가 다 만들어져야 하기때문에 동기식으로 call
 			ResponseStation station = busApi.getStationData(query).execute().body();

@@ -3,6 +3,7 @@ package com.dbsh.skup.views;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.CycleInterpolator;
@@ -18,6 +19,7 @@ import com.dbsh.skup.R;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.LoginFormBinding;
 import com.dbsh.skup.model.ResponseLogin;
+import com.dbsh.skup.service.NoticeNotificationService;
 import com.dbsh.skup.viewmodels.LoginViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
 		viewModel = new LoginViewModel();
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();	// 바인딩 강제 즉시실행
+
+		/* Test Notification */
+		Intent intent = new Intent(MainActivity.this, NoticeNotificationService.class);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			startForegroundService(intent);
+		} else {
+			startService(intent);
+		}
 
 		/* Auto Login */
 		SharedPreferences auto = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
