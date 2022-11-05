@@ -3,11 +3,9 @@ package com.dbsh.skup.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.repository.MajorNoticeRepository;
-import com.dbsh.skup.repository.NoticeRepository;
-import com.dbsh.skup.api.MajorNoticeApi;
 import com.dbsh.skup.api.NoticeApi;
 import com.dbsh.skup.data.NoticeData;
+import com.dbsh.skup.repository.NoticeRepository;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,7 +17,6 @@ import retrofit2.Response;
 
 public class HomeCenterViewModel extends ViewModel {
     public NoticeApi noticeApi;
-    public MajorNoticeApi majorNoticeApi;
     public MutableLiveData<NoticeData> noticeDataLiveData = new MutableLiveData<>();
     public MutableLiveData<NoticeData> majorNoticeDataLiveData = new MutableLiveData<>();
 
@@ -55,21 +52,38 @@ public class HomeCenterViewModel extends ViewModel {
     }
 
     public void getMajorNotice() {
-        MajorNoticeRepository majorNoticeRepository = new MajorNoticeRepository();
-        majorNoticeApi = majorNoticeRepository.getNoticeApi();
-        majorNoticeApi.getMajorNotice().enqueue(new Callback<Document>() {
+        NoticeRepository noticeRepository = new NoticeRepository();
+        noticeApi = noticeRepository.getNoticeApi();
+        noticeApi.getNotice().enqueue(new Callback<Document>() {
             @Override
             public void onResponse(Call<Document> call, Response<Document> response) {
                 if (response.isSuccessful()) {
+
+                    /* 학과 공지사항의 경우
+                    Elements noticeList = document.select(".bg1");
+                        noticeList.addAll(document.select(".bg2"));
+
+                        for (Element e : noticeList) {
+                            NoticeData noticeData = new NoticeData();
+                            noticeData.setTitle(e.select(".title").text().substring(3));
+                            noticeData.setDate(e.select(".date").text());
+                            noticeData.setDepartment(e.select(".author").text());
+                            noticeData.setType(e.select(".category").text());
+                            noticeData.setNumber(Integer.parseInt(e.select(".num").text()));
+                            noticeData.setUrl(e.select(".title").select("a").attr("href"));
+                            noticeDataArrayList.add(noticeData);
+                        }
+                     */
+
                     Document document = response.body();
                     Elements noticeList = document.select("tr.notice");
 
                     for(Element e: noticeList) {
                         NoticeData noticeData = new NoticeData();
-                        noticeData.setTitle(e.select(".title").text());
+                        noticeData.setTitle(e.select(".title").text().substring(3));
                         noticeData.setDate(e.select(".date").text());
                         noticeData.setDepartment(e.select(".author").text());
-                        noticeData.setType(e.select("td.notice").text());
+                        noticeData.setType(e.select(".category").text());
                         noticeData.setUrl(e.select(".title").select("a").attr("href"));
                         majorNoticeDataLiveData.setValue(noticeData);
                     }

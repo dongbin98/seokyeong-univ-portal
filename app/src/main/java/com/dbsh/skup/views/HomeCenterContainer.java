@@ -24,9 +24,6 @@ public class HomeCenterContainer extends Fragment implements OnBackPressedListen
     private HomeCenterContainerViewModel viewModel;
 	private long time = 0;
 
-    private static final String noticeUrl = "https://skuniv.ac.kr/notice";
-    private static final String majorNoticeUrl = "https://ce.skuniv.ac.kr/ce_notice";
-
 	// this Fragment
 	private Fragment HomeCenterFragment;
 

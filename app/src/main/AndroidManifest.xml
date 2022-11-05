@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".data.UserData"
@@ -27,8 +28,15 @@
         <service
             android:name=".service.NoticeNotificationService"
             android:enabled="true"
-            android:exported="true"></service>
-
+            android:exported="true"/>
+        <receiver
+            android:name=".service.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".views.SplashActivity"
             android:exported="true"
@@ -43,6 +51,7 @@
         <activity android:name=".views.HomeActivity" />
         <activity android:name=".views.WebviewActivity" />
         <activity android:name=".views.LecturePlanDetailWeekSelectActivity" />
+
     </application>
 
 </manifest>

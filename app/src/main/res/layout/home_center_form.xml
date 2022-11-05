@@ -277,7 +277,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="31dp"
                 android:layout_marginLeft="16dp"
-                android:text="학과 공지사항"
+                android:text="주요 공지사항"
                 android:textSize="20dp"
                 android:fontFamily="@font/roboto"
                 android:textStyle="bold"

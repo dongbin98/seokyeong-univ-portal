@@ -1,6 +1,8 @@
 package com.dbsh.skup.views;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +59,8 @@ public class HomeCenterFragment extends Fragment {
 		homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
         userData = ((UserData) getActivity().getApplication());
 
+        SharedPreferences notice = this.getActivity().getSharedPreferences("notice", Activity.MODE_PRIVATE);
+
         // 자식 프래그먼트에서 부모 프래그먼트 확인을 위함
         Bundle bundle = new Bundle();
         bundle.putString("type", "center");
@@ -77,12 +81,12 @@ public class HomeCenterFragment extends Fragment {
             }
         });
 
-        // 학과 공지사항 더보기
+        // 주요 공지사항 더보기
         binding.mainHomeMajorNoticePlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra("url", "https://ce.skuniv.ac.kr/ce_notice");
+                intent.putExtra("url", "https://skuniv.ac.kr/notice");
                 startActivity(intent);
             }
         });
@@ -155,6 +159,15 @@ public class HomeCenterFragment extends Fragment {
                     ArrayList<Fragment> fragments = new ArrayList<>();
                     for(int i = 0; i < 5; i++) {
 //                        for(int i = 0; i < noticeDataList.size(); i++) {  // 학교 공지사항 전체 다 가져오기
+                        if (i == 0) {
+                            // 가장 최근 공지 저장하기
+                            SharedPreferences.Editor currentNotice = notice.edit();
+                            String url = noticeDataList.get(i).getUrl();
+                            currentNotice.putString("noticeUrl", url);
+                            int startIndex = url.indexOf("srl");
+                            currentNotice.putString("noticeNumber", url.substring(startIndex+4));
+                            currentNotice.apply();
+                        }
                         fragments.add(HomeCenterNoticeFragment.newInstance(i, noticeDataList.get(i).getTitle(), noticeDataList.get(i).getType(), noticeDataList.get(i).getDate(), noticeDataList.get(i).getDepartment(), noticeDataList.get(i).getUrl()));
                     }
                     mPager2 = binding.viewpager2;
