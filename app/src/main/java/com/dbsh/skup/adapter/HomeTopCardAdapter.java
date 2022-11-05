@@ -34,7 +34,7 @@ public class HomeTopCardAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return mCount;
     }
 
     public int getRealPosition(int position) {return position % mCount;}

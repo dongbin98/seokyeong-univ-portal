@@ -42,6 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:background="@drawable/mypage_thick_line"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginRight="-2dp"
             app:layout_constraintTop_toBottomOf="@id/mypage_toolbar">
 
             <ImageView
@@ -100,6 +102,8 @@
             android:layout_height="52dp"
             android:background="@drawable/mypage_line"
             android:layout_marginTop="-1dp"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginRight="-2dp"
             app:layout_constraintTop_toBottomOf="@id/mypage_view1">
 
             <TextView
@@ -136,6 +140,8 @@
             android:layout_height="52dp"
             android:background="@drawable/mypage_line"
             android:layout_marginTop="-1dp"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginRight="-2dp"
             app:layout_constraintTop_toBottomOf="@id/mypage_view2">
 
             <TextView
@@ -173,6 +179,8 @@
             android:background="@drawable/mypage_line"
             android:clickable="true"
             android:layout_marginTop="-1dp"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginRight="-2dp"
             app:layout_constraintTop_toBottomOf="@id/mypage_view3">
 
             <TextView
@@ -208,6 +216,8 @@
             android:background="@drawable/mypage_line"
             android:clickable="true"
             android:layout_marginTop="-1dp"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginRight="-2dp"
             app:layout_constraintTop_toBottomOf="@id/mypage_view4">
 
             <TextView
@@ -232,6 +242,8 @@
             android:background="@drawable/mypage_line"
             android:clickable="true"
             android:layout_marginTop="-1dp"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginRight="-2dp"
             app:layout_constraintTop_toBottomOf="@id/mypage_view5">
 
             <TextView

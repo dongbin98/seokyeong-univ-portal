@@ -36,7 +36,7 @@ public class LecturePlanPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return mCount;
     }
 
     public int getRealPosition(int position) {

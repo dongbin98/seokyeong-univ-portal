@@ -21,9 +21,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
+import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.adapter.SpinnerAdapter;
+import com.dbsh.skup.adapter.TimetableAdapter;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.TimetableFormBinding;
 import com.dbsh.skup.model.ResponseLectureList;
@@ -31,6 +35,7 @@ import com.dbsh.skup.model.ResponseYearList;
 import com.dbsh.skup.viewmodels.TimeTableViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TimeTableFragment extends Fragment implements OnBackPressedListener {
 
@@ -57,6 +62,10 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
     final int[] colors = {R.color.timetableitem1, R.color.timetableitem2, R.color.timetableitem3,
 		    R.color.mainBlue, R.color.timetableitem4, R.color.timetableitem5, R.color.timetableitem6,
             R.color.mainYellow, R.color.purple_200, R.color.purple_500, R.color.teal_700};
+
+    List<TimetableAdapter.TimetableItem> data;
+    public TimetableAdapter adapter;
+    RecyclerView timeList;
 
     UserData userData;
 
@@ -86,6 +95,14 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
 
         timetableItems = new ArrayList<>();
         timetableIndexes = new ArrayList<>();
+        data = new ArrayList<>();
+
+        timeList = binding.timetableRecyclerview;
+        adapter = new TimetableAdapter(data);
+
+        LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false);
+        timeList.setLayoutManager(linearLayoutManagerWrapper);
+        timeList.setAdapter(adapter);
 
         Toolbar mToolbar = binding.timetableToolbar;
 
@@ -234,7 +251,8 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
                             timetableItems.add(tv);
                             binding.timetableConstraintlayout.addView(tv);
                         } else {
-                            System.out.println(responseLectureList.getLectureName() + ": 실 수업 없음");
+                            data.add(new TimetableAdapter.TimetableItem(responseLectureList.getLectureName()));
+                            adapter.notifyItemInserted(data.size());
                         }
                     }
 

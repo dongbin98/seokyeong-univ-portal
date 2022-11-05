@@ -75,6 +75,7 @@
             app:layout_constraintBottom_toBottomOf="@id/timetable_btn"/>
 
         <ScrollView
+            android:id="@+id/timetable_scrollview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingLeft="16dp"
@@ -173,8 +174,7 @@
                     android:paddingBottom="10dp"
                     android:background="@drawable/timetable_index_background"
                     app:layout_constraintTop_toTopOf="@id/timetable_header"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    app:layout_constraintLeft_toLeftOf="parent">
 
                     <TextView
                         android:height="28dp"
@@ -333,6 +333,19 @@
                     app:layout_constraintStart_toEndOf="@id/timetable_body_thu"
                     app:layout_constraintEnd_toEndOf="@id/timetable_header"
                     app:layout_constraintBottom_toBottomOf="@id/timetable_index"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/timetable_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/timetable_body_mon"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
