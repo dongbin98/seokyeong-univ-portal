@@ -3,40 +3,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dbsh.skup">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
+        android:name=".data.UserData"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:screenOrientation="portrait"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_skup_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_skup_logo"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:name=".data.UserData"
-        android:hardwareAccelerated="true"
         android:theme="@style/Theme.SKUP"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <service
+            android:name=".service.NoticeNotificationService"
+            android:enabled="true"
+            android:exported="true"/>
+        <receiver
+            android:name=".service.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".views.SplashActivity"
-            android:theme="@style/Theme.SKUP.Splash"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.SKUP.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".views.MainActivity"/>
-        <activity android:name=".views.HomeActivity"/>
-        <activity android:name=".views.WebviewActivity"/>
+        <activity android:name=".views.MainActivity" />
+        <activity android:name=".views.HomeActivity" />
+        <activity android:name=".views.WebviewActivity" />
+        <activity android:name=".views.LecturePlanDetailWeekSelectActivity" />
 
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 </manifest>

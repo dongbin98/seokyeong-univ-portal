@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.Service.PortalService;
+import com.dbsh.skup.repository.PortalRepository;
 import com.dbsh.skup.api.PortalApi;
 import com.dbsh.skup.model.RequestGraduateBasicData;
 import com.dbsh.skup.model.RequestGraduateBasicParameterData;
@@ -28,8 +28,8 @@ public class GraduateSubjectViewModel extends ViewModel {
     public PortalApi portalApi;
 
     public void getGraduateBasic(String token, String id) {
-        PortalService portalService = PortalService.getInstance(token);
-        portalApi = PortalService.getPortalApi();
+        PortalRepository portalRepository = PortalRepository.getInstance(token);
+        portalApi = PortalRepository.getPortalApi();
         RequestGraduateBasicParameterData parameter = new RequestGraduateBasicParameterData(id, id);
         portalApi.getGraduateBasicData(new RequestGraduateBasicData(
                 "education.ugd.UGD_03002_T.SELECT",
@@ -58,8 +58,8 @@ public class GraduateSubjectViewModel extends ViewModel {
     }
 
     public void getGraduateSubject(String token, String id) {
-        PortalService portalService = PortalService.getInstance(token);
-        portalApi = PortalService.getPortalApi();
+        PortalRepository portalRepository = PortalRepository.getInstance(token);
+        portalApi = PortalRepository.getPortalApi();
         RequestGraduateSubjectParameterData parameter = new RequestGraduateSubjectParameterData(id);
         portalApi.getGraduateSubjectData(new RequestGraduateSubjectData(
                 "education.ugd.UGD_03031_T.SELECT_UCS_AREASUBJECT",

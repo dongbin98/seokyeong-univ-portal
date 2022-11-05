@@ -21,7 +21,7 @@
             android:id="@+id/getStationBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="노선정보 업데이트"
+            android:text="공지사항 알림켜기"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"

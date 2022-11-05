@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.Service.PortalService;
+import com.dbsh.skup.repository.PortalRepository;
 import com.dbsh.skup.api.PortalApi;
 import com.dbsh.skup.model.RequestLecturePlanData;
 import com.dbsh.skup.model.RequestLecturePlanParameterData;
@@ -27,8 +27,8 @@ public class LecturePlanViewModel extends ViewModel {
     public PortalApi portalApi;
 
     public void getLecturePlan(String token, String id, String year, String term) {
-        PortalService portalService = PortalService.getInstance(token);
-        portalApi = PortalService.getPortalApi();
+        PortalRepository portalRepository = PortalRepository.getInstance(token);
+        portalApi = PortalRepository.getPortalApi();
         RequestLecturePlanParameterData parameter = new RequestLecturePlanParameterData(year, term, "%", "%", "%", "%", "1", "");
         portalApi.getLecturePlanData(new RequestLecturePlanData(
                 "education.ucs.UCS_03100_T.SELECT",

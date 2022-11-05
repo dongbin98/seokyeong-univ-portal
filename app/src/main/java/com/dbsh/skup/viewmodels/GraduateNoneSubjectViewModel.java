@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.Service.PortalService;
+import com.dbsh.skup.repository.PortalRepository;
 import com.dbsh.skup.api.PortalApi;
 import com.dbsh.skup.model.RequestGraduateNoneSubjectData;
 import com.dbsh.skup.model.RequestGraduateNoneSubjectParameterData;
@@ -21,8 +21,8 @@ public class GraduateNoneSubjectViewModel extends ViewModel {
     public PortalApi portalApi;
 
     public void getGraduateNoneSubject(String token, String id) {
-        PortalService portalService = PortalService.getInstance(token);
-        portalApi = PortalService.getPortalApi();
+        PortalRepository portalRepository = PortalRepository.getInstance(token);
+        portalApi = PortalRepository.getPortalApi();
         RequestGraduateNoneSubjectParameterData parameter = new RequestGraduateNoneSubjectParameterData(id);
         portalApi.getGraduateNoneSubjectData(new RequestGraduateNoneSubjectData(
                 "education.ugd.UGD_03037.SELECT_UGD_NONDEPARTMENT_SEARCH",

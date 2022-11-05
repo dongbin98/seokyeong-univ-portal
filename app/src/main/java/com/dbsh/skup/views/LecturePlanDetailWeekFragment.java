@@ -1,6 +1,7 @@
 package com.dbsh.skup.views;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +85,14 @@ public class LecturePlanDetailWeekFragment extends Fragment {
 			@SuppressLint("SetTextI18n")
 			@Override
 			public void onItemClick(LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem data) {
-
+				Intent intent = new Intent(getActivity(), LecturePlanDetailWeekSelectActivity.class);
+				intent.putExtra("number", data.number);
+				intent.putExtra("value", data.value);
+				intent.putExtra("plan", data.plan);
+				intent.putExtra("type", data.type);
+				intent.putExtra("report", data.report);
+				intent.putExtra("subjectName", lectureName);
+				startActivity(intent);
 			}
 		});
 
@@ -100,8 +108,7 @@ public class LecturePlanDetailWeekFragment extends Fragment {
 			@Override
 			public void onChanged(ArrayList<ResponseLecturePlanWeekList> responseLecturePlanWeekLists) {
 				if(responseLecturePlanWeekLists != null) {
-					for (ResponseLecturePlanWeekList responseLecturePlanWeekList : responseLecturePlanWeekLists) {
-						data.add(new LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem(
+					for (ResponseLecturePlanWeekList responseLecturePlanWeekList : responseLecturePlanWeekLists) {data.add(new LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem(
 								(responseLecturePlanWeekList.getWeekNm() != null ? responseLecturePlanWeekList.getWeekNm() : ""),
 								(responseLecturePlanWeekList.getWeekTitl01() != null ? responseLecturePlanWeekList.getWeekTitl01() : "기재되어있지 않습니다"),
 								(responseLecturePlanWeekList.getLectPlan01() != null ? responseLecturePlanWeekList.getLectPlan01() : "기재되어있지 않습니다"),

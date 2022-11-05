@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.Service.PortalService;
+import com.dbsh.skup.repository.PortalRepository;
 import com.dbsh.skup.api.PortalApi;
 import com.dbsh.skup.model.RequestScholarshipData;
 import com.dbsh.skup.model.RequestScholarshipParameterData;
@@ -24,8 +24,8 @@ public class ScholarshipViewModel extends ViewModel {
     public PortalApi portalApi;
 
     public void getScholar(String token, String id, String year, String term) {
-        PortalService portalService = PortalService.getInstance(token);
-        portalApi = PortalService.getPortalApi();
+        PortalRepository portalRepository = PortalRepository.getInstance(token);
+        portalApi = PortalRepository.getPortalApi();
         RequestScholarshipParameterData parameter = new RequestScholarshipParameterData(id, year, term, id);
         portalApi.getScholarshipData(new RequestScholarshipData(
                 "education.uss.USS_01011_T.select_janghak",

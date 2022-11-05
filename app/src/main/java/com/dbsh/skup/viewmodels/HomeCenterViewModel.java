@@ -1,7 +1,99 @@
 package com.dbsh.skup.viewmodels;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeCenterViewModel extends ViewModel {
+import com.dbsh.skup.api.NoticeApi;
+import com.dbsh.skup.data.NoticeData;
+import com.dbsh.skup.repository.NoticeRepository;
 
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class HomeCenterViewModel extends ViewModel {
+    public NoticeApi noticeApi;
+    public MutableLiveData<NoticeData> noticeDataLiveData = new MutableLiveData<>();
+    public MutableLiveData<NoticeData> majorNoticeDataLiveData = new MutableLiveData<>();
+
+    public void getNotice() {
+        NoticeRepository noticeRepository = new NoticeRepository();
+        noticeApi = noticeRepository.getNoticeApi();
+        noticeApi.getNotice().enqueue(new Callback<Document>() {
+            @Override
+            public void onResponse(Call<Document> call, Response<Document> response) {
+                if (response.isSuccessful()) {
+                    Document document = response.body();
+                    Elements noticeList = document.select(".bg1");
+                    noticeList.addAll(document.select(".bg2"));
+
+                    for(Element e: noticeList) {
+                        NoticeData noticeData = new NoticeData();
+                        noticeData.setTitle(e.select(".title").text().substring(3));
+                        noticeData.setDate(e.select(".date").text());
+                        noticeData.setDepartment(e.select(".author").text());
+                        noticeData.setType(e.select(".category").text());
+                        noticeData.setNumber(Integer.parseInt(e.select(".num").text()));
+                        noticeData.setUrl(e.select(".title").select("a").attr("href"));
+                        noticeDataLiveData.setValue(noticeData);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Document> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void getMajorNotice() {
+        NoticeRepository noticeRepository = new NoticeRepository();
+        noticeApi = noticeRepository.getNoticeApi();
+        noticeApi.getNotice().enqueue(new Callback<Document>() {
+            @Override
+            public void onResponse(Call<Document> call, Response<Document> response) {
+                if (response.isSuccessful()) {
+
+                    /* 학과 공지사항의 경우
+                    Elements noticeList = document.select(".bg1");
+                        noticeList.addAll(document.select(".bg2"));
+
+                        for (Element e : noticeList) {
+                            NoticeData noticeData = new NoticeData();
+                            noticeData.setTitle(e.select(".title").text().substring(3));
+                            noticeData.setDate(e.select(".date").text());
+                            noticeData.setDepartment(e.select(".author").text());
+                            noticeData.setType(e.select(".category").text());
+                            noticeData.setNumber(Integer.parseInt(e.select(".num").text()));
+                            noticeData.setUrl(e.select(".title").select("a").attr("href"));
+                            noticeDataArrayList.add(noticeData);
+                        }
+                     */
+
+                    Document document = response.body();
+                    Elements noticeList = document.select("tr.notice");
+
+                    for(Element e: noticeList) {
+                        NoticeData noticeData = new NoticeData();
+                        noticeData.setTitle(e.select(".title").text().substring(3));
+                        noticeData.setDate(e.select(".date").text());
+                        noticeData.setDepartment(e.select(".author").text());
+                        noticeData.setType(e.select(".category").text());
+                        noticeData.setUrl(e.select(".title").select("a").attr("href"));
+                        majorNoticeDataLiveData.setValue(noticeData);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Document> call, Throwable t) {
+
+            }
+        });
+    }
 }

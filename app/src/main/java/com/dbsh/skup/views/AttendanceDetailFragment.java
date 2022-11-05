@@ -92,7 +92,7 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
 
 		if(type.equals("left"))
 			homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
-		else if(type.equals("center"))
+		else
 			homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
 
         data = new ArrayList<>();

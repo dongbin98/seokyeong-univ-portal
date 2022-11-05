@@ -3,7 +3,7 @@ package com.dbsh.skup.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.Service.PortalService;
+import com.dbsh.skup.repository.PortalRepository;
 import com.dbsh.skup.api.PortalApi;
 import com.dbsh.skup.model.RequestLecturePlanBookData;
 import com.dbsh.skup.model.RequestLecturePlanBookParameterData;
@@ -28,8 +28,8 @@ public class LecturePlanDetailSummaryViewModel extends ViewModel {
 	public PortalApi portalApi;
 
 	public void getLecturePlanSummary(String token, String id, String subjCd, String clssNumb, String year, String term, String professorId) {
-		PortalService portalService = PortalService.getInstance(token);
-		portalApi = PortalService.getPortalApi();
+		PortalRepository portalRepository = PortalRepository.getInstance(token);
+		portalApi = PortalRepository.getPortalApi();
 		RequestLecturePlanSummaryParameterData parameter = new RequestLecturePlanSummaryParameterData(year, term, subjCd, clssNumb, professorId);
 		portalApi.getLecturePlanSummaryData(new RequestLecturePlanSummaryData(
 				"education.ucs.UCS_03100_T.SELECT_REPORT_MAIN",
@@ -56,8 +56,8 @@ public class LecturePlanDetailSummaryViewModel extends ViewModel {
 	}
 
 	public void getLecturePlanBook(String token, String id, String subjCd, String clssNumb, String year, String term, String professorId) {
-		PortalService portalService = PortalService.getInstance(token);
-		portalApi = PortalService.getPortalApi();
+		PortalRepository portalRepository = PortalRepository.getInstance(token);
+		portalApi = PortalRepository.getPortalApi();
 		RequestLecturePlanBookParameterData parameter = new RequestLecturePlanBookParameterData(year, term, subjCd, clssNumb, professorId);
 		portalApi.getLecturePlanBookData(new RequestLecturePlanBookData(
 				"education.ucs.UCS_03100_T.SELECT_REPORT_BOOKINFO",

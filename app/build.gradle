@@ -65,4 +65,8 @@ dependencies {
     annotationProcessor 'com.tickaroo.tikxml:processor:0.8.13'
     // MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    // html converter
+    implementation 'com.github.slashrootv200:retrofit-html-converter:0.0.2'
+    // Foreground Service
+    implementation 'androidx.work:work-runtime:2.7.1'
 }

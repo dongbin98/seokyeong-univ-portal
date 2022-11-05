@@ -3,7 +3,7 @@ package com.dbsh.skup.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.Service.PortalService;
+import com.dbsh.skup.repository.PortalRepository;
 import com.dbsh.skup.api.PortalApi;
 import com.dbsh.skup.model.RequestGradeTermData;
 import com.dbsh.skup.model.RequestGradeTermParameterData;
@@ -27,8 +27,8 @@ public class GradeTermViewModel extends ViewModel {
  	public PortalApi portalApi;
 
 	public void getGradeTerm(String token, String id) {
-		PortalService portalService = PortalService.getInstance(token);
-		portalApi = PortalService.getPortalApi();
+		PortalRepository portalRepository = PortalRepository.getInstance(token);
+		portalApi = PortalRepository.getPortalApi();
 		RequestGradeTermParameterData parameter = new RequestGradeTermParameterData(id, id);
 		portalApi.getGradeTerm(new RequestGradeTermData(
 				"education.usc.USC_09001_V.select",
@@ -56,8 +56,8 @@ public class GradeTermViewModel extends ViewModel {
 	}
 
 	public void getGradeTermSubject(String token, String id, String year, String term) {
-		PortalService portalService = PortalService.getInstance(token);
-		portalApi = PortalService.getPortalApi();
+		PortalRepository portalRepository = PortalRepository.getInstance(token);
+		portalApi = PortalRepository.getPortalApi();
 		RequestGradeTermSubjectParameterData parameter = new RequestGradeTermSubjectParameterData(id, year, term, id);
 		portalApi.getGradeTermSubject(new RequestGradeTermSubjectData(
 				"education.usc.USC_09001_V.select_sub",
