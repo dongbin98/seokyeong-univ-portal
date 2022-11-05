@@ -84,7 +84,7 @@ public class LecturePlanDetailWeekFragment extends Fragment {
 			@SuppressLint("SetTextI18n")
 			@Override
 			public void onItemClick(LecturePlanDetailWeekAdapter.LecturePlanDetailWeekItem data) {
-				
+
 			}
 		});
 
