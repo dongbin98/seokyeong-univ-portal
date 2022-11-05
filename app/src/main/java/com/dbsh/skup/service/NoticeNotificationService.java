@@ -72,7 +72,7 @@ public class NoticeNotificationService extends LifecycleService {
                 int savedNoticeNumber = Integer.parseInt(notice.getString("noticeNumber", "0"));
                 int i = 0;
 
-				System.out.println("공지사항 로드");
+                System.out.println("저장된 최신 공지 : " + savedNoticeNumber);
                 for (NoticeData notice : noticeData) {
                     String url = notice.getUrl();
                     int startIndex = url.indexOf("srl");
@@ -84,6 +84,7 @@ public class NoticeNotificationService extends LifecycleService {
                             currentNotice.putString("noticeNumber", url.substring(startIndex+4));
                             currentNotice.apply();
                         }
+                        System.out.println("공지 출력 : " + url.substring(startIndex+4));
                         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                         createNotificationChannel();
 						// 클릭 시 해당 공지사항 사이트로 이동

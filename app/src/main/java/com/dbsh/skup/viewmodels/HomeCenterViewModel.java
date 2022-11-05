@@ -11,13 +11,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeCenterViewModel extends ViewModel {
     public NoticeApi noticeApi;
-    public MutableLiveData<NoticeData> noticeDataLiveData = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<NoticeData>> noticeDataLiveData = new MutableLiveData<>();
     public MutableLiveData<NoticeData> majorNoticeDataLiveData = new MutableLiveData<>();
 
     public void getNotice() {
@@ -31,6 +34,8 @@ public class HomeCenterViewModel extends ViewModel {
                     Elements noticeList = document.select(".bg1");
                     noticeList.addAll(document.select(".bg2"));
 
+                    ArrayList<NoticeData> notices = new ArrayList<>();
+
                     for(Element e: noticeList) {
                         NoticeData noticeData = new NoticeData();
                         noticeData.setTitle(e.select(".title").text().substring(3));
@@ -39,8 +44,18 @@ public class HomeCenterViewModel extends ViewModel {
                         noticeData.setType(e.select(".category").text());
                         noticeData.setNumber(Integer.parseInt(e.select(".num").text()));
                         noticeData.setUrl(e.select(".title").select("a").attr("href"));
-                        noticeDataLiveData.setValue(noticeData);
+                        notices.add(noticeData);
                     }
+                    notices.sort(new Comparator<NoticeData>() {
+                        @Override
+                        public int compare(NoticeData noticeData, NoticeData t1) {
+                            int result = 1;
+                            if(noticeData.getNumber() >= t1.getNumber())
+                                result = -1;
+                            return result;
+                        }
+                    });
+                    noticeDataLiveData.setValue(notices);
                 }
             }
 

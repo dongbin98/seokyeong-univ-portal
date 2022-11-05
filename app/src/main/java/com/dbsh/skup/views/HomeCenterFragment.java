@@ -148,28 +148,29 @@ public class HomeCenterFragment extends Fragment {
             }
         });
 
-        viewModel.noticeDataLiveData.observe(getViewLifecycleOwner(), new Observer<NoticeData>() {
+        viewModel.noticeDataLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<NoticeData>>() {
             @Override
-            public void onChanged(NoticeData noticeData) {
-                if(noticeData != null) {
-                    noticeCount++;
-                    noticeDataList.add(noticeData);
-                }
-                if (noticeCount >= 5) {
+            public void onChanged(ArrayList<NoticeData> noticeDatas) {
+                if(noticeDatas != null) {
                     ArrayList<Fragment> fragments = new ArrayList<>();
-                    for(int i = 0; i < 5; i++) {
-//                        for(int i = 0; i < noticeDataList.size(); i++) {  // 학교 공지사항 전체 다 가져오기
-                        if (i == 0) {
+                    for(NoticeData noticeData : noticeDatas) {
+                        noticeDataList.add(noticeData);
+                        System.out.println("공지URL : " + noticeData.getUrl());
+                        if (noticeCount == 1) {
                             // 가장 최근 공지 저장하기(0)
-	                        // 테스트로 최근 공지 바로 아래 저장하기(1)
+                            // 테스트로 최근 공지 바로 아래 저장하기(1)
+                            System.out.println("이거 최신공지로 선택");
                             SharedPreferences.Editor currentNotice = notice.edit();
-                            String url = noticeDataList.get(i).getUrl();
+                            String url = noticeData.getUrl();
                             currentNotice.putString("noticeUrl", url);
                             int startIndex = url.indexOf("srl");
                             currentNotice.putString("noticeNumber", url.substring(startIndex+4));
                             currentNotice.apply();
                         }
-                        fragments.add(HomeCenterNoticeFragment.newInstance(i, noticeDataList.get(i).getTitle(), noticeDataList.get(i).getType(), noticeDataList.get(i).getDate(), noticeDataList.get(i).getDepartment(), noticeDataList.get(i).getUrl()));
+                        fragments.add(HomeCenterNoticeFragment.newInstance(noticeCount, noticeData.getTitle(), noticeData.getType(), noticeData.getDate(), noticeData.getDepartment(), noticeData.getUrl()));
+                        noticeCount++;
+                        if(noticeCount >= 5)
+                            break;
                     }
                     mPager2 = binding.viewpager2;
                     pagerAdapter2 = new HomeNoticeCardAdapter(getActivity(), fragments);

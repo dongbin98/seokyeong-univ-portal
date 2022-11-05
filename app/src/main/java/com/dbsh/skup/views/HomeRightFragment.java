@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
+import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.HomeRightFormBinding;
 import com.dbsh.skup.service.NoticeNotificationService;
 import com.dbsh.skup.viewmodels.HomeRightViewModel;
@@ -27,6 +28,8 @@ public class HomeRightFragment extends Fragment {
 	Boolean notificationCheck;
 	Boolean loginCheck;
 
+	UserData userData;
+
 	// for Json File
 	final String fileName = "station.json";
 
@@ -37,6 +40,10 @@ public class HomeRightFragment extends Fragment {
 		viewModel = new HomeRightViewModel(getActivity().getApplication());
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();
+
+		userData = ((UserData) getActivity().getApplication());
+		binding.mypageId.setText(userData.getId());
+		binding.mypageName.setText(userData.getKorName());
 
 		// Notification Check
 		SharedPreferences notification = getActivity().getSharedPreferences("notice", Activity.MODE_PRIVATE);
