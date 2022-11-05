@@ -431,6 +431,215 @@
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_is_experience"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
+            <GridLayout
+                android:id="@+id/lectureplan_detail_summary_grid1"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:columnCount="5"
+                android:rowCount="1"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_title6">
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box" />
+
+                <TextView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:layout_columnWeight="1"
+                    android:drawablePadding="4dp"
+                    android:text="중간"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/gray2"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box2"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box2"/>
+
+                <TextView
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:layout_columnWeight="1"
+                    android:drawablePadding="4dp"
+                    android:text="기말"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/gray2"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box3"
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box2"/>
+
+                <TextView
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:layout_columnWeight="1"
+                    android:drawablePadding="4dp"
+                    android:text="과제"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/gray2"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box4"
+                    android:layout_column="3"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box2"/>
+
+                <TextView
+                    android:layout_column="3"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:layout_columnWeight="1"
+                    android:drawablePadding="4dp"
+                    android:text="출석"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/gray2"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box5"
+                    android:layout_column="4"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box3"/>
+
+                <TextView
+                    android:layout_column="4"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:layout_columnWeight="1"
+                    android:drawablePadding="4dp"
+                    android:text="기타"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/gray2"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/lectureplan_detail_summary_grid2"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:columnCount="5"
+                android:rowCount="1"
+                app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_grid1">
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box6"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box4" />
+
+                <TextView
+                    android:id="@+id/lectureplan_detail_summary_midterm_exam"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:drawablePadding="4dp"
+                    android:textSize="20dp"
+                    android:textColor="@color/gray1"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box7"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box5"/>
+
+                <TextView
+                    android:id="@+id/lectureplan_detail_summary_final_exam"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:drawablePadding="4dp"
+                    android:textSize="20dp"
+                    android:textColor="@color/gray1"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box8"
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box7"/>
+
+                <TextView
+                    android:id="@+id/lectureplan_detail_summary_report"
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:drawablePadding="4dp"
+                    android:textSize="20dp"
+                    android:textColor="@color/gray1"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box9"
+                    android:layout_column="3"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box5"/>
+
+                <TextView
+                    android:id="@+id/lectureplan_detail_summary_attendance"
+                    android:layout_column="3"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:drawablePadding="4dp"
+                    android:textSize="20dp"
+                    android:textColor="@color/gray1"
+                    android:fontFamily="@font/roboto"/>
+
+                <ImageView
+                    android:id="@+id/lectureplan_detail_summary_box10"
+                    android:layout_column="4"
+                    android:layout_row="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/attendance_detail_box6"/>
+
+                <TextView
+                    android:id="@+id/lectureplan_detail_summary_etc"
+                    android:layout_column="4"
+                    android:layout_row="0"
+                    android:layout_gravity="center"
+                    android:drawablePadding="4dp"
+                    android:textSize="20dp"
+                    android:textColor="@color/gray1"
+                    android:fontFamily="@font/roboto"/>
+            </GridLayout>
+
             <TextView
                 android:id="@+id/lectureplan_detail_summary_title7"
                 android:layout_width="wrap_content"
@@ -441,7 +650,7 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_title6"
+                app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_grid2"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
             <TextView
@@ -495,6 +704,20 @@
                 android:layout_marginTop="32dp"
                 app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_notice"
                 app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lectureplan_detail_summary_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintTop_toBottomOf="@id/lectureplan_detail_summary_title9"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

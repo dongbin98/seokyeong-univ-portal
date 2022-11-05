@@ -1,11 +1,14 @@
 package com.dbsh.skup.viewmodels;
 
+import android.app.Application;
 import android.content.Context;
 
-import com.dbsh.skup.repository.BusRepository;
+import androidx.lifecycle.ViewModel;
+
 import com.dbsh.skup.api.BusApi;
 import com.dbsh.skup.model.ResponseStation;
 import com.dbsh.skup.model.ResponseStationItem;
+import com.dbsh.skup.repository.BusRepository;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +24,7 @@ import java.util.Map;
 
 import needle.Needle;
 
-public class SplashViewModel {
+public class SplashViewModel extends ViewModel {
 
 	// Data.go.kr
 	final String serviceKey = "6QzxyxwgIYyrLx303Ylnud8BZMmZ4Caw%2Ble0fsW8oc9lsv0KHGZWV5jhZ%2BLgzGbESVdaYzjRmnnwdzWychAaeA%3D%3D";
@@ -36,8 +39,8 @@ public class SplashViewModel {
 	// Retrofit Client
 	public BusApi busApi;
 
-	public SplashViewModel(Context context) {
-		this.context = context;
+	public SplashViewModel(Application application) {
+		this.context = application.getApplicationContext();
 	}
 
 

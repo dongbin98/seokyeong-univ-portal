@@ -14,8 +14,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
+import com.dbsh.skup.adapter.LecturePlanDetailSummaryAdapter;
+import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.LecturePlanDetailSummaryFormBinding;
 import com.dbsh.skup.model.ResponseLecturePlanBookList;
@@ -23,6 +27,7 @@ import com.dbsh.skup.model.ResponseLecturePlanSummaryMap;
 import com.dbsh.skup.viewmodels.LecturePlanDetailSummaryViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LecturePlanDetailSummaryFragment extends Fragment {
 	private LecturePlanDetailSummaryFormBinding binding;
@@ -34,6 +39,10 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 	private ArrayList<TextView> lectureInfo;
 	private String subjectCd, classNumber, lectureYear, lectureTerm, professorId, lectureName;
 	String token, id;
+
+	List<LecturePlanDetailSummaryAdapter.BookItem> data;
+	public LecturePlanDetailSummaryAdapter adapter;
+	RecyclerView bookList;
 
 	UserData userData;
 
@@ -48,6 +57,7 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 
 		homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
 		lectureInfo = new ArrayList<>();
+		data = new ArrayList<>();
 
 		userData = ((UserData) getActivity().getApplication());
 
@@ -63,6 +73,14 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 			professorId = getArguments().getString("STAF_NO");
 			lectureName = getArguments().getString("LECT_NAME");
 		}
+
+		bookList = binding.lectureplanDetailSummaryRecyclerview;
+		adapter = new LecturePlanDetailSummaryAdapter(data);
+
+		LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false);
+		bookList.setLayoutManager(linearLayoutManagerWrapper);
+		bookList.setAdapter(adapter);
+
 		viewModel.getLecturePlanSummary(token, id, subjectCd, classNumber, lectureYear, lectureTerm, professorId);
 		viewModel.getLecturePlanBook(token, id, subjectCd, classNumber, lectureYear, lectureTerm, professorId);
 
@@ -358,7 +376,11 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 				binding.lectureplanDetailSummaryIsAction.setBackground((responseLecturePlanSummaryMap.getActionYn().equals("Y") ? getContext().getDrawable(R.drawable.textview_subsky_background) : getContext().getDrawable(R.drawable.textview_disable_background)));
 				binding.lectureplanDetailSummaryIsAction.setTextColor((responseLecturePlanSummaryMap.getActionYn().equals("Y") ? getContext().getColor(R.color.mainBlue) : getContext().getColor(R.color.gray3)));
 				// 평가방법
-
+				binding.lectureplanDetailSummaryMidtermExam.setText(responseLecturePlanSummaryMap.getMidExamRate() + "%");
+				binding.lectureplanDetailSummaryFinalExam.setText(responseLecturePlanSummaryMap.getFinalExamRate() + "%");
+				binding.lectureplanDetailSummaryReport.setText(responseLecturePlanSummaryMap.getReportRate() + "%");
+				binding.lectureplanDetailSummaryAttendance.setText(responseLecturePlanSummaryMap.getAttendRate() + "%");
+				binding.lectureplanDetailSummaryEtc.setText(responseLecturePlanSummaryMap.getEtcRate() + "%");
 				// 전공능력
 				binding.lectureplanDetailSummaryAbility.setText((responseLecturePlanSummaryMap.getMajorMthd() != null ? responseLecturePlanSummaryMap.getMajorMthd() : "없음"));
 				// 강의규정 또는 안내사항
@@ -371,6 +393,13 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 			public void onChanged(ArrayList<ResponseLecturePlanBookList> responseLecturePlanBookLists) {
 				for(ResponseLecturePlanBookList responseLecturePlanBookList : responseLecturePlanBookLists) {
 					// 강의 참고 교재 처리
+					data.add(new LecturePlanDetailSummaryAdapter.BookItem(
+							responseLecturePlanBookList.getBookName(),
+							responseLecturePlanBookList.getBookAuthor(),
+							responseLecturePlanBookList.getBookPubYear(),
+							responseLecturePlanBookList.getBookPubCo()
+					));
+					adapter.notifyItemInserted(data.size());
 				}
 			}
 		});

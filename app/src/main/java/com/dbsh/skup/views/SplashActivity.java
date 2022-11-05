@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
 	    /* DataBinding */
 	    binding = DataBindingUtil.setContentView(this, R.layout.splash_form);
 	    binding.setLifecycleOwner(this);
-	    viewModel = new SplashViewModel(getApplicationContext());
+	    viewModel = new SplashViewModel(getApplication());
 	    binding.setViewModel(viewModel);
 	    binding.executePendingBindings();	// 바인딩 강제 즉시실행
 
@@ -60,7 +60,6 @@ public class SplashActivity extends AppCompatActivity {
 
 	    File file = new File(getFilesDir(), fileName);
 	    if (!file.exists()) {
-		    System.out.println("파일이 존재하지 않음");
 		    try {
 			    viewModel.getFile();
 			    constraintLayout.startAnimation(animFadeIn);

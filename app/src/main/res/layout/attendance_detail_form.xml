@@ -101,6 +101,7 @@
                     android:text="출석"
                     android:textSize="14dp"
                     android:textStyle="bold"
+                    android:textColor="@color/gray2"
                     android:fontFamily="@font/roboto"/>
 
                 <ImageView
@@ -121,6 +122,7 @@
                     android:text="지각"
                     android:textSize="14dp"
                     android:textStyle="bold"
+                    android:textColor="@color/gray2"
                     android:fontFamily="@font/roboto"/>
 
                 <ImageView
@@ -141,6 +143,7 @@
                     android:text="결석"
                     android:textSize="14dp"
                     android:textStyle="bold"
+                    android:textColor="@color/gray2"
                     android:fontFamily="@font/roboto"/>
             </GridLayout>
 

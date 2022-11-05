@@ -74,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
 						autoLoginEdit.putString("userPw", userPw);
 						autoLoginEdit.putBoolean("checked", true);
 						autoLoginEdit.apply();
+					} else {
+						SharedPreferences auto = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
+						SharedPreferences.Editor autoLoginEdit = auto.edit();
+						autoLoginEdit.putBoolean("checked", false);
+						autoLoginEdit.apply();
 					}
 					/* 유저데이터 저장 */
 					((UserData) getApplication()).setId(responseLogin.getUserInfo().getId());
@@ -123,6 +128,25 @@ public class MainActivity extends AppCompatActivity {
 		anim.setDuration(500);
 		anim.setInterpolator(new CycleInterpolator(7));
 		return anim;
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		SharedPreferences auto = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
+		userId = auto.getString("userId", null);
+		userPw = auto.getString("userPw", null);
+		checked = auto.getBoolean("checked", false);
+
+		if(checked) {
+			binding.loginAuto.setChecked(true);
+			binding.loginID.setText(userId);
+			binding.loginPW.setText(userPw);
+		} else {
+			binding.loginAuto.setChecked(false);
+			binding.loginID.setText("");
+			binding.loginPW.setText("");
+		}
 	}
 
 	/* Back */

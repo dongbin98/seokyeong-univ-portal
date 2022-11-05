@@ -160,7 +160,8 @@ public class HomeCenterFragment extends Fragment {
                     for(int i = 0; i < 5; i++) {
 //                        for(int i = 0; i < noticeDataList.size(); i++) {  // 학교 공지사항 전체 다 가져오기
                         if (i == 0) {
-                            // 가장 최근 공지 저장하기
+                            // 가장 최근 공지 저장하기(0)
+	                        // 테스트로 최근 공지 바로 아래 저장하기(1)
                             SharedPreferences.Editor currentNotice = notice.edit();
                             String url = noticeDataList.get(i).getUrl();
                             currentNotice.putString("noticeUrl", url);
