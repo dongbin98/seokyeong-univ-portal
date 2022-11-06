@@ -1,6 +1,8 @@
 package com.dbsh.skup.views;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,7 +120,6 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 
 					entries.add(new Entry(i, y));
 				}
-
 				LineDataSet lineDataSet = new LineDataSet(entries, null);
 				// 선 두께
 				lineDataSet.setLineWidth(2);
@@ -150,6 +151,11 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 				xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 				xAxis.setTextSize(8);
 				xAxis.setTextColor(getContext().getColor(R.color.gray2));
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+					xAxis.setTypeface(getResources().getFont(R.font.roboto));
+				} else {
+					xAxis.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/roboto.ttf"));
+				}
 				xAxis.setGridColor(getContext().getColor(R.color.gray2));
 				xAxis.setDrawGridLines(false);
 				xAxis.setDrawAxisLine(false);
@@ -159,6 +165,11 @@ public class GradeAllFragment extends Fragment implements OnBackPressedListener 
 				yLAxis.setValueFormatter(new XAxisFormatter());
 				yLAxis.setTextSize(10);
 				yLAxis.setTextColor(getContext().getColor(R.color.gray2));
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+					yLAxis.setTypeface(getResources().getFont(R.font.roboto));
+				} else {
+					yLAxis.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/roboto.ttf"));
+				}
 				yLAxis.setAxisMinimum(0);
 				yLAxis.setAxisMaximum(4.5f);
 				yLAxis.setLabelCount(3);

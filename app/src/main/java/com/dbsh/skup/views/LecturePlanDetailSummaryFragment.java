@@ -1,6 +1,7 @@
 package com.dbsh.skup.views;
 
 import android.annotation.SuppressLint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,21 +11,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.LecturePlanDetailSummaryAdapter;
-import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.LecturePlanDetailSummaryFormBinding;
 import com.dbsh.skup.model.ResponseLecturePlanBookList;
 import com.dbsh.skup.model.ResponseLecturePlanSummaryMap;
+import com.dbsh.skup.mpandroidchart.YValueFormatter;
 import com.dbsh.skup.viewmodels.LecturePlanDetailSummaryViewModel;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +50,8 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 	List<LecturePlanDetailSummaryAdapter.BookItem> data;
 	public LecturePlanDetailSummaryAdapter adapter;
 	RecyclerView bookList;
+
+	final int[] colors = {R.color.timetableitem3, R.color.mainBlue, R.color.timetableitem4, R.color.timetableitem5, R.color.timetableitem6,};
 
 	UserData userData;
 
@@ -77,9 +86,10 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 		bookList = binding.lectureplanDetailSummaryRecyclerview;
 		adapter = new LecturePlanDetailSummaryAdapter(data);
 
-		LinearLayoutManagerWrapper linearLayoutManagerWrapper = new LinearLayoutManagerWrapper(getContext(), LinearLayoutManager.VERTICAL, false);
-		bookList.setLayoutManager(linearLayoutManagerWrapper);
+		GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+		bookList.setLayoutManager(gridLayoutManager);
 		bookList.setAdapter(adapter);
+		bookList.addItemDecoration(new SpaceItemDecoration(int2dp(16)));
 
 		viewModel.getLecturePlanSummary(token, id, subjectCd, classNumber, lectureYear, lectureTerm, professorId);
 		viewModel.getLecturePlanBook(token, id, subjectCd, classNumber, lectureYear, lectureTerm, professorId);
@@ -376,11 +386,58 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 				binding.lectureplanDetailSummaryIsAction.setBackground((responseLecturePlanSummaryMap.getActionYn().equals("Y") ? getContext().getDrawable(R.drawable.textview_subsky_background) : getContext().getDrawable(R.drawable.textview_disable_background)));
 				binding.lectureplanDetailSummaryIsAction.setTextColor((responseLecturePlanSummaryMap.getActionYn().equals("Y") ? getContext().getColor(R.color.mainBlue) : getContext().getColor(R.color.gray3)));
 				// 평가방법
-				binding.lectureplanDetailSummaryMidtermExam.setText(responseLecturePlanSummaryMap.getMidExamRate() + "%");
-				binding.lectureplanDetailSummaryFinalExam.setText(responseLecturePlanSummaryMap.getFinalExamRate() + "%");
-				binding.lectureplanDetailSummaryReport.setText(responseLecturePlanSummaryMap.getReportRate() + "%");
-				binding.lectureplanDetailSummaryAttendance.setText(responseLecturePlanSummaryMap.getAttendRate() + "%");
-				binding.lectureplanDetailSummaryEtc.setText(responseLecturePlanSummaryMap.getEtcRate() + "%");
+				binding.lectureplanDetailSummaryChart.setDrawHoleEnabled(false);
+				binding.lectureplanDetailSummaryChart.setUsePercentValues(true);
+				binding.lectureplanDetailSummaryChart.setEntryLabelTextSize(14);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+					binding.lectureplanDetailSummaryChart.setEntryLabelTypeface(getResources().getFont(R.font.roboto));
+				} else {
+					binding.lectureplanDetailSummaryChart.setEntryLabelTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/roboto.ttf"));
+				}
+				binding.lectureplanDetailSummaryChart.setEntryLabelColor(getContext().getColor(R.color.onlyWhite));	// 이거 적용 안됨
+				binding.lectureplanDetailSummaryChart.getDescription().setEnabled(false);
+				binding.lectureplanDetailSummaryChart.setExtraOffsets(5, 10, 5, 5);
+				binding.lectureplanDetailSummaryChart.setDragDecelerationFrictionCoef(0.95f);
+				binding.lectureplanDetailSummaryChart.setHoleColor(R.color.white);
+				binding.lectureplanDetailSummaryChart.setTransparentCircleRadius(61f);
+
+				Legend legend = binding.lectureplanDetailSummaryChart.getLegend();
+				legend.setEnabled(false);
+
+				ArrayList<PieEntry> yValues = new ArrayList<>();
+				if(!responseLecturePlanSummaryMap.getMidExamRate().equals("0"))
+					yValues.add(new PieEntry(Float.parseFloat(responseLecturePlanSummaryMap.getMidExamRate()), "중간고사"));
+				if(!responseLecturePlanSummaryMap.getFinalExamRate().equals("0"))
+					yValues.add(new PieEntry(Float.parseFloat(responseLecturePlanSummaryMap.getFinalExamRate()), "기말고사"));
+				if(!responseLecturePlanSummaryMap.getReportRate().equals("0"))
+					yValues.add(new PieEntry(Float.parseFloat(responseLecturePlanSummaryMap.getReportRate()), "과제"));
+				if(!responseLecturePlanSummaryMap.getAttendRate().equals("0"))
+					yValues.add(new PieEntry(Float.parseFloat(responseLecturePlanSummaryMap.getAttendRate()), "출결"));
+				if(!responseLecturePlanSummaryMap.getEtcRate().equals("0"))
+					yValues.add(new PieEntry(Float.parseFloat(responseLecturePlanSummaryMap.getEtcRate()), "기타"));
+
+				PieDataSet dataSet = new PieDataSet(yValues, "scores");
+//				dataSet.setSliceSpace(1f);
+				dataSet.setSelectionShift(5f);
+				dataSet.setColors(colors, getContext());
+
+				PieData data = new PieData(dataSet);
+				dataSet.setDrawValues(true);
+				data.setValueFormatter(new YValueFormatter());
+				data.setValueTextSize(16);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+					data.setValueTypeface(getResources().getFont(R.font.roboto));
+				} else {
+					data.setValueTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/roboto.ttf"));
+				}
+				data.setValueTextColor(getContext().getColor(R.color.onlyWhite));	// 얘도 적용 안됨
+
+//				((PieChartRenderer) binding.lectureplanDetailSummaryChart.getRenderer()).getPaintEntryLabels().setColor(Color.WHITE);
+//				binding.lectureplanDetailSummaryChart.setEntryLabelColor(R.color.onlyWhite);
+				binding.lectureplanDetailSummaryChart.setData(data);
+				binding.lectureplanDetailSummaryChart.invalidate();
+				binding.lectureplanDetailSummaryChart.animateY(1000, Easing.EaseInOutCubic);
+
 				// 전공능력
 				binding.lectureplanDetailSummaryAbility.setText((responseLecturePlanSummaryMap.getMajorMthd() != null ? responseLecturePlanSummaryMap.getMajorMthd() : "없음"));
 				// 강의규정 또는 안내사항
@@ -409,5 +466,25 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 
 	public int int2dp(int value) {
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics());
+	}
+
+	public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+		private int spacing;
+
+		public SpaceItemDecoration(int spacing) {
+			this.spacing = spacing;
+		}
+
+		@Override
+		public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+			super.getItemOffsets(outRect, view, parent, state);
+			int index = ((GridLayoutManager.LayoutParams) view.getLayoutParams()).getSpanIndex();
+			int position = parent.getChildLayoutPosition(view);
+			if(index == 0) {
+				outRect.right = spacing / 2;
+			} else {
+				outRect.left = spacing / 2;
+			}
+		}
 	}
 }

@@ -184,6 +184,8 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
             @Override
             public void onClick(View view) {
                 timetableBtn.setClickable(false);
+                data.clear();
+                adapter.notifyDataSetChanged();
                 for(TextView tv : timetableItems) {
                     binding.timetableConstraintlayout.removeView(tv);
                 }
