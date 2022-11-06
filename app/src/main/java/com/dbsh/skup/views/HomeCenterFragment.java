@@ -102,13 +102,16 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeQuickBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url", "https://www.skuniv.ac.kr/academic_calendar");
+                startActivity(intent);
             }
         });
-        // QR
+        // 시간표
         binding.mainHomeQuickBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-	            homeCenterContainer.pushFragment(HomeCenterFragment, new QrcodeFragment(), bundle);
+                homeCenterContainer.pushFragment(HomeCenterFragment, new TimeTableFragment(), bundle);
 			}
         });
         // Portal

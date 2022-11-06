@@ -1,5 +1,6 @@
 package com.dbsh.skup.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +50,7 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuTimetableBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeLeftContainer.pushFragment(HomeLeftFragment, new TimeTableFragment(), null);
+                homeLeftContainer.pushFragment(HomeLeftFragment, new TimeTableFragment(), bundle);
             }
         });
 
@@ -93,19 +94,23 @@ public class HomeLeftFragment extends Fragment {
             }
         });
 
-        // 비교과 버튼
+        // 학사일정 버튼
         binding.mainMenuPotenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                homeLeftContainer.pushFragment(HomeLeftFragment, new NonLectureFragment(), null);
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url", "https://www.skuniv.ac.kr/academic_calendar");
+                startActivity(intent);
             }
         });
 
-        // QR 버튼
+        // 포탈 버튼
         binding.mainMenuQrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeLeftContainer.pushFragment(HomeLeftFragment, new QrcodeFragment(), bundle);
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url", "https://sportal.skuniv.ac.kr");
+                startActivity(intent);
             }
         });
 

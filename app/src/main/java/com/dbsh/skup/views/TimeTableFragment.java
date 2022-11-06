@@ -42,13 +42,18 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
     private TimetableFormBinding binding;
     private TimeTableViewModel viewModel;
 
+    // this Fragment
+    private Fragment TimeTableFragment;
+
     // parent Fragment
     private HomeLeftContainer homeLeftContainer;
+    private HomeCenterContainer homeCenterContainer;
 
     private String token;
     private String id;
     private String year;
     private String term;
+    String type;
 
     private int overtime;
 
@@ -80,7 +85,15 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
 
         overtime = 0;
 
-        homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
+        if(getArguments() != null) {
+            type = getArguments().getString("type");
+        }
+
+        TimeTableFragment = this;
+        if(type.equals("left"))
+            homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
+        else if(type.equals("center"))
+            homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
 
         userData = ((UserData) getActivity().getApplication());
 
@@ -289,9 +302,15 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
     }
     @Override
     public void onBackPressed() {
-        homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-        homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
-        homeLeftContainer.popFragment();
+        if(type.equals("center")) {
+            homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+            homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
+            homeCenterContainer.popFragment();
+        } else if(type.equals("left")){
+            homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
+            homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
+            homeLeftContainer.popFragment();
+        }
     }
 
     @Override

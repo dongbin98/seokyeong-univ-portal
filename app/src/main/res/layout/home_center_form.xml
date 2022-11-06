@@ -133,7 +133,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/button_quick_qrcode"
+                android:src="@drawable/button_quick_timetable"
                 app:layout_constraintTop_toTopOf="@id/main_home_quick_btn3"
                 app:layout_constraintLeft_toLeftOf="@id/main_home_quick_btn3"
                 app:layout_constraintRight_toRightOf="@id/main_home_quick_btn3"
@@ -194,7 +194,7 @@
                 android:id="@+id/main_home_quick_text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="QR"
+                android:text="시간표"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="12dp"
