@@ -82,7 +82,7 @@ public class NoticeNotificationService extends LifecycleService {
                         int startIndex = url.indexOf("srl");
 
                         if (savedNoticeNumber < Integer.parseInt(url.substring(startIndex + 4))) {
-                            if (i == 0) {
+                            if (i == noticeData.size()-1) {
                                 // 가장 최근 공지 저장하기
                                 System.out.println("갱신된 최신 공지 : " + url.substring(startIndex + 4));
                                 currentNotice.putString("noticeUrl", url);
@@ -249,9 +249,9 @@ public class NoticeNotificationService extends LifecycleService {
                         noticeDataArrayList.sort(new Comparator<NoticeData>() {
                             @Override
                             public int compare(NoticeData noticeData, NoticeData t1) {
-                                int result = 1;
+                                int result = -1;
                                 if(noticeData.getNumber() >= t1.getNumber())
-                                    result = -1;
+                                    result = 1;
                                 return result;
                             }
                         });
