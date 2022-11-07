@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +25,25 @@ import kotlin.Suppress;
 
 public class LecturePlanDetailSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<BookItem> data;
+	ConstraintLayout hide;
     Context context;
+	boolean clickable;
+
+	// 데이터 덜 들어왔을 때 아이템 클릭 방지 메소드
+	public void setAdapterClickable(boolean clickable) {
+		this.clickable = clickable;
+	}
+
+	// 아이템 클릭 리스너 인터페이스
+	public interface OnItemClickListener{
+		void onItemClick(View v, int position); //뷰와 포지션값
+	}
+	// 리스너 객체 참조 변수
+	private LecturePlanDetailSummaryAdapter.OnItemClickListener mListener = null;
+	//리스너 객체 참조를 어댑터에 전달 메서드
+	public void setOnItemClickListener(LecturePlanDetailSummaryAdapter.OnItemClickListener listener) {
+		this.mListener = listener;
+	}
 
     public LecturePlanDetailSummaryAdapter(List<BookItem> data) {this.data = data;}
     public void dataClear() {data.clear();}
@@ -47,7 +66,7 @@ public class LecturePlanDetailSummaryAdapter extends RecyclerView.Adapter<Recycl
         if(density == 1.0)
             density *= 4.0;
         else if(density == 1.5)
-            density *= (8 / 3);
+            density *= (8.0 / 3);
         else if(density == 2.0)
             density *= 2.0;
 
@@ -78,6 +97,23 @@ public class LecturePlanDetailSummaryAdapter extends RecyclerView.Adapter<Recycl
         itemController.bookTitle.setText(item.title);
         itemController.bookAuthor.setText(item.author + "ㆍ" + item.year);
         itemController.bookPublisher.setText(item.publisher);
+		System.out.println(item.title);
+
+		if(position == 3) {
+			itemController.bookPlus.setVisibility(View.VISIBLE);
+			hide = itemController.bookPlus;
+
+			itemController.itemView.setOnClickListener (new View.OnClickListener () {
+				@Override
+				public void onClick(View view) {
+					if (position != RecyclerView.NO_POSITION){
+						if (mListener!=null && clickable){
+							mListener.onItemClick (view, position);
+						}
+					}
+				}
+			});
+		}
     }
 
     @Override
@@ -85,16 +121,26 @@ public class LecturePlanDetailSummaryAdapter extends RecyclerView.Adapter<Recycl
         return data.size();
     }
 
+	public void showHideBlock() {
+		hide.setVisibility(View.INVISIBLE);
+	}
+
     public class BookHolder extends RecyclerView.ViewHolder {
         TextView bookTitle;
         TextView bookAuthor;
         TextView bookPublisher;
+
+		ConstraintLayout book;
+	    ConstraintLayout bookPlus;
 
         public BookHolder(View itemView) {
             super(itemView);
 	        bookTitle = (TextView) itemView.findViewById(R.id.lectureplan_detail_summary_book_title);
 	        bookAuthor = (TextView) itemView.findViewById(R.id.lectuerplan_detail_summary_book_author);
 	        bookPublisher = (TextView) itemView.findViewById(R.id.lectuerplan_detail_summary_book_publisher);
+
+	        book = (ConstraintLayout) itemView.findViewById(R.id.lectureplan_detail_summary_book);
+			bookPlus = (ConstraintLayout) itemView.findViewById(R.id.lectureplan_detail_summary_book_plus);
         }
     }
 

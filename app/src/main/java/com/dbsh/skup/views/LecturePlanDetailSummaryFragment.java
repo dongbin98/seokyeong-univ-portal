@@ -5,7 +5,9 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.Suppress;
+
 public class LecturePlanDetailSummaryFragment extends Fragment {
 	private LecturePlanDetailSummaryFormBinding binding;
 	private LecturePlanDetailSummaryViewModel viewModel;
@@ -47,8 +51,8 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 	private String subjectCd, classNumber, lectureYear, lectureTerm, professorId, lectureName;
 	String token, id;
 
-	List<LecturePlanDetailSummaryAdapter.BookItem> data;
-	public LecturePlanDetailSummaryAdapter adapter;
+	List<LecturePlanDetailSummaryAdapter.BookItem> data, extraData;
+	LecturePlanDetailSummaryAdapter adapter;
 	RecyclerView bookList;
 
 	final int[] colors = {R.color.timetableitem3, R.color.mainBlue, R.color.timetableitem4, R.color.timetableitem5, R.color.timetableitem6,};
@@ -67,6 +71,7 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 		homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
 		lectureInfo = new ArrayList<>();
 		data = new ArrayList<>();
+		extraData = new ArrayList<>();
 
 		userData = ((UserData) getActivity().getApplication());
 
@@ -85,8 +90,24 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 
 		bookList = binding.lectureplanDetailSummaryRecyclerview;
 		adapter = new LecturePlanDetailSummaryAdapter(data);
+		adapter.setAdapterClickable(false);
 
-		GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+		adapter.setOnItemClickListener(new LecturePlanDetailSummaryAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View v, int position) {
+				adapter.setAdapterClickable(false);
+				adapter.showHideBlock();
+				System.out.println("여분 데이터 사이즈 : " + extraData.size());
+				for(LecturePlanDetailSummaryAdapter.BookItem bookItem : extraData) {
+					data.add(bookItem);
+					System.out.println(bookItem.getTitle());
+					adapter.notifyItemInserted(data.size());
+					System.out.println(data.size());
+				}
+			}
+		});
+
+		GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
 		bookList.setLayoutManager(gridLayoutManager);
 		bookList.setAdapter(adapter);
 		bookList.addItemDecoration(new SpaceItemDecoration(int2dp(16)));
@@ -448,16 +469,35 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 		viewModel.responseLecturePlanBookListLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<ResponseLecturePlanBookList>>() {
 			@Override
 			public void onChanged(ArrayList<ResponseLecturePlanBookList> responseLecturePlanBookLists) {
+				int i = 0;
+				data.clear();
+				extraData.clear();
+				ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getHeight(responseLecturePlanBookLists.size() / 2));
+				bookList.setLayoutParams(params);
 				for(ResponseLecturePlanBookList responseLecturePlanBookList : responseLecturePlanBookLists) {
 					// 강의 참고 교재 처리
-					data.add(new LecturePlanDetailSummaryAdapter.BookItem(
-							responseLecturePlanBookList.getBookName(),
-							responseLecturePlanBookList.getBookAuthor(),
-							responseLecturePlanBookList.getBookPubYear(),
-							responseLecturePlanBookList.getBookPubCo()
-					));
-					adapter.notifyItemInserted(data.size());
+					System.out.println(responseLecturePlanBookList.getBookName());
+					if(i < 4) {
+						System.out.println("보여줌");
+						data.add(new LecturePlanDetailSummaryAdapter.BookItem(
+								responseLecturePlanBookList.getBookName(),
+								responseLecturePlanBookList.getBookAuthor(),
+								responseLecturePlanBookList.getBookPubYear(),
+								responseLecturePlanBookList.getBookPubCo()
+						));
+						adapter.notifyItemInserted(data.size());
+					} else {
+						System.out.println("안보여줌");
+						extraData.add(new LecturePlanDetailSummaryAdapter.BookItem(
+								responseLecturePlanBookList.getBookName(),
+								responseLecturePlanBookList.getBookAuthor(),
+								responseLecturePlanBookList.getBookPubYear(),
+								responseLecturePlanBookList.getBookPubCo()
+						));
+					}
+					i++;
 				}
+				adapter.setAdapterClickable(true);
 			}
 		});
 
@@ -466,6 +506,34 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 
 	public int int2dp(int value) {
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics());
+	}
+
+	public int getHeight(int count) {
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+			Display display = getContext().getDisplay();
+			display.getRealMetrics(displayMetrics);
+		} else {
+			@Suppress(names = "DEPRECATION")
+			Display display = getActivity().getWindowManager().getDefaultDisplay();
+			display.getMetrics(displayMetrics);
+		}
+		// 화면 크기의 1/4 사이즈
+		int pixelHeight = displayMetrics.heightPixels;
+		float density = displayMetrics.density;
+
+		if(density == 1.0)
+			density *= 4.0;
+		else if(density == 1.5)
+			density *= (8.0 / 3);
+		else if(density == 2.0)
+			density *= 2.0;
+
+		int dp = (int) (pixelHeight / density);
+		System.out.println("화면 dp 높이" + dp);
+
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getContext().getResources().getDisplayMetrics()) / 4 * count;
 	}
 
 	public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
