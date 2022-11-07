@@ -33,6 +33,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +52,8 @@ public class NoticeNotificationService extends LifecycleService {
 
     public MutableLiveData<ArrayList<NoticeData>> noticeDataLiveData = new MutableLiveData<>();
 
-    public static final String CHANNEL_ID = "NoticeServiceChannel";
+    public static final String SERVICE_ID = "ForegroundServiceChannel";
+    public static final String CHANNEL_ID = "NoticeNotificationChannel";
 	public static final String GROUP_NAME = "noticeGroup";
 	public static final int SUMMARY_ID = 1215;
 
@@ -67,56 +69,61 @@ public class NoticeNotificationService extends LifecycleService {
         noticeDataLiveData.observe(this, new Observer<ArrayList<NoticeData>>() {
             @Override
             public void onChanged(ArrayList<NoticeData> noticeData) {
-                notice = getSharedPreferences("notice", Activity.MODE_PRIVATE);
-                SharedPreferences.Editor currentNotice = notice.edit();
-                int savedNoticeNumber = Integer.parseInt(notice.getString("noticeNumber", "0"));
-                int i = 0;
+                if(noticeData != null) {
+                    notice = getSharedPreferences("notice", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor currentNotice = notice.edit();
+                    int savedNoticeNumber = Integer.parseInt(notice.getString("noticeNumber", "0"));
+                    int i = 0;
+                    int j = 0;
 
-                System.out.println("저장된 최신 공지 : " + savedNoticeNumber);
-                for (NoticeData notice : noticeData) {
-                    String url = notice.getUrl();
-                    int startIndex = url.indexOf("srl");
+                    System.out.println("저장된 최신 공지 : " + savedNoticeNumber);
+                    for (NoticeData notice : noticeData) {
+                        String url = notice.getUrl();
+                        int startIndex = url.indexOf("srl");
 
-                    if(savedNoticeNumber < Integer.parseInt(url.substring(startIndex+4))) {
-                        if(i == 0) {
-                            // 가장 최근 공지 저장하기
-                            currentNotice.putString("noticeUrl", url);
-                            currentNotice.putString("noticeNumber", url.substring(startIndex+4));
-                            currentNotice.apply();
+                        if (savedNoticeNumber < Integer.parseInt(url.substring(startIndex + 4))) {
+                            if (i == 0) {
+                                // 가장 최근 공지 저장하기
+                                System.out.println("갱신된 최신 공지 : " + url.substring(startIndex + 4));
+                                currentNotice.putString("noticeUrl", url);
+                                currentNotice.putString("noticeNumber", url.substring(startIndex + 4));
+                                currentNotice.apply();
+                            }
+                            System.out.println("공지 출력 : " + url.substring(startIndex + 4));
+                            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                            createNotificationChannel();
+                            // 클릭 시 해당 공지사항 사이트로 이동
+                            Intent notificationIntent = new Intent(Intent.ACTION_VIEW);
+                            notificationIntent.setData(Uri.parse(notice.getUrl()));
+                            PendingIntent pendingIntent;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                            } else {
+                                pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            }
+                            notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                                    .setContentTitle("[" + notice.getType() + "] " + notice.getTitle())
+                                    .setSmallIcon(R.mipmap.ic_skup_logo)
+                                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
+                                    .setOnlyAlertOnce(true)
+                                    .setAutoCancel(true)
+                                    .setContentIntent(pendingIntent)
+                                    .setGroup(GROUP_NAME)
+                                    .build();
+                            notificationManager.notify(notificationId++, notification);
+                            j++;
                         }
-                        System.out.println("공지 출력 : " + url.substring(startIndex+4));
-                        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                        createNotificationChannel();
-						// 클릭 시 해당 공지사항 사이트로 이동
-                        Intent notificationIntent = new Intent(Intent.ACTION_VIEW);
-						notificationIntent.setData(Uri.parse(notice.getUrl()));
-						PendingIntent pendingIntent;
-	                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-		                    pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-	                    } else {
-		                    pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-	                    }
-                        notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                                .setContentTitle("[" + notice.getType() + "] " + notice.getTitle())
-                                .setSmallIcon(R.mipmap.ic_skup_logo)
-                                .setDefaults(Notification.DEFAULT_SOUND)
-                                .setOnlyAlertOnce(true)
-                                .setAutoCancel(true)
-		                        .setContentIntent(pendingIntent)
-		                        .setGroup(GROUP_NAME)
-                                .build();
-                        notificationManager.notify(notificationId++, notification);
+                        i++;
                     }
-                    i++;
+                    if(j > 0) {
+                        Notification summaryNotification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                                .setSmallIcon(R.mipmap.ic_skup_logo)
+                                .setGroup(GROUP_NAME)
+                                .setGroupSummary(true)
+                                .build();
+                        notificationManager.notify(SUMMARY_ID, summaryNotification);
+                    }
                 }
-				Notification summaryNotification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-						.setContentTitle("새 공지사항이 왔어요")
-						.setSmallIcon(R.mipmap.ic_skup_logo)
-						.setDefaults(Notification.DEFAULT_SOUND)
-						.setGroup(GROUP_NAME)
-						.setGroupSummary(true)
-						.build();
-				notificationManager.notify(SUMMARY_ID, summaryNotification);
             }
         });
     }
@@ -155,15 +162,13 @@ public class NoticeNotificationService extends LifecycleService {
 
 	public void startService() {
 		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		createNotificationChannel();
-		notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-				.setContentTitle("공지사항 알리미 작동중")
-				.setContentText("어플 설정을 통해 알리미를 끌 수 있습니다.")
+        createServiceChannel();
+		notification = new NotificationCompat.Builder(getApplicationContext(), SERVICE_ID)
+				.setContentTitle("공지사항 알림이")
+				.setContentText("어플 설정을 통해 알림이를 끌 수 있습니다.")
 				.setSmallIcon(R.mipmap.ic_skup_logo)
-				.setDefaults(Notification.DEFAULT_SOUND)
 				.setOnlyAlertOnce(true)
 				.setAutoCancel(true)
-				.setGroup(GROUP_NAME)
 				.build();
 
 		startForeground(981215, notification);
@@ -187,13 +192,27 @@ public class NoticeNotificationService extends LifecycleService {
         }
     }
 
+    public void createServiceChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    SERVICE_ID,
+                    "Foreground Service Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            serviceChannel.setShowBadge(false);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
+    }
+
     public void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID,
-                    "Foreground Service Channel",
+                    "Notification Channel",
                     NotificationManager.IMPORTANCE_DEFAULT
             );
+            serviceChannel.setShowBadge(true);
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(serviceChannel);
         }
@@ -227,6 +246,15 @@ public class NoticeNotificationService extends LifecycleService {
                             noticeData.setUrl(e.select(".title").select("a").attr("href"));
                             noticeDataArrayList.add(noticeData);
                         }
+                        noticeDataArrayList.sort(new Comparator<NoticeData>() {
+                            @Override
+                            public int compare(NoticeData noticeData, NoticeData t1) {
+                                int result = 1;
+                                if(noticeData.getNumber() >= t1.getNumber())
+                                    result = -1;
+                                return result;
+                            }
+                        });
                         noticeDataLiveData.setValue(noticeDataArrayList);
                     }
                 }
