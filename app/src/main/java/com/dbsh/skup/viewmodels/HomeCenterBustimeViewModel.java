@@ -61,16 +61,11 @@ public class HomeCenterBustimeViewModel {
 
     // for Json File
     int COUNT = 0;
-    final String fileName = "station.json";
+    final String file1164 = "1164.json";
+    final String file2115 = "2115.json";
 
     public HomeCenterBustimeViewModel(Context context) {
         this.context = context;
-//        location1164.setValue("");
-//        location2115.setValue("");
-//        arriveFirst1164.setValue("");
-//        arriveFirst2115.setValue("");
-//        arriveSecond1164.setValue("");
-//        arriveSecond2115.setValue("");
     }
 
     public void getArrive(String stationId, String routeId, String seq) {
@@ -122,92 +117,113 @@ public class HomeCenterBustimeViewModel {
         System.out.println("거리는 = " + myDistance);
 
         // 정류장 정보 파일에서 읽어오기
-        File file = new File(context.getFilesDir(), fileName);
-        if(!file.exists())
-            return;
-        JSONObject result = new JSONObject();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            StringBuilder sb = new StringBuilder();
-            String str;
-            while ((str = reader.readLine()) != null) {
-                sb.append(str);
+        File f1164 = new File(context.getFilesDir(), file1164);
+        JSONObject result1 = null;
+        if(f1164.exists()) {
+            result1 = new JSONObject();
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(f1164));
+                StringBuilder sb = new StringBuilder();
+                String str;
+                while ((str = reader.readLine()) != null) {
+                    sb.append(str);
+                }
+                reader.close();
+                JSONObject stationJson = new JSONObject(sb.toString());
+                result1 = stationJson;
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
             }
-            reader.close();
-            JSONObject stationJson = new JSONObject(sb.toString());
-            result = stationJson;
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
+        }
+
+        File f2115 = new File(context.getFilesDir(), file2115);
+        JSONObject result2 = null;
+        if(f2115.exists()) {
+            result2 = new JSONObject();
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(f2115));
+                StringBuilder sb = new StringBuilder();
+                String str;
+                while ((str = reader.readLine()) != null) {
+                    sb.append(str);
+                }
+                reader.close();
+                JSONObject stationJson2 = new JSONObject(sb.toString());
+                result2 = stationJson2;
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         // 최인접 정류장 버스 도착시간 체크
 		try {
 			// 1164
-			distance = 5000;
-			JSONArray jsonArray = result.getJSONArray("LIST");
-			int cnt = Integer.parseInt(result.get("COUNT").toString());
-			for(int i = 0; i < cnt; i++) {
-				// 내 거리가 한계치보다 멀면 학교로 가는 버스 도착시간 알려줌
-				if (myDistance > limitedDistance && jsonArray.getJSONObject(i).get("routeId").equals("100100171") &&
-						jsonArray.getJSONObject(i).get("direction").equals(direction1164Sku)) {
-                    busType.setValue("실시간 등교버스");
-					double x = Double.parseDouble(jsonArray.getJSONObject(i).get("posX").toString());
-					double y = Double.parseDouble(jsonArray.getJSONObject(i).get("posY").toString());
-					double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
-					if (distance > d) {
-						distance = d;
-                        location1164.setValue(jsonArray.getJSONObject(i).get("stationName").toString());
-						shortestStationId = jsonArray.getJSONObject(i).get("stationId").toString();
-						shortestStationSeq = jsonArray.getJSONObject(i).get("sequence").toString();
-					}
-				}
-				// 내 거리가 한계치보다 가까우면 집으로 가는 버스 도착시간 알려줌
-				else if (myDistance <= limitedDistance && jsonArray.getJSONObject(i).get("routeId").equals("100100171") &&
-						jsonArray.getJSONObject(i).get("direction").equals(direction1164Garage)) {
-                    busType.setValue("실시간 하교버스");
-					double x = Double.parseDouble(jsonArray.getJSONObject(i).get("posX").toString());
-					double y = Double.parseDouble(jsonArray.getJSONObject(i).get("posY").toString());
-					double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
-					//System.out.printf("%d번째 조회 : %s정거장(%f, %f)에서 내 거리는 %f입니다.\n", i, jsonArray.getJSONObject(i).get("stationName").toString(), x, y, d);
-					if (distance > d) {
-						distance = d;
-                        location1164.setValue(jsonArray.getJSONObject(i).get("stationName").toString());
-						shortestStationId = jsonArray.getJSONObject(i).get("stationId").toString();
-						shortestStationSeq = jsonArray.getJSONObject(i).get("sequence").toString();
-					}
-				}
-			}
-			getArrive(shortestStationId, "100100171", shortestStationSeq);
+            if(f1164.exists()) {
+                distance = 5000;
+                JSONArray jsonArray1 = result1.getJSONArray("LIST");
+                int cnt1 = Integer.parseInt(result1.get("COUNT").toString());
+                for (int i = 0; i < cnt1; i++) {
+                    // 내 거리가 한계치보다 멀면 학교로 가는 버스 도착시간 알려줌
+                    if (myDistance > limitedDistance && jsonArray1.getJSONObject(i).get("direction").equals(direction1164Sku)) {
+                        busType.setValue("실시간 등교버스");
+                        double x = Double.parseDouble(jsonArray1.getJSONObject(i).get("posX").toString());
+                        double y = Double.parseDouble(jsonArray1.getJSONObject(i).get("posY").toString());
+                        double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
+                        if (distance > d) {
+                            distance = d;
+                            location1164.setValue(jsonArray1.getJSONObject(i).get("stationName").toString());
+                            shortestStationId = jsonArray1.getJSONObject(i).get("stationId").toString();
+                            shortestStationSeq = jsonArray1.getJSONObject(i).get("sequence").toString();
+                        }
+                    }
+                    // 내 거리가 한계치보다 가까우면 집으로 가는 버스 도착시간 알려줌
+                    else if (myDistance <= limitedDistance && jsonArray1.getJSONObject(i).get("direction").equals(direction1164Garage)) {
+                        busType.setValue("실시간 하교버스");
+                        double x = Double.parseDouble(jsonArray1.getJSONObject(i).get("posX").toString());
+                        double y = Double.parseDouble(jsonArray1.getJSONObject(i).get("posY").toString());
+                        double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
+                        //System.out.printf("%d번째 조회 : %s정거장(%f, %f)에서 내 거리는 %f입니다.\n", i, jsonArray.getJSONObject(i).get("stationName").toString(), x, y, d);
+                        if (distance > d) {
+                            distance = d;
+                            location1164.setValue(jsonArray1.getJSONObject(i).get("stationName").toString());
+                            shortestStationId = jsonArray1.getJSONObject(i).get("stationId").toString();
+                            shortestStationSeq = jsonArray1.getJSONObject(i).get("sequence").toString();
+                        }
+                    }
+                }
+                getArrive(shortestStationId, "100100171", shortestStationSeq);
+            }
 
 			// 2115
-			distance = 5000;
-			for(int i = 0; i < cnt; i++) {
-				if(myDistance > limitedDistance && jsonArray.getJSONObject(i).get("routeId").equals("100100598") &&
-						jsonArray.getJSONObject(i).get("direction").equals(direction2115Sku)) {
-					double x = Double.parseDouble(jsonArray.getJSONObject(i).get("posX").toString());
-					double y = Double.parseDouble(jsonArray.getJSONObject(i).get("posY").toString());
-					double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
-					if(distance > d) {
-						distance = d;
-                        location2115.setValue(jsonArray.getJSONObject(i).get("stationName").toString());
-						shortestStationId = jsonArray.getJSONObject(i).get("stationId").toString();
-						shortestStationSeq = jsonArray.getJSONObject(i).get("sequence").toString();
-					}
-				}
-				else if(myDistance <= limitedDistance && jsonArray.getJSONObject(i).get("routeId").equals("100100598") &&
-						jsonArray.getJSONObject(i).get("direction").equals(direction2115Garage)) {
-					double x = Double.parseDouble(jsonArray.getJSONObject(i).get("posX").toString());
-					double y = Double.parseDouble(jsonArray.getJSONObject(i).get("posY").toString());
-					double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
-					if(distance > d) {
-						distance = d;
-                        location2115.setValue(jsonArray.getJSONObject(i).get("stationName").toString());
-						shortestStationId = jsonArray.getJSONObject(i).get("stationId").toString();
-						shortestStationSeq = jsonArray.getJSONObject(i).get("sequence").toString();
-					}
-				}
-			}
-			getArrive(shortestStationId, "100100598", shortestStationSeq);
+            if(f2115.exists()) {
+                distance = 5000;
+                JSONArray jsonArray2 = result2.getJSONArray("LIST");
+                int cnt2 = Integer.parseInt(result2.get("COUNT").toString());
+                for (int i = 0; i < cnt2; i++) {
+                    if (myDistance > limitedDistance && jsonArray2.getJSONObject(i).get("direction").equals(direction2115Sku)) {
+                        double x = Double.parseDouble(jsonArray2.getJSONObject(i).get("posX").toString());
+                        double y = Double.parseDouble(jsonArray2.getJSONObject(i).get("posY").toString());
+                        double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
+                        if (distance > d) {
+                            distance = d;
+                            location2115.setValue(jsonArray2.getJSONObject(i).get("stationName").toString());
+                            shortestStationId = jsonArray2.getJSONObject(i).get("stationId").toString();
+                            shortestStationSeq = jsonArray2.getJSONObject(i).get("sequence").toString();
+                        }
+                    } else if (myDistance <= limitedDistance && jsonArray2.getJSONObject(i).get("direction").equals(direction2115Garage)) {
+                        double x = Double.parseDouble(jsonArray2.getJSONObject(i).get("posX").toString());
+                        double y = Double.parseDouble(jsonArray2.getJSONObject(i).get("posY").toString());
+                        double d = Math.sqrt(Math.pow(x - myGpsX, 2) + Math.pow(y - myGpsY, 2));
+                        if (distance > d) {
+                            distance = d;
+                            location2115.setValue(jsonArray2.getJSONObject(i).get("stationName").toString());
+                            shortestStationId = jsonArray2.getJSONObject(i).get("stationId").toString();
+                            shortestStationSeq = jsonArray2.getJSONObject(i).get("sequence").toString();
+                        }
+                    }
+                }
+                getArrive(shortestStationId, "100100598", shortestStationSeq);
+            }
 
 		} catch (JSONException e) {
 			e.printStackTrace();

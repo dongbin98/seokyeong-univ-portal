@@ -4,18 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.SplashFormBinding;
+import com.dbsh.skup.model.ResponseStationItem;
 import com.dbsh.skup.viewmodels.SplashViewModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -26,7 +30,10 @@ public class SplashActivity extends AppCompatActivity {
 	SplashViewModel viewModel;
 
 	// for Json File
-	final String fileName = "station.json";
+    final String file1164 = "1164.json";
+    final String file2115 = "2115.json";
+    int routeUpdate;
+    boolean fileExist = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +56,8 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                if(fileExist)
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
             }
 
             @Override
@@ -58,16 +66,79 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
-	    File file = new File(getFilesDir(), fileName);
-	    if (!file.exists()) {
-		    try {
-			    viewModel.getFile();
-			    constraintLayout.startAnimation(animFadeIn);
-		    } catch (IOException e) {
-			    e.printStackTrace();
-		    }
-	    } else {
-		    constraintLayout.startAnimation(animFadeIn);
-	    }
+        routeUpdate = 0;
+
+        File f1164 = new File(getFilesDir(), file1164);
+        File f2115 = new File(getFilesDir(), file2115);
+
+        if(!f1164.exists() && !f2115.exists()) {
+            viewModel.getStaton1164();
+            viewModel.getStaton2115();
+        } else if(!f1164.exists() && f2115.exists()) {
+            routeUpdate++;
+            viewModel.getStaton1164();
+        } else if(f1164.exists() && !f2115.exists()) {
+            routeUpdate++;
+            viewModel.getStaton2115();
+        } else {
+            fileExist = true;
+        }
+        constraintLayout.startAnimation(animFadeIn);
+
+        viewModel.station1164.observe(binding.getLifecycleOwner(), new Observer<List<ResponseStationItem>>() {
+            @Override
+            public void onChanged(List<ResponseStationItem> responseStationItems) {
+                if(responseStationItems == null) {
+                    Toast.makeText(getApplicationContext(), "1164번 노선정보를 불러오지 못했습니다 마이페이지를 통해 갱신해주세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        viewModel.write1164File(viewModel.makeJson(responseStationItems, "1164"));
+                    } catch (IOException e) {
+                        Toast.makeText(getApplicationContext(), "1164번 노선정보를 불러오지 못했습니다 마이페이지를 통해 갱신해주세요", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        viewModel.station2115.observe(binding.getLifecycleOwner(), new Observer<List<ResponseStationItem>>() {
+            @Override
+            public void onChanged(List<ResponseStationItem> responseStationItems) {
+                if(responseStationItems == null) {
+                    Toast.makeText(getApplicationContext(), "2115번 노선정보를 불러오지 못했습니다 마이페이지를 통해 갱신해주세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        viewModel.write2115File(viewModel.makeJson(responseStationItems, "2115"));
+                    } catch (IOException e) {
+                        Toast.makeText(getApplicationContext(), "2115번 노선정보를 불러오지 못했습니다 마이페이지를 통해 갱신해주세요", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        viewModel.file1164State.observe(binding.getLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                routeUpdate++;
+                if(s.equals("F")) {
+                    Toast.makeText(getApplicationContext(), "1164번 노선정보를 불러오지 못했습니다 마이페이지를 통해 갱신해주세요", Toast.LENGTH_SHORT).show();
+                }
+                if(routeUpdate == 2) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                }
+            }
+        });
+
+        viewModel.file2115State.observe(binding.getLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                routeUpdate++;
+                if(s.equals("F")) {
+                    Toast.makeText(getApplicationContext(), "2115번 노선정보를 불러오지 못했습니다 마이페이지를 통해 갱신해주세요", Toast.LENGTH_SHORT).show();
+                }
+                if(routeUpdate == 2) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                }
+            }
+        });
     }
 }

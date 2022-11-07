@@ -60,6 +60,13 @@ public class HomeRightContainer extends Fragment implements OnBackPressedListene
 		beforeFragments.remove(beforeFragments.size()-1);
 	}
 
+	public void popFragmentAll() {
+		for (int i = 0; i < beforeFragments.size(); i++) {
+			beforeFragments.remove(beforeFragments.size()-1);
+		}
+		getChildFragmentManager().beginTransaction().show(beforeFragments.get(beforeFragments.size()-1)).commit();
+	}
+
 	@Override
 	public void onBackPressed() {
 		List<Fragment> childFragments = getChildFragmentManager().getFragments();

@@ -3,6 +3,7 @@ package com.dbsh.skup.viewmodels;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.api.BusApi;
@@ -18,11 +19,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import needle.Needle;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashViewModel extends ViewModel {
 
@@ -33,8 +36,17 @@ public class SplashViewModel extends ViewModel {
 	private Context context;
 
 	// for Json File
-	int COUNT = 0;
-	final String fileName = "station.json";
+	int COUNT1 = 0;
+	int COUNT2 = 0;
+	final String file1164 = "1164.json";
+	final String file2115 = "2115.json";
+
+	// LiveData
+	public MutableLiveData<List<ResponseStationItem>> station1164 = new MutableLiveData<>();
+	public MutableLiveData<List<ResponseStationItem>> station2115 = new MutableLiveData<>();
+
+	public MutableLiveData<String> file1164State = new MutableLiveData<>();
+	public MutableLiveData<String> file2115State = new MutableLiveData<>();
 
 	// Retrofit Client
 	public BusApi busApi;
@@ -43,50 +55,71 @@ public class SplashViewModel extends ViewModel {
 		this.context = application.getApplicationContext();
 	}
 
-
-	public void getFile() throws IOException {
-		Needle.onBackgroundThread().serially().execute(new Runnable() {
+	public void getStaton1164() {
+		BusRepository retrofitBusClient = BusRepository.getInstance();
+		Map<String, String> query = new HashMap<>();
+		query.put("serviceKey", serviceKey);
+		query.put("busRouteId", "100100171");
+		busApi = BusRepository.getBusApi();
+		busApi.getStationData(query).enqueue(new Callback<ResponseStation>() {
 			@Override
-			public void run() {
-				try {
-					ArrayList<ResponseStationItem> stations = getStation("100100171");  // 1164
-					stations.addAll(getStation("100100598"));  // 2115
-					writeFile(makeJson(stations));
-				} catch (IOException e) {
-					e.printStackTrace();
+			public void onResponse(Call<ResponseStation> call, Response<ResponseStation> response) {
+				if(response.isSuccessful()) {
+					if(response.body().getHeader().getHeaderCd().equals("0")) {
+						station1164.setValue(response.body().getBody().getItems());
+					} else {
+						station1164.setValue(null);
+					}
+				} else {
+					station1164.setValue(null);
 				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseStation> call, Throwable t) {
+				station1164.setValue(null);
 			}
 		});
 	}
 
-	private ArrayList<ResponseStationItem> getStation(String busRouteId) throws IOException {
+	public void getStaton2115() {
 		BusRepository retrofitBusClient = BusRepository.getInstance();
-		ArrayList<ResponseStationItem> stations = new ArrayList<>();
+		Map<String, String> query = new HashMap<>();
+		query.put("serviceKey", serviceKey);
+		query.put("busRouteId", "100100598");
+		busApi = BusRepository.getBusApi();
+		busApi.getStationData(query).enqueue(new Callback<ResponseStation>() {
+			@Override
+			public void onResponse(Call<ResponseStation> call, Response<ResponseStation> response) {
+				if(response.isSuccessful()) {
+					if(response.body().getHeader().getHeaderCd().equals("0")) {
+						station2115.setValue(response.body().getBody().getItems());
+					} else {
+						station2115.setValue(null);
+					}
+				} else {
+					station2115.setValue(null);
+				}
+			}
 
-		if(retrofitBusClient != null) {
-
-			Map<String, String> query = new HashMap<>();
-			query.put("serviceKey", serviceKey);
-			query.put("busRouteId", busRouteId);
-
-			busApi = BusRepository.getBusApi();
-
-			// 파일생성전에 데이터가 다 만들어져야 하기때문에 동기식으로 call
-			ResponseStation station = busApi.getStationData(query).execute().body();
-			if(station.getHeader().getHeaderCd().equals("0"))
-				stations = (ArrayList<ResponseStationItem>) station.getBody().getItems();
-			else
-				stations = null;
-		}
-		return stations;
+			@Override
+			public void onFailure(Call<ResponseStation> call, Throwable t) {
+				station2115.setValue(null);
+			}
+		});
 	}
 
-	private JSONObject makeJson(ArrayList<ResponseStationItem> stations) {
+	public JSONObject makeJson(List<ResponseStationItem> stations, String tag) {
 		JSONObject json = new JSONObject();
 		JSONArray result = new JSONArray();
+		COUNT1 = 0;
+		COUNT2 = 0;
 		try {
 			for (ResponseStationItem station : stations) {
-				COUNT++;
+				if(tag.equals("1164"))
+					COUNT1++;
+				else
+					COUNT2++;
 				JSONObject jsonObject = new JSONObject();
 				jsonObject.put("routeId", station.getRouteId());
 				jsonObject.put("stationId", station.getStationId());
@@ -97,26 +130,36 @@ public class SplashViewModel extends ViewModel {
 				jsonObject.put("direction", station.getDirection());
 				result.put(jsonObject);
 			}
-			json.put("COUNT", COUNT);
+			if(tag.equals("1164"))
+				json.put("COUNT", COUNT1);
+			else
+				json.put("COUNT", COUNT2);
 			json.put("LIST", result);
 			return json;
 		} catch (JSONException e) {
-			e.printStackTrace();
+			if(tag.equals("1164"))
+				file1164State.setValue("F");
+			else if(tag.equals("2115"))
+				file2115State.setValue("F");
 			return null;
 		}
 	}
 
-	private void writeFile(JSONObject json) throws IOException {
-		File file = new File(context.getFilesDir(), fileName);
-		if (!file.exists()) {
-			file.createNewFile();
-		} else {
-			file.delete();
-			file.createNewFile();
-		}
+	public void write1164File(JSONObject json) throws IOException {
+		File file = new File(context.getFilesDir(), file1164);
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
 		bw.write(json.toString());
 		bw.newLine();
 		bw.close();
+		file1164State.setValue("S");
+	}
+
+	public void write2115File(JSONObject json) throws IOException {
+		File file = new File(context.getFilesDir(), file2115);
+		BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+		bw.write(json.toString());
+		bw.newLine();
+		bw.close();
+		file2115State.setValue("S");
 	}
 }

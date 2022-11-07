@@ -90,6 +90,7 @@
             android:textColor="@color/black"
             android:textColorHint="#8b8b8b"
             android:singleLine="true"
+            android:inputType="textFilter"
             android:hint="학과/부, 교과목명, 학수번호, 교수 검색"
             app:onFocusChangeListener="@{viewModel.searchFocusListener()}"
             app:layout_constraintTop_toBottomOf="@id/lectureplan_btn"

@@ -39,7 +39,8 @@ public class HomeCenterBustimeFragment extends Fragment {
 	private HomeCenterBustimeViewModel viewModel;
 
 	// for Json File
-	final String fileName = "station.json";
+	final String file1164 = "1164.json";
+	final String file2115 = "2115.json";
 
 	// refresh
 	Date date;
@@ -106,7 +107,8 @@ public class HomeCenterBustimeFragment extends Fragment {
 		});
 
 		// 정류장 정보 가져오기
-		File file = new File(getActivity().getFilesDir(), fileName);
+		File f1164 = new File(getActivity().getFilesDir(), file1164);
+		File f2115 = new File(getActivity().getFilesDir(), file2115);
 
 		fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -128,7 +130,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 					Log.d("tag", "locationResult null");
 					return;
 				}
-				if(file.exists()) {
+				if(f1164.exists() && f2115.exists()) {
 					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
 					for (Location loc : locationResult.getLocations()) {
 						myGpsX = loc.getLongitude();
@@ -139,6 +141,32 @@ public class HomeCenterBustimeFragment extends Fragment {
 						simpleDateFormat.format(date);
 						binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
 					}
+				} else if(f1164.exists() && !f2115.exists()) {
+					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
+					for (Location loc : locationResult.getLocations()) {
+						myGpsX = loc.getLongitude();
+						myGpsY = loc.getLatitude();
+						// 최인접 버스정류장 도착시간 구하기 (비동기식)
+						viewModel.updateBusArrive(myGpsX, myGpsY);
+						date = new Date(System.currentTimeMillis());
+						simpleDateFormat.format(date);
+						binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+					}
+					Toast.makeText(getActivity(), "2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
+				} else if(!f1164.exists() && f2115.exists()) {
+					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
+					for (Location loc : locationResult.getLocations()) {
+						myGpsX = loc.getLongitude();
+						myGpsY = loc.getLatitude();
+						// 최인접 버스정류장 도착시간 구하기 (비동기식)
+						viewModel.updateBusArrive(myGpsX, myGpsY);
+						date = new Date(System.currentTimeMillis());
+						simpleDateFormat.format(date);
+						binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+					}
+					Toast.makeText(getActivity(), "1164노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getActivity(), "1164, 2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
 				}
 			}
 
@@ -153,14 +181,35 @@ public class HomeCenterBustimeFragment extends Fragment {
 		binding.card3LocationRefresh.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if(file.exists()) {
+				binding.card31164LocationText.setText("");
+				binding.card31164Arrive1.setText("");
+				binding.card31164Arrive2.setText("");
+				binding.card32115LocationText.setText("");
+				binding.card32115Arrive1.setText("");
+				binding.card32115Arrive2.setText("");
+
+				if(f1164.exists() && f2115.exists()) {
 					// 클릭 시 북악관에서 내 위치까지의 거리 다시구하기
 					// 최인접 버스정류장 도착시간 구하기 (비동기식)
 					viewModel.updateBusArrive(myGpsX, myGpsY);
 					date = new Date(System.currentTimeMillis());
 					simpleDateFormat.format(date);
 					binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
-					Toast.makeText(getActivity(), "버스시간 갱신", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), "갱신되었습니다", Toast.LENGTH_SHORT).show();
+				} else if(f1164.exists() && !f2115.exists()) {
+					viewModel.updateBusArrive(myGpsX, myGpsY);
+					date = new Date(System.currentTimeMillis());
+					simpleDateFormat.format(date);
+					binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+					Toast.makeText(getActivity(), "2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
+				} else if(!f1164.exists() && f2115.exists()) {
+					viewModel.updateBusArrive(myGpsX, myGpsY);
+					date = new Date(System.currentTimeMillis());
+					simpleDateFormat.format(date);
+					binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+					Toast.makeText(getActivity(), "1164노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getActivity(), "1164, 2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

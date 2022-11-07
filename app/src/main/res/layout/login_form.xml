@@ -44,6 +44,7 @@
             android:singleLine="true"
             android:layout_marginTop="90dp"
             android:hint="학번입력"
+            android:inputType="number"
             app:onFocusChangeListener="@{viewModel.loginFocusListener()}"
             app:layout_constraintTop_toBottomOf="@id/skup_logo"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -64,7 +65,7 @@
             android:singleLine="true"
             app:onFocusChangeListener="@{viewModel.loginFocusListener()}"
             android:hint="비밀번호 입력"
-            android:password="true"
+            android:inputType="textPassword"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginID" />

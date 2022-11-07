@@ -104,6 +104,13 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 					adapter.notifyItemInserted(data.size());
 					System.out.println(data.size());
 				}
+				int count = (data.size() % 2 == 0 ? data.size() / 2 : data.size() / 2 + 1);
+				ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getHeight(count) + int2dp(count * 16));
+				params.topToBottom = binding.lectureplanDetailSummaryTitle9.getId();
+				params.topToBottom = binding.lectureplanDetailSummaryTitle9.getId();
+				params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+				params.topMargin = int2dp(16);
+				bookList.setLayoutParams(params);
 			}
 		});
 
@@ -472,8 +479,7 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 				int i = 0;
 				data.clear();
 				extraData.clear();
-				ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getHeight(responseLecturePlanBookLists.size() / 2));
-				bookList.setLayoutParams(params);
+
 				for(ResponseLecturePlanBookList responseLecturePlanBookList : responseLecturePlanBookLists) {
 					// 강의 참고 교재 처리
 					System.out.println(responseLecturePlanBookList.getBookName());
@@ -497,7 +503,15 @@ public class LecturePlanDetailSummaryFragment extends Fragment {
 					}
 					i++;
 				}
-				adapter.setAdapterClickable(true);
+				if(data.size() > 0) {
+					int count = (data.size() % 2 == 0 ? data.size() / 2 : data.size() / 2 + 1);
+					ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getHeight(count) + int2dp(count * 16));
+					params.topToBottom = binding.lectureplanDetailSummaryTitle9.getId();
+					params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+					params.topMargin = int2dp(16);
+					bookList.setLayoutParams(params);
+					adapter.setAdapterClickable(true);
+				}
 			}
 		});
 
