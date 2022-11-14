@@ -9,6 +9,7 @@ import com.dbsh.skup.model.RequestGradeTotalData;
 import com.dbsh.skup.model.RequestGraduateBasicData;
 import com.dbsh.skup.model.RequestGraduateNoneSubjectData;
 import com.dbsh.skup.model.RequestGraduateSubjectData;
+import com.dbsh.skup.model.RequestInformationData;
 import com.dbsh.skup.model.RequestLectureData;
 import com.dbsh.skup.model.RequestLecturePlanBookData;
 import com.dbsh.skup.model.RequestLecturePlanSummaryData;
@@ -25,6 +26,7 @@ import com.dbsh.skup.model.ResponseGradeTotalCredit;
 import com.dbsh.skup.model.ResponseGraduateBasic;
 import com.dbsh.skup.model.ResponseGraduateNoneSubject;
 import com.dbsh.skup.model.ResponseGraduateSubject;
+import com.dbsh.skup.model.ResponseInformation;
 import com.dbsh.skup.model.ResponseLecture;
 import com.dbsh.skup.model.ResponseLecturePlanBook;
 import com.dbsh.skup.model.ResponseLecturePlanSummary;
@@ -119,5 +121,11 @@ public interface PortalApi {
 	@Headers({"Accept: application/json", "content-type: application/json"})
 	@POST("common/selectList.sku")
 	Call<ResponseGradeTermSubject> getGradeTermSubject(@Body RequestGradeTermSubjectData requestGradeTermSubjectData);
-	
+
+	/* 개인정보 수정 -> 정보 가져오기 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/selectOne.sku")
+	Call<ResponseInformation> getInformation(@Body RequestInformationData requestInformationData);
+
+	/* 개인정보 수정 -> 수정 요청하기 */
 }

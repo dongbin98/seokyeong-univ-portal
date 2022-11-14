@@ -60,6 +60,14 @@ public class HomeRightFragment extends Fragment {
 		HomeRightFragment = this;
 		homeRightContainer = ((HomeRightContainer) this.getParentFragment());
 
+		// Information Chagne
+		binding.mypageSetting.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				homeRightContainer.pushFragment(HomeRightFragment, new InformationChangeFragment(), null);
+			}
+		});
+
 		// Notification Check
 		SharedPreferences notification = getActivity().getSharedPreferences("notice", Activity.MODE_PRIVATE);
 		SharedPreferences.Editor notificationEdit = notification.edit();
