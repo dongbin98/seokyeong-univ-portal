@@ -156,18 +156,18 @@ public class InformationChangeViewModel extends ViewModel {
 			public void onResponse(Call<ResponseInformationChange> call, Response<ResponseInformationChange> response) {
 				if(response.isSuccessful()) {
 					if(response.body().getRtnStatus().equals("S")) {
-						changeInformationSuccess.setValue("S");
+						changeEnglishNameSuccess.setValue("S");
 					} else {
-						changeInformationSuccess.setValue("F");
+						changeEnglishNameSuccess.setValue("F");
 					}
 				} else {
-					changeInformationSuccess.setValue("F");
+					changeEnglishNameSuccess.setValue("F");
 				}
 			}
 
 			@Override
 			public void onFailure(Call<ResponseInformationChange> call, Throwable t) {
-				changeInformationSuccess.setValue("N");
+				changeEnglishNameSuccess.setValue("N");
 			}
 		});
 	}
