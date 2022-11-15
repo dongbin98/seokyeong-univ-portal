@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +20,12 @@ import com.dbsh.skup.databinding.InformationChangeFormBinding;
 import com.dbsh.skup.model.ResponseInformationMap;
 import com.dbsh.skup.viewmodels.InformationChangeViewModel;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+
 public class InformationChangeFragment extends Fragment implements OnBackPressedListener {
 
     private InformationChangeFormBinding binding;
@@ -31,6 +38,7 @@ public class InformationChangeFragment extends Fragment implements OnBackPressed
     private HomeRightContainer homeRightContainer;
 
     String id, token;
+	String address, zipcode, gunmulNo, ip;  // 도로명주소, 우편번호, 건물번호, 아이피
     UserData userData;
 
     @Override
@@ -45,6 +53,7 @@ public class InformationChangeFragment extends Fragment implements OnBackPressed
         userData = ((UserData) getActivity().getApplication());
 		token = userData.getToken();
         id = userData.getId();
+		ip = getLocalIpAddress();
 
         InformationChangeFragment = this;
         homeRightContainer = ((HomeRightContainer) this.getParentFragment());
@@ -62,7 +71,22 @@ public class InformationChangeFragment extends Fragment implements OnBackPressed
             @Override
             public void onClick(View view) {
                 binding.informationChangeButton.setClickable(false);
-				// 수정 요청
+				// 영어이름 수정요청
+	            viewModel.changeEnglishName(token, id, ip,
+			            binding.informationChangeEnglishName.getText().toString());
+
+				// 개인정보 수정요청
+				viewModel.changeInformation(token, id,
+						binding.informationChangeHomeNumber.getText().toString(),
+						binding.informationChangePhoneNumber.getText().toString(),
+						binding.informationChangeGuardianPhoneNumber.getText().toString(),
+						address,
+						binding.informationChangeDetailAddress.getText().toString(),
+						zipcode,
+						gunmulNo,
+						binding.informationChangeEmail.getText().toString(),
+						ip
+						);
             }
         });
 
@@ -71,13 +95,49 @@ public class InformationChangeFragment extends Fragment implements OnBackPressed
 			@Override
 			public void onChanged(ResponseInformationMap responseInformationMap) {
 				if(responseInformationMap != null) {
-					binding.informationChangeAddress.setText("(" + responseInformationMap.getNewZipCode() + ") " + responseInformationMap.getAddr1());
-					binding.informationChangeDetailAddress.setText(responseInformationMap.getAddr2());
+					if(responseInformationMap.getNewZipCode() == null) {
+						binding.informationChangeAddress.setText("");
+						binding.informationChangeDetailAddress.setText("");
+					} else {
+						zipcode = responseInformationMap.getNewZipCode();
+						address = responseInformationMap.getJuminDoroAddr1();
+						gunmulNo = responseInformationMap.getGunmulNo();
+						binding.informationChangeAddress.setText("(" + responseInformationMap.getNewZipCode() + ") " + responseInformationMap.getJuminDoroAddr1());
+						binding.informationChangeDetailAddress.setText(responseInformationMap.getJuminDoroAddr2());
+					}
 					binding.informationChangeHomeNumber.setText(responseInformationMap.getTelNo1() + "-" + responseInformationMap.getTelNo2() + "-" + responseInformationMap.getTelNo3());
 					binding.informationChangePhoneNumber.setText(responseInformationMap.getHpNo1() + "-" + responseInformationMap.getHpNo2() + "-" + responseInformationMap.getHpNo3());
 					binding.informationChangeGuardianPhoneNumber.setText(responseInformationMap.getGurd1HpNo1() + "-" + responseInformationMap.getGurd1HpNo2() + "-" + responseInformationMap.getGurd1HpNo3());
 					binding.informationChangeEmail.setText(responseInformationMap.getEmail());
 					binding.informationChangeEnglishName.setText(responseInformationMap.getEngNm());
+				}
+			}
+		});
+
+		viewModel.changeEnglishNameSuccess.observe(getViewLifecycleOwner(), new Observer<String>() {
+			@Override
+			public void onChanged(String s) {
+				if(s.equals("S")) {
+					Toast.makeText(getContext(), "저장되었습니다", Toast.LENGTH_SHORT).show();
+					onBackPressed();
+				} else if(s.equals("F")) {
+					Toast.makeText(getContext(), "저장에 실패했습니다", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getContext(), "네트워크 연결을 확인해주세요", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+
+		viewModel.changeEnglishNameSuccess.observe(getViewLifecycleOwner(), new Observer<String>() {
+			@Override
+			public void onChanged(String s) {
+				if(s.equals("S")) {
+					Toast.makeText(getContext(), "저장되었습니다", Toast.LENGTH_SHORT).show();
+					onBackPressed();
+				} else if(s.equals("F")) {
+					Toast.makeText(getContext(), "저장에 실패했습니다", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getContext(), "네트워크 연결을 확인해주세요", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -97,4 +157,21 @@ public class InformationChangeFragment extends Fragment implements OnBackPressed
         super.onAttach(context);
         ((HomeActivity)context).setOnBackPressedListner(this);
     }
+
+	public String getLocalIpAddress() {
+		try {
+			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+				NetworkInterface intf = en.nextElement();
+				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+					InetAddress inetAddress = enumIpAddr.nextElement();
+					if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+						return inetAddress.getHostAddress();
+					}
+				}
+			}
+		} catch (SocketException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }

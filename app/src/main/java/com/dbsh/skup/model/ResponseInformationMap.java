@@ -14,13 +14,25 @@ public class ResponseInformationMap {
 	@Expose
 	private String newZipCode;
 
-	@SerializedName("ADDR1")    // 주소
+	@SerializedName("ZIPCODE1")    // 우편번호(구)
 	@Expose
-	private String addr1;
+	private String zipCode1;
 
-	@SerializedName("ADDR2")    // 상세주소
+	@SerializedName("ZIPCODE2")    // 우편번호(구)
 	@Expose
-	private String addr2;
+	private String zipCode2;
+
+	@SerializedName("JUMIN_DORO_ADDR1")    // 주소
+	@Expose
+	private String juminDoroAddr1;
+
+	@SerializedName("JUMIN_DORO_ADDR2")    // 상세주소
+	@Expose
+	private String juminDoroAddr2;
+
+	@SerializedName("GUNMUL_NO")    // 건물번호
+	@Expose
+	private String gunmulNo;
 
 	// 연락처
 	@SerializedName("TEL_NO1")    // 전화번호(HOME) 앞의 자리
@@ -76,12 +88,24 @@ public class ResponseInformationMap {
 		return newZipCode;
 	}
 
-	public String getAddr1() {
-		return addr1;
+	public String getZipCode1() {
+		return zipCode1;
 	}
 
-	public String getAddr2() {
-		return addr2;
+	public String getZipCode2() {
+		return zipCode2;
+	}
+
+	public String getJuminDoroAddr1() {
+		return juminDoroAddr1;
+	}
+
+	public String getJuminDoroAddr2() {
+		return juminDoroAddr2;
+	}
+
+	public String getGunmulNo() {
+		return gunmulNo;
 	}
 
 	public String getTelNo1() {

@@ -9,6 +9,8 @@ import com.dbsh.skup.model.RequestGradeTotalData;
 import com.dbsh.skup.model.RequestGraduateBasicData;
 import com.dbsh.skup.model.RequestGraduateNoneSubjectData;
 import com.dbsh.skup.model.RequestGraduateSubjectData;
+import com.dbsh.skup.model.RequestInformationChangeData;
+import com.dbsh.skup.model.RequestInformationChangeEnglishNameData;
 import com.dbsh.skup.model.RequestInformationData;
 import com.dbsh.skup.model.RequestLectureData;
 import com.dbsh.skup.model.RequestLecturePlanBookData;
@@ -27,6 +29,7 @@ import com.dbsh.skup.model.ResponseGraduateBasic;
 import com.dbsh.skup.model.ResponseGraduateNoneSubject;
 import com.dbsh.skup.model.ResponseGraduateSubject;
 import com.dbsh.skup.model.ResponseInformation;
+import com.dbsh.skup.model.ResponseInformationChange;
 import com.dbsh.skup.model.ResponseLecture;
 import com.dbsh.skup.model.ResponseLecturePlanBook;
 import com.dbsh.skup.model.ResponseLecturePlanSummary;
@@ -127,5 +130,13 @@ public interface PortalApi {
 	@POST("common/selectOne.sku")
 	Call<ResponseInformation> getInformation(@Body RequestInformationData requestInformationData);
 
-	/* 개인정보 수정 -> 수정 요청하기 */
+	/* 개인정보 수정 -> 주소, 이메일 수정 요청하기 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/singleProcessing.sku")
+	Call<ResponseInformationChange> changeInformation(@Body RequestInformationChangeData requestInformationChangeData);
+
+	/* 개인정보 수정 -> 영어이름 수정 요청하기 */
+	@Headers({"Accept: application/json", "content-type: application/json"})
+	@POST("common/singleProcessing.sku")
+	Call<ResponseInformationChange> changeEnglishName(@Body RequestInformationChangeEnglishNameData requestInformationChangeEnglishNameData);
 }

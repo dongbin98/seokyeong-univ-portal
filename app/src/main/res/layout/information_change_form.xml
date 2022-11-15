@@ -15,6 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <WebView
+            android:id="@+id/information_change_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/information_change_toolbar"
             android:layout_width="match_parent"
