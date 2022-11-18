@@ -60,13 +60,17 @@ public class HomeRightFragment extends Fragment {
 		HomeRightFragment = this;
 		homeRightContainer = ((HomeRightContainer) this.getParentFragment());
 
-		// Information Chagne
-		binding.mypageSetting.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				homeRightContainer.pushFragment(HomeRightFragment, new InformationChangeFragment(), null);
-			}
-		});
+		// 자식 프래그먼트에서 부모 프래그먼트 확인을 위함
+		Bundle bundle = new Bundle();
+		bundle.putString("type", "right");
+
+		// Information Change
+//		binding.mypageSetting.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//				homeRightContainer.pushFragment(HomeRightFragment, new InformationChangeFragment(), null);
+//			}
+//		});
 
 		// Notification Check
 		SharedPreferences notification = getActivity().getSharedPreferences("notice", Activity.MODE_PRIVATE);
@@ -146,7 +150,7 @@ public class HomeRightFragment extends Fragment {
 		binding.mypageView5.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				homeRightContainer.pushFragment(HomeRightFragment, new PasswordAuthFragment(), null);
+				homeRightContainer.pushFragment(HomeRightFragment, new PasswordAuthFragment(), bundle);
 			}
 		});
 

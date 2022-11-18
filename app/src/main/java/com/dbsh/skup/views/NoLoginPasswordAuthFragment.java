@@ -16,23 +16,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.PasswordAuthFormBinding;
 import com.dbsh.skup.viewmodels.PasswordAuthViewModel;
 
-public class PasswordAuthFragment extends Fragment implements OnBackPressedListener {
+public class NoLoginPasswordAuthFragment extends Fragment implements OnBackPressedListener {
 
     private PasswordAuthFormBinding binding;
     private PasswordAuthViewModel viewModel;
 
     // this Fragment
-    private Fragment PasswordAuthFragment;
+    private Fragment NoLoginPasswordAuthFragment;
 
-    // parent Fragment
-    private HomeRightContainer homeRightContainer;
+    // parent Activity
+    private PasswordActivity passwordActivity;
 
-    String id, name, birth, type;
-    UserData userData;
     TranslateAnimation anim;
 
     @Override
@@ -44,22 +41,13 @@ public class PasswordAuthFragment extends Fragment implements OnBackPressedListe
         binding.setViewModel(viewModel);
         binding.executePendingBindings();    // 바인딩 강제 즉시실행
 
-        userData = ((UserData) getActivity().getApplication());
-        id = userData.getId();
-        name = userData.getKorName();
-        birth = userData.getBirth();
-
-        binding.passwordAuthId.setText(id);
-        binding.passwordAuthName.setText(name);
-        binding.passwordAuthBirth.setText(birth);
-
-        PasswordAuthFragment = this;
+        NoLoginPasswordAuthFragment = this;
         Toolbar mToolbar = binding.passwordAuthToolbar;
 
-        homeRightContainer = ((HomeRightContainer) this.getParentFragment());
-        ((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
-        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
+        passwordActivity = (PasswordActivity) getActivity();
+        ((PasswordActivity) getActivity()).setSupportActionBar(mToolbar);
+        ((PasswordActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((PasswordActivity) getActivity()).getSupportActionBar().setTitle("");
 
         binding.passwordAuthButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +63,7 @@ public class PasswordAuthFragment extends Fragment implements OnBackPressedListe
                 if(s.equals("S")) {
                     Bundle bundle = new Bundle();
                     bundle.putString("id", binding.passwordAuthId.getText().toString());
-                    homeRightContainer.pushFragment(PasswordAuthFragment, new PasswordCheckFragment(), bundle);
+                    passwordActivity.pushFragment(NoLoginPasswordAuthFragment, new NoLoginPasswordCheckFragment(), bundle);
                 } else if(s.equals("F")) {
                     binding.passwordAuthId.setBackgroundResource(R.drawable.edittext_white_error_background);
                     binding.passwordAuthName.setBackgroundResource(R.drawable.edittext_white_error_background);
@@ -103,13 +91,11 @@ public class PasswordAuthFragment extends Fragment implements OnBackPressedListe
 
     @Override
     public void onBackPressed() {
-        homeRightContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-        homeRightContainer.getChildFragmentManager().popBackStackImmediate();
-        homeRightContainer.popFragment();
+        getActivity().finish();
     }
 
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((HomeActivity) context).setOnBackPressedListner(this);
+        ((PasswordActivity) context).setOnBackPressedListener(this);
     }
 }

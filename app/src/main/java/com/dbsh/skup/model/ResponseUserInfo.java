@@ -43,6 +43,9 @@ public class ResponseUserInfo  {
 	@SerializedName("SCH_REG_STAT_NM")
 	@Expose
 	private String schRegStatNm;     	// 재학 휴학 여부(한글)
+	@SerializedName("RESI_NO")
+	@Expose
+	private String resiNo;     	// 생년월일
 
 	public String getId() {
 		return id;
@@ -56,88 +59,46 @@ public class ResponseUserInfo  {
 		return korName;
 	}
 
-	public void setKorName(String korName) {
-		this.korName = korName;
-	}
-
 	public String getPhoneMobile() {
 		return phoneMobile;
-	}
-
-	public void setPhoneMobile(String phoneMobile) {
-		this.phoneMobile = phoneMobile;
 	}
 
 	public String getColNm() {
 		return colNm;
 	}
 
-	public void setColNm(String colNm) {
-		this.colNm = colNm;
-	}
-
 	public String getTeamNm() {
 		return teamNm;
-	}
-
-	public void setTeamNm(String teamNm) {
-		this.teamNm = teamNm;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getWebmailId() {
 		return webmailId;
-	}
-
-	public void setWebmailId(String webmailId) {
-		this.webmailId = webmailId;
 	}
 
 	public String getTutorName() {
 		return tutorName;
 	}
 
-	public void setTutorName(String tutorName) {
-		this.tutorName = tutorName;
-	}
-
 	public String getSchYear() {
 		return schYear;
-	}
-
-	public void setSchYear(String schYear) {
-		this.schYear = schYear;
 	}
 
 	public String getSchTerm() {
 		return schTerm;
 	}
 
-	public void setSchTerm(String schTerm) {
-		this.schTerm = schTerm;
-	}
-
 	public String getSchyr() {
 		return schyr;
-	}
-
-	public void setSchyr(String schyr) {
-		this.schyr = schyr;
 	}
 
 	public String getSchRegStatNm() {
 		return schRegStatNm;
 	}
 
-	public void setSchRegStatNm(String schRegStatNm) {
-		this.schRegStatNm = schRegStatNm;
-	}
+	public String getResiNo() { return resiNo; }
 }
 

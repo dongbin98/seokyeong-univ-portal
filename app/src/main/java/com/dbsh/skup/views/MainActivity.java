@@ -52,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
 			binding.loginPW.setText(userPw);
 		}
 
+		/* Password Find OnClick */
+		binding.loginFindPassword.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(MainActivity.this, PasswordActivity.class);
+				startActivity(intent);
+			}
+		});
+
 		/* Login Button OnClick */
 		binding.loginBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -91,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 					((UserData) getApplication()).setSchInfo(responseLogin.getUserInfo().getSchYear(), responseLogin.getUserInfo().getSchTerm(), responseLogin.getUserInfo().getSchyr(), responseLogin.getUserInfo().getSchRegStatNm());
 					((UserData) getApplication()).setToken(responseLogin.getAccessToken());
 					((UserData) getApplication()).setYearList(responseLogin.getYearList());
+					((UserData) getApplication()).setBirth(responseLogin.getUserInfo().getResiNo());
 
 					binding.loginBtn.setClickable(true);
 					Intent intent = new Intent(MainActivity.this, HomeActivity.class);

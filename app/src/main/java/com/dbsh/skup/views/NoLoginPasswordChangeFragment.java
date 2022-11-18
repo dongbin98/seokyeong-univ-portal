@@ -20,7 +20,7 @@ import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.PasswordChangeFormBinding;
 import com.dbsh.skup.viewmodels.PasswordChangeViewModel;
 
-public class PasswordChangeFragment extends Fragment implements OnBackPressedListener {
+public class NoLoginPasswordChangeFragment extends Fragment implements OnBackPressedListener {
 
     private PasswordChangeFormBinding binding;
     private PasswordChangeViewModel viewModel;
@@ -29,7 +29,7 @@ public class PasswordChangeFragment extends Fragment implements OnBackPressedLis
     private Fragment PasswordChangeFragment;
 
     // parent Fragment
-    private HomeRightContainer homeRightContainer;
+    private PasswordActivity passwordActivity;
 
     String id, code;
     UserData userData;
@@ -50,7 +50,7 @@ public class PasswordChangeFragment extends Fragment implements OnBackPressedLis
         }
 
         PasswordChangeFragment = this;
-        homeRightContainer = ((HomeRightContainer) this.getParentFragment());
+        passwordActivity = ((PasswordActivity) this.getActivity());
 
         Toolbar mToolbar = binding.passwordChangeToolbar;
 
@@ -111,14 +111,14 @@ public class PasswordChangeFragment extends Fragment implements OnBackPressedLis
 
     @Override
     public void onBackPressed() {
-        homeRightContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-        homeRightContainer.getChildFragmentManager().popBackStackImmediate();
-        homeRightContainer.popFragment();
+        passwordActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+        passwordActivity.getSupportFragmentManager().popBackStackImmediate();
+        passwordActivity.popFragment();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((HomeActivity)context).setOnBackPressedListner(this);
+        ((PasswordActivity)context).setOnBackPressedListener(this);
     }
 }

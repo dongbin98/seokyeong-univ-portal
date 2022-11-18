@@ -18,23 +18,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.data.UserData;
 import com.dbsh.skup.databinding.PasswordCheckFormBinding;
 import com.dbsh.skup.viewmodels.PasswordCheckViewModel;
 
-public class PasswordCheckFragment extends Fragment implements OnBackPressedListener {
+public class NoLoginPasswordCheckFragment extends Fragment implements OnBackPressedListener {
 
     private PasswordCheckFormBinding binding;
     private PasswordCheckViewModel viewModel;
 
     // this Fragment
-    private Fragment PasswordCheckFragment;
+    private Fragment NoLoginPasswordCheckFragment;
 
-    // parent Fragment
-    private HomeRightContainer homeRightContainer;
+    // parent Activity
+    private PasswordActivity passwordActivity;
 
     String id;
-    UserData userData;
     TranslateAnimation anim;
     CountDownTimer countDownTimer;
     int count = 300;
@@ -52,17 +50,17 @@ public class PasswordCheckFragment extends Fragment implements OnBackPressedList
             id = getArguments().getString("id");
         }
 
-        PasswordCheckFragment = this;
-        homeRightContainer = ((HomeRightContainer) this.getParentFragment());
+        NoLoginPasswordCheckFragment = this;
+        passwordActivity = ((PasswordActivity) this.getActivity());
 
         countDownTimer();
         countDownTimer.start();
 
         Toolbar mToolbar = binding.passwordCheckToolbar;
 
-        ((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
-        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
+        ((PasswordActivity) getActivity()).setSupportActionBar(mToolbar);
+        ((PasswordActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((PasswordActivity) getActivity()).getSupportActionBar().setTitle("");
 
         binding.passwordCheckButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +79,7 @@ public class PasswordCheckFragment extends Fragment implements OnBackPressedList
                     Bundle bundle = new Bundle();
                     bundle.putString("id", id);
                     bundle.putString("code", binding.passwordCheckNumber.getText().toString());
-                    homeRightContainer.pushFragment(PasswordCheckFragment, new PasswordChangeFragment(), bundle);
+                    passwordActivity.pushFragment(NoLoginPasswordCheckFragment, new NoLoginPasswordChangeFragment(), bundle);
                 } else if(s.equals("F")) {
                     binding.passwordCheckNumber.setBackgroundResource(R.drawable.edittext_white_error_background);
                     binding.passwordCheckNumber.startAnimation(shakeError());
@@ -142,14 +140,14 @@ public class PasswordCheckFragment extends Fragment implements OnBackPressedList
 
     @Override
     public void onBackPressed() {
-        homeRightContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
-        homeRightContainer.getChildFragmentManager().popBackStackImmediate();
-        homeRightContainer.popFragment();
+        passwordActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+        passwordActivity.getSupportFragmentManager().popBackStackImmediate();
+        passwordActivity.popFragment();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((HomeActivity)context).setOnBackPressedListner(this);
+        ((PasswordActivity)context).setOnBackPressedListener(this);
     }
 }

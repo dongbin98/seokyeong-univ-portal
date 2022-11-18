@@ -20,6 +20,7 @@ public class UserData extends Application {
     private String schYR;           // 현재 학년
     private String schReg;          // 재학 휴학 여부(한글)
     private String token;           // 로그인 토큰
+	private String birth;			// 생년월일
 	private ArrayList<ResponseYearList> yearList;        // 입학 ~ 지금까지 년도
 
 	/* Setter */
@@ -62,6 +63,14 @@ public class UserData extends Application {
 	
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public void setYearList(ArrayList<ResponseYearList> yearList) {
+		this.yearList = yearList;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 
 	/* Getter */
@@ -121,7 +130,7 @@ public class UserData extends Application {
 		return yearList;
 	}
 
-	public void setYearList(ArrayList<ResponseYearList> yearList) {
-		this.yearList = yearList;
+	public String getBirth() {
+		return birth;
 	}
 }

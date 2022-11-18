@@ -51,6 +51,7 @@
         <activity android:name=".views.HomeActivity" />
         <activity android:name=".views.WebviewActivity" />
         <activity android:name=".views.LecturePlanDetailWeekSelectActivity" />
+        <activity android:name=".views.PasswordActivity"/>
 
     </application>
 
