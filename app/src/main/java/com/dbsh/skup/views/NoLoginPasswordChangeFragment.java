@@ -54,9 +54,9 @@ public class NoLoginPasswordChangeFragment extends Fragment implements OnBackPre
 
         Toolbar mToolbar = binding.passwordChangeToolbar;
 
-        ((HomeActivity) getActivity()).setSupportActionBar(mToolbar);
-        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("");
+        ((PasswordActivity) getActivity()).setSupportActionBar(mToolbar);
+        ((PasswordActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((PasswordActivity) getActivity()).getSupportActionBar().setTitle("");
 
         binding.passwordChangeButton.setOnClickListener(new View.OnClickListener() {
             @Override

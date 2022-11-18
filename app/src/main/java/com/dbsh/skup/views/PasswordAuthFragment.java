@@ -65,7 +65,12 @@ public class PasswordAuthFragment extends Fragment implements OnBackPressedListe
             @Override
             public void onClick(View view) {
                 binding.passwordAuthButton.setClickable(false);
-                viewModel.getPasswordAuthData(binding.passwordAuthId.getText().toString(), binding.passwordAuthName.getText().toString(), binding.passwordAuthBirth.getText().toString());
+                if(binding.passwordAuthTypePhone.isChecked())
+                    type = "PHONE_MOBILE";
+                else if(binding.passwordAuthTypeEmail.isChecked()) {
+                    type = "EMAIL";
+                }
+                viewModel.getPasswordAuthData(binding.passwordAuthId.getText().toString(), binding.passwordAuthName.getText().toString(), binding.passwordAuthBirth.getText().toString(), type);
             }
         });
 

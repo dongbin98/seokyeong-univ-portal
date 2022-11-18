@@ -29,10 +29,10 @@ public class PasswordAuthViewModel extends ViewModel {
         };
     }
 
-    public void getPasswordAuthData(String id, String name, String birth) {
+    public void getPasswordAuthData(String id, String name, String birth, String type) {
         LoginRepository loginRepository = new LoginRepository();
         loginApi = loginRepository.getLoginApi();
-        loginApi.getPasswordAuth(new RequestPasswordAuthData(id, name, birth, "PHONE_MOBILE", "sku")).enqueue(new Callback<ResponsePassword>() {
+        loginApi.getPasswordAuth(new RequestPasswordAuthData(id, name, birth, type, "sku")).enqueue(new Callback<ResponsePassword>() {
             @Override
             public void onResponse(Call<ResponsePassword> call, Response<ResponsePassword> response) {
                 if (response.isSuccessful()) {
