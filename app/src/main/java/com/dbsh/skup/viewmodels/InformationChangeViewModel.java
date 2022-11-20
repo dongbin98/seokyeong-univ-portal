@@ -72,7 +72,7 @@ public class InformationChangeViewModel extends ViewModel {
 		portalApi = PortalRepository.getPortalApi();
 
 		String[] tels = tel.split("-");
-		String[] phones = tel.split("-");
+		String[] phones = phone.split("-");
 		String[] guradianPhones = guardianPhone.split("-");
 
 		RequestInformationChangeParameterData parameter = new RequestInformationChangeParameterData(
