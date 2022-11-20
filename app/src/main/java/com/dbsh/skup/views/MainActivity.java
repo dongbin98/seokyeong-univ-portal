@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 			binding.loginAuto.setChecked(true);
 			binding.loginID.setText(userId);
 			binding.loginPW.setText(userPw);
+			viewModel.getUserData(userId, userPw);
 		}
 
 		/* Password Find OnClick */
