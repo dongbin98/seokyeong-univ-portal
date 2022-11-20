@@ -40,6 +40,7 @@
         <activity
             android:name=".views.SplashActivity"
             android:exported="true"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.SKUP.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,11 +48,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.MainActivity" />
-        <activity android:name=".views.HomeActivity" />
-        <activity android:name=".views.WebviewActivity" />
-        <activity android:name=".views.LecturePlanDetailWeekSelectActivity" />
-        <activity android:name=".views.PasswordActivity"/>
+        <activity android:name=".views.MainActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".views.HomeActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".views.WebviewActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".views.LecturePlanDetailWeekSelectActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".views.PasswordActivity"
+            android:windowSoftInputMode="adjustPan"/>
 
     </application>
 

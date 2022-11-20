@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -39,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
 		viewModel = new LoginViewModel();
 		binding.setViewModel(viewModel);
 		binding.executePendingBindings();	// 바인딩 강제 즉시실행
+
+		SpannableString spannableString = new SpannableString(binding.loginFindPassword.getText().toString());
+		spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), 0);
+		binding.loginFindPassword.setText(spannableString);
 
 		/* Auto Login */
 		SharedPreferences auto = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
@@ -101,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 					((UserData) getApplication()).setToken(responseLogin.getAccessToken());
 					((UserData) getApplication()).setYearList(responseLogin.getYearList());
 					((UserData) getApplication()).setBirth(responseLogin.getUserInfo().getResiNo());
+					((UserData) getApplication()).setLastPasswordModify(responseLogin.getUserInfo().getReqPwModDate());
 
 					binding.loginBtn.setClickable(true);
 					Intent intent = new Intent(MainActivity.this, HomeActivity.class);

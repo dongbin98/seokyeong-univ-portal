@@ -21,6 +21,7 @@ public class UserData extends Application {
     private String schReg;          // 재학 휴학 여부(한글)
     private String token;           // 로그인 토큰
 	private String birth;			// 생년월일
+	private String lastPasswordModify;	// 비밀번호 변경 만료일
 	private ArrayList<ResponseYearList> yearList;        // 입학 ~ 지금까지 년도
 
 	/* Setter */
@@ -71,6 +72,10 @@ public class UserData extends Application {
 
 	public void setBirth(String birth) {
 		this.birth = birth;
+	}
+
+	public void setLastPasswordModify(String lastPasswordModify) {
+		this.lastPasswordModify = lastPasswordModify;
 	}
 
 	/* Getter */
@@ -132,5 +137,9 @@ public class UserData extends Application {
 
 	public String getBirth() {
 		return birth;
+	}
+
+	public String getLastPasswordModify() {
+		return lastPasswordModify;
 	}
 }

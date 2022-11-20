@@ -46,6 +46,9 @@ public class ResponseUserInfo  {
 	@SerializedName("RESI_NO")
 	@Expose
 	private String resiNo;     	// 생년월일
+	@SerializedName("REQ_PW_MOD_DATE")
+	@Expose
+	private String reqPwModDate;     	// 마지막 비밀번호 변경
 
 	public String getId() {
 		return id;
@@ -100,5 +103,9 @@ public class ResponseUserInfo  {
 	}
 
 	public String getResiNo() { return resiNo; }
+
+	public String getReqPwModDate() {
+		return reqPwModDate;
+	}
 }
 

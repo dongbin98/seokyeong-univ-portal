@@ -201,9 +201,9 @@
                 android:id="@+id/mypage_bus_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_refresh"
-                android:padding="15dp"
-                android:layout_marginRight="16dp"
+                android:background="@color/white"
+                android:src="@drawable/imageview_bus_reload"
+                android:layout_marginEnd="26dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -233,6 +233,35 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/mypage_password_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_next_arrow"
+                android:layout_marginRight="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/mypage_password_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/frame_blue_line"
+                android:text="D - 89"
+                android:textColor="@color/mainBlue"
+                android:textSize="16dp"
+                android:textStyle="normal"
+                android:fontFamily="@font/roboto"
+
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:layout_marginRight="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/mypage_password_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

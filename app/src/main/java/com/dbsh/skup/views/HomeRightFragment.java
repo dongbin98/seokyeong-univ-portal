@@ -44,6 +44,7 @@ public class HomeRightFragment extends Fragment {
 	final String file1164 = "1164.json";
 	final String file2115 = "2115.json";
 	int routeUpdate;
+	int passwordModifyDay;
 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,8 +55,20 @@ public class HomeRightFragment extends Fragment {
 		binding.executePendingBindings();
 
 		userData = ((UserData) getActivity().getApplication());
+		passwordModifyDay = Integer.parseInt(userData.getLastPasswordModify());
 		binding.mypageId.setText(userData.getId());
 		binding.mypageName.setText(userData.getKorName());
+		if(passwordModifyDay <= 30) {
+			binding.mypagePasswordDay.setBackgroundResource(R.drawable.frame_red_line);
+			binding.mypagePasswordDay.setTextColor(getContext().getColor(R.color.mainRed));
+		} else if(passwordModifyDay <= 60) {
+			binding.mypagePasswordDay.setBackgroundResource(R.drawable.frame_yellow_line);
+			binding.mypagePasswordDay.setTextColor(getContext().getColor(R.color.mainYellow));
+		} else {
+			binding.mypagePasswordDay.setBackgroundResource(R.drawable.frame_blue_line);
+			binding.mypagePasswordDay.setTextColor(getContext().getColor(R.color.mainBlue));
+		}
+		binding.mypagePasswordDay.setText(String.format("D - %s", userData.getLastPasswordModify()));
 
 		HomeRightFragment = this;
 		homeRightContainer = ((HomeRightContainer) this.getParentFragment());
@@ -200,6 +213,7 @@ public class HomeRightFragment extends Fragment {
 					Toast.makeText(getContext(), "1164번 노선정보를 불러오지 못했습니다 다시 갱신해주세요", Toast.LENGTH_SHORT).show();
 				}
 				if(routeUpdate == 2) {
+					Toast.makeText(getContext(), "노선정보 업데이트 완료", Toast.LENGTH_SHORT).show();
 					binding.mypageView4.setClickable(true);
 				}
 			}
@@ -213,6 +227,7 @@ public class HomeRightFragment extends Fragment {
 					Toast.makeText(getContext(), "2115번 노선정보를 불러오지 못했습니다 다시 갱신해주세요", Toast.LENGTH_SHORT).show();
 				}
 				if(routeUpdate == 2) {
+					Toast.makeText(getContext(), "노선정보 업데이트 완료", Toast.LENGTH_SHORT).show();
 					binding.mypageView4.setClickable(true);
 				}
 			}

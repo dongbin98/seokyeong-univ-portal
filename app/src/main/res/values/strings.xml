@@ -8,4 +8,5 @@
         <item>목</item>
         <item>금</item>
     </string-array>
+    <string name="password">혹시 비밀번호를 잊어버리셨나요?</string>
 </resources>
