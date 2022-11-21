@@ -21,8 +21,10 @@
     <color name="white">#FF212124</color>
     <color name="onlyWhite">#FFFFFFFF</color>
     <color name="onlyBlack">#FF000000</color>
-    <color name="gridentStartColor">#FF526A98</color>
-    <color name="gridentEndColor">#FF2B3343</color>
+<!--    <color name="gridentStartColor">#FF526A98</color>-->
+<!--    <color name="gridentEndColor">#FF2B3343</color>-->
+    <color name="gridentStartColor">#FF4E7CD7</color>
+    <color name="gridentEndColor">#FF78B4DF</color>
     <color name="attendanceboxColor">#FF4D4D4D</color>
     <color name="timetableitem1">#FF08348C</color>
     <color name="timetableitem2">#FF4F6BA3</color>
