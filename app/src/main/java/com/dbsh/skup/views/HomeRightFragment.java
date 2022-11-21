@@ -78,12 +78,12 @@ public class HomeRightFragment extends Fragment {
 		bundle.putString("type", "right");
 
 		// Information Change
-//		binding.mypageSetting.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//				homeRightContainer.pushFragment(HomeRightFragment, new InformationChangeFragment(), null);
-//			}
-//		});
+		binding.mypageSetting.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				homeRightContainer.pushFragment(HomeRightFragment, new InformationChangeFragment(), null);
+			}
+		});
 
 		// Notification Check
 		SharedPreferences notification = getActivity().getSharedPreferences("notice", Activity.MODE_PRIVATE);

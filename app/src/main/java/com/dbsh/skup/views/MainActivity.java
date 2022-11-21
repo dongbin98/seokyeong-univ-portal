@@ -165,6 +165,11 @@ public class MainActivity extends AppCompatActivity {
 			binding.loginID.setText("");
 			binding.loginPW.setText("");
 		}
+
+		binding.loginID.setBackgroundResource(R.drawable.edittext_white_background);
+		binding.loginPW.setBackgroundResource(R.drawable.edittext_white_background);
+		binding.loginID.clearFocus();
+		binding.loginPW.clearFocus();
 	}
 
 	/* Back */
