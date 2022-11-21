@@ -7,6 +7,7 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,10 @@ public class InformationChangeFragment extends Fragment implements OnBackPressed
 						binding.informationChangeEnglishName.getText().toString());
 			}
 		});
+
+		binding.informationChangeHomeNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+		binding.informationChangePhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+		binding.informationChangeGuardianPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
 		viewModel.responseInformationMapLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseInformationMap>() {
 			@SuppressLint("SetTextI18n")
