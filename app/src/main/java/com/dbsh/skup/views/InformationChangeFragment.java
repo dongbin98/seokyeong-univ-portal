@@ -278,6 +278,7 @@ public class InformationChangeFragment extends Fragment implements OnBackPressed
 		binding.informationChangeWebview.addJavascriptInterface(new AndroidBridge(), "skup");
 		binding.informationChangeWebview.setWebViewClient(client);
 		binding.informationChangeWebview.setWebChromeClient(chromeClient);
+//		binding.informationChangeWebview.loadUrl("http://10.0.2.2:8080/kakao");
 		binding.informationChangeWebview.loadUrl("http://skuniv-cgvrlab.kro.kr/test/kakao/api/address");
 	}
 
@@ -292,7 +293,8 @@ public class InformationChangeFragment extends Fragment implements OnBackPressed
 		binding.informationChangeWebview.addJavascriptInterface(new AndroidBridge(), "skup");
 		binding.informationChangeWebview.setWebViewClient(client);
 		binding.informationChangeWebview.setWebChromeClient(chromeClient);
-		binding.informationChangeWebview.loadUrl("http://10.0.2.2:8080/kakao");
+//		binding.informationChangeWebview.loadUrl("http://10.0.2.2:8080/kakao");
+		binding.informationChangeWebview.loadUrl("http://skuniv-cgvrlab.kro.kr/test/kakao/api/address");
 	}
 
 	private class AndroidBridge {

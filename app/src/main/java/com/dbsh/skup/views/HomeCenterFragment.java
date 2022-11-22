@@ -159,7 +159,7 @@ public class HomeCenterFragment extends Fragment {
                     for(NoticeData noticeData : noticeDatas) {
                         noticeDataList.add(noticeData);
                         System.out.println("공지URL : " + noticeData.getUrl());
-                        if (noticeCount == 1) {
+                        if (noticeCount == 0) {
                             // 가장 최근 공지 저장하기(0)
                             // 테스트로 최근 공지 바로 아래 저장하기(1)
                             System.out.println("이거 최신공지로 선택");
