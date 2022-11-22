@@ -5,7 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.dbsh.skup.repository.BusRepository;
+import com.dbsh.skup.client.BusClient;
 import com.dbsh.skup.api.BusApi;
 import com.dbsh.skup.model.ResponseArrive;
 
@@ -69,7 +69,7 @@ public class HomeCenterBustimeViewModel {
     }
 
     public void getArrive(String stationId, String routeId, String seq) {
-        BusRepository retrofitBusClient = BusRepository.getInstance();
+        BusClient retrofitBusClient = BusClient.getInstance();
         if(retrofitBusClient != null) {
 
             Map<String, String> arrive = new HashMap<>();
@@ -78,7 +78,7 @@ public class HomeCenterBustimeViewModel {
             arrive.put("busRouteId", routeId);
             arrive.put("ord", seq);
 
-            busApi = BusRepository.getBusApi();
+            busApi = BusClient.getBusApi();
             busApi.getArriveData(arrive).enqueue(new Callback<ResponseArrive>() {
                 @Override
                 public void onResponse(Call<ResponseArrive> call, Response<ResponseArrive> response) {

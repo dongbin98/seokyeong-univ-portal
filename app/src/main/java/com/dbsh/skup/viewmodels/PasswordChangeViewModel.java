@@ -9,7 +9,7 @@ import com.dbsh.skup.R;
 import com.dbsh.skup.api.LoginApi;
 import com.dbsh.skup.model.RequestPasswordChangeData;
 import com.dbsh.skup.model.ResponsePassword;
-import com.dbsh.skup.repository.LoginRepository;
+import com.dbsh.skup.client.LoginClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,8 +30,8 @@ public class PasswordChangeViewModel extends ViewModel {
     }
 
     public void getPasswordChangeData(String id, String pw, String pw2, String code) {
-        LoginRepository loginRepository = new LoginRepository();
-        loginApi = loginRepository.getLoginApi();
+        LoginClient loginClient = new LoginClient();
+        loginApi = loginClient.getLoginApi();
         loginApi.getPasswordChange(new RequestPasswordChangeData(id, pw, pw2, code, "sku")).enqueue(new Callback<ResponsePassword>() {
             @Override
             public void onResponse(Call<ResponsePassword> call, Response<ResponsePassword> response) {

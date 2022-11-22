@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.dbsh.skup.api.BusApi;
 import com.dbsh.skup.model.ResponseStation;
 import com.dbsh.skup.model.ResponseStationItem;
-import com.dbsh.skup.repository.BusRepository;
+import com.dbsh.skup.client.BusClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,11 +56,11 @@ public class SplashViewModel extends ViewModel {
 	}
 
 	public void getStaton1164() {
-		BusRepository retrofitBusClient = BusRepository.getInstance();
+		BusClient retrofitBusClient = BusClient.getInstance();
 		Map<String, String> query = new HashMap<>();
 		query.put("serviceKey", serviceKey);
 		query.put("busRouteId", "100100171");
-		busApi = BusRepository.getBusApi();
+		busApi = BusClient.getBusApi();
 		busApi.getStationData(query).enqueue(new Callback<ResponseStation>() {
 			@Override
 			public void onResponse(Call<ResponseStation> call, Response<ResponseStation> response) {
@@ -83,11 +83,11 @@ public class SplashViewModel extends ViewModel {
 	}
 
 	public void getStaton2115() {
-		BusRepository retrofitBusClient = BusRepository.getInstance();
+		BusClient retrofitBusClient = BusClient.getInstance();
 		Map<String, String> query = new HashMap<>();
 		query.put("serviceKey", serviceKey);
 		query.put("busRouteId", "100100598");
-		busApi = BusRepository.getBusApi();
+		busApi = BusClient.getBusApi();
 		busApi.getStationData(query).enqueue(new Callback<ResponseStation>() {
 			@Override
 			public void onResponse(Call<ResponseStation> call, Response<ResponseStation> response) {

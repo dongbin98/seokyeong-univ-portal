@@ -9,7 +9,7 @@ import com.dbsh.skup.R;
 import com.dbsh.skup.api.LoginApi;
 import com.dbsh.skup.model.RequestPasswordCheckData;
 import com.dbsh.skup.model.ResponsePassword;
-import com.dbsh.skup.repository.LoginRepository;
+import com.dbsh.skup.client.LoginClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,8 +30,8 @@ public class PasswordCheckViewModel extends ViewModel {
     }
 
     public void getPasswordCheckData(String id, String code) {
-        LoginRepository loginRepository = new LoginRepository();
-        loginApi = loginRepository.getLoginApi();
+        LoginClient loginClient = new LoginClient();
+        loginApi = loginClient.getLoginApi();
         loginApi.getPasswordCheck(new RequestPasswordCheckData(id, code, "sku")).enqueue(new Callback<ResponsePassword>() {
             @Override
             public void onResponse(Call<ResponsePassword> call, Response<ResponsePassword> response) {

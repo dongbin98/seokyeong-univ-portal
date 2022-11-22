@@ -16,7 +16,7 @@ import com.dbsh.skup.model.RequestInformationParameterData;
 import com.dbsh.skup.model.ResponseInformation;
 import com.dbsh.skup.model.ResponseInformationChange;
 import com.dbsh.skup.model.ResponseInformationMap;
-import com.dbsh.skup.repository.PortalRepository;
+import com.dbsh.skup.client.PortalClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,8 +39,8 @@ public class InformationChangeViewModel extends ViewModel {
     }
 
 	public void getInformation(String token, String id) {
-		PortalRepository portalRepository = PortalRepository.getInstance(token);
-		portalApi = PortalRepository.getPortalApi();
+		PortalClient portalClient = PortalClient.getInstance(token);
+		portalApi = PortalClient.getPortalApi();
 		RequestInformationParameterData parameter = new RequestInformationParameterData("1", id, id);
 		portalApi.getInformation(new RequestInformationData(
 				"education.cmn.CMN_01008_T.SELECT",
@@ -68,8 +68,8 @@ public class InformationChangeViewModel extends ViewModel {
 	}
 
 	public void changeInformation(String token, String id, String tel, String phone, String guardianPhone, String address1, String address2, String zipcode, String gunmulNo, String email, String ip) {
-		PortalRepository portalRepository = PortalRepository.getInstance(token);
-		portalApi = PortalRepository.getPortalApi();
+		PortalClient portalClient = PortalClient.getInstance(token);
+		portalApi = PortalClient.getPortalApi();
 
 		String[] tels = tel.split("-");
 		String[] phones = phone.split("-");
@@ -132,8 +132,8 @@ public class InformationChangeViewModel extends ViewModel {
 	}
 
 	public void changeEnglishName(String token, String id, String ip, String name) {
-		PortalRepository portalRepository = PortalRepository.getInstance(token);
-		portalApi = PortalRepository.getPortalApi();
+		PortalClient portalClient = PortalClient.getInstance(token);
+		portalApi = PortalClient.getPortalApi();
 
 		RequestInformationChangeEnglishNameParameterData parameter = new RequestInformationChangeEnglishNameParameterData(
 				name,

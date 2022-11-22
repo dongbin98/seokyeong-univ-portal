@@ -3,7 +3,7 @@ package com.dbsh.skup.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.repository.PortalRepository;
+import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
 import com.dbsh.skup.model.RequestLecturePlanWeekData;
 import com.dbsh.skup.model.RequestLecturePlanWeekParameterData;
@@ -24,8 +24,8 @@ public class LecturePlanDetailWeekViewModel extends ViewModel {
     public PortalApi portalApi;
 
     public void getLecturePlanWeek(String token, String id, String subjCd, String clssNumb, String year, String term, String professorId) {
-        PortalRepository portalRepository = PortalRepository.getInstance(token);
-        portalApi = PortalRepository.getPortalApi();
+        PortalClient portalClient = PortalClient.getInstance(token);
+        portalApi = PortalClient.getPortalApi();
         RequestLecturePlanWeekParameterData parameter = new RequestLecturePlanWeekParameterData(year, term, subjCd, clssNumb, professorId);
         portalApi.getLecturePlanWeekData(new RequestLecturePlanWeekData(
                 "education.ucs.UCS_03100_T.SELECT_REPORT_CLASSPLAN",

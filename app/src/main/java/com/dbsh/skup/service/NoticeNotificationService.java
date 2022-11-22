@@ -27,7 +27,7 @@ import com.dbsh.skup.R;
 import com.dbsh.skup.api.MajorNoticeApi;
 import com.dbsh.skup.api.NoticeApi;
 import com.dbsh.skup.data.NoticeData;
-import com.dbsh.skup.repository.NoticeRepository;
+import com.dbsh.skup.client.NoticeClient;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -105,7 +105,7 @@ public class NoticeNotificationService extends LifecycleService {
                             }
                             notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                                     .setContentTitle("[" + notice.getType() + "] " + notice.getTitle())
-		                            .setContentText("클릭하여 공지사항을 볼 수 있습니다")
+		                            .setContentText("클릭하여 공지사항 확인하기")
                                     .setSmallIcon(R.mipmap.ic_skup_logo)
                                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                                     .setOnlyAlertOnce(true)
@@ -235,8 +235,8 @@ public class NoticeNotificationService extends LifecycleService {
     }
 
     public void getNotice() {
-        NoticeRepository noticeRepository = new NoticeRepository();
-        noticeApi = noticeRepository.getNoticeApi();
+        NoticeClient noticeClient = new NoticeClient();
+        noticeApi = noticeClient.getNoticeApi();
         ArrayList<NoticeData> noticeDataArrayList = new ArrayList<>();
         noticeApi.getNotice().enqueue(new Callback<Document>() {
             @Override

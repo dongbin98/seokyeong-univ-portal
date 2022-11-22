@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.repository.PortalRepository;
+import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
 import com.dbsh.skup.model.RequestTuitionData;
 import com.dbsh.skup.model.RequestTuitionParameterData;
@@ -22,8 +22,8 @@ public class TuitionViewModel extends ViewModel {
 	public PortalApi portalApi;
 
 	public void getTuition(String token, String id, String year, String term) {
-		PortalRepository portalRepository = PortalRepository.getInstance(token);
-		portalApi = PortalRepository.getPortalApi();
+		PortalClient portalClient = PortalClient.getInstance(token);
+		portalApi = PortalClient.getPortalApi();
 		RequestTuitionParameterData parameter = new RequestTuitionParameterData(id, year, term, id);
 		portalApi.getTuitionData(new RequestTuitionData(
 				"education.urg.URG_02012_V.SELECT",

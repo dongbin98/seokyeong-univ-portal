@@ -5,7 +5,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <!-- Light Mode Color Define -->
+    <!-- Dark Mode Color Define -->
     <color name="mainBlue">#FF4D7EE0</color>
     <color name="mainRed">#FFFF3232</color>
     <color name="mainYellow">#FFFFAC2F</color>
@@ -21,8 +21,6 @@
     <color name="white">#FF212124</color>
     <color name="onlyWhite">#FFFFFFFF</color>
     <color name="onlyBlack">#FF000000</color>
-<!--    <color name="gridentStartColor">#FF526A98</color>-->
-<!--    <color name="gridentEndColor">#FF2B3343</color>-->
     <color name="gridentStartColor">#FF4E7CD7</color>
     <color name="gridentEndColor">#FF78B4DF</color>
     <color name="attendanceboxColor">#FF4D4D4D</color>
@@ -33,3 +31,4 @@
     <color name="timetableitem5">#FF839FD7</color>
     <color name="timetableitem6">#AAB6CD</color>
 </resources>
+

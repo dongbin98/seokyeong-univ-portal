@@ -5,7 +5,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <!-- Dark Mode Color Define -->
+    <!-- Light Mode Color Define -->
     <color name="mainBlue">#FF4D7EE0</color>
     <color name="mainRed">#FFFF3232</color>
     <color name="mainYellow">#FFFFAC2F</color>
@@ -31,3 +31,4 @@
     <color name="timetableitem5">#FF839FD7</color>
     <color name="timetableitem6">#AAB6CD</color>
 </resources>
+
