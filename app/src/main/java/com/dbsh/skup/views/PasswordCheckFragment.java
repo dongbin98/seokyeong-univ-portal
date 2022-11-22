@@ -1,9 +1,7 @@
 package com.dbsh.skup.views;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +34,6 @@ public class PasswordCheckFragment extends Fragment implements OnBackPressedList
     String id;
     UserData userData;
     TranslateAnimation anim;
-    CountDownTimer countDownTimer;
-    int count = 300;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,9 +50,6 @@ public class PasswordCheckFragment extends Fragment implements OnBackPressedList
 
         PasswordCheckFragment = this;
         homeRightContainer = ((HomeRightContainer) this.getParentFragment());
-
-        countDownTimer();
-        countDownTimer.start();
 
         Toolbar mToolbar = binding.passwordCheckToolbar;
 
@@ -76,8 +69,6 @@ public class PasswordCheckFragment extends Fragment implements OnBackPressedList
             @Override
             public void onChanged(String s) {
                 if(s.equals("S")) {
-                    countDownTimer.cancel();
-                    countDownTimer = null;
                     Bundle bundle = new Bundle();
                     bundle.putString("id", id);
                     bundle.putString("code", binding.passwordCheckNumber.getText().toString());
@@ -101,43 +92,6 @@ public class PasswordCheckFragment extends Fragment implements OnBackPressedList
         anim.setDuration(500);
         anim.setInterpolator(new CycleInterpolator(7));
         return anim;
-    }
-
-    public void countDownTimer() {
-        countDownTimer = new CountDownTimer(30000, 1000) {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onTick(long l) {
-                count -= 1;
-                binding.passwordCheckTimer.setText("인증번호 유효시간 " + makeTimeFormat(count));
-            }
-
-            @Override
-            public void onFinish() {
-                Toast.makeText(getContext(), "시간 초과로 다시 인증번호를 발급받으세요", Toast.LENGTH_SHORT).show();
-                onBackPressed();
-            }
-        };
-    }
-
-    @SuppressLint("DefaultLocale")
-    public String makeTimeFormat(int second) {
-        String time;
-        int min, sec;
-        min = second / 60;
-        sec = second % 60;
-        time = String.format("%d:%2d", min, sec);
-        return time;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        try {
-            countDownTimer.cancel();
-        } catch (Exception e) {
-            countDownTimer = null;
-        }
     }
 
     @Override

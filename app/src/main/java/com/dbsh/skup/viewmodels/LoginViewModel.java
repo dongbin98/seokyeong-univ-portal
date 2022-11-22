@@ -31,6 +31,12 @@ public class LoginViewModel extends ViewModel {
 	}
 
 	public void getUserData(String loginId, String loginPassword) {
+//		System.out.println(String.format(
+//				"grant_type : %s\n" +
+//						"password : %s\n" +
+//						"userType : %s\n" +
+//						"username : %s", "password", loginPassword, "sku", loginId
+//		));
 		LoginRepository loginRepository = new LoginRepository();
 		loginApi = loginRepository.getLoginApi();
 		loginApi.getUserData(new RequestUserData(loginId, loginPassword, "password", "sku")).enqueue(new Callback<ResponseLogin>() {

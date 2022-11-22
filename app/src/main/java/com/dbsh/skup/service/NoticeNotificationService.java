@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.PowerManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +43,7 @@ import retrofit2.Response;
 public class NoticeNotificationService extends LifecycleService {
     private NotificationManager notificationManager;
     private Notification notification;
+	private Notification serviceNotification;
 
     private ServiceThread thread;
 
@@ -103,13 +105,19 @@ public class NoticeNotificationService extends LifecycleService {
                             }
                             notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                                     .setContentTitle("[" + notice.getType() + "] " + notice.getTitle())
+		                            .setContentText("클릭하여 공지사항을 볼 수 있습니다")
                                     .setSmallIcon(R.mipmap.ic_skup_logo)
                                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                                     .setOnlyAlertOnce(true)
                                     .setAutoCancel(true)
                                     .setContentIntent(pendingIntent)
                                     .setGroup(GROUP_NAME)
+		                            .setPriority(Notification.PRIORITY_HIGH)
+		                            .setFullScreenIntent(pendingIntent, true)
                                     .build();
+	                        PowerManager powerManager = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
+							PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "My:notify");
+	                        wakeLock.acquire(5000);
                             notificationManager.notify(notificationId++, notification);
                             j++;
                         }
@@ -120,6 +128,9 @@ public class NoticeNotificationService extends LifecycleService {
                                 .setSmallIcon(R.mipmap.ic_skup_logo)
                                 .setGroup(GROUP_NAME)
                                 .setGroupSummary(true)
+		                        .setOnlyAlertOnce(true)
+		                        .setAutoCancel(true)
+		                        .setPriority(Notification.PRIORITY_HIGH)
                                 .build();
                         notificationManager.notify(SUMMARY_ID, summaryNotification);
                     }
@@ -163,7 +174,7 @@ public class NoticeNotificationService extends LifecycleService {
 	public void startService() {
 		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         createServiceChannel();
-		notification = new NotificationCompat.Builder(getApplicationContext(), SERVICE_ID)
+		serviceNotification = new NotificationCompat.Builder(getApplicationContext(), SERVICE_ID)
 				.setContentTitle("공지사항 알림이")
 				.setContentText("어플 설정을 통해 알림이를 끌 수 있습니다.")
 				.setSmallIcon(R.mipmap.ic_skup_logo)
@@ -171,7 +182,7 @@ public class NoticeNotificationService extends LifecycleService {
 				.setAutoCancel(true)
 				.build();
 
-		startForeground(981215, notification);
+		startForeground(981215, serviceNotification);
 		thread.start();
 	}
 
@@ -210,7 +221,7 @@ public class NoticeNotificationService extends LifecycleService {
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID,
                     "Notification Channel",
-                    NotificationManager.IMPORTANCE_DEFAULT
+                    NotificationManager.IMPORTANCE_HIGH
             );
             serviceChannel.setShowBadge(true);
             NotificationManager manager = getSystemService(NotificationManager.class);
