@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.dbsh.skup.R;
+import com.dbsh.skup.client.MyWebClient;
 import com.dbsh.skup.databinding.WebviewFormBinding;
 import com.dbsh.skup.viewmodels.WebViewViewModel;
 
@@ -35,7 +35,7 @@ public class WebviewActivity extends AppCompatActivity {
         String url = intent.getStringExtra("url");
 
         webView = binding.webview;
-        webView.setWebViewClient(new WebViewClient());          // 새 창 띄우기 않기
+        webView.setWebViewClient(new MyWebClient());          // 새 창 띄우기 않기
         webView.setWebChromeClient(new WebChromeClient());
 
         webView.getSettings().setLoadWithOverviewMode(true);    // WebView 화면크기에 맞추도록 설정 - setUseWideViewPort 와 같이 써야함
