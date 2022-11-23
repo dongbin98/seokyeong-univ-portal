@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.LecturePlanDetailWeekAdapter;
 import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.LecturePlanDetailWeekFormBinding;
-import com.dbsh.skup.model.ResponseLecturePlanWeekList;
+import com.dbsh.skup.dto.ResponseLecturePlanWeekList;
 import com.dbsh.skup.viewmodels.LecturePlanDetailWeekViewModel;
 
 import java.text.SimpleDateFormat;

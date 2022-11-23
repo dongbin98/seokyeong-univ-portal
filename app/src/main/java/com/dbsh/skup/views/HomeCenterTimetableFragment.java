@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.HomeCenterTimetableFormBinding;
-import com.dbsh.skup.model.ResponseLectureList;
+import com.dbsh.skup.dto.ResponseLectureList;
 import com.dbsh.skup.viewmodels.HomeCenterTimetableViewModel;
 
 import java.util.ArrayList;

@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.api.BusApi;
-import com.dbsh.skup.model.ResponseStation;
-import com.dbsh.skup.model.ResponseStationItem;
+import com.dbsh.skup.dto.ResponseStation;
+import com.dbsh.skup.dto.ResponseStationItem;
 import com.dbsh.skup.client.BusClient;
 
 import org.json.JSONArray;

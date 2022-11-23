@@ -5,18 +5,18 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestGradeTermData;
-import com.dbsh.skup.model.RequestGradeTermParameterData;
-import com.dbsh.skup.model.RequestGradeTotalCreditData;
-import com.dbsh.skup.model.RequestGradeTotalCreditParameterData;
-import com.dbsh.skup.model.RequestGradeTotalData;
-import com.dbsh.skup.model.RequestGradeTotalParameterData;
-import com.dbsh.skup.model.ResponseGradeTerm;
-import com.dbsh.skup.model.ResponseGradeTermList;
-import com.dbsh.skup.model.ResponseGradeTotal;
-import com.dbsh.skup.model.ResponseGradeTotalCredit;
-import com.dbsh.skup.model.ResponseGradeTotalCreditList;
-import com.dbsh.skup.model.ResponseGradeTotalMap;
+import com.dbsh.skup.dto.RequestGradeTermData;
+import com.dbsh.skup.dto.RequestGradeTermParameterData;
+import com.dbsh.skup.dto.RequestGradeTotalCreditData;
+import com.dbsh.skup.dto.RequestGradeTotalCreditParameterData;
+import com.dbsh.skup.dto.RequestGradeTotalData;
+import com.dbsh.skup.dto.RequestGradeTotalParameterData;
+import com.dbsh.skup.dto.ResponseGradeTerm;
+import com.dbsh.skup.dto.ResponseGradeTermList;
+import com.dbsh.skup.dto.ResponseGradeTotal;
+import com.dbsh.skup.dto.ResponseGradeTotalCredit;
+import com.dbsh.skup.dto.ResponseGradeTotalCreditList;
+import com.dbsh.skup.dto.ResponseGradeTotalMap;
 
 import java.util.ArrayList;
 

@@ -23,10 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.LecturePlanDetailSummaryAdapter;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.LecturePlanDetailSummaryFormBinding;
-import com.dbsh.skup.model.ResponseLecturePlanBookList;
-import com.dbsh.skup.model.ResponseLecturePlanSummaryMap;
+import com.dbsh.skup.dto.ResponseLecturePlanBookList;
+import com.dbsh.skup.dto.ResponseLecturePlanSummaryMap;
 import com.dbsh.skup.mpandroidchart.YValueFormatter;
 import com.dbsh.skup.viewmodels.LecturePlanDetailSummaryViewModel;
 import com.github.mikephil.charting.animation.Easing;

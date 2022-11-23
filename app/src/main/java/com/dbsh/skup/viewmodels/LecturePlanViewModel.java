@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModel;
 import com.dbsh.skup.R;
 import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestLecturePlanData;
-import com.dbsh.skup.model.RequestLecturePlanParameterData;
-import com.dbsh.skup.model.ResponseLecturePlan;
-import com.dbsh.skup.model.ResponseLecturePlanList;
+import com.dbsh.skup.dto.RequestLecturePlanData;
+import com.dbsh.skup.dto.RequestLecturePlanParameterData;
+import com.dbsh.skup.dto.ResponseLecturePlan;
+import com.dbsh.skup.dto.ResponseLecturePlanList;
 
 import java.util.ArrayList;
 

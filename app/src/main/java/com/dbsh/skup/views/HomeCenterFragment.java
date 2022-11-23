@@ -17,8 +17,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.HomeNoticeCardAdapter;
 import com.dbsh.skup.adapter.HomeTopCardAdapter;
-import com.dbsh.skup.data.NoticeData;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.NoticeData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.HomeCenterFormBinding;
 import com.dbsh.skup.viewmodels.HomeCenterViewModel;
 

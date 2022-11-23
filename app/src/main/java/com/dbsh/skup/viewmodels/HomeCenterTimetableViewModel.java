@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestLectureData;
-import com.dbsh.skup.model.RequestLectureParameterData;
-import com.dbsh.skup.model.ResponseLecture;
-import com.dbsh.skup.model.ResponseLectureList;
+import com.dbsh.skup.dto.RequestLectureData;
+import com.dbsh.skup.dto.RequestLectureParameterData;
+import com.dbsh.skup.dto.ResponseLecture;
+import com.dbsh.skup.dto.ResponseLectureList;
 
 import java.util.ArrayList;
 

@@ -18,9 +18,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.TuitionFormBinding;
-import com.dbsh.skup.model.ResponseTuitionMap;
+import com.dbsh.skup.dto.ResponseTuitionMap;
 import com.dbsh.skup.viewmodels.TuitionViewModel;
 
 public class TuitionFragment extends Fragment implements OnBackPressedListener {

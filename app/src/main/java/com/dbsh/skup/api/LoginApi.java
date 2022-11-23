@@ -1,11 +1,11 @@
 package com.dbsh.skup.api;
 
-import com.dbsh.skup.model.RequestPasswordAuthData;
-import com.dbsh.skup.model.RequestPasswordChangeData;
-import com.dbsh.skup.model.RequestPasswordCheckData;
-import com.dbsh.skup.model.RequestUserData;
-import com.dbsh.skup.model.ResponseLogin;
-import com.dbsh.skup.model.ResponsePassword;
+import com.dbsh.skup.dto.RequestPasswordAuthData;
+import com.dbsh.skup.dto.RequestPasswordChangeData;
+import com.dbsh.skup.dto.RequestPasswordCheckData;
+import com.dbsh.skup.dto.RequestUserData;
+import com.dbsh.skup.dto.ResponseLogin;
+import com.dbsh.skup.dto.ResponsePassword;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

@@ -1,15 +1,14 @@
 package com.dbsh.skup.viewmodels;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.api.BusApi;
-import com.dbsh.skup.model.ResponseStation;
-import com.dbsh.skup.model.ResponseStationItem;
 import com.dbsh.skup.client.BusClient;
+import com.dbsh.skup.dto.ResponseStation;
+import com.dbsh.skup.dto.ResponseStationItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,8 +53,8 @@ public class HomeRightViewModel extends ViewModel {
 
 	public ArrayList<ResponseStationItem> stations = new ArrayList<>();
 
-	public HomeRightViewModel(Application application) {
-		this.context = application.getApplicationContext();
+	public void setContext(Context context) {
+		this.context = context;
 	}
 
 	public void getStaton1164() {

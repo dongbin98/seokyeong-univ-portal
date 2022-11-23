@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.api.NoticeApi;
-import com.dbsh.skup.data.NoticeData;
+import com.dbsh.skup.model.NoticeData;
 import com.dbsh.skup.client.NoticeClient;
 
 import org.jsoup.nodes.Document;

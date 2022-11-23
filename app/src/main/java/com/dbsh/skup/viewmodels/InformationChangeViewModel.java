@@ -7,15 +7,15 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestInformationChangeData;
-import com.dbsh.skup.model.RequestInformationChangeEnglishNameData;
-import com.dbsh.skup.model.RequestInformationChangeEnglishNameParameterData;
-import com.dbsh.skup.model.RequestInformationChangeParameterData;
-import com.dbsh.skup.model.RequestInformationData;
-import com.dbsh.skup.model.RequestInformationParameterData;
-import com.dbsh.skup.model.ResponseInformation;
-import com.dbsh.skup.model.ResponseInformationChange;
-import com.dbsh.skup.model.ResponseInformationMap;
+import com.dbsh.skup.dto.RequestInformationChangeData;
+import com.dbsh.skup.dto.RequestInformationChangeEnglishNameData;
+import com.dbsh.skup.dto.RequestInformationChangeEnglishNameParameterData;
+import com.dbsh.skup.dto.RequestInformationChangeParameterData;
+import com.dbsh.skup.dto.RequestInformationData;
+import com.dbsh.skup.dto.RequestInformationParameterData;
+import com.dbsh.skup.dto.ResponseInformation;
+import com.dbsh.skup.dto.ResponseInformationChange;
+import com.dbsh.skup.dto.ResponseInformationMap;
 import com.dbsh.skup.client.PortalClient;
 
 import retrofit2.Call;

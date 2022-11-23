@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.GraduateNoneSubjectAdapter;
 import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.GraduateNoneSubjectFormBinding;
-import com.dbsh.skup.model.ResponseGraduateNoneSubjectMap;
+import com.dbsh.skup.dto.ResponseGraduateNoneSubjectMap;
 import com.dbsh.skup.viewmodels.GraduateNoneSubjectViewModel;
 
 import java.util.ArrayList;

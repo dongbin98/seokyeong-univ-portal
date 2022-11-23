@@ -28,9 +28,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.InformationChangeFormBinding;
-import com.dbsh.skup.model.ResponseInformationMap;
+import com.dbsh.skup.dto.ResponseInformationMap;
 import com.dbsh.skup.viewmodels.InformationChangeViewModel;
 
 import java.net.Inet4Address;

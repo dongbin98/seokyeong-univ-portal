@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.AttendanceDetailAdapter;
 import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.AttendanceDetailFormBinding;
-import com.dbsh.skup.model.ResponseAttendanceDetailList;
+import com.dbsh.skup.dto.ResponseAttendanceDetailList;
 import com.dbsh.skup.viewmodels.AttendanceDetailViewModel;
 
 import java.text.ParseException;

@@ -15,11 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.GradeAllFormBinding;
-import com.dbsh.skup.model.ResponseGradeTermList;
-import com.dbsh.skup.model.ResponseGradeTotalCreditList;
-import com.dbsh.skup.model.ResponseGradeTotalMap;
+import com.dbsh.skup.dto.ResponseGradeTermList;
+import com.dbsh.skup.dto.ResponseGradeTotalCreditList;
+import com.dbsh.skup.dto.ResponseGradeTotalMap;
 import com.dbsh.skup.mpandroidchart.MyMarkerView;
 import com.dbsh.skup.mpandroidchart.XAxisFormatter;
 import com.dbsh.skup.mpandroidchart.XAxisRenderer;

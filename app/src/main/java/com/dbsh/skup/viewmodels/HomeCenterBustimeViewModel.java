@@ -4,10 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-import com.dbsh.skup.client.BusClient;
 import com.dbsh.skup.api.BusApi;
-import com.dbsh.skup.model.ResponseArrive;
+import com.dbsh.skup.client.BusClient;
+import com.dbsh.skup.dto.ResponseArrive;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeCenterBustimeViewModel {
+public class HomeCenterBustimeViewModel extends ViewModel {
 
     // for TextView Change
     public MutableLiveData<String> location1164 = new MutableLiveData<>();
@@ -64,7 +65,7 @@ public class HomeCenterBustimeViewModel {
     final String file1164 = "1164.json";
     final String file2115 = "2115.json";
 
-    public HomeCenterBustimeViewModel(Context context) {
+    public void setContext(Context context) {
         this.context = context;
     }
 

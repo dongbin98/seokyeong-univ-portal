@@ -1,7 +1,7 @@
 package com.dbsh.skup.api;
 
-import com.dbsh.skup.model.ResponseArrive;
-import com.dbsh.skup.model.ResponseStation;
+import com.dbsh.skup.dto.ResponseArrive;
+import com.dbsh.skup.dto.ResponseStation;
 
 import java.util.Map;
 

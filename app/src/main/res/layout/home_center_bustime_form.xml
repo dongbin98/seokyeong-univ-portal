@@ -7,8 +7,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.dbsh.skup.viewmodels.HomeCenterBustimeViewModel"/>
+            name="busData"
+            type="com.dbsh.skup.model.BusData"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/mainBlue"
-                    android:text="실시간 버스"
+                    android:text="@{busData.busType}"
                     android:textStyle="bold"
                     android:textSize="16dp"
                     android:fontFamily="@font/roboto"
@@ -60,7 +60,7 @@
                     android:textSize="12dp"
                     android:textColor="@color/gray2"
                     android:fontFamily="@font/roboto"
-                    android:text="위치갱신 필요"
+                    android:text="@{busData.updateDate}"
                     android:layout_marginRight="5dp"
                     app:layout_constraintRight_toLeftOf="@+id/card3_location_refresh"
                     app:layout_constraintTop_toTopOf="@id/card3_location_refresh"
@@ -103,6 +103,7 @@
                     android:id="@+id/card3_1164_location_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{busData.location1164}"
                     android:textColor="@color/gray1"
                     android:textSize="12dp"
                     android:fontFamily="@font/roboto"
@@ -115,6 +116,7 @@
                     android:id="@+id/card3_1164_arrive1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{busData.arriveFirst1164}"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto"
                     android:layout_marginTop="12dp"
@@ -127,6 +129,7 @@
                     android:id="@+id/card3_1164_arrive2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{busData.arriveSecond1164}"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto"
                     android:layout_marginRight="38dp"
@@ -172,6 +175,7 @@
                     android:id="@+id/card3_2115_location_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{busData.location2115}"
                     android:textColor="@color/gray1"
                     android:textSize="12dp"
                     android:fontFamily="@font/roboto"
@@ -184,6 +188,7 @@
                     android:id="@+id/card3_2115_arrive1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{busData.arriveFirst2115}"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto"
                     android:layout_marginTop="12dp"
@@ -196,6 +201,7 @@
                     android:id="@+id/card3_2115_arrive2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{busData.arriveSecond2115}"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto"
                     android:layout_marginRight="38dp"

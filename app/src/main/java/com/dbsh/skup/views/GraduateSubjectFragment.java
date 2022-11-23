@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.GraduateSubjectAdapter;
 import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.GraduateSubjectFormBinding;
-import com.dbsh.skup.model.ResponseGraduateBasicMap;
-import com.dbsh.skup.model.ResponseGraduateSubjectList;
+import com.dbsh.skup.dto.ResponseGraduateBasicMap;
+import com.dbsh.skup.dto.ResponseGraduateSubjectList;
 import com.dbsh.skup.viewmodels.GraduateSubjectViewModel;
 
 import java.util.ArrayList;

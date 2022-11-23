@@ -15,7 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.QrcodeFormBinding;
 import com.dbsh.skup.viewmodels.QrcodeViewModel;
 import com.google.zxing.BarcodeFormat;

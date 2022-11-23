@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel;
 import com.dbsh.skup.R;
 import com.dbsh.skup.client.LoginClient;
 import com.dbsh.skup.api.LoginApi;
-import com.dbsh.skup.model.RequestUserData;
-import com.dbsh.skup.model.ResponseLogin;
+import com.dbsh.skup.dto.RequestUserData;
+import com.dbsh.skup.dto.ResponseLogin;
 
 import retrofit2.Call;
 import retrofit2.Callback;

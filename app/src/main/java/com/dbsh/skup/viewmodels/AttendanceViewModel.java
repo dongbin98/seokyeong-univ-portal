@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestAttendanceData;
-import com.dbsh.skup.model.RequestAttendanceDetailData;
-import com.dbsh.skup.model.RequestAttendanceDetailParameterData;
-import com.dbsh.skup.model.RequestAttendanceParameterData;
-import com.dbsh.skup.model.ResponseAttendance;
-import com.dbsh.skup.model.ResponseAttendanceDetail;
-import com.dbsh.skup.model.ResponseAttendanceDetailList;
-import com.dbsh.skup.model.ResponseAttendanceList;
+import com.dbsh.skup.dto.RequestAttendanceData;
+import com.dbsh.skup.dto.RequestAttendanceDetailData;
+import com.dbsh.skup.dto.RequestAttendanceDetailParameterData;
+import com.dbsh.skup.dto.RequestAttendanceParameterData;
+import com.dbsh.skup.dto.ResponseAttendance;
+import com.dbsh.skup.dto.ResponseAttendanceDetail;
+import com.dbsh.skup.dto.ResponseAttendanceDetailList;
+import com.dbsh.skup.dto.ResponseAttendanceList;
 
 import java.io.IOException;
 import java.util.ArrayList;

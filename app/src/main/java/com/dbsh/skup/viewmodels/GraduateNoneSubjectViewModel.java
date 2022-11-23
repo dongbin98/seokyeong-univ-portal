@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestGraduateNoneSubjectData;
-import com.dbsh.skup.model.RequestGraduateNoneSubjectParameterData;
-import com.dbsh.skup.model.ResponseGraduateNoneSubject;
-import com.dbsh.skup.model.ResponseGraduateNoneSubjectMap;
+import com.dbsh.skup.dto.RequestGraduateNoneSubjectData;
+import com.dbsh.skup.dto.RequestGraduateNoneSubjectParameterData;
+import com.dbsh.skup.dto.ResponseGraduateNoneSubject;
+import com.dbsh.skup.dto.ResponseGraduateNoneSubjectMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;

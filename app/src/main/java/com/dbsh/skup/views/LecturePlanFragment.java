@@ -24,10 +24,10 @@ import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.LecturePlanAdapter;
 import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.adapter.SpinnerAdapter;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.LecturePlanFormBinding;
-import com.dbsh.skup.model.ResponseLecturePlanList;
-import com.dbsh.skup.model.ResponseYearList;
+import com.dbsh.skup.dto.ResponseLecturePlanList;
+import com.dbsh.skup.dto.ResponseYearList;
 import com.dbsh.skup.viewmodels.LecturePlanViewModel;
 
 import java.util.ArrayList;

@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestGradeTermData;
-import com.dbsh.skup.model.RequestGradeTermParameterData;
-import com.dbsh.skup.model.RequestGradeTermSubjectData;
-import com.dbsh.skup.model.RequestGradeTermSubjectParameterData;
-import com.dbsh.skup.model.ResponseGradeTerm;
-import com.dbsh.skup.model.ResponseGradeTermList;
-import com.dbsh.skup.model.ResponseGradeTermSubject;
-import com.dbsh.skup.model.ResponseGradeTermSubjectList;
+import com.dbsh.skup.dto.RequestGradeTermData;
+import com.dbsh.skup.dto.RequestGradeTermParameterData;
+import com.dbsh.skup.dto.RequestGradeTermSubjectData;
+import com.dbsh.skup.dto.RequestGradeTermSubjectParameterData;
+import com.dbsh.skup.dto.ResponseGradeTerm;
+import com.dbsh.skup.dto.ResponseGradeTermList;
+import com.dbsh.skup.dto.ResponseGradeTermSubject;
+import com.dbsh.skup.dto.ResponseGradeTermSubjectList;
 
 import java.util.ArrayList;
 

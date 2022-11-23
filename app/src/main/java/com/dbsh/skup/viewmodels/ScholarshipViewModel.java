@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestScholarshipData;
-import com.dbsh.skup.model.RequestScholarshipParameterData;
-import com.dbsh.skup.model.ResponseScholar;
-import com.dbsh.skup.model.ResponseScholarList;
+import com.dbsh.skup.dto.RequestScholarshipData;
+import com.dbsh.skup.dto.RequestScholarshipParameterData;
+import com.dbsh.skup.dto.ResponseScholar;
+import com.dbsh.skup.dto.ResponseScholarList;
 
 import java.util.ArrayList;
 

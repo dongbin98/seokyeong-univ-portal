@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestLecturePlanWeekData;
-import com.dbsh.skup.model.RequestLecturePlanWeekParameterData;
-import com.dbsh.skup.model.ResponseLecturePlanWeek;
-import com.dbsh.skup.model.ResponseLecturePlanWeekList;
+import com.dbsh.skup.dto.RequestLecturePlanWeekData;
+import com.dbsh.skup.dto.RequestLecturePlanWeekParameterData;
+import com.dbsh.skup.dto.ResponseLecturePlanWeek;
+import com.dbsh.skup.dto.ResponseLecturePlanWeekList;
 
 import java.util.ArrayList;
 

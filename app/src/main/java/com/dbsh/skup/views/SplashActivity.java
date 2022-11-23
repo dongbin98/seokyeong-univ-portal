@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.SplashFormBinding;
-import com.dbsh.skup.model.ResponseStationItem;
+import com.dbsh.skup.dto.ResponseStationItem;
 import com.dbsh.skup.viewmodels.SplashViewModel;
 
 import java.io.File;

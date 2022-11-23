@@ -22,10 +22,10 @@ import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.AttendanceAdapter;
 import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.adapter.SpinnerAdapter;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.AttendanceFormBinding;
-import com.dbsh.skup.model.ResponseAttendanceList;
-import com.dbsh.skup.model.ResponseYearList;
+import com.dbsh.skup.dto.ResponseAttendanceList;
+import com.dbsh.skup.dto.ResponseYearList;
 import com.dbsh.skup.viewmodels.AttendanceViewModel;
 
 import java.util.ArrayList;

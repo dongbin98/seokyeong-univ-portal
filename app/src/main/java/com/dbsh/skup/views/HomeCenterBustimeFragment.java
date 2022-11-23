@@ -18,8 +18,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.dbsh.skup.R;
+import com.dbsh.skup.model.BusData;
 import com.dbsh.skup.databinding.HomeCenterBustimeFormBinding;
 import com.dbsh.skup.viewmodels.HomeCenterBustimeViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -59,50 +61,59 @@ public class HomeCenterBustimeFragment extends Fragment {
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		/* Data Binding */
 		binding = DataBindingUtil.inflate(inflater, R.layout.home_center_bustime_form, container, false);
-		viewModel = new HomeCenterBustimeViewModel(getContext());
-		binding.setViewModel(viewModel);
-		binding.executePendingBindings();
+		binding.setLifecycleOwner(getViewLifecycleOwner());
+		viewModel = new ViewModelProvider(getActivity()).get(HomeCenterBustimeViewModel.class);
+		viewModel.setContext(getContext());
+		BusData busData = new BusData();
+		binding.setBusData(busData);
 
 		viewModel.busType.observe(getViewLifecycleOwner(), new Observer<String>() {
 			@Override
 			public void onChanged(String s) {
-				binding.card3Text1.setText(s);
+				busData.setBusType(s);
+				binding.setBusData(busData);
 			}
 		});
 		viewModel.location1164.observe(getViewLifecycleOwner(), new Observer<String>() {
 			@Override
 			public void onChanged(String s) {
-				binding.card31164LocationText.setText(s);
+				busData.setLocation1164(s);
+				binding.setBusData(busData);
 			}
 		});
 		viewModel.arriveFirst1164.observe(getViewLifecycleOwner(), new Observer<String>() {
 			@Override
 			public void onChanged(String s) {
-				binding.card31164Arrive1.setText(s);
+				busData.setArriveFirst1164(s);
+				binding.setBusData(busData);
 			}
 		});
 		viewModel.arriveSecond1164.observe(getViewLifecycleOwner(), new Observer<String>() {
 			@Override
 			public void onChanged(String s) {
-				binding.card31164Arrive2.setText(s);
+				busData.setArriveSecond1164(s);
+				binding.setBusData(busData);
 			}
 		});
 		viewModel.location2115.observe(getViewLifecycleOwner(), new Observer<String>() {
 			@Override
 			public void onChanged(String s) {
-				binding.card32115LocationText.setText(s);
+				busData.setLocation2115(s);
+				binding.setBusData(busData);
 			}
 		});
 		viewModel.arriveFirst2115.observe(getViewLifecycleOwner(), new Observer<String>() {
 			@Override
 			public void onChanged(String s) {
-				binding.card32115Arrive1.setText(s);
+				busData.setArriveFirst2115(s);
+				binding.setBusData(busData);
 			}
 		});
 		viewModel.arriveSecond2115.observe(getViewLifecycleOwner(), new Observer<String>() {
 			@Override
 			public void onChanged(String s) {
-				binding.card32115Arrive2.setText(s);
+				busData.setArriveSecond2115(s);
+				binding.setBusData(busData);
 			}
 		});
 
@@ -139,7 +150,8 @@ public class HomeCenterBustimeFragment extends Fragment {
 						viewModel.updateBusArrive(myGpsX, myGpsY);
 						date = new Date(System.currentTimeMillis());
 						simpleDateFormat.format(date);
-						binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
+						binding.setBusData(busData);
 					}
 				} else if(f1164.exists() && !f2115.exists()) {
 					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
@@ -150,7 +162,8 @@ public class HomeCenterBustimeFragment extends Fragment {
 						viewModel.updateBusArrive(myGpsX, myGpsY);
 						date = new Date(System.currentTimeMillis());
 						simpleDateFormat.format(date);
-						binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
+						binding.setBusData(busData);
 					}
 					Toast.makeText(getActivity(), "2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
 				} else if(!f1164.exists() && f2115.exists()) {
@@ -162,7 +175,8 @@ public class HomeCenterBustimeFragment extends Fragment {
 						viewModel.updateBusArrive(myGpsX, myGpsY);
 						date = new Date(System.currentTimeMillis());
 						simpleDateFormat.format(date);
-						binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
+						binding.setBusData(busData);
 					}
 					Toast.makeText(getActivity(), "1164노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
 				} else {
@@ -181,32 +195,28 @@ public class HomeCenterBustimeFragment extends Fragment {
 		binding.card3LocationRefresh.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				binding.card31164LocationText.setText("");
-				binding.card31164Arrive1.setText("");
-				binding.card31164Arrive2.setText("");
-				binding.card32115LocationText.setText("");
-				binding.card32115Arrive1.setText("");
-				binding.card32115Arrive2.setText("");
-
 				if(f1164.exists() && f2115.exists()) {
 					// 클릭 시 북악관에서 내 위치까지의 거리 다시구하기
 					// 최인접 버스정류장 도착시간 구하기 (비동기식)
 					viewModel.updateBusArrive(myGpsX, myGpsY);
 					date = new Date(System.currentTimeMillis());
 					simpleDateFormat.format(date);
-					binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+					busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
+					binding.setBusData(busData);
 					Toast.makeText(getActivity(), "갱신되었습니다", Toast.LENGTH_SHORT).show();
 				} else if(f1164.exists() && !f2115.exists()) {
 					viewModel.updateBusArrive(myGpsX, myGpsY);
 					date = new Date(System.currentTimeMillis());
 					simpleDateFormat.format(date);
-					binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+					busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
+					binding.setBusData(busData);
 					Toast.makeText(getActivity(), "2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
 				} else if(!f1164.exists() && f2115.exists()) {
 					viewModel.updateBusArrive(myGpsX, myGpsY);
 					date = new Date(System.currentTimeMillis());
 					simpleDateFormat.format(date);
-					binding.card3LocationRefreshTime.setText("갱신 : " + simpleDateFormat.format(date));
+					busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
+					binding.setBusData(busData);
 					Toast.makeText(getActivity(), "1164노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getActivity(), "1164, 2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();

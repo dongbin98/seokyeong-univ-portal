@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.client.PortalClient;
 import com.dbsh.skup.api.PortalApi;
-import com.dbsh.skup.model.RequestGraduateBasicData;
-import com.dbsh.skup.model.RequestGraduateBasicParameterData;
-import com.dbsh.skup.model.RequestGraduateSubjectData;
-import com.dbsh.skup.model.RequestGraduateSubjectParameterData;
-import com.dbsh.skup.model.ResponseGraduateBasic;
-import com.dbsh.skup.model.ResponseGraduateBasicMap;
-import com.dbsh.skup.model.ResponseGraduateSubject;
-import com.dbsh.skup.model.ResponseGraduateSubjectList;
+import com.dbsh.skup.dto.RequestGraduateBasicData;
+import com.dbsh.skup.dto.RequestGraduateBasicParameterData;
+import com.dbsh.skup.dto.RequestGraduateSubjectData;
+import com.dbsh.skup.dto.RequestGraduateSubjectParameterData;
+import com.dbsh.skup.dto.ResponseGraduateBasic;
+import com.dbsh.skup.dto.ResponseGraduateBasicMap;
+import com.dbsh.skup.dto.ResponseGraduateSubject;
+import com.dbsh.skup.dto.ResponseGraduateSubjectList;
 
 import java.util.ArrayList;
 

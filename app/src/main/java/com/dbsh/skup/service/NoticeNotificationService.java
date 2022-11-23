@@ -26,7 +26,7 @@ import androidx.lifecycle.Observer;
 import com.dbsh.skup.R;
 import com.dbsh.skup.api.MajorNoticeApi;
 import com.dbsh.skup.api.NoticeApi;
-import com.dbsh.skup.data.NoticeData;
+import com.dbsh.skup.model.NoticeData;
 import com.dbsh.skup.client.NoticeClient;
 
 import org.jsoup.nodes.Document;

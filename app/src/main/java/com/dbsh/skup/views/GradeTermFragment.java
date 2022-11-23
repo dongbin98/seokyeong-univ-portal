@@ -21,11 +21,11 @@ import com.dbsh.skup.R;
 import com.dbsh.skup.adapter.GradeTermAdapter;
 import com.dbsh.skup.adapter.LinearLayoutManagerWrapper;
 import com.dbsh.skup.adapter.SpinnerAdapter;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.GradeTermFormBinding;
-import com.dbsh.skup.model.ResponseGradeTermList;
-import com.dbsh.skup.model.ResponseGradeTermSubjectList;
-import com.dbsh.skup.model.ResponseYearList;
+import com.dbsh.skup.dto.ResponseGradeTermList;
+import com.dbsh.skup.dto.ResponseGradeTermSubjectList;
+import com.dbsh.skup.dto.ResponseYearList;
 import com.dbsh.skup.viewmodels.GradeTermViewModel;
 
 import java.util.ArrayList;

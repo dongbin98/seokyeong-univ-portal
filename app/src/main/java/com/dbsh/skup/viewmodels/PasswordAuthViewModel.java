@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.api.LoginApi;
-import com.dbsh.skup.model.RequestPasswordAuthData;
-import com.dbsh.skup.model.ResponsePassword;
+import com.dbsh.skup.dto.RequestPasswordAuthData;
+import com.dbsh.skup.dto.ResponsePassword;
 import com.dbsh.skup.client.LoginClient;
 
 import retrofit2.Call;

@@ -14,11 +14,12 @@ import android.widget.Toast;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.data.UserData;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.HomeRightFormBinding;
-import com.dbsh.skup.model.ResponseStationItem;
+import com.dbsh.skup.dto.ResponseStationItem;
 import com.dbsh.skup.service.NoticeNotificationService;
 import com.dbsh.skup.viewmodels.HomeRightViewModel;
 
@@ -50,14 +51,13 @@ public class HomeRightFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		/* Data Binding */
 		binding = DataBindingUtil.inflate(inflater, R.layout.home_right_form, container, false);
-		viewModel = new HomeRightViewModel(getActivity().getApplication());
-		binding.setViewModel(viewModel);
-		binding.executePendingBindings();
-
+		binding.setLifecycleOwner(getViewLifecycleOwner());
+		viewModel = new ViewModelProvider(getActivity()).get(HomeRightViewModel.class);
+		viewModel.setContext(getContext());
 		userData = ((UserData) getActivity().getApplication());
+		binding.setUserData(userData);
+
 		passwordModifyDay = Integer.parseInt(userData.getLastPasswordModify());
-		binding.mypageId.setText(userData.getId());
-		binding.mypageName.setText(userData.getKorName());
 		if(passwordModifyDay <= 30) {
 			binding.mypagePasswordDay.setBackgroundResource(R.drawable.frame_red_line);
 			binding.mypagePasswordDay.setTextColor(getContext().getColor(R.color.mainRed));
@@ -68,7 +68,6 @@ public class HomeRightFragment extends Fragment {
 			binding.mypagePasswordDay.setBackgroundResource(R.drawable.frame_blue_line);
 			binding.mypagePasswordDay.setTextColor(getContext().getColor(R.color.mainBlue));
 		}
-		binding.mypagePasswordDay.setText(String.format("D - %s", userData.getLastPasswordModify()));
 
 		HomeRightFragment = this;
 		homeRightContainer = ((HomeRightContainer) this.getParentFragment());
