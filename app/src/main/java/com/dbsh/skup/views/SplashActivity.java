@@ -150,7 +150,7 @@ public class SplashActivity extends AppCompatActivity {
 
     public boolean checkPermissions() {
         boolean permissionGranted = false;
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION};
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             permissionGranted = hasPermissions(permissions);
