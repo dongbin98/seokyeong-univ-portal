@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\yeomd\\Desktop\\SKUP\\AndroidKey\\skup_billing.jks')
+            storePassword '!ytskjs173'
+            keyAlias 'skup_billing'
+            keyPassword '!ytskjs173'
+        }
+    }
     compileSdk 32
 
     defaultConfig {
@@ -19,6 +27,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
