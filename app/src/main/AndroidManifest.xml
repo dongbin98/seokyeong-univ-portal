@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".model.UserData"
@@ -58,6 +59,5 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".views.PasswordActivity"
             android:windowSoftInputMode="adjustPan"/>
-
     </application>
 </manifest>

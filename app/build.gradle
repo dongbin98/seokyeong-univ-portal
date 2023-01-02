@@ -4,10 +4,16 @@ plugins {
 
 android {
     signingConfigs {
-        release {
-            storeFile file('C:\\Users\\Administrator\\Desktop\\keystore\\skup.jks')
+        debug {
+            storeFile file('C:\\Users\\Administrator\\Desktop\\AndroidKey\\skup_billing.jks')
             storePassword '!ytskjs173'
-            keyAlias 'skup'
+            keyAlias 'skup_billing'
+            keyPassword '!ytskjs173'
+        }
+        release {
+            storeFile file('C:\\Users\\Administrator\\Desktop\\AndroidKey\\skup_billing.jks')
+            storePassword '!ytskjs173'
+            keyAlias 'skup_billing'
             keyPassword '!ytskjs173'
         }
     }
