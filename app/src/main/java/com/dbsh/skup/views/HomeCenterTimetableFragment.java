@@ -67,17 +67,19 @@ public class HomeCenterTimetableFragment extends Fragment {
 	    viewModel.lectureLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<ResponseLectureList>>() {
 		    @Override
 		    public void onChanged(ArrayList<ResponseLectureList> responseLectureLists) {
-				for(ResponseLectureList lecture : responseLectureLists) {
-					if (lecture.getLectureDay() != null && lecture.getLectureDay().equals(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK) - 1))) {
-						TableRow tableRow = new TableRow(getActivity());
-						tableRow.setLayoutParams(params);
-						TextView textView = new TextView(getActivity());
-						String time = lecture.getLectureStartTime() + " ~ " + lecture.getLectureEndTime() + " " + lecture.getLectureName();
-						textView.setText(time);
-						textView.setTextColor(getActivity().getColor(R.color.black));
-						textView.setPadding(0, 0, 0, 20);
-						tableRow.addView(textView);
-						card2_timetableTodayTable.addView(tableRow);
+				if(responseLectureLists != null) {
+					for (ResponseLectureList lecture : responseLectureLists) {
+						if (lecture.getLectureDay() != null && lecture.getLectureDay().equals(Integer.toString(calendar.get(Calendar.DAY_OF_WEEK) - 1))) {
+							TableRow tableRow = new TableRow(getActivity());
+							tableRow.setLayoutParams(params);
+							TextView textView = new TextView(getActivity());
+							String time = lecture.getLectureStartTime() + " ~ " + lecture.getLectureEndTime() + " " + lecture.getLectureName();
+							textView.setText(time);
+							textView.setTextColor(getActivity().getColor(R.color.black));
+							textView.setPadding(0, 0, 0, 20);
+							tableRow.addView(textView);
+							card2_timetableTodayTable.addView(tableRow);
+						}
 					}
 				}
 		    }
