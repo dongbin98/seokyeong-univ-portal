@@ -17,9 +17,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
-import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.databinding.LoginFormBinding;
 import com.dbsh.skup.dto.ResponseLogin;
+import com.dbsh.skup.model.UserData;
 import com.dbsh.skup.viewmodels.LoginViewModel;
 
 public class MainActivity extends AppCompatActivity {
