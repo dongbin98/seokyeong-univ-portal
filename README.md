@@ -21,3 +21,11 @@ SeoKyeong University Portal Android Native Application.
 - ViewBinding
 
 ![아키텍처_화이트](https://user-images.githubusercontent.com/77912766/210412204-de2025a8-e5d8-4890-a251-48483a472f1b.png)
+
+## 3. 결론
+
+### 3. 1 결과
+![image 19](https://user-images.githubusercontent.com/77912766/210413163-c5eb424f-316f-40e2-9383-2d666feccb22.png)
+![출결](https://user-images.githubusercontent.com/77912766/210413708-2a41b87a-0198-4c1b-9711-48415ce3a8ed.gif)
+![강의계획서,시간표](https://user-images.githubusercontent.com/77912766/210413713-cefb664c-9cfc-44b0-8b9a-8a54fed8eade.gif)
+![rmdhl](https://user-images.githubusercontent.com/77912766/210413717-74f239a9-c92e-4608-9678-a4c8ce5792f3.gif)
