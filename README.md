@@ -34,3 +34,8 @@ SeoKyeong University Portal Android Native Application.
   <img width="30%" src="https://user-images.githubusercontent.com/77912766/210413713-cefb664c-9cfc-44b0-8b9a-8a54fed8eade.gif"/>
   <img width="30%" src="https://user-images.githubusercontent.com/77912766/210413717-74f239a9-c92e-4608-9678-a4c8ce5792f3.gif"/>
 </p>
+
+### 3. 2 개발후기
+- Android OS, IOS, UIㆍUX을 각 담당하는 3명이 협업을 통해 좋은 결과물을 만들어낸 소중한 기회였다.
+- 개발을 진행하는 과정에서 Clean Architecture라는 개념을 배우고, 이를 기반으로 리팩토링하며 개발자로서 한 발 나아간 마음이었다.
+- 현재 SKUP은 GooglePlay 공개 테스트 심사를 진행중에 있으며, 피드백을 수용하여 정식 출시하는 것이 최종 목표이다.
