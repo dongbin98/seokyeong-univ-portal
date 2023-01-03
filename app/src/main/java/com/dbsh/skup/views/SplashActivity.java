@@ -28,6 +28,7 @@ import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 22;
+    String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     Animation animFadeIn;
     ConstraintLayout constraintLayout;
 
@@ -61,9 +62,11 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                checkPermissions();
-//                if(fileExist && checkPermissions())
-//                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                if(hasPermissions(permissions) && fileExist) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                } else {
+                    checkPermissions();
+                }
             }
 
             @Override
@@ -150,7 +153,6 @@ public class SplashActivity extends AppCompatActivity {
 
     public boolean checkPermissions() {
         boolean permissionGranted = false;
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             permissionGranted = hasPermissions(permissions);
@@ -185,6 +187,8 @@ public class SplashActivity extends AppCompatActivity {
                     break;
                 }
             }
+        }
+        if(fileExist) {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
         }
     }
