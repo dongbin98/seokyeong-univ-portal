@@ -1,7 +1,7 @@
 # SKUP
-SeoKyeong University Portal Android Native Application.
-서경대학교 포탈 서비스 기능을 모바일 애플리케이션으로 개발한 졸업작품입니다.
-`Clean Architecture`, `MVVM Design Pattern`, `Databinding`, `ViewBinding`, `Retrofit2`, `OkHttp`
+SeoKyeong University Portal Android Native Application.   
+서경대학교 포탈 서비스 기능을 모바일 애플리케이션으로 개발한 졸업작품입니다.   
+`Clean Architecture`, `MVVM Design Pattern`, `Databinding`, `ViewBinding`, `Retrofit2`, `OkHttp`   
 
 ## 1. Development Environment
 
@@ -36,6 +36,6 @@ SeoKyeong University Portal Android Native Application.
 </p>
 
 ### 3. 2 개발후기
-- Android OS, IOS, UIㆍUX을 각 담당하는 3명이 협업을 통해 좋은 결과물을 만들어낸 소중한 기회였다.
-- 개발을 진행하는 과정에서 Clean Architecture라는 개념을 배우고, 이를 기반으로 리팩토링하며 개발자로서 한 발 나아간 마음이었다.
-- 현재 SKUP은 GooglePlay 공개 테스트 심사를 진행중에 있으며, 피드백을 수용하여 정식 출시하는 것이 최종 목표이다.
+- Android OS, IOS, UIㆍUX을 각 담당하는 3명이 협업을 통해 좋은 결과물을 만들어낸 소중한 기회였다.   
+- 개발을 진행하는 과정에서 Clean Architecture라는 개념을 배우고, 이를 기반으로 리팩토링하며 개발자로서 한 발 나아간 마음이었다.   
+- 현재 SKUP은 GooglePlay 공개 테스트 심사를 진행중에 있으며, 피드백을 수용하여 정식 출시하는 것이 최종 목표이다.   
