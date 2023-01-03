@@ -1,6 +1,9 @@
 # SKUP
 SeoKyeong University Portal Android Native Application.   
 서경대학교 포탈 서비스 기능을 모바일 애플리케이션으로 개발한 졸업작품입니다.   
+   
+출결 조회, 시간표 조회, 성적 조회, 강의계획서 조회, 등록금납부현황 조회, 졸업이수요건 조회, 실시간 등하교 버스 도착시간 조회,   
+교내 공지사항 조회, 공지사항 알림, 개인정보 수정, 비밀번호 변경의 기능을 포함하고 있습니다.   
 `Clean Architecture`, `MVVM Design Pattern`, `Databinding`, `ViewBinding`, `Retrofit2`, `OkHttp`   
 
 ## 1. Development Environment
@@ -17,8 +20,6 @@ SeoKyeong University Portal Android Native Application.
 
 ## 2. Main Architecture
 - MVVM Pattern
-- DataBinding
-- ViewBinding
 
 ![아키텍처_화이트](https://user-images.githubusercontent.com/77912766/210412204-de2025a8-e5d8-4890-a251-48483a472f1b.png)
 
