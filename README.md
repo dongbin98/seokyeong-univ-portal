@@ -1,4 +1,5 @@
 # ![header](https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=12&text=skup)
+<img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white" /> <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" /> <img src="https://img.shields.io/badge/Android%20Studio-3DDC84?style=flat&logo=AndroidStudio&logoColor=white" />  
 SeoKyeong University Portal Android Native Application.
 서경대학교 포탈 서비스 기능을 모바일 애플리케이션으로 개발한 졸업작품입니다.   
    
