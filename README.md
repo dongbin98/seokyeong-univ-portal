@@ -1,5 +1,5 @@
-# SKUP
-SeoKyeong University Portal Android Native Application.   
+# ![header](https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=12&text=skup)
+SeoKyeong University Portal Android Native Application.
 서경대학교 포탈 서비스 기능을 모바일 애플리케이션으로 개발한 졸업작품입니다.   
    
 출결 조회, 시간표 조회, 성적 조회, 강의계획서 조회, 등록금납부현황 조회, 졸업이수요건 조회, 실시간 등하교 버스 도착시간 조회,   
