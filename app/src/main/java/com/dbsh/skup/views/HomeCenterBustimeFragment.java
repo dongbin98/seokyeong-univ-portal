@@ -27,6 +27,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -120,25 +121,16 @@ public class HomeCenterBustimeFragment extends Fragment {
 
 		fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
-//		if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-//				&& ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//			ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-//			ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-//		}
-
-		locationRequest = locationRequest.create();
-		locationRequest.setInterval(60000);
-		locationRequest.setFastestInterval(50000);
+		locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 60000)
+				.setIntervalMillis(60000)
+				.setMinUpdateIntervalMillis(50000)
+				.build();
 
 		locationCallback = new LocationCallback() {
 			@Override
 			public void onLocationResult(@NonNull LocationResult locationResult) {
 				super.onLocationResult(locationResult);
-				if (locationResult == null) {
-					Log.d("tag", "locationResult null");
-					return;
-				}
-				if(f1164.exists() && f2115.exists()) {
+				if (f1164.exists() && f2115.exists()) {
 					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
 					for (Location loc : locationResult.getLocations()) {
 						myGpsX = loc.getLongitude();
@@ -150,7 +142,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
 						binding.setBusData(busData);
 					}
-				} else if(f1164.exists() && !f2115.exists()) {
+				} else if (f1164.exists() && !f2115.exists()) {
 					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
 					for (Location loc : locationResult.getLocations()) {
 						myGpsX = loc.getLongitude();
@@ -163,7 +155,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 						binding.setBusData(busData);
 					}
 					Toast.makeText(getActivity(), "2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
-				} else if(!f1164.exists() && f2115.exists()) {
+				} else if (!f1164.exists() && f2115.exists()) {
 					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
 					for (Location loc : locationResult.getLocations()) {
 						myGpsX = loc.getLongitude();
