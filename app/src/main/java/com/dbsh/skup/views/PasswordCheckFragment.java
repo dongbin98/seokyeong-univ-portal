@@ -104,6 +104,6 @@ public class PasswordCheckFragment extends Fragment implements OnBackPressedList
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((HomeActivity)context).setOnBackPressedListner(this);
+        ((HomeActivity)context).setOnBackPressedListener(this);
     }
 }

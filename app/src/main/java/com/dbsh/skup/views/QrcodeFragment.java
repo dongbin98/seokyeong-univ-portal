@@ -127,6 +127,6 @@ public class QrcodeFragment extends Fragment implements OnBackPressedListener {
 	@Override
 	public void onAttach(@NonNull Context context) {
 		super.onAttach(context);
-		((HomeActivity)context).setOnBackPressedListner(this);
+		((HomeActivity)context).setOnBackPressedListener(this);
 	}
 }

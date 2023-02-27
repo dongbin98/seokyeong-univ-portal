@@ -215,6 +215,6 @@ public class AttendanceDetailFragment extends Fragment implements OnBackPressedL
 	@Override
 	public void onAttach(@NonNull Context context) {
 		super.onAttach(context);
-		((HomeActivity)context).setOnBackPressedListner(this);
+		((HomeActivity)context).setOnBackPressedListener(this);
 	}
 }

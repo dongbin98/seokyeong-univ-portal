@@ -27,10 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 	private HomeFormBinding binding;
 	private HomeViewModel viewModel;
 
-	private OnBackPressedListener mBackListener;
-
-	public void setOnBackPressedListner(OnBackPressedListener listener) {
-		mBackListener = listener;
+	public void setOnBackPressedListener(OnBackPressedListener listener) {
 	}
 
 
@@ -134,10 +131,9 @@ public class HomeActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				onBackPressed();
-				return true;
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

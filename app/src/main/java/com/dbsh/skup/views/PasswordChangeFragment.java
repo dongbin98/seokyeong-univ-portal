@@ -208,6 +208,6 @@ public class PasswordChangeFragment extends Fragment implements OnBackPressedLis
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((HomeActivity)context).setOnBackPressedListner(this);
+        ((HomeActivity)context).setOnBackPressedListener(this);
     }
 }
