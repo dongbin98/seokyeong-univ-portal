@@ -1,9 +1,6 @@
 package com.dbsh.skup.views;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -12,7 +9,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 
@@ -27,8 +23,6 @@ import java.util.List;
 
 
 public class SplashActivity extends AppCompatActivity {
-    private static final int PERMISSION_REQUEST_CODE = 22;
-    String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     Animation animFadeIn;
     ConstraintLayout constraintLayout;
 
@@ -62,11 +56,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if(hasPermissions(permissions) && fileExist) {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                } else {
-                    checkPermissions();
-                }
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
             }
 
             @Override
@@ -149,47 +139,5 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public boolean checkPermissions() {
-        boolean permissionGranted = false;
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            permissionGranted = hasPermissions(permissions);
-
-            if(!permissionGranted) {
-                ActivityCompat.requestPermissions(this, permissions, PERMISSION_REQUEST_CODE);
-            }
-        } else {
-            permissionGranted = true;
-        }
-        return permissionGranted;
-    }
-
-    public boolean hasPermissions(String[] permissions) {
-        // 필수 권한을 가지고 있는지 확인한다.
-        for (String permission : permissions) {
-            if (checkCallingOrSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == PERMISSION_REQUEST_CODE) {
-            boolean checkFlag = false;
-            for(int g : grantResults) {
-                if (g == -1) {
-                    checkFlag = true;
-                    break;
-                }
-            }
-        }
-        if(fileExist) {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        }
     }
 }
