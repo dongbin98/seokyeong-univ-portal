@@ -25,7 +25,6 @@ public class TimeTableViewModel extends ViewModel {
     public PortalApi portalApi;
 
     public void getLectureData(String token, String id, String year, String term) {
-        PortalClient portalClient = PortalClient.getInstance(token);
         portalApi = PortalClient.getPortalApi();
         RequestLectureParameterData parameter = new RequestLectureParameterData(id, year, term, id);
         portalApi.getLectureData(new RequestLectureData(
@@ -40,12 +39,16 @@ public class TimeTableViewModel extends ViewModel {
             public void onResponse(Call<ResponseLecture> call, Response<ResponseLecture> response) {
                 if (response.isSuccessful()) {
                     lectureLiveData.setValue(response.body().getResponseLectureLists());
+                } else {
+                    Log.d("Failure", "response is not successful!");
+                    lectureLiveData.setValue(null);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseLecture> call, Throwable t) {
                 Log.d("Failure", t.getLocalizedMessage());
+                lectureLiveData.setValue(null);
             }
         });
     }

@@ -65,7 +65,7 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
     private ArrayList<TextView> timetableItems;
     private ArrayList<TextView> timetableIndexes;
     final int[] colors = {R.color.timetableitem1, R.color.timetableitem2, R.color.timetableitem3,
-		    R.color.mainBlue, R.color.timetableitem4, R.color.timetableitem5, R.color.timetableitem6,
+            R.color.mainBlue, R.color.timetableitem4, R.color.timetableitem5, R.color.timetableitem6,
             R.color.mainYellow, R.color.purple_200, R.color.purple_500, R.color.teal_700};
 
     List<TimetableAdapter.TimetableItem> data;
@@ -85,14 +85,14 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
 
         overtime = 0;
 
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             type = getArguments().getString("type");
         }
 
         TimeTableFragment = this;
-        if(type.equals("left"))
+        if (type.equals("left"))
             homeLeftContainer = ((HomeLeftContainer) this.getParentFragment());
-        else if(type.equals("center"))
+        else if (type.equals("center"))
             homeCenterContainer = ((HomeCenterContainer) this.getParentFragment());
 
         userData = ((UserData) getActivity().getApplication());
@@ -167,14 +167,14 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
             }
         });
 
-        for(int i = 0; i < spinnerItem.size(); i++) {
-            if(spinnerItem.get(i).substring(0, 4).equals(year)) {
+        for (int i = 0; i < spinnerItem.size(); i++) {
+            if (spinnerItem.get(i).substring(0, 4).equals(year)) {
                 timetableSpinner.setSelection(i);
             }
         }
 
-        for(int i = 0; i < spinnerItem2.size(); i++) {
-            if(spinnerItem2.get(i).substring(0, 1).equals(term)) {
+        for (int i = 0; i < spinnerItem2.size(); i++) {
+            if (spinnerItem2.get(i).substring(0, 1).equals(term)) {
                 timetableSpinner2.setSelection(i);
             }
         }
@@ -186,7 +186,7 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
                 timetableBtn.setClickable(false);
                 data.clear();
                 adapter.notifyDataSetChanged();
-                for(TextView tv : timetableItems) {
+                for (TextView tv : timetableItems) {
                     binding.timetableConstraintlayout.removeView(tv);
                 }
                 overtime = 0;
@@ -201,13 +201,13 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
         viewModel.lectureLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<ResponseLectureList>>() {
             @Override
             public void onChanged(ArrayList<ResponseLectureList> responseLectureLists) {
-                if(responseLectureLists != null) {
+                if (responseLectureLists != null) {
                     int startY, endY, height, marginY;
                     String lecture, classroom, professor;
                     // 시간표 그려주는 부분
                     for (ResponseLectureList responseLectureList : responseLectureLists) {
                         // 강의시간이 존재하는 수업의 경우
-	                    // OCU : 시작, 종료, 요일 정보 없음
+                        // OCU : 시작, 종료, 요일 정보 없음
                         if (responseLectureList.getLectureDay() != null) {
                             startY = getYtoTime(responseLectureList.getLectureStartTime());
                             endY = getYtoTime(responseLectureList.getLectureEndTime());
@@ -220,9 +220,9 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
                             tv.setText(lecture + classroom + professor);
                             tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv.setTextSize(10);
-	                        tv.setMaxLines((endY-startY) / 12);   // 12dp 당 한 줄로 잡음
+                            tv.setMaxLines((endY - startY) / 12);   // 12dp 당 한 줄로 잡음
                             tv.setTextColor(getContext().getColor(R.color.onlyWhite));
-							// Text Style
+                            // Text Style
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 tv.setTypeface(getResources().getFont(R.font.roboto), Typeface.BOLD);
                             } else {
@@ -271,9 +271,9 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
                         }
                     }
 
-                    if(overtime >= 1) {
+                    if (overtime >= 1) {
                         // 6시 이후에 수업이 있는 경우
-                        for(int i = 18; i < 21; i++) {
+                        for (int i = 18; i < 21; i++) {
                             TextView index = new TextView(getContext());
                             index.setText(Integer.toString(i));
                             index.setTextColor(getContext().getColor(R.color.gray2));
@@ -292,7 +292,7 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
                         }
                     } else {
                         // 6시 이후에 수업이 없는 경우
-                        for(TextView index : timetableIndexes)
+                        for (TextView index : timetableIndexes)
                             binding.timetableIndex.removeView(index);
                     }
                 }
@@ -302,13 +302,14 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
 
         return binding.getRoot();
     }
+
     @Override
     public void onBackPressed() {
-        if(type.equals("center")) {
+        if (type.equals("center")) {
             homeCenterContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
             homeCenterContainer.getChildFragmentManager().popBackStackImmediate();
             homeCenterContainer.popFragment();
-        } else if(type.equals("left")){
+        } else if (type.equals("left")) {
             homeLeftContainer.getChildFragmentManager().beginTransaction().remove(this).commit();
             homeLeftContainer.getChildFragmentManager().popBackStackImmediate();
             homeLeftContainer.popFragment();
@@ -326,21 +327,21 @@ public class TimeTableFragment extends Fragment implements OnBackPressedListener
         String[] div = time.split(":");
         // 한 시간에 48dp
         y = (Integer.parseInt(div[0]) - 9) * 48 + (int) ((Double.parseDouble(div[1]) / 60) * 48) + 10;
-        if(y >= 442)
+        if (y >= 442)
             overtime++;
         return y;
     }
 
-	public int getRandomColor(String subjectName, int length) {
-		int result = 0;
-		char c;
-		for(int i = 0; i < subjectName.length(); i++) {
-			c = subjectName.charAt(i);
-			result += ((int) c);
-		}
-		result += Integer.parseInt(userData.getId());
-		return result % length;
-	}
+    public int getRandomColor(String subjectName, int length) {
+        int result = 0;
+        char c;
+        for (int i = 0; i < subjectName.length(); i++) {
+            c = subjectName.charAt(i);
+            result += ((int) c);
+        }
+        result += Integer.parseInt(userData.getId());
+        return result % length;
+    }
 
     public int int2dp(int value) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics());
