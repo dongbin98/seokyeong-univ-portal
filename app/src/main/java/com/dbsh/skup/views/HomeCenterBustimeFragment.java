@@ -268,7 +268,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 
 	private void showPermissionDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-				.setTitle("SKUP 위치 액세스 권한 안내")
+				.setTitle("skup 위치 액세스 권한 안내")
 				.setMessage("등하교 버스 도착시간 확인을 위해 위치 액세스 권한이 필요합니다.")
 				.setCancelable(false)
 				.setNegativeButton("거부", null)
