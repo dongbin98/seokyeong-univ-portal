@@ -21,9 +21,9 @@ android {
 
     defaultConfig {
         applicationId "com.dbsh.skup"
-        minSdk 24
+        minSdk 29
         targetSdk 33
-        versionCode 9
+        versionCode 12
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
