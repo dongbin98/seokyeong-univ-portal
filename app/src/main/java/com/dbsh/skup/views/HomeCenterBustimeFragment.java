@@ -3,13 +3,10 @@ package com.dbsh.skup.views;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -26,14 +23,7 @@ import com.dbsh.skup.databinding.HomeCenterBustimeFormBinding;
 import com.dbsh.skup.model.BusData;
 import com.dbsh.skup.viewmodels.HomeCenterBustimeViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationAvailability;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.Priority;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -65,9 +55,13 @@ public class HomeCenterBustimeFragment extends Fragment {
 		binding.setLifecycleOwner(getViewLifecycleOwner());
 		viewModel = new ViewModelProvider(getActivity()).get(HomeCenterBustimeViewModel.class);
 		viewModel.setContext(getContext());
+
 		BusData busData = new BusData();
 		binding.setBusData(busData);
 
+		busData.setBusType("서비스 준비중");
+
+		/* Bus Time 보류
 		// 정류장 정보 가져오기
 		File f1164 = new File(getActivity().getFilesDir(), file1164);
 		File f2115 = new File(getActivity().getFilesDir(), file2115);
@@ -90,47 +84,47 @@ public class HomeCenterBustimeFragment extends Fragment {
 					myGpsX = loc.getLongitude();
 					myGpsY = loc.getLatitude();
 				}
-//				if (f1164.exists() && f2115.exists()) {
-//					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
-//					for (Location loc : locationResult.getLocations()) {
-//						myGpsX = loc.getLongitude();
-//						myGpsY = loc.getLatitude();
-//						// 최인접 버스정류장 도착시간 구하기 (비동기식)
-//						viewModel.updateBusArrive(myGpsX, myGpsY);
-//						date = new Date(System.currentTimeMillis());
-//						simpleDateFormat.format(date);
-//						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
-//						binding.setBusData(busData);
-//					}
-//				} else if (f1164.exists() && !f2115.exists()) {
-//					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
-//					for (Location loc : locationResult.getLocations()) {
-//						myGpsX = loc.getLongitude();
-//						myGpsY = loc.getLatitude();
-//						// 최인접 버스정류장 도착시간 구하기 (비동기식)
-//						viewModel.updateBusArrive(myGpsX, myGpsY);
-//						date = new Date(System.currentTimeMillis());
-//						simpleDateFormat.format(date);
-//						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
-//						binding.setBusData(busData);
-//					}
-//					Toast.makeText(getActivity(), "2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
-//				} else if (!f1164.exists() && f2115.exists()) {
-//					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
-//					for (Location loc : locationResult.getLocations()) {
-//						myGpsX = loc.getLongitude();
-//						myGpsY = loc.getLatitude();
-//						// 최인접 버스정류장 도착시간 구하기 (비동기식)
-//						viewModel.updateBusArrive(myGpsX, myGpsY);
-//						date = new Date(System.currentTimeMillis());
-//						simpleDateFormat.format(date);
-//						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
-//						binding.setBusData(busData);
-//					}
-//					Toast.makeText(getActivity(), "1164노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
-//				} else {
-//					Toast.makeText(getActivity(), "1164, 2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
-//				}
+				if (f1164.exists() && f2115.exists()) {
+					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
+					for (Location loc : locationResult.getLocations()) {
+						myGpsX = loc.getLongitude();
+						myGpsY = loc.getLatitude();
+						// 최인접 버스정류장 도착시간 구하기 (비동기식)
+						viewModel.updateBusArrive(myGpsX, myGpsY);
+						date = new Date(System.currentTimeMillis());
+						simpleDateFormat.format(date);
+						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
+						binding.setBusData(busData);
+					}
+				} else if (f1164.exists() && !f2115.exists()) {
+					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
+					for (Location loc : locationResult.getLocations()) {
+						myGpsX = loc.getLongitude();
+						myGpsY = loc.getLatitude();
+						// 최인접 버스정류장 도착시간 구하기 (비동기식)
+						viewModel.updateBusArrive(myGpsX, myGpsY);
+						date = new Date(System.currentTimeMillis());
+						simpleDateFormat.format(date);
+						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
+						binding.setBusData(busData);
+					}
+					Toast.makeText(getActivity(), "2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
+				} else if (!f1164.exists() && f2115.exists()) {
+					Log.d("tag", "received " + locationResult.getLocations().size() + " locations");
+					for (Location loc : locationResult.getLocations()) {
+						myGpsX = loc.getLongitude();
+						myGpsY = loc.getLatitude();
+						// 최인접 버스정류장 도착시간 구하기 (비동기식)
+						viewModel.updateBusArrive(myGpsX, myGpsY);
+						date = new Date(System.currentTimeMillis());
+						simpleDateFormat.format(date);
+						busData.setUpdateDate("갱신 : " + simpleDateFormat.format(date));
+						binding.setBusData(busData);
+					}
+					Toast.makeText(getActivity(), "1164노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getActivity(), "1164, 2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
+				}
 			}
 
 			@Override
@@ -139,20 +133,20 @@ public class HomeCenterBustimeFragment extends Fragment {
 			}
 		};
 
-		/* registerForActivityResult를 통한 Permission Authorize */
-//		locationPermissionRequest = registerForActivityResult(
-//				new ActivityResultContracts.RequestMultiplePermissions(),
-//				result -> {
-//					Boolean fineLocationGranted = result.get(Manifest.permission.ACCESS_FINE_LOCATION);
-//					Boolean coarseLocationGranted = result.get(Manifest.permission.ACCESS_COARSE_LOCATION);
-//
-//					if (Boolean.FALSE.equals(fineLocationGranted) && Boolean.FALSE.equals(coarseLocationGranted)) {
-//						Toast.makeText(getActivity(), "위치 권한을 거부하였습니다. 추후 앱 설정을 통해 위치 권한을 허용할 수 있습니다.", Toast.LENGTH_SHORT).show();
-//					} else {
-//						fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
-//					}
-//				}
-//		);
+		*//* registerForActivityResult를 통한 Permission Authorize *//*
+		locationPermissionRequest = registerForActivityResult(
+				new ActivityResultContracts.RequestMultiplePermissions(),
+				result -> {
+					Boolean fineLocationGranted = result.get(Manifest.permission.ACCESS_FINE_LOCATION);
+					Boolean coarseLocationGranted = result.get(Manifest.permission.ACCESS_COARSE_LOCATION);
+
+					if (Boolean.FALSE.equals(fineLocationGranted) && Boolean.FALSE.equals(coarseLocationGranted)) {
+						Toast.makeText(getActivity(), "위치 권한을 거부하였습니다. 추후 앱 설정을 통해 위치 권한을 허용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+					} else {
+						fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+					}
+				}
+		);
 
 		if(checkLocationPermission()) {
 			showPermissionDialog();
@@ -219,7 +213,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 					Toast.makeText(getActivity(), "1164, 2115노선 정류장 정보가 유효하지 않습니다", Toast.LENGTH_SHORT).show();
 				}
 			}
-		});
+		});*/
 		return binding.getRoot();
 	}
 
