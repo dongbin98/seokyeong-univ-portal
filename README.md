@@ -5,7 +5,7 @@ SeoKyeong University Portal Android Native Application.
    
 출결 조회, 시간표 조회, 성적 조회, 강의계획서 조회, 등록금납부현황 조회, 졸업이수요건 조회, 실시간 등하교 버스 도착시간 조회,   
 교내 공지사항 조회, 공지사항 알림, 개인정보 수정, 비밀번호 변경의 기능을 포함하고 있습니다.   
-`Clean Architecture`, `MVVM Design Pattern`, `Databinding`, `ViewBinding`, `Retrofit2`, `OkHttp`   
+`MVVM Design Pattern`, `Databinding`, `ViewBinding`, `Retrofit2`, `OkHttp`   
 
 ## 1. Development Environment
 
