@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SKUP"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <service
             android:name=".service.NoticeNotificationService"
             android:enabled="true"

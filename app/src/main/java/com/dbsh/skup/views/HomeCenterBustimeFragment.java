@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -60,6 +61,13 @@ public class HomeCenterBustimeFragment extends Fragment {
 		binding.setBusData(busData);
 
 		busData.setBusType("서비스 준비중");
+
+		binding.card3LocationRefresh.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getContext(), "서비스 준비중입니다", Toast.LENGTH_SHORT).show();
+			}
+		});
 
 		/* Bus Time 보류
 		// 정류장 정보 가져오기
