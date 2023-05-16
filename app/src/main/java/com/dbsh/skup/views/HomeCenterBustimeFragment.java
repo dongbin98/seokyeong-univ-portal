@@ -1,20 +1,14 @@
 package com.dbsh.skup.views;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,8 +39,8 @@ public class HomeCenterBustimeFragment extends Fragment {
 
 	double myGpsX, myGpsY;
 
-	private ActivityResultLauncher<String[]> locationPermissionRequest;
-	final String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+/*	private ActivityResultLauncher<String[]> locationPermissionRequest;
+	final String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};*/
 
 	@Nullable
 	@Override
@@ -225,7 +219,7 @@ public class HomeCenterBustimeFragment extends Fragment {
 		return binding.getRoot();
 	}
 
-	private boolean checkLocationPermission() {
+/*	private boolean checkLocationPermission() {
 		boolean coarseLocationGranted = ContextCompat.checkSelfPermission(
 				requireContext(),
 				Manifest.permission.ACCESS_COARSE_LOCATION
@@ -267,5 +261,5 @@ public class HomeCenterBustimeFragment extends Fragment {
 					.setPositiveButton("동의", (dialog1, which) -> requestBackgroundPermission());
 			builder.create().show();
 		}
-	}
+	}*/
 }

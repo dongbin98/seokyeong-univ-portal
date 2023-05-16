@@ -152,10 +152,11 @@ public class HomeRightFragment extends Fragment {
 		binding.mypageView4.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				binding.mypageView4.setClickable(false);
+				/*binding.mypageView4.setClickable(false);
 				routeUpdate = 0;
 				viewModel.getStaton1164();
-				viewModel.getStaton2115();
+				viewModel.getStaton2115();*/
+				Toast.makeText(getContext(), "서비스 준비중입니다", Toast.LENGTH_SHORT).show();
 			}
 		});
 		// Change Password

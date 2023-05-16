@@ -4,22 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 
 import com.dbsh.skup.R;
 import com.dbsh.skup.databinding.SplashFormBinding;
-import com.dbsh.skup.dto.ResponseStationItem;
 import com.dbsh.skup.viewmodels.SplashViewModel;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -84,7 +79,7 @@ public class SplashActivity extends AppCompatActivity {
         }
         constraintLayout.startAnimation(animFadeIn);
 
-        viewModel.station1164.observe(binding.getLifecycleOwner(), new Observer<List<ResponseStationItem>>() {
+       /* viewModel.station1164.observe(binding.getLifecycleOwner(), new Observer<List<ResponseStationItem>>() {
             @Override
             public void onChanged(List<ResponseStationItem> responseStationItems) {
                 if(responseStationItems == null) {
@@ -138,6 +133,6 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 }
             }
-        });
+        });*/
     }
 }
