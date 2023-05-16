@@ -3,6 +3,7 @@ package com.dbsh.skup.views;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,8 +76,10 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeNoticePlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra("url", "https://skuniv.ac.kr/notice");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://skuniv.ac.kr/notice"));
+//                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+//                intent.putExtra("url", "https://skuniv.ac.kr/notice");
                 startActivity(intent);
             }
         });
@@ -85,8 +88,10 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeMajorNoticePlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra("url", "https://skuniv.ac.kr/notice");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://skuniv.ac.kr/notice"));
+//                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+//                intent.putExtra("url", "https://skuniv.ac.kr/notice");
                 startActivity(intent);
             }
         });
@@ -102,8 +107,10 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeQuickBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra("url", "https://www.skuniv.ac.kr/academic_calendar");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.skuniv.ac.kr/academic_calendar"));
+//                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+//                intent.putExtra("url", "https://www.skuniv.ac.kr/academic_calendar");
                 startActivity(intent);
             }
         });
@@ -118,8 +125,10 @@ public class HomeCenterFragment extends Fragment {
         binding.mainHomeQuickBtn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra("url", "https://sportal.skuniv.ac.kr");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://sportal.skuniv.ac.kr"));
+//                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+//                intent.putExtra("url", "https://sportal.skuniv.ac.kr");
                 startActivity(intent);
             }
         });

@@ -51,8 +51,6 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".views.HomeActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".views.WebviewActivity"
-            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".views.LecturePlanDetailWeekSelectActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".views.PasswordActivity"

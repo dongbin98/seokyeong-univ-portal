@@ -1,6 +1,7 @@
 package com.dbsh.skup.views;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,8 +99,10 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuPotenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra("url", "https://www.skuniv.ac.kr/academic_calendar");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.skuniv.ac.kr/academic_calendar"));
+//                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+//                intent.putExtra("url", "https://www.skuniv.ac.kr/academic_calendar");
                 startActivity(intent);
             }
         });
@@ -108,8 +111,10 @@ public class HomeLeftFragment extends Fragment {
         binding.mainMenuQrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra("url", "https://sportal.skuniv.ac.kr");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://sportal.skuniv.ac.kr"));
+//                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+//                intent.putExtra("url", "https://sportal.skuniv.ac.kr");
                 startActivity(intent);
             }
         });

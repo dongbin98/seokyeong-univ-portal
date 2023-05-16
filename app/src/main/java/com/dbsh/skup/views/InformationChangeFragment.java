@@ -86,8 +86,8 @@ public class InformationChangeFragment extends Fragment implements OnBackPressed
 		binding.informationChangeAddress.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				initandLoadWebView();
-				binding.informationChangeWebview.setVisibility(View.VISIBLE);
+				/*initandLoadWebView();
+				binding.informationChangeWebview.setVisibility(View.VISIBLE);*/
 			}
 		});
 
