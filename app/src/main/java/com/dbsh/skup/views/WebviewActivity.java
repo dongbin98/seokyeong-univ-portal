@@ -1,16 +1,11 @@
 package com.dbsh.skup.views;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
-import com.dbsh.skup.R;
-import com.dbsh.skup.client.MyWebClient;
 import com.dbsh.skup.databinding.WebviewFormBinding;
 import com.dbsh.skup.viewmodels.WebViewViewModel;
 
@@ -25,7 +20,7 @@ public class WebviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    /* DataBinding */
-	    binding = DataBindingUtil.setContentView(this, R.layout.webview_form);
+	    /*binding = DataBindingUtil.setContentView(this, R.layout.webview_form);
 	    binding.setLifecycleOwner(this);
 	    viewModel = new WebViewViewModel();
 	    binding.setViewModel(viewModel);
@@ -49,6 +44,6 @@ public class WebviewActivity extends AppCompatActivity {
         webView.getSettings().setSupportMultipleWindows(true);  // 멀티 윈도우 사용 여부
 
         webView.getSettings().setDomStorageEnabled(true);       // 로컬 스토리지 사용여부
-        webView.loadUrl(url);
+        webView.loadUrl(url);*/
     }
 }

@@ -1,6 +1,7 @@
 package com.dbsh.skup.views;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,8 +49,13 @@ public class HomeCenterNoticeFragment extends Fragment {
 	    binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra("url", getArguments().getString("url"));
+                // WebView
+                /*Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url", getArguments().getString("url"));*/
+
+                // WebBrowser
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(getArguments().getString("url")));
                 startActivity(intent);
             }
         });
